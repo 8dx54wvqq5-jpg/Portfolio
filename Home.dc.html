@@ -62,6 +62,7 @@
     <div data-layer="dws" onClick="{{ goDws }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> Disputes Workspace</div>
     <div data-layer="c360" onClick="{{ goC360 }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> 360 Control</div>
     <div data-layer="cpq" onClick="{{ goCpq }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> CPQ</div>
+    <div data-layer="ds" onClick="{{ goDs }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> Design System</div>
     <div data-layer="principles" onClick="{{ goPrinciples }}" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; cursor: pointer; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 03 · Principles</div>
     <div data-layer="contact" onClick="{{ goContact }}" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; cursor: pointer; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 04 · Contact</div>
     <div style="height: 1px; background: #ECEDF1; margin: 14px 16px;"></div>
@@ -204,6 +205,24 @@
         </a>
       </div>
 
+      <!-- ============ FRAME · DS ============ -->
+      <div data-screen-label="Home / Design System">
+        <div data-flab="ds" style="position: absolute; left: 2800px; top: 1132px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">▢ work / design-system</div>
+        <a data-frame="ds" data-fade="3" href="DS.dc.html" style="position: absolute; left: 2800px; top: 1160px; width: 800px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
+          <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #0D1B3E;">
+            <img data-zoomimg="1" src="assets/dws-ds-hero.jpg" alt="Dispute Workspace Design System, Fiserv" style="display: block; width: 100%; height: 360px; object-fit: cover; object-position: top; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
+          </div>
+          <div style="padding: 28px 32px;">
+            <h3 style="font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 8px;">Dispute Workspace Design System</h3>
+            <p style="font-size: 14px; line-height: 1.65; color: #4A5565; margin: 0 0 14px;">Building the foundation first — 45+ components and 12+ core workflows, WCAG 2.1 AA from day one, that cut design output time by 65% and dev by 40%.</p>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+              <span style="font-size: 13.5px; font-weight: 800; color: #155DFC;">Open case study <span data-arr="1" style="display: inline-block; transition: transform 0.3s;">→</span></span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #009966;">65% faster design output</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
       <!-- ============ FRAME · PRINCIPLES ============ -->
       <div data-screen-label="Home / Principles">
         <div data-flab="principles" style="position: absolute; left: 320px; top: 1102px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">◇ 03 · Principles</div>
@@ -289,6 +308,7 @@ class Component extends DCLogic {
       dws: { name: "▢ disputes-workspace", fill: "#FFFFFF" },
       c360: { name: "▢ 360-control", fill: "#FFFFFF" },
       cpq: { name: "▢ cpq", fill: "#FFFFFF" },
+      ds: { name: "▢ design-system", fill: "#FFFFFF" },
       principles: { name: "03 · Principles", fill: "#FFFFFF" },
       contact: { name: "04 · Contact", fill: "#15171C" }
     };
@@ -368,8 +388,8 @@ class Component extends DCLogic {
     this._active = key;
     document.querySelectorAll("[data-layer]").forEach((r) => {
       const k = r.getAttribute("data-layer");
-      const isChild = ["dws", "c360", "cpq"].indexOf(k) >= 0;
-      const hit = (k === key) || (k === "work" && ["dws", "c360", "cpq"].indexOf(key) >= 0 && false);
+      const isChild = ["dws", "c360", "cpq", "ds"].indexOf(k) >= 0;
+      const hit = (k === key) || (k === "work" && ["dws", "c360", "cpq", "ds"].indexOf(key) >= 0 && false);
       r.style.background = hit || k === key ? "#EFF6FF" : "transparent";
       r.style.color = (k === key) ? "#155DFC" : (isChild ? "#4A5565" : "#364153");
     });
@@ -414,8 +434,8 @@ class Component extends DCLogic {
       goWork: () => {
         const vp = document.getElementById("viewport");
         if (!vp) return;
-        // fit the three work cards
-        const keys = ["dws", "c360", "cpq"];
+        // fit the four work cards
+        const keys = ["dws", "c360", "cpq", "ds"];
         let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
         keys.forEach((k) => {
           const el = this.frames[k];
@@ -431,6 +451,7 @@ class Component extends DCLogic {
       goDws: () => this.flyToKey("dws"),
       goC360: () => this.flyToKey("c360"),
       goCpq: () => this.flyToKey("cpq"),
+      goDs: () => this.flyToKey("ds"),
       goPrinciples: () => this.flyToKey("principles"),
       goContact: () => this.flyToKey("contact"),
       zoomIn: () => this.zoomBy(1.4, undefined, undefined, 350),
