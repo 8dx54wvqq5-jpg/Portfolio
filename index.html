@@ -66,8 +66,8 @@
     <div data-layer="work" onClick="{{ goWork }}" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; cursor: pointer; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 02 · Selected Work</div>
     <div data-layer="dws" onClick="{{ goDws }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> Disputes Workspace</div>
     <div data-layer="c360" onClick="{{ goC360 }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> 360 Control</div>
-    <div data-layer="cpq" onClick="{{ goCpq }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> CPQ</div>
     <div data-layer="ds" onClick="{{ goDs }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> Design System</div>
+    <div data-layer="cpq" onClick="{{ goCpq }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> CPQ</div>
     <div data-layer="ecocash" onClick="{{ goEcoCash }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> Eco-Cash</div>
     <div data-layer="principles" onClick="{{ goPrinciples }}" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; cursor: pointer; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 03 · Principles</div>
     <div data-layer="contact" onClick="{{ goContact }}" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; cursor: pointer; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 04 · Contact</div>
@@ -190,10 +190,10 @@
 
       <!-- ============ FRAME · CPQ ============ -->
       <div data-screen-label="Home / CPQ">
-        <div data-flab="cpq" style="position: absolute; left: 1760px; top: 1132px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">▢ work / cpq</div>
-        <a data-frame="cpq" data-fade="2" href="CPQ.dc.html" style="position: absolute; left: 1760px; top: 1160px; width: 880px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
+        <div data-flab="cpq" style="position: absolute; left: 2800px; top: 1132px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">▢ work / cpq</div>
+        <a data-frame="cpq" data-fade="2" href="CPQ.dc.html" style="position: absolute; left: 2800px; top: 1160px; width: 880px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
           <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #E6E0D6;">
-            <img data-zoomimg="1" src="assets/cpq-hero.png" alt="CPQ, Zywave" style="display: block; width: 100%; height: 300px; object-fit: cover; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
+            <img data-zoomimg="1" src="assets/cpq-hero.png" alt="CPQ, Zywave" style="display: block; width: 100%; height: 300px; object-fit: cover; object-position: top; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
           </div>
           <div style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 32px; padding: 28px 32px; align-items: start;">
             <div>
@@ -213,8 +213,8 @@
 
       <!-- ============ FRAME · DS ============ -->
       <div data-screen-label="Home / Design System">
-        <div data-flab="ds" style="position: absolute; left: 2800px; top: 1132px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">▢ work / design-system</div>
-        <a data-frame="ds" data-fade="3" href="DS.dc.html" style="position: absolute; left: 2800px; top: 1160px; width: 800px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
+        <div data-flab="ds" style="position: absolute; left: 1760px; top: 1132px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">▢ work / design-system</div>
+        <a data-frame="ds" data-fade="3" href="DS.dc.html" style="position: absolute; left: 1760px; top: 1160px; width: 800px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
           <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #0D1B3E;">
             <img data-zoomimg="1" src="assets/ds-hero.png" alt="Dispute Workspace Design System, Fiserv" style="display: block; width: 100%; height: 360px; object-fit: cover; object-position: top; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
           </div>
@@ -231,8 +231,8 @@
 
       <!-- ============ FRAME · ECO-CASH ============ -->
       <div data-screen-label="Home / Eco-Cash">
-        <div data-flab="ecocash" style="position: absolute; left: 3750px; top: 1132px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">▢ work / eco-cash</div>
-        <a data-frame="ecocash" data-fade="3" href="EcoCash.dc.html" style="position: absolute; left: 3750px; top: 1160px; width: 800px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
+        <div data-flab="ecocash" style="position: absolute; left: 2800px; top: 1800px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">▢ work / eco-cash</div>
+        <a data-frame="ecocash" data-fade="3" href="EcoCash.dc.html" style="position: absolute; left: 2800px; top: 1828px; width: 800px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
           <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #0F1A0F;">
             <img data-zoomimg="1" src="assets/ecocash-hero.png" alt="Eco-Cash App" style="display: block; width: 100%; height: 360px; object-fit: cover; object-position: center top; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
           </div>
