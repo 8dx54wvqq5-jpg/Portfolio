@@ -67,6 +67,7 @@
     <div data-layer="hero" onClick="{{ goHero }}" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; cursor: pointer; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 01 · Hero</div>
     <div data-layer="work" onClick="{{ goWork }}" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; cursor: pointer; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 02 · Selected Work</div>
     <div data-layer="dws" onClick="{{ goDws }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> Disputes Workspace</div>
+    <div data-layer="aiwork" onClick="{{ goAiWork }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> AI Work</div>
     <div data-layer="c360" onClick="{{ goC360 }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> 360 Control</div>
     <div data-layer="ds" onClick="{{ goDs }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> Design System</div>
     <div data-layer="cpq" onClick="{{ goCpq }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> CPQ</div>
@@ -179,6 +180,53 @@
         </a>
       </div>
 
+      <!-- ============ FRAME · AI WORK ============ -->
+      <div data-screen-label="Home / AI Work">
+        <div data-flab="aiwork" style="position: absolute; left: 1760px; top: 880px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">▢ work / ai-context-copilot</div>
+        <a data-frame="aiwork" data-fade="2" href="AIWork.dc.html" style="position: absolute; left: 1760px; top: 908px; width: 880px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
+          <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #0F172A; padding: 22px; box-sizing: border-box;">
+            <div data-zoomimg="1" style="height: 300px; background: #F8FAFC; border: 1px solid #334155; border-radius: 10px; overflow: hidden; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
+              <div style="height: 34px; background: #111827; color: #CBD5E1; font-family: 'JetBrains Mono', monospace; font-size: 10px; display: flex; align-items: center; padding: 0 12px;">case-49218 · enterprise context copilot</div>
+              <div style="display: grid; grid-template-columns: 1fr 240px; height: 266px;">
+                <div style="padding: 16px;">
+                  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px;">
+                    <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 7px; padding: 10px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #64748B;">amount</div><div style="font-size: 14px; font-weight: 800;">$1,248.92</div></div>
+                    <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 7px; padding: 10px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #64748B;">risk</div><div style="font-size: 14px; font-weight: 800; color: #B54708;">Medium</div></div>
+                    <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 7px; padding: 10px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #64748B;">SLA</div><div style="font-size: 14px; font-weight: 800;">6h</div></div>
+                  </div>
+                  <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; padding: 14px;">
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #64748B; margin-bottom: 8px;">CASE TIMELINE</div>
+                    <div style="display: grid; gap: 8px; font-size: 12px; line-height: 1.45; color: #334155;">
+                      <div><strong>Mar 03</strong> Original ticket issued.</div>
+                      <div><strong>Mar 05</strong> Duplicate authorization posted.</div>
+                      <div><strong>Mar 08</strong> Merchant evidence mismatch.</div>
+                    </div>
+                  </div>
+                </div>
+                <div style="background: #FFFFFF; border-left: 1px solid #D6E4FF; padding: 14px;">
+                  <div style="font-size: 14px; font-weight: 800; margin-bottom: 8px;">Context Copilot</div>
+                  <div style="border: 1px solid #BFDBFE; background: #F8FAFF; border-radius: 8px; padding: 10px; margin-bottom: 9px;"><div style="display: flex; justify-content: space-between; gap: 8px;"><strong style="font-size: 12px;">Duplicate charge</strong><span style="background: #ECFDF3; color: #009966; font-family: 'JetBrains Mono', monospace; font-size: 9px; padding: 2px 7px; border-radius: 999px;">HIGH</span></div></div>
+                  <div style="border: 1px solid #FEDF89; background: #FFFAEB; border-radius: 8px; padding: 10px; margin-bottom: 9px;"><div style="display: flex; justify-content: space-between; gap: 8px;"><strong style="font-size: 12px;">Evidence gap</strong><span style="background: #FEF3C7; color: #92400E; font-family: 'JetBrains Mono', monospace; font-size: 9px; padding: 2px 7px; border-radius: 999px;">MED</span></div></div>
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 12px;"><div style="background: #155DFC; color: #FFFFFF; text-align: center; border-radius: 6px; padding: 8px; font-size: 11px; font-weight: 800;">Accept</div><div style="border: 1px solid #CBD5E1; color: #334155; text-align: center; border-radius: 6px; padding: 7px; font-size: 11px; font-weight: 800;">Override</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 32px; padding: 28px 32px; align-items: start;">
+            <div>
+              <h3 style="font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 8px;">AI Work: Enterprise Context Copilot</h3>
+              <p style="font-size: 14px; line-height: 1.65; color: #4A5565; margin: 0 0 14px;">A fintech AI side-panel that extracts dates, flags transaction anomalies, drafts resolution language, and keeps analysts in control.</p>
+              <span style="font-size: 13.5px; font-weight: 800; color: #155DFC;">Open AI work <span data-arr="1" style="display: inline-block; transition: transform 0.3s;">→</span></span>
+            </div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565; display: grid; gap: 7px;">
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">domain</span><span>Fintech ops</span></div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">pattern</span><span>AI side panel</span></div>
+              <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">control</span><span style="color: #00825A;">override-first</span></div>
+            </div>
+          </div>
+        </a>
+      </div>
+
       <!-- ============ FRAME · 360 CONTROL ============ -->
       <div data-screen-label="Home / 360 Control">
         <div data-flab="c360" style="position: absolute; left: 2800px; top: 492px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">▢ work / 360-control</div>
@@ -222,8 +270,8 @@
 
       <!-- ============ FRAME · DS ============ -->
       <div data-screen-label="Home / Design System">
-        <div data-flab="ds" style="position: absolute; left: 1760px; top: 1132px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">▢ work / design-system</div>
-        <a data-frame="ds" data-fade="3" href="DS.dc.html" style="position: absolute; left: 1760px; top: 1160px; width: 800px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
+        <div data-flab="ds" style="position: absolute; left: 1760px; top: 1542px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">▢ work / design-system</div>
+        <a data-frame="ds" data-fade="3" href="DS.dc.html" style="position: absolute; left: 1760px; top: 1570px; width: 800px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
           <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #0D1B3E;">
             <img data-zoomimg="1" src="assets/ds-hero.png" alt="Dispute Workspace Design System, Fiserv" style="display: block; width: 100%; height: 360px; object-fit: cover; object-position: top; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
           </div>
@@ -261,7 +309,7 @@
         <div data-flab="principles" style="position: absolute; left: 320px; top: 1102px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">◇ 03 · Principles</div>
         <div data-frame="principles" data-fade="3" style="position: absolute; left: 320px; top: 1130px; width: 1240px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); padding: 56px 64px; box-sizing: border-box;">
           <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #155DFC; margin-bottom: 20px;">HOW I WORK</div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
             <div>
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #9AA0AC; margin-bottom: 12px;">01</div>
               <h3 style="font-size: 18px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 10px;">Predictable is trustworthy</h3>
@@ -276,6 +324,11 @@
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #9AA0AC; margin-bottom: 12px;">03</div>
               <h3 style="font-size: 18px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 10px;">Structure before surface</h3>
               <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;">The IA redesigns I've shipped moved usability more than any visual decision. Separate configuration from operations, then make it beautiful.</p>
+            </div>
+            <div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #9AA0AC; margin-bottom: 12px;">04</div>
+              <h3 style="font-size: 18px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 10px;">Accessible, accountable AI</h3>
+              <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;">Accessibility and AI ethics share the same root: systems that affect real people carry real responsibility. I build for WCAG compliance from day one — and when AI is involved, bias must be visible, outcomes explainable, and human override always possible.</p>
             </div>
           </div>
           <div style="margin-top: 36px;">
@@ -339,6 +392,34 @@
             <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">Disputes Workspace</h3>
             <p style="font-size: 13px; color: #4A5565; margin: 0 0 10px; line-height: 1.5;">AI-assisted dispute management — call handling down 25–35%.</p>
             <span style="font-size: 12.5px; font-weight: 700; color: #155DFC;">Open case study →</span>
+          </div>
+        </div>
+      </a>
+      <a href="AIWork.dc.html" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
+          <div style="background: #0F172A; min-height: 160px; overflow: hidden; padding: 14px; box-sizing: border-box;">
+            <div style="background: #F8FAFC; border: 1px solid #334155; border-radius: 8px; overflow: hidden;">
+              <div style="height: 28px; background: #111827; color: #CBD5E1; font-family: 'JetBrains Mono', monospace; font-size: 9px; display: flex; align-items: center; padding: 0 10px;">case-49218 · context copilot</div>
+              <div style="display: grid; grid-template-columns: 1fr 118px;">
+                <div style="padding: 10px;">
+                  <div style="display: grid; gap: 6px; font-size: 10.5px; color: #334155;">
+                    <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 6px; padding: 8px;"><strong>Mar 05</strong> duplicate auth posted</div>
+                    <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 6px; padding: 8px;"><strong>Mar 08</strong> evidence mismatch</div>
+                  </div>
+                </div>
+                <div style="background: #FFFFFF; border-left: 1px solid #D6E4FF; padding: 10px;">
+                  <div style="font-size: 11px; font-weight: 800; margin-bottom: 7px;">AI findings</div>
+                  <div style="background: #F8FAFF; border: 1px solid #BFDBFE; border-radius: 6px; padding: 7px; font-size: 10px; font-weight: 800; margin-bottom: 6px;">Duplicate <span style="color: #009966;">HIGH</span></div>
+                  <div style="background: #FFFAEB; border: 1px solid #FEDF89; border-radius: 6px; padding: 7px; font-size: 10px; font-weight: 800;">Gap <span style="color: #92400E;">MED</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="padding: 16px 18px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 5px;">02 · fintech ai concept</div>
+            <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">AI Work</h3>
+            <p style="font-size: 13px; color: #4A5565; margin: 0 0 10px; line-height: 1.5;">Enterprise Context Copilot for analysts reviewing dense financial case files.</p>
+            <span style="font-size: 12.5px; font-weight: 700; color: #155DFC;">Open AI work →</span>
           </div>
         </div>
       </a>
@@ -430,6 +511,7 @@ class Component extends DCLogic {
     this.meta = {
       hero: { name: "01 · Hero", fill: "#FFFFFF" },
       dws: { name: "▢ disputes-workspace", fill: "#FFFFFF" },
+      aiwork: { name: "▢ ai-context-copilot", fill: "#FFFFFF" },
       c360: { name: "▢ 360-control", fill: "#FFFFFF" },
       cpq: { name: "▢ cpq", fill: "#FFFFFF" },
       ds: { name: "▢ design-system", fill: "#FFFFFF" },
@@ -513,8 +595,8 @@ class Component extends DCLogic {
     this._active = key;
     document.querySelectorAll("[data-layer]").forEach((r) => {
       const k = r.getAttribute("data-layer");
-      const isChild = ["dws", "c360", "cpq", "ds", "ecocash"].indexOf(k) >= 0;
-      const hit = (k === key) || (k === "work" && ["dws", "c360", "cpq", "ds", "ecocash"].indexOf(key) >= 0 && false);
+      const isChild = ["dws", "aiwork", "c360", "cpq", "ds", "ecocash"].indexOf(k) >= 0;
+      const hit = (k === key) || (k === "work" && ["dws", "aiwork", "c360", "cpq", "ds", "ecocash"].indexOf(key) >= 0 && false);
       r.style.background = hit || k === key ? "#EFF6FF" : "transparent";
       r.style.color = (k === key) ? "#155DFC" : (isChild ? "#4A5565" : "#364153");
     });
@@ -560,7 +642,7 @@ class Component extends DCLogic {
         const vp = document.getElementById("viewport");
         if (!vp) return;
         // fit the four work cards
-        const keys = ["dws", "c360", "cpq", "ds", "ecocash"];
+        const keys = ["dws", "aiwork", "c360", "cpq", "ds", "ecocash"];
         let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
         keys.forEach((k) => {
           const el = this.frames[k];
@@ -574,6 +656,7 @@ class Component extends DCLogic {
         this.setActive("dws");
       },
       goDws: () => this.flyToKey("dws"),
+      goAiWork: () => this.flyToKey("aiwork"),
       goC360: () => this.flyToKey("c360"),
       goCpq: () => this.flyToKey("cpq"),
       goDs: () => this.flyToKey("ds"),
