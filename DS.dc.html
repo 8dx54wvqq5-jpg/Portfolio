@@ -109,7 +109,7 @@
       <div style="font-size: 14px; font-weight: 800; margin-bottom: 16px;">Dispute Workspace DS</div>
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565; display: grid; gap: 8px;">
         <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 8px;"><span style="color: #9AA0AC;">client</span><span>Fiserv</span></div>
-        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 8px;"><span style="color: #9AA0AC;">role</span><span>Sole Designer</span></div>
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 8px;"><span style="color: #9AA0AC;">role</span><span>UX Designer</span></div>
         <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 8px;"><span style="color: #9AA0AC;">type</span><span>Design System</span></div>
         <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 8px;"><span style="color: #9AA0AC;">components</span><span>45+</span></div>
         <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 8px;"><span style="color: #9AA0AC;">workflows</span><span>12+ core</span></div>
@@ -173,7 +173,7 @@
             </div>
             <div style="padding: 24px 28px; border-right: 1px solid #ECEDF1;">
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 6px;">ROLE</div>
-              <div style="font-size: 15px; font-weight: 700;">Sole Designer</div>
+              <div style="font-size: 15px; font-weight: 700;">UX Designer</div>
             </div>
             <div style="padding: 24px 28px;">
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 6px;">COMPONENTS</div>
@@ -191,7 +191,7 @@
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px;">
             <div data-reveal="1">
               <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 10px;">My role</h3>
-              <p style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0;">I was the sole designer. Before touching a single new screen, I needed to build the foundation the entire platform would run on. That meant auditing what existed, defining the system architecture, building components from scratch, and getting a team that had never worked with a designer to actually use it.</p>
+              <p style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0;">I was the UX designer. Before touching a single new screen, I needed to build the foundation the entire platform would run on. That meant auditing what existed, defining the system architecture, building components from scratch, and getting a team that had never worked with a designer to actually use it.</p>
             </div>
             <div data-reveal="2">
               <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 10px;">The impact</h3>
@@ -508,7 +508,7 @@
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   _ttsDuration = 120; _ttsElapsed = 0; _ttsPlaying = false; _tts = null; _apTimer = null;
-  _ttsScript = `The Dispute Workspace Design System is the foundation I built alongside the DWS product at Fiserv. Forty-five-plus components, twelve-plus core workflow patterns, and WCAG two-point-one double-A compliance built in from day one. This was a design system under real pressure: I was the sole designer, working in parallel on both the component library and the product itself. Every decision had to be right because the product could not pause while the system caught up. The approach was ruthless prioritization — high-frequency components first, complex ones later. Each component was documented with usage rules, do-and-don't examples, and accessibility annotations — not as a nice-to-have, but because developers were building from specs without direct collaboration. The system introduced a dedicated AI interaction pattern layer. Since the product was bringing AI suggestions into a regulated financial context, the design system needed explicit, reusable patterns for how AI recommendations look, how confidence is communicated, and how overrides are surfaced — all consistent and auditable across every screen. The AI component set — suggestion containers, confidence badges, override controls — was designed from scratch with no prior art in the domain. Design output time cut sixty-five percent. Development time cut forty percent. A WCAG compliance rate that survived independent audit. And forty-five-plus components still in active use today. A design system is infrastructure. The goal is not comprehensiveness. It is making the next designer faster than you were.`;
+  _ttsScript = `The Dispute Workspace Design System is the foundation I built alongside the DWS product at Fiserv. Forty-five-plus components, twelve-plus core workflow patterns, and WCAG two-point-one double-A compliance built in from day one. This was a design system under real pressure: I was the UX designer, working in parallel on both the component library and the product itself. Every decision had to be right because the product could not pause while the system caught up. The approach was ruthless prioritization — high-frequency components first, complex ones later. Each component was documented with usage rules, do-and-don't examples, and accessibility annotations — not as a nice-to-have, but because developers were building from specs without direct collaboration. The system introduced a dedicated AI interaction pattern layer. Since the product was bringing AI suggestions into a regulated financial context, the design system needed explicit, reusable patterns for how AI recommendations look, how confidence is communicated, and how overrides are surfaced — all consistent and auditable across every screen. The AI component set — suggestion containers, confidence badges, override controls — was designed from scratch with no prior art in the domain. Design output time cut sixty-five percent. Development time cut forty percent. A WCAG compliance rate that survived independent audit. And forty-five-plus components still in active use today. A design system is infrastructure. The goal is not comprehensiveness. It is making the next designer faster than you were.`;
 
   _apUpdateUI() {
     const pct = Math.min(100, ((this._ttsElapsed || 0) / this._ttsDuration) * 100);
@@ -664,6 +664,42 @@ class Component extends DCLogic {
     if (window.speechSynthesis) window.speechSynthesis.cancel();
   }
 }
+</script>
+<div id="nav-loader" style="position: fixed; top: 0; left: 0; height: 2px; width: 0; background: #155DFC; z-index: 102; opacity: 0; box-shadow: 0 0 8px rgba(21,93,252,0.7); transition: width 0.2s ease, opacity 0.3s ease; pointer-events: none;"></div>
+<script>
+(function () {
+  var bar = document.getElementById('nav-loader');
+  if (!bar) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) bar.style.transition = 'opacity 0.2s ease';
+  function set(w) { bar.style.width = w + '%'; }
+  function show() { bar.style.opacity = '1'; }
+  function done() {
+    set(100);
+    setTimeout(function () { bar.style.opacity = '0'; setTimeout(function () { set(0); }, 300); }, 150);
+  }
+  // arrival fill
+  show(); set(reduce ? 100 : 35);
+  if (document.readyState === 'complete') { done(); }
+  else { window.addEventListener('load', done); }
+  // departure: internal link clicks animate toward 90%
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.charAt(0) === '#' || a.target === '_blank') return;
+    if (/^(https?:|mailto:|tel:)/i.test(href)) return;
+    show(); set(12);
+    if (reduce) return;
+    var p = 12;
+    clearInterval(window.__navInt);
+    window.__navInt = setInterval(function () { p += (90 - p) * 0.18; set(p > 90 ? 90 : p); }, 120);
+  }, true);
+  // restore on back/forward cache
+  window.addEventListener('pageshow', function (ev) {
+    if (ev.persisted) { clearInterval(window.__navInt); set(0); bar.style.opacity = '0'; }
+  });
+})();
 </script>
 </body>
 </html>

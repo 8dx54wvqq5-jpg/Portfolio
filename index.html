@@ -66,7 +66,7 @@
     <a href="About.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; text-decoration: none; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="font-size: 9px; color: #C9CDD6;">○</span> About</a>
     <div style="height: 1px; background: #ECEDF1; margin: 14px 16px;"></div>
     <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; padding: 4px 16px 8px;">LAYERS</div>
-    <div data-layer="hero" onClick="{{ goHero }}" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; cursor: pointer; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 01 · Hero</div>
+    <div data-layer="hero" onClick="{{ goHero }}" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; cursor: pointer; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 01 · Intro</div>
     <div data-layer="work" onClick="{{ goWork }}" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; cursor: pointer; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 02 · Selected Work</div>
     <div data-layer="dws" onClick="{{ goDws }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> Disputes Workspace</div>
     <div data-layer="c360" onClick="{{ goC360 }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> 360 Control</div>
@@ -89,7 +89,7 @@
     <div style="padding: 16px;">
       <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
         <span style="color: #155DFC; font-size: 12px;">◇</span>
-        <span data-insp="name" style="font-size: 13px; font-weight: 700;">01 · Hero</span>
+        <span data-insp="name" style="font-size: 13px; font-weight: 700;">01 · Intro</span>
       </div>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565;">
         <div style="border: 1px solid #ECEDF1; border-radius: 6px; padding: 6px 8px; display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">X</span><span data-insp="x">320</span></div>
@@ -130,8 +130,8 @@
     <div id="plane" style="position: absolute; left: 0; top: 0; width: 4000px; height: 2400px; transform-origin: 0 0; will-change: transform;">
 
       <!-- ============ FRAME · HERO ============ -->
-      <div data-screen-label="Home / Hero">
-        <div data-flab="hero" style="position: absolute; left: 320px; top: 292px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">◇ 01 · Hero</div>
+      <div data-screen-label="Home / Intro">
+        <div data-flab="hero" style="position: absolute; left: 320px; top: 292px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">◇ 01 · Intro</div>
         <div data-frame="hero" data-fade="0" style="position: absolute; left: 320px; top: 320px; width: 1240px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); padding: 64px; box-sizing: border-box;">
           <div style="display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center;">
             <div>
@@ -169,11 +169,17 @@
             <div>
               <h3 style="font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 8px;">Disputes Workspace: AI-assisted dispute management</h3>
               <p style="font-size: 14px; line-height: 1.65; color: #4A5565; margin: 0 0 14px;">Modernizing how financial institutions process thousands of credit-card disputes a month, with AI that explains itself instead of replacing judgment.</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 18px;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 4px 10px;">Fintech</span>
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 4px 10px;">Enterprise</span>
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 4px 10px;">SaaS</span>
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 4px 10px;">AI</span>
+              </div>
               <span style="font-size: 13.5px; font-weight: 800; color: #155DFC;">Open case study <span data-arr="1" style="display: inline-block; transition: transform 0.3s;">→</span></span>
             </div>
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565; display: grid; gap: 7px;">
               <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">client</span><span>Fiserv</span></div>
-              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">role</span><span>Sole UX designer</span></div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">role</span><span>UX Designer</span></div>
               <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">call handling</span><span style="color: #00825A;">−25–35%</span></div>
               <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">capacity</span><span style="color: #00825A;">+40–50%</span></div>
             </div>
@@ -191,6 +197,11 @@
           <div style="padding: 28px 32px;">
             <h3 style="font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 8px;">360 Control: rebuilding an issuer console from the IA up</h3>
             <p style="font-size: 14px; line-height: 1.65; color: #4A5565; margin: 0 0 14px;">A ground-up redesign of the admin console banks use to run commercial card programs — design system first, deliberately no AI, shipped for Desjardins on a contractual deadline.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 18px;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 4px 10px;">Fintech</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 4px 10px;">Enterprise</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 4px 10px;">SaaS</span>
+            </div>
             <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px;">
               <span style="font-size: 13.5px; font-weight: 800; color: #155DFC;">Open case study <span data-arr="1" style="display: inline-block; transition: transform 0.3s;">→</span></span>
               <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #009966;">launched on time</span>
@@ -210,11 +221,16 @@
             <div>
               <h3 style="font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 8px;">CPQ: from 18 minutes to 10 per quote</h3>
               <p style="font-size: 14px; line-height: 1.65; color: #4A5565; margin: 0 0 14px;">Untangling years of feature accretion in Zywave's enterprise quoting platform — research-led, design-system-first, measured against metrics defined before design started.</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 18px;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 4px 10px;">Enterprise</span>
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 4px 10px;">SaaS</span>
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 4px 10px;">Insurtech</span>
+              </div>
               <span style="font-size: 13.5px; font-weight: 800; color: #155DFC;">Open case study <span data-arr="1" style="display: inline-block; transition: transform 0.3s;">→</span></span>
             </div>
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565; display: grid; gap: 7px;">
               <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">client</span><span>Zywave</span></div>
-              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">role</span><span>Sole designer</span></div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">role</span><span>UX Designer</span></div>
               <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">quote time</span><span style="color: #00825A;">18 → 10 min</span></div>
               <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">pricing errors</span><span style="color: #00825A;">↓ from 28%</span></div>
             </div>
@@ -232,6 +248,11 @@
           <div style="padding: 28px 32px;">
             <h3 style="font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 8px;">Dispute Workspace Design System</h3>
             <p style="font-size: 14px; line-height: 1.65; color: #4A5565; margin: 0 0 14px;">Building the foundation first — 45+ components and 12+ core workflows, WCAG 2.1 AA from day one, that cut design output time by 65% and dev by 40%.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 18px;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 4px 10px;">Enterprise</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 4px 10px;">Design System</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 4px 10px;">Fintech</span>
+            </div>
             <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px;">
               <span style="font-size: 13.5px; font-weight: 800; color: #155DFC;">Open case study <span data-arr="1" style="display: inline-block; transition: transform 0.3s;">→</span></span>
               <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #009966;">65% faster design output</span>
@@ -250,6 +271,11 @@
           <div style="padding: 28px 32px;">
             <h3 style="font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 8px;">Eco-Cash</h3>
             <p style="font-size: 14px; line-height: 1.65; color: #4A5565; margin: 0 0 14px;">Gamified crowdsourced app encouraging students to visit forests, complete tasks, and earn rewards — tackling Indiana's deforestation one trail at a time.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 18px;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 4px 10px;">Consumer</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 4px 10px;">Mobile</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 4px 10px;">Sustainability</span>
+            </div>
             <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px;">
               <span style="font-size: 13.5px; font-weight: 800; color: #155DFC;">Open case study <span data-arr="1" style="display: inline-block; transition: transform 0.3s;">→</span></span>
               <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #009966;">10+ user interviews</span>
@@ -345,6 +371,12 @@
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 5px;">01 · fiserv</div>
             <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">Disputes Workspace</h3>
             <p style="font-size: 13px; color: #4A5565; margin: 0 0 10px; line-height: 1.5;">AI-assisted dispute management — call handling down 25–35%.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 10px;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 3px 8px;">Fintech</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 3px 8px;">Enterprise</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 3px 8px;">SaaS</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 3px 8px;">AI</span>
+            </div>
             <span style="font-size: 12.5px; font-weight: 700; color: #155DFC;">Open case study →</span>
           </div>
         </div>
@@ -356,6 +388,11 @@
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 5px;">02 · fiserv × desjardins</div>
             <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">360 Control</h3>
             <p style="font-size: 13px; color: #4A5565; margin: 0 0 10px; line-height: 1.5;">Issuer admin console rebuilt from IA up — shipped on contractual deadline.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 10px;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 3px 8px;">Fintech</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 3px 8px;">Enterprise</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 3px 8px;">SaaS</span>
+            </div>
             <span style="font-size: 12.5px; font-weight: 700; color: #155DFC;">Open case study →</span>
           </div>
         </div>
@@ -367,6 +404,11 @@
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 5px;">03 · zywave</div>
             <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">CPQ</h3>
             <p style="font-size: 13px; color: #4A5565; margin: 0 0 10px; line-height: 1.5;">Enterprise quoting redesign — quote time 18 → 10 min, pricing errors down from 28%.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 10px;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 3px 8px;">Enterprise</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 3px 8px;">SaaS</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 3px 8px;">Insurtech</span>
+            </div>
             <span style="font-size: 12.5px; font-weight: 700; color: #155DFC;">Open case study →</span>
           </div>
         </div>
@@ -378,6 +420,11 @@
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 5px;">04 · fiserv</div>
             <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">DWS Design System</h3>
             <p style="font-size: 13px; color: #4A5565; margin: 0 0 10px; line-height: 1.5;">45+ components, WCAG 2.1 AA — design output 65% faster.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 10px;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 3px 8px;">Enterprise</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 3px 8px;">Design System</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 3px 8px;">Fintech</span>
+            </div>
             <span style="font-size: 12.5px; font-weight: 700; color: #155DFC;">Open case study →</span>
           </div>
         </div>
@@ -389,6 +436,11 @@
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 5px;">05 · student project</div>
             <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">Eco-Cash</h3>
             <p style="font-size: 13px; color: #4A5565; margin: 0 0 10px; line-height: 1.5;">Gamified AR app for forest conservation — IU Grand Challenge.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 10px;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 3px 8px;">Consumer</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 3px 8px;">Mobile</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 3px 8px;">Sustainability</span>
+            </div>
             <span style="font-size: 12.5px; font-weight: 700; color: #155DFC;">Open case study →</span>
           </div>
         </div>
@@ -435,7 +487,7 @@ class Component extends DCLogic {
     this.view = { x: 0, y: 0, s: 0.5 };
     this.frames = {};
     this.meta = {
-      hero: { name: "01 · Hero", fill: "#FFFFFF" },
+      hero: { name: "01 · Intro", fill: "#FFFFFF" },
       dws: { name: "▢ disputes-workspace", fill: "#FFFFFF" },
       c360: { name: "▢ 360-control", fill: "#FFFFFF" },
       cpq: { name: "▢ cpq", fill: "#FFFFFF" },
@@ -1080,6 +1132,42 @@ setTimeout(function() {
     });
   });
 }, 100);
+</script>
+<div id="nav-loader" style="position: fixed; top: 0; left: 0; height: 2px; width: 0; background: #155DFC; z-index: 102; opacity: 0; box-shadow: 0 0 8px rgba(21,93,252,0.7); transition: width 0.2s ease, opacity 0.3s ease; pointer-events: none;"></div>
+<script>
+(function () {
+  var bar = document.getElementById('nav-loader');
+  if (!bar) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) bar.style.transition = 'opacity 0.2s ease';
+  function set(w) { bar.style.width = w + '%'; }
+  function show() { bar.style.opacity = '1'; }
+  function done() {
+    set(100);
+    setTimeout(function () { bar.style.opacity = '0'; setTimeout(function () { set(0); }, 300); }, 150);
+  }
+  // arrival fill
+  show(); set(reduce ? 100 : 35);
+  if (document.readyState === 'complete') { done(); }
+  else { window.addEventListener('load', done); }
+  // departure: internal link clicks animate toward 90%
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.charAt(0) === '#' || a.target === '_blank') return;
+    if (/^(https?:|mailto:|tel:)/i.test(href)) return;
+    show(); set(12);
+    if (reduce) return;
+    var p = 12;
+    clearInterval(window.__navInt);
+    window.__navInt = setInterval(function () { p += (90 - p) * 0.18; set(p > 90 ? 90 : p); }, 120);
+  }, true);
+  // restore on back/forward cache
+  window.addEventListener('pageshow', function (ev) {
+    if (ev.persisted) { clearInterval(window.__navInt); set(0); bar.style.opacity = '0'; }
+  });
+})();
 </script>
 </body>
 </html>

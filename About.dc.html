@@ -98,7 +98,7 @@
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #9AA0AC; padding-top: 3px;">2023 – Present</div>
               <div>
                 <h3 style="font-size: 19px; font-weight: 800; margin: 0 0 6px;">Mid-Senior UX Designer · Fiserv</h3>
-                <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 60ch;">Sole designer on two flagship fintech platforms: Disputes Workspace (AI-assisted dispute management) and 360 Control (issuer administration console, shipped for Desjardins). Embedded product owner on 360 Control.</p>
+                <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 60ch;">UX Designer on two flagship fintech platforms: Disputes Workspace (AI-assisted dispute management) and 360 Control (issuer administration console, shipped for Desjardins). Embedded product owner on 360 Control.</p>
               </div>
               <div style="display: flex; gap: 8px;">
                 <a href="DWS.dc.html" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; border: 1px solid #D6E4FF; border-radius: 999px; padding: 5px 12px; text-decoration: none;" style-hover="background: #EFF6FF;">DWS →</a>
@@ -308,6 +308,42 @@ class Component extends DCLogic {
   }
 }
 
+</script>
+<div id="nav-loader" style="position: fixed; top: 0; left: 0; height: 2px; width: 0; background: #155DFC; z-index: 102; opacity: 0; box-shadow: 0 0 8px rgba(21,93,252,0.7); transition: width 0.2s ease, opacity 0.3s ease; pointer-events: none;"></div>
+<script>
+(function () {
+  var bar = document.getElementById('nav-loader');
+  if (!bar) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) bar.style.transition = 'opacity 0.2s ease';
+  function set(w) { bar.style.width = w + '%'; }
+  function show() { bar.style.opacity = '1'; }
+  function done() {
+    set(100);
+    setTimeout(function () { bar.style.opacity = '0'; setTimeout(function () { set(0); }, 300); }, 150);
+  }
+  // arrival fill
+  show(); set(reduce ? 100 : 35);
+  if (document.readyState === 'complete') { done(); }
+  else { window.addEventListener('load', done); }
+  // departure: internal link clicks animate toward 90%
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.charAt(0) === '#' || a.target === '_blank') return;
+    if (/^(https?:|mailto:|tel:)/i.test(href)) return;
+    show(); set(12);
+    if (reduce) return;
+    var p = 12;
+    clearInterval(window.__navInt);
+    window.__navInt = setInterval(function () { p += (90 - p) * 0.18; set(p > 90 ? 90 : p); }, 120);
+  }, true);
+  // restore on back/forward cache
+  window.addEventListener('pageshow', function (ev) {
+    if (ev.persisted) { clearInterval(window.__navInt); set(0); bar.style.opacity = '0'; }
+  });
+})();
 </script>
 </body>
 </html>
