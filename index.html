@@ -303,7 +303,7 @@
   </div>
 
   <!-- bottom hint -->
-  <div id="hint" style="position: fixed; bottom: 20px; left: 268px; z-index: 100; background: #FFFFFFE6; border: 1px solid #E2E4E9; border-radius: 8px; padding: 10px 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282; backdrop-filter: blur(4px);">drag or scroll to pan · ⌘/Ctrl + scroll to zoom · click a frame to open</div>
+  <div id="hint" style="position: fixed; bottom: 20px; left: 268px; z-index: 100; background: #FFFFFFE6; border: 1px solid #E2E4E9; border-radius: 8px; padding: 10px 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282; backdrop-filter: blur(4px);">drag or scroll to pan · pinch to zoom · click a frame to open</div>
 
   <!-- bottom-right zoom controls -->
   <div id="zoom-controls" style="position: fixed; bottom: 20px; right: 280px; z-index: 100; display: flex; gap: 8px;">
@@ -654,6 +654,7 @@ class Component extends DCLogic {
       vp.style.right = narrow ? "0" : "260px";
       if (hint) hint.style.left = narrow ? "20px" : "268px";
       if (zc) zc.style.right = narrow ? "20px" : "280px";
+      if (hint) hint.textContent = narrow ? "tap to pan · pinch to zoom · tap a frame to open" : "drag or scroll to pan · pinch to zoom · click a frame to open";
     };
     mq.addEventListener("change", applyMq);
     this._mq = mq; this._applyMq = applyMq;

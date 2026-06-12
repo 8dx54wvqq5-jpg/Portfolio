@@ -252,6 +252,8 @@ class Component extends DCLogic {
     padEls.forEach((el) => { if (!el.getAttribute("data-pad")) el.setAttribute("data-pad", el.style.padding); });
     const headEls = Array.from(document.querySelectorAll("h1, h2")).filter((el) => parseFloat(el.style.fontSize) >= 36);
     headEls.forEach((el) => { if (!el.getAttribute("data-fs")) el.setAttribute("data-fs", el.style.fontSize); });
+    const cardGrids = Array.from(document.querySelectorAll("[style]")).filter((el) => el.style.height === "420px");
+    const cardImgs = Array.from(document.querySelectorAll("img[data-zoom]"));
     const applyNarrow = () => {
       const narrow = window.innerWidth < 880;
       gridEls.forEach((el) => {
@@ -264,6 +266,8 @@ class Component extends DCLogic {
         const orig = parseFloat(el.getAttribute("data-fs"));
         el.style.fontSize = narrow ? Math.round(orig * 0.65) + "px" : el.getAttribute("data-fs");
       });
+      cardGrids.forEach((el) => { el.style.height = narrow ? "auto" : "420px"; });
+      cardImgs.forEach((el) => { el.style.height = narrow ? "220px" : "100%"; });
     };
     window.addEventListener("resize", applyNarrow);
     applyNarrow();
