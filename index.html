@@ -24,6 +24,8 @@
     ::selection { background: #CFE0FF; }
     a:focus-visible, [tabindex]:focus-visible, button:focus-visible { outline: 2px solid #155DFC; outline-offset: 2px; }
     * { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpolygon points='3,1 17,10 10.5,11.5 8,19' fill='%23111418' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E") 3 1, auto !important; }
+    .cFlow { animation: dashFlow 0.9s linear infinite; }
+    @keyframes dashFlow { to { stroke-dashoffset: -14; } }
   </style>
 </helmet>
 
@@ -451,6 +453,7 @@ class Component extends DCLogic {
     plane.style.transition = durMs ? "transform " + durMs + "ms cubic-bezier(0.25,1,0.4,1)" : "none";
     plane.style.transform = "translate(" + this.view.x + "px," + this.view.y + "px) scale(" + this.view.s + ")";
     if (label) label.textContent = Math.round(this.view.s * 100) + "%";
+    this.updateMinimap();
   }
 
   clampView() {
@@ -600,6 +603,204 @@ class Component extends DCLogic {
     };
   }
 
+  buildConnectors() {
+    const plane = document.getElementById("plane");
+    if (!plane || this._connBuilt) return;
+    this._connBuilt = true;
+    const NS = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("width", "4000");
+    svg.setAttribute("height", "2400");
+    svg.style.cssText = "position:absolute;left:0;top:0;pointer-events:none;z-index:0;overflow:visible;";
+    const defs = document.createElementNS(NS, "defs");
+    defs.innerHTML = '<marker id="cArrow" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9AB6FF"></path></marker>';
+    svg.appendChild(defs);
+    const links = [["hero", "dws"], ["dws", "c360"], ["c360", "cpq"], ["dws", "ds"], ["cpq", "ecocash"]];
+    let delay = 300;
+    links.forEach((pair) => {
+      const s = this.frames[pair[0]], t = this.frames[pair[1]];
+      if (!s || !t) return;
+      const sc = { x: s.offsetLeft + s.offsetWidth / 2, y: s.offsetTop + s.offsetHeight / 2 };
+      const tc = { x: t.offsetLeft + t.offsetWidth / 2, y: t.offsetTop + t.offsetHeight / 2 };
+      const dx = tc.x - sc.x, dy = tc.y - sc.y;
+      let p1, p2, q1, q2;
+      if (Math.abs(dx) >= Math.abs(dy)) {
+        p1 = { x: dx > 0 ? s.offsetLeft + s.offsetWidth : s.offsetLeft, y: sc.y };
+        p2 = { x: dx > 0 ? t.offsetLeft : t.offsetLeft + t.offsetWidth, y: tc.y };
+        const o = Math.abs(p2.x - p1.x) * 0.45;
+        q1 = { x: p1.x + (dx > 0 ? o : -o), y: p1.y };
+        q2 = { x: p2.x + (dx > 0 ? -o : o), y: p2.y };
+      } else {
+        p1 = { x: sc.x, y: dy > 0 ? s.offsetTop + s.offsetHeight : s.offsetTop };
+        p2 = { x: tc.x, y: dy > 0 ? t.offsetTop : t.offsetTop + t.offsetHeight };
+        const o = Math.abs(p2.y - p1.y) * 0.45;
+        q1 = { x: p1.x, y: p1.y + (dy > 0 ? o : -o) };
+        q2 = { x: p2.x, y: p2.y + (dy > 0 ? -o : o) };
+      }
+      const path = document.createElementNS(NS, "path");
+      path.setAttribute("d", "M" + p1.x + "," + p1.y + " C" + q1.x + "," + q1.y + " " + q2.x + "," + q2.y + " " + p2.x + "," + p2.y);
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke", "#9AB6FF");
+      path.setAttribute("stroke-width", "2");
+      path.setAttribute("stroke-linecap", "round");
+      path.setAttribute("marker-end", "url(#cArrow)");
+      svg.appendChild(path);
+      if (this.reduce) {
+        path.setAttribute("stroke-dasharray", "7 7");
+      } else {
+        const len = path.getTotalLength();
+        path.style.strokeDasharray = len;
+        path.style.strokeDashoffset = len;
+        path.style.transition = "stroke-dashoffset 0.9s cubic-bezier(0.16,1,0.3,1)";
+        path.style.transitionDelay = delay + "ms";
+        requestAnimationFrame(() => { path.style.strokeDashoffset = "0"; });
+        const tid = setTimeout(() => {
+          path.style.transition = "none";
+          path.style.strokeDasharray = "7 7";
+          path.style.strokeDashoffset = "0";
+          path.classList.add("cFlow");
+        }, delay + 950);
+        if (this._timers) this._timers.push(tid);
+        delay += 180;
+      }
+    });
+    plane.insertBefore(svg, plane.firstChild);
+  }
+
+  buildMinimap() {
+    if (document.getElementById("minimap")) return;
+    const SX = 168 / 4000, SY = 101 / 2400;
+    const wrap = document.createElement("div");
+    wrap.id = "minimap";
+    wrap.style.cssText = "position:fixed;right:280px;bottom:68px;width:168px;height:101px;background:rgba(255,255,255,0.9);border:1px solid #E2E4E9;border-radius:8px;z-index:100;overflow:hidden;cursor:pointer;box-shadow:0 4px 12px rgba(16,24,40,0.08);";
+    Object.keys(this.frames).forEach((k) => {
+      const el = this.frames[k];
+      const dark = (k === "contact" || k === "ecocash");
+      const r = document.createElement("div");
+      r.style.cssText = "position:absolute;border-radius:1.5px;background:" + (dark ? "#3A3F4B" : "#C9D3E6") + ";left:" + (el.offsetLeft * SX) + "px;top:" + (el.offsetTop * SY) + "px;width:" + (el.offsetWidth * SX) + "px;height:" + (el.offsetHeight * SY) + "px;";
+      wrap.appendChild(r);
+    });
+    const vrect = document.createElement("div");
+    vrect.id = "minimap-rect";
+    vrect.style.cssText = "position:absolute;border:1.5px solid #155DFC;background:rgba(21,93,252,0.08);border-radius:2px;pointer-events:none;";
+    wrap.appendChild(vrect);
+    wrap.addEventListener("click", (e) => {
+      const rect = wrap.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / SX;
+      const py = (e.clientY - rect.top) / SY;
+      this.centerOn(px, py, this.view.s, 600);
+      this.scheduleSpy();
+    });
+    document.body.appendChild(wrap);
+    this._minimap = wrap;
+    this.updateMinimap();
+  }
+
+  updateMinimap() {
+    const vrect = document.getElementById("minimap-rect");
+    const vp = document.getElementById("viewport");
+    if (!vrect || !vp) return;
+    const SX = 168 / 4000, SY = 101 / 2400;
+    const s = this.view.s;
+    const vx = -this.view.x / s, vy = -this.view.y / s;
+    vrect.style.left = (vx * SX) + "px";
+    vrect.style.top = (vy * SY) + "px";
+    vrect.style.width = (vp.clientWidth / s * SX) + "px";
+    vrect.style.height = (vp.clientHeight / s * SY) + "px";
+  }
+
+  buildPins() {
+    const plane = document.getElementById("plane");
+    if (!plane) return;
+    const notes = {
+      dws: "AI that explains itself — not autopilot.",
+      c360: "Shipped on a hard contractual deadline.",
+      cpq: "18 → 10 min per quote. Measured, not guessed.",
+      ds: "Foundation first — 45+ components, WCAG AA.",
+      ecocash: "Student project — gamified AR for conservation."
+    };
+    let n = 0;
+    Object.keys(notes).forEach((k) => {
+      const el = this.frames[k];
+      if (!el) return;
+      n++;
+      const pin = document.createElement("div");
+      pin.style.cssText = "position:absolute;z-index:40;left:" + (el.offsetLeft + el.offsetWidth - 13) + "px;top:" + (el.offsetTop - 13) + "px;width:26px;height:26px;border-radius:13px 13px 13px 2px;background:#155DFC;border:2px solid #fff;box-shadow:0 3px 8px rgba(16,24,40,0.22);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;";
+      pin.textContent = String(n);
+      const note = document.createElement("div");
+      note.style.cssText = "position:absolute;left:30px;top:0;width:200px;background:#15171C;color:#fff;font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.5;padding:8px 11px;border-radius:8px;box-shadow:0 6px 18px rgba(16,24,40,0.25);opacity:0;transform:translateY(-4px) scale(0.96);transform-origin:left top;transition:opacity 0.2s ease, transform 0.2s ease;pointer-events:none;";
+      note.textContent = notes[k];
+      pin.appendChild(note);
+      pin.addEventListener("mouseenter", () => { note.style.opacity = "1"; note.style.transform = "translateY(0) scale(1)"; pin.style.zIndex = "60"; });
+      pin.addEventListener("mouseleave", () => { note.style.opacity = "0"; note.style.transform = "translateY(-4px) scale(0.96)"; pin.style.zIndex = "40"; });
+      plane.appendChild(pin);
+    });
+  }
+
+  startCursorLife() {
+    if (this.reduce) return;
+    const T = (fn, ms) => { const id = setTimeout(fn, ms); if (this._timers) this._timers.push(id); return id; };
+    const mk = (sel, color, msgs) => {
+      const c = document.querySelector(sel);
+      if (!c) return null;
+      const b = document.createElement("div");
+      b.style.cssText = "position:absolute;left:30px;top:24px;background:" + color + ";color:#fff;font-family:'JetBrains Mono',monospace;font-size:10px;padding:4px 8px;border-radius:10px 10px 10px 2px;white-space:nowrap;opacity:0;transform:translateY(3px);transition:opacity 0.3s ease, transform 0.3s ease;box-shadow:0 4px 10px rgba(16,24,40,0.18);";
+      c.appendChild(b);
+      return { b: b, msgs: msgs, i: 0 };
+    };
+    const a = mk('[data-cursor="1"]', "#009966", ["nice, drag works", "where's the work? →", "ooh, metrics"]);
+    const z = mk('[data-cursor="2"]', "#155DFC", ["try the work cards →", "thanks for stopping by", "drag to explore"]);
+    const cycle = (o, base) => {
+      if (!o) return;
+      const loop = () => {
+        o.b.textContent = o.msgs[o.i % o.msgs.length];
+        o.i++;
+        o.b.style.opacity = "1"; o.b.style.transform = "translateY(0)";
+        T(() => { o.b.style.opacity = "0"; o.b.style.transform = "translateY(3px)"; }, 2600);
+        T(loop, 6000);
+      };
+      T(loop, base);
+    };
+    cycle(a, 2200);
+    cycle(z, 4800);
+    const workKeys = ["dws", "c360", "cpq", "ds", "ecocash"];
+    let pi = 0;
+    const pulse = () => {
+      const el = this.frames[workKeys[pi % workKeys.length]];
+      pi++;
+      if (el) {
+        const ring = document.createElement("div");
+        ring.style.cssText = "position:absolute;pointer-events:none;z-index:5;border:2px solid #155DFC;border-radius:16px;left:" + el.offsetLeft + "px;top:" + el.offsetTop + "px;width:" + el.offsetWidth + "px;height:" + el.offsetHeight + "px;opacity:0;transition:opacity 0.5s ease;";
+        const plane = document.getElementById("plane");
+        if (plane) plane.appendChild(ring);
+        requestAnimationFrame(() => { ring.style.opacity = "0.6"; });
+        T(() => { ring.style.opacity = "0"; }, 1100);
+        T(() => { if (ring.remove) ring.remove(); }, 1700);
+      }
+      T(pulse, 7000);
+    };
+    T(pulse, 9000);
+  }
+
+  startInertia() {
+    if (this._inertia) cancelAnimationFrame(this._inertia);
+    let vx = this._vx || 0, vy = this._vy || 0;
+    if (Math.abs(vx) < 0.6 && Math.abs(vy) < 0.6) return;
+    const step = () => {
+      vx *= 0.92; vy *= 0.92;
+      this.view.x += vx; this.view.y += vy;
+      this.clampView();
+      this.apply(0);
+      if (Math.abs(vx) > 0.2 || Math.abs(vy) > 0.2) {
+        this._inertia = requestAnimationFrame(step);
+      } else {
+        this._inertia = null;
+        this.scheduleSpy();
+      }
+    };
+    this._inertia = requestAnimationFrame(step);
+  }
+
   componentDidMount() {
     // ---- email links assembled at runtime ----
     const addr = ["abhikant5540", "gmail.com"].join("@");
@@ -610,6 +811,8 @@ class Component extends DCLogic {
 
     const vp = document.getElementById("viewport");
     if (!vp) return;
+    this.reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    this._timers = [];
 
     // ---- frame registry ----
     document.querySelectorAll("[data-frame]").forEach((el) => {
@@ -624,6 +827,12 @@ class Component extends DCLogic {
       el.style.transitionDelay = (200 + i * 160) + "ms";
       requestAnimationFrame(() => { el.style.opacity = "1"; });
     });
+
+    // ---- new: connectors, minimap, comment pins, living cursors ----
+    this.buildConnectors();
+    this.buildMinimap();
+    this.buildPins();
+    this.startCursorLife();
 
     // ---- frame hover: selection outline + label + image zoom + arrow ----
     Object.keys(this.frames).forEach((key) => {
@@ -646,14 +855,19 @@ class Component extends DCLogic {
     });
 
     // ---- entrance: overview, then settle on hero at a calm pace ----
-    this.fitAll(0);
-    this._entrT = setTimeout(() => { this.flyToKey("hero", 1600); }, 700);
+    if (this.reduce) {
+      this.flyToKey("hero", 0);
+    } else {
+      this.fitAll(0);
+      this._entrT = setTimeout(() => { this.flyToKey("hero", 1600); }, 700);
+    }
 
     // ---- pan: pointer drag (with basic two-finger pinch) ----
     const pointers = new Map();
     let moved = 0, ox = 0, oy = 0, sx = 0, sy = 0, pinchD = 0;
     let clickTarget = null;
     vp.addEventListener("pointerdown", (e) => {
+      if (this._inertia) cancelAnimationFrame(this._inertia);
       pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
       moved = 0;
       // record the link target BEFORE pointer capture (target is still correct here)
@@ -681,6 +895,8 @@ class Component extends DCLogic {
       }
       const dx = e.clientX - sx, dy = e.clientY - sy;
       moved = Math.max(moved, Math.abs(dx) + Math.abs(dy));
+      this._vx = (this._vx || 0) * 0.6 + (e.movementX || 0) * 0.4;
+      this._vy = (this._vy || 0) * 0.6 + (e.movementY || 0) * 0.4;
       this.view.x = ox + dx; this.view.y = oy + dy;
       this.clampView();
       this.apply(0);
@@ -695,7 +911,20 @@ class Component extends DCLogic {
         // pointer capture swallows the click event on the <a> — navigate manually
         if (!wasDrag && clickTarget) {
           const href = clickTarget.getAttribute("href");
-          if (href) setTimeout(() => { window.location.href = href; }, 0);
+          const frameEl = clickTarget.closest ? clickTarget.closest("[data-frame]") : null;
+          if (href) {
+            if (this.reduce || !frameEl) {
+              setTimeout(() => { window.location.href = href; }, 0);
+            } else {
+              const L = frameEl.offsetLeft, T = frameEl.offsetTop;
+              const W = frameEl.offsetWidth, H = frameEl.offsetHeight;
+              const fit = Math.min(vp.clientWidth / W, vp.clientHeight / H);
+              this.centerOn(L + W / 2, T + H / 2, Math.min(2, fit * 1.08), 480);
+              setTimeout(() => { window.location.href = href; }, 470);
+            }
+          }
+        } else if (wasDrag && !this.reduce) {
+          this.startInertia();
         }
         clickTarget = null;
         this.scheduleSpy();
@@ -717,6 +946,7 @@ class Component extends DCLogic {
     // ---- wheel: scroll pans, ⌘/Ctrl + scroll (or trackpad pinch) zooms gently ----
     vp.addEventListener("wheel", (e) => {
       e.preventDefault();
+      if (this._inertia) cancelAnimationFrame(this._inertia);
       if (e.ctrlKey || e.metaKey) {
         const rect = vp.getBoundingClientRect();
         const factor = Math.exp(-e.deltaY * 0.004);
@@ -733,22 +963,27 @@ class Component extends DCLogic {
     // ---- drifting cursors (plane coordinates, slow) ----
     const c1 = document.querySelector('[data-cursor="1"]');
     const c2 = document.querySelector('[data-cursor="2"]');
-    const t0 = performance.now();
-    const drift = (now) => {
-      const t = (now - t0) / 1000;
-      if (c1) {
-        const x = 2050 + Math.sin(t * 0.22) * 260 + Math.sin(t * 0.6) * 50;
-        const y = 1050 + Math.cos(t * 0.18) * 200 + Math.sin(t * 0.45) * 40;
-        c1.style.transform = "translate(" + x + "px," + y + "px)";
-      }
-      if (c2) {
-        const x = 1150 + Math.cos(t * 0.16) * 300 + Math.sin(t * 0.4) * 60;
-        const y = 1450 + Math.sin(t * 0.2) * 180 + Math.cos(t * 0.36) * 50;
-        c2.style.transform = "translate(" + x + "px," + y + "px)";
-      }
+    if (this.reduce) {
+      if (c1) c1.style.transform = "translate(2050px,1050px)";
+      if (c2) c2.style.transform = "translate(1150px,1450px)";
+    } else {
+      const t0 = performance.now();
+      const drift = (now) => {
+        const t = (now - t0) / 1000;
+        if (c1) {
+          const x = 2050 + Math.sin(t * 0.22) * 260 + Math.sin(t * 0.6) * 50;
+          const y = 1050 + Math.cos(t * 0.18) * 200 + Math.sin(t * 0.45) * 40;
+          c1.style.transform = "translate(" + x + "px," + y + "px)";
+        }
+        if (c2) {
+          const x = 1150 + Math.cos(t * 0.16) * 300 + Math.sin(t * 0.4) * 60;
+          const y = 1450 + Math.sin(t * 0.2) * 180 + Math.cos(t * 0.36) * 50;
+          c2.style.transform = "translate(" + x + "px," + y + "px)";
+        }
+        this._raf = requestAnimationFrame(drift);
+      };
       this._raf = requestAnimationFrame(drift);
-    };
-    this._raf = requestAnimationFrame(drift);
+    }
 
     // ---- responsive: collapse panels under 1180px ----
     const left = document.getElementById("panel-left");
@@ -760,6 +995,8 @@ class Component extends DCLogic {
       const narrow = mq.matches;
       if (left) left.style.display = narrow ? "none" : "block";
       if (right) right.style.display = narrow ? "none" : "block";
+      const mm = document.getElementById("minimap");
+      if (mm) mm.style.display = narrow ? "none" : "block";
       vp.style.left = narrow ? "0" : "248px";
       vp.style.right = narrow ? "0" : "260px";
       if (hint) hint.style.left = narrow ? "20px" : "268px";
@@ -793,6 +1030,9 @@ class Component extends DCLogic {
 
   componentWillUnmount() {
     if (this._raf) cancelAnimationFrame(this._raf);
+    if (this._inertia) cancelAnimationFrame(this._inertia);
+    if (this._timers) this._timers.forEach((t) => clearTimeout(t));
+    if (this._minimap && this._minimap.remove) this._minimap.remove();
     if (this._entrT) clearTimeout(this._entrT);
     if (this._spyT) clearTimeout(this._spyT);
     if (this._mq && this._applyMq) this._mq.removeEventListener("change", this._applyMq);
