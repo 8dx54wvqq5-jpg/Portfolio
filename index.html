@@ -8,6 +8,7 @@
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
 <script src="./support.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <x-dc>
@@ -37,7 +38,7 @@
       <div title="Text" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;">T</div>
       <div title="Comment" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px;">◯</div>
     </div>
-    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #AEB4C0; display: flex; align-items: center; gap: 8px;">
+    <div id="toolbar-center" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #AEB4C0; display: flex; align-items: center; gap: 8px;">
       <span style="color: #6A7282;">Drafts</span>
       <span style="color: #444A56;">/</span>
       <span style="color: #E7E9EE;">Abhikant Nirbhavane · Portfolio</span>
@@ -303,6 +304,97 @@
         <div style="background: #155DFC; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 3px 7px; border-radius: 3px 10px 10px 10px; margin-left: 12px; white-space: nowrap;">abhikant</div>
       </div>
 
+    </div>
+  </div>
+
+  <!-- ====================== MOBILE VIEW ====================== -->
+  <div id="mobile-view" style="display: none; font-family: Manrope, sans-serif; color: #101828; padding-top: 48px; min-height: 100vh; background: #EDEEF0;">
+    <!-- hero -->
+    <div style="padding: 36px 22px 28px; background: #FFFFFF; border-bottom: 1px solid #E2E4E9;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #155DFC; margin-bottom: 12px;">ABHIKANT NIRBHAVANE · SENIOR UX DESIGNER</div>
+      <h1 style="font-size: 28px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; margin: 0 0 14px;">I design for environments where getting it wrong has real consequences.</h1>
+      <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0 0 22px;">Dispute management, card controls, compliance workflows — enterprise systems where clarity is a safety feature. Most recently at Fiserv.</p>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <a href="Work.dc.html" style="background: #155DFC; color: #fff; font-size: 13px; font-weight: 700; padding: 11px 20px; border-radius: 7px; text-decoration: none;">View all work →</a>
+        <a href="About.dc.html" style="color: #364153; font-size: 13px; font-weight: 700; padding: 11px 20px; border-radius: 7px; text-decoration: none; border: 1px solid #D5D8DF;">About</a>
+      </div>
+    </div>
+    <!-- work cards -->
+    <div style="padding: 24px 16px 8px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #9AA0AC; margin-bottom: 14px; padding: 0 4px;">SELECTED WORK</div>
+      <a href="DWS.dc.html" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
+          <div style="background: #0B0B0B; height: 160px; overflow: hidden;"><img src="assets/dws-hero.png" alt="Disputes Workspace" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
+          <div style="padding: 16px 18px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 5px;">01 · fiserv</div>
+            <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">Disputes Workspace</h3>
+            <p style="font-size: 13px; color: #4A5565; margin: 0 0 10px; line-height: 1.5;">AI-assisted dispute management — call handling down 25–35%.</p>
+            <span style="font-size: 12.5px; font-weight: 700; color: #155DFC;">Open case study →</span>
+          </div>
+        </div>
+      </a>
+      <a href="360 Control.dc.html" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
+          <div style="background: #14152B; height: 160px; overflow: hidden;"><img src="assets/c360-hero.png" alt="360 Control" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
+          <div style="padding: 16px 18px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 5px;">02 · fiserv × desjardins</div>
+            <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">360 Control</h3>
+            <p style="font-size: 13px; color: #4A5565; margin: 0 0 10px; line-height: 1.5;">Issuer admin console rebuilt from IA up — shipped on contractual deadline.</p>
+            <span style="font-size: 12.5px; font-weight: 700; color: #155DFC;">Open case study →</span>
+          </div>
+        </div>
+      </a>
+      <a href="CPQ.dc.html" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
+          <div style="background: #E6E0D6; height: 160px; overflow: hidden;"><img src="assets/cpq-hero.png" alt="CPQ" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
+          <div style="padding: 16px 18px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 5px;">03 · zywave</div>
+            <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">CPQ</h3>
+            <p style="font-size: 13px; color: #4A5565; margin: 0 0 10px; line-height: 1.5;">Enterprise quoting redesign — quote time 18 → 10 min, pricing errors down from 28%.</p>
+            <span style="font-size: 12.5px; font-weight: 700; color: #155DFC;">Open case study →</span>
+          </div>
+        </div>
+      </a>
+      <a href="DS.dc.html" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
+          <div style="background: #0D1B3E; height: 160px; overflow: hidden;"><img src="assets/ds-hero.png" alt="DWS Design System" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
+          <div style="padding: 16px 18px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 5px;">04 · fiserv</div>
+            <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">DWS Design System</h3>
+            <p style="font-size: 13px; color: #4A5565; margin: 0 0 10px; line-height: 1.5;">45+ components, WCAG 2.1 AA — design output 65% faster.</p>
+            <span style="font-size: 12.5px; font-weight: 700; color: #155DFC;">Open case study →</span>
+          </div>
+        </div>
+      </a>
+      <a href="EcoCash.dc.html" style="text-decoration: none; color: inherit; display: block; margin-bottom: 28px;">
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
+          <div style="background: #0F1A0F; height: 160px; overflow: hidden;"><img src="assets/ecocash-hero.png" alt="Eco-Cash" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
+          <div style="padding: 16px 18px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 5px;">05 · student project</div>
+            <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">Eco-Cash</h3>
+            <p style="font-size: 13px; color: #4A5565; margin: 0 0 10px; line-height: 1.5;">Gamified AR app for forest conservation — IU Grand Challenge.</p>
+            <span style="font-size: 12.5px; font-weight: 700; color: #155DFC;">Open case study →</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <!-- contact -->
+    <div style="background: #15171C; padding: 40px 22px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #7AA5FF; margin-bottom: 14px;">STATUS: AVAILABLE FOR NEW WORK</div>
+      <h2 style="font-size: 24px; font-weight: 800; letter-spacing: -0.02em; color: #fff; margin: 0 0 12px; line-height: 1.2;">Let's build the next high-stakes thing.</h2>
+      <p style="font-size: 14px; line-height: 1.7; color: #AEB4C0; margin: 0 0 24px;">Looking for a designer for complex, high-stakes software? Let's talk.</p>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <a href="#" data-email="show" style="background: #155DFC; color: #fff; font-size: 14px; font-weight: 800; padding: 13px 20px; border-radius: 8px; text-decoration: none; text-align: center;">email me</a>
+        <div style="display: flex; gap: 10px;">
+          <a href="https://www.linkedin.com/in/abhikant" target="_blank" style="flex: 1; color: #E7E9EE; font-size: 13px; font-weight: 700; text-decoration: none; border: 1px solid #3A3F4B; padding: 11px 16px; border-radius: 8px; text-align: center;">LinkedIn ↗</a>
+          <a href="https://resumego.link/abhikant/designer" target="_blank" style="flex: 1; color: #E7E9EE; font-size: 13px; font-weight: 700; text-decoration: none; border: 1px solid #3A3F4B; padding: 11px 16px; border-radius: 8px; text-align: center;">Résumé ↓</a>
+        </div>
+      </div>
+    </div>
+    <!-- footer -->
+    <div style="background: #EDEEF0; padding: 16px 22px; display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">
+      <span>© 2026 Abhikant Nirbhavane</span>
+      <a href="index.html" onclick="document.getElementById('mobile-view').style.display='none';document.getElementById('viewport').style.display='block';" style="color: #155DFC; text-decoration: none; font-size: 10px;">desktop view →</a>
     </div>
   </div>
 
@@ -663,6 +755,22 @@ class Component extends DCLogic {
     mq.addEventListener("change", applyMq);
     this._mq = mq; this._applyMq = applyMq;
     applyMq();
+
+    // ---- mobile view: replace canvas with scrollable layout under 768px ----
+    const mobileView = document.getElementById("mobile-view");
+    const toolbarCenter = document.getElementById("toolbar-center");
+    const mobileMq = window.matchMedia("(max-width: 767px)");
+    const applyMobile = () => {
+      const mob = mobileMq.matches;
+      if (vp) vp.style.display = mob ? "none" : "block";
+      if (mobileView) mobileView.style.display = mob ? "block" : "none";
+      if (hint) hint.style.display = mob ? "none" : "block";
+      if (zc) zc.style.display = mob ? "none" : "flex";
+      if (toolbarCenter) toolbarCenter.style.display = mob ? "none" : "flex";
+    };
+    mobileMq.addEventListener("change", applyMobile);
+    this._mobileMq = mobileMq; this._applyMobile = applyMobile;
+    applyMobile();
   }
 
   componentWillUnmount() {
@@ -670,6 +778,7 @@ class Component extends DCLogic {
     if (this._entrT) clearTimeout(this._entrT);
     if (this._spyT) clearTimeout(this._spyT);
     if (this._mq && this._applyMq) this._mq.removeEventListener("change", this._applyMq);
+    if (this._mobileMq && this._applyMobile) this._mobileMq.removeEventListener("change", this._applyMobile);
   }
 }
 </script>
