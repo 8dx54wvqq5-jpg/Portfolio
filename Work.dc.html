@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; padding: 0; }
+    body { background: #EDEEF0; -webkit-font-smoothing: antialiased; }
+    @keyframes pageIn { from { opacity: 0; } to { opacity: 1; } }
+    ::selection { background: #CFE0FF; }
+    * { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpolygon points='3,1 17,10 10.5,11.5 8,19' fill='%23111418' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E") 3 1, auto !important; }
+  </style>
+</helmet>
+
+<div style="font-family: Manrope, sans-serif; color: #101828; animation: pageIn 0.5s ease both; min-height: 100vh;">
+
+  <!-- ====================== TOP TOOLBAR ====================== -->
+  <div style="position: fixed; top: 0; left: 0; right: 0; height: 48px; background: #15171C; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; z-index: 100; box-sizing: border-box;">
+    <div style="display: flex; align-items: center; gap: 4px;">
+      <a href="index.html" style="width: 30px; height: 30px; border-radius: 6px; background: #155DFC; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; margin-right: 6px; text-decoration: none;">A</a>
+      <div title="Move" style="width: 30px; height: 30px; border-radius: 6px; background: #2A2E37; display: flex; align-items: center; justify-content: center;">
+        <svg width="14" height="14" viewBox="0 0 18 18"><polygon points="3,1 15,9 9.5,10.5 7,16" fill="#E7E9EE"></polygon></svg>
+      </div>
+      <div title="Comment" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px;">◯</div>
+    </div>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #AEB4C0; display: flex; align-items: center; gap: 8px;">
+      <span style="color: #6A7282;">Drafts</span>
+      <span style="color: #444A56;">/</span>
+      <span style="color: #E7E9EE;">Work, All Case Studies</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <a href="#" data-email="link" style="background: #155DFC; color: #fff; font-size: 12.5px; font-weight: 700; padding: 7px 14px; border-radius: 6px; text-decoration: none;" style-hover="background: #2B70FF;">Contact</a>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #AEB4C0; padding: 4px 6px;">100% ▾</div>
+    </div>
+  </div>
+
+  <!-- ====================== LEFT PANEL ====================== -->
+  <div id="panel-left" style="position: fixed; top: 48px; left: 0; bottom: 0; width: 248px; background: #FFFFFF; border-right: 1px solid #E2E4E9; z-index: 90; overflow-y: auto; padding: 14px 0; box-sizing: border-box;">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; padding: 4px 16px 8px;">PAGES</div>
+    <a href="index.html" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; text-decoration: none; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="font-size: 9px; color: #C9CDD6;">○</span> Home</a>
+    <a href="Work.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; text-decoration: none; color: #155DFC; font-size: 13px; font-weight: 700; background: #EFF6FF;"><span style="font-size: 9px;">●</span> Work</a>
+    <a href="About.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; text-decoration: none; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="font-size: 9px; color: #C9CDD6;">○</span> About</a>
+    <div style="height: 1px; background: #ECEDF1; margin: 14px 16px;"></div>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; padding: 4px 16px 8px;">CASE STUDIES</div>
+    <a href="DWS.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> Disputes Workspace</a>
+    <a href="360 Control.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> 360 Control</a>
+    <a href="CPQ.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> CPQ</a>
+  </div>
+
+  <!-- ====================== CANVAS ====================== -->
+  <div id="canvas" style="margin: 48px 0 0 248px; padding: 56px 48px 80px; background-image: radial-gradient(#D9DBE0 1px, transparent 1px); background-size: 24px 24px; min-height: calc(100vh - 48px); box-sizing: border-box;">
+    <div style="max-width: 1240px; margin: 0 auto;">
+
+      <div data-reveal="0" style="margin: 8px 8px 36px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #155DFC; margin-bottom: 16px;">ALL CASE STUDIES</div>
+        <h1 style="font-size: 44px; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 14px;">Work</h1>
+        <p style="font-size: 16.5px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 60ch;">Three enterprise systems, three different answers to the same question: how do you make high-stakes software people can trust? One uses AI that explains itself, one deliberately avoids AI, one is pure research-led simplification.</p>
+      </div>
+
+      <!-- DWS -->
+      <a href="DWS.dc.html" style="text-decoration: none; color: inherit; display: block;">
+        <div data-reveal="0" style="margin-bottom: 8px;"><span data-lab="dws" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">▢ 01 · disputes-workspace · fiserv</span></div>
+        <div data-sel="dws" data-reveal="1" style="position: relative; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05); margin-bottom: 48px; cursor: pointer;">
+          <div style="display: grid; grid-template-columns: 1.15fr 0.85fr;">
+            <div style="overflow: hidden; border-right: 1px solid #ECEDF1; background: #0B0B0B;">
+              <img data-zoom="1" src="assets/dws-hero.png" alt="Dispute Workspace, Fiserv" style="display: block; width: 100%; height: 100%; object-fit: cover; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
+            </div>
+            <div style="padding: 40px;">
+              <h2 style="font-size: 24px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 10px;">Disputes Workspace</h2>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0 0 20px;">AI-assisted dispute management for financial institutions, thousands of disputes a month, with AI that explains itself instead of replacing judgment.</p>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #4A5565; display: grid; gap: 7px; margin-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">call handling</span><span style="color: #009966;">−25–35%</span></div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">capacity</span><span style="color: #009966;">+40–50%</span></div>
+                <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">training time</span><span style="color: #009966;">−30–40%</span></div>
+              </div>
+              <span style="font-size: 14px; font-weight: 800; color: #155DFC;">Open case study <span data-arr="1" style="display: inline-block; transition: transform 0.3s;">→</span></span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- 360 -->
+      <a href="360 Control.dc.html" style="text-decoration: none; color: inherit; display: block;">
+        <div data-reveal="0" style="margin-bottom: 8px;"><span data-lab="c360" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">▢ 02 · 360-control · fiserv × desjardins</span></div>
+        <div data-sel="c360" data-reveal="1" style="position: relative; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05); margin-bottom: 48px; cursor: pointer;">
+          <div style="display: grid; grid-template-columns: 0.85fr 1.15fr;">
+            <div style="padding: 40px; order: 1;">
+              <h2 style="font-size: 24px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 10px;">360 Control</h2>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0 0 20px;">Rebuilding an issuer admin console from the IA up, design system before screens, deliberately no AI, shipped for Desjardins on a contractual deadline.</p>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #4A5565; display: grid; gap: 7px; margin-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">deadline</span><span style="color: #009966;">met, contractual</span></div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">design system</span><span style="color: #009966;">division-wide</span></div>
+                <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">platform</span><span>desktop + mobile, FR/EN</span></div>
+              </div>
+              <span style="font-size: 14px; font-weight: 800; color: #155DFC;">Open case study <span data-arr="1" style="display: inline-block; transition: transform 0.3s;">→</span></span>
+            </div>
+            <div style="overflow: hidden; border-left: 1px solid #ECEDF1; background: #14152B; order: 2;">
+              <img data-zoom="1" src="assets/c360-hero.png" alt="360 Control, Fiserv × Desjardins" style="display: block; width: 100%; height: 100%; object-fit: cover; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- CPQ -->
+      <a href="CPQ.dc.html" style="text-decoration: none; color: inherit; display: block;">
+        <div data-reveal="0" style="margin-bottom: 8px;"><span data-lab="cpq" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">▢ 03 · cpq · zywave</span></div>
+        <div data-sel="cpq" data-reveal="1" style="position: relative; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05); margin-bottom: 48px; cursor: pointer;">
+          <div style="display: grid; grid-template-columns: 1.15fr 0.85fr;">
+            <div style="overflow: hidden; border-right: 1px solid #ECEDF1; background: #E6E0D6;">
+              <img data-zoom="1" src="assets/cpq-hero.png" alt="CPQ, Zywave" style="display: block; width: 100%; height: 100%; object-fit: cover; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
+            </div>
+            <div style="padding: 40px;">
+              <h2 style="font-size: 24px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 10px;">CPQ</h2>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0 0 20px;">Research-led redesign of Zywave's enterprise quoting platform, design system from scratch, measured against metrics defined before design started.</p>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #4A5565; display: grid; gap: 7px; margin-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">quote time</span><span style="color: #009966;">18 → 10 min</span></div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">pricing errors</span><span style="color: #009966;">↓ from 28%</span></div>
+                <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">spreadsheets</span><span style="color: #009966;">retired</span></div>
+              </div>
+              <span style="font-size: 14px; font-weight: 800; color: #155DFC;">Open case study <span data-arr="1" style="display: inline-block; transition: transform 0.3s;">→</span></span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <div style="display: flex; justify-content: space-between; margin-top: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC;">
+        <span>© 2026 Abhikant Nirbhavane</span>
+        <span>3 case studies · more in the archive on request</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const addr = ["abhikant5540", "gmail.com"].join("@");
+    document.querySelectorAll("[data-email]").forEach((el) => {
+      el.setAttribute("href", "mailto:" + addr + "?subject=Hi there");
+      if (el.getAttribute("data-email") === "show") el.textContent = addr;
+    });
+
+    const reveals = Array.from(document.querySelectorAll("[data-reveal]"));
+    reveals.forEach((el) => {
+      const i = parseInt(el.getAttribute("data-reveal") || "0", 10);
+      el.style.opacity = "0";
+      el.style.transform = "translateY(26px)";
+      el.style.transition = "opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)";
+      el.style.transitionDelay = (i * 90) + "ms";
+    });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          en.target.style.opacity = "1";
+          en.target.style.transform = "translateY(0)";
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach((el) => io.observe(el));
+
+    document.querySelectorAll("[data-sel]").forEach((wrap) => {
+      const key = wrap.getAttribute("data-sel");
+      const label = document.querySelector('[data-lab="' + key + '"]');
+      const img = wrap.querySelector("[data-zoom]");
+      const arr = wrap.querySelector("[data-arr]");
+      wrap.addEventListener("mouseenter", () => {
+        wrap.style.outline = "2px solid #155DFC";
+        if (label) label.style.color = "#155DFC";
+        if (img) img.style.transform = "scale(1.025)";
+        if (arr) arr.style.transform = "translateX(5px)";
+      });
+      wrap.addEventListener("mouseleave", () => {
+        wrap.style.outline = "none";
+        if (label) label.style.color = "#6A7282";
+        if (img) img.style.transform = "scale(1)";
+        if (arr) arr.style.transform = "translateX(0)";
+      });
+    });
+
+    const left = document.getElementById("panel-left");
+    const canvas = document.getElementById("canvas");
+    const mq = window.matchMedia("(max-width: 1180px)");
+    const applyMq = () => {
+      const narrow = mq.matches;
+      if (left) left.style.display = narrow ? "none" : "block";
+      if (canvas) canvas.style.margin = narrow ? "48px 0 0 0" : "48px 0 0 248px";
+    };
+    mq.addEventListener("change", applyMq);
+    this._mq = mq; this._applyMq = applyMq;
+    applyMq();
+
+    // ---- mobile linearization (dynamic responsive pass) ----
+    const gridEls = Array.from(document.querySelectorAll("[style]")).filter((el) => el.style.gridTemplateColumns);
+    gridEls.forEach((el) => { if (!el.getAttribute("data-gtc")) el.setAttribute("data-gtc", el.style.gridTemplateColumns); });
+    const padEls = Array.from(document.querySelectorAll("[style]")).filter((el) => parseInt(el.style.padding) >= 48);
+    padEls.forEach((el) => { if (!el.getAttribute("data-pad")) el.setAttribute("data-pad", el.style.padding); });
+    const headEls = Array.from(document.querySelectorAll("h1, h2")).filter((el) => parseFloat(el.style.fontSize) >= 36);
+    headEls.forEach((el) => { if (!el.getAttribute("data-fs")) el.setAttribute("data-fs", el.style.fontSize); });
+    const applyNarrow = () => {
+      const narrow = window.innerWidth < 880;
+      gridEls.forEach((el) => {
+        const orig = el.getAttribute("data-gtc");
+        const small = /^(\d+)px 1fr$/.exec(orig);
+        el.style.gridTemplateColumns = (narrow && !(small && parseInt(small[1]) <= 100)) ? "1fr" : orig;
+      });
+      padEls.forEach((el) => { el.style.padding = narrow ? "36px 22px" : el.getAttribute("data-pad"); });
+      headEls.forEach((el) => {
+        const orig = parseFloat(el.getAttribute("data-fs"));
+        el.style.fontSize = narrow ? Math.round(orig * 0.65) + "px" : el.getAttribute("data-fs");
+      });
+    };
+    window.addEventListener("resize", applyNarrow);
+    applyNarrow();
+  }
+
+  componentWillUnmount() {
+    if (this._mq && this._applyMq) this._mq.removeEventListener("change", this._applyMq);
+  }
+}
+
+</script>
+</body>
+</html>

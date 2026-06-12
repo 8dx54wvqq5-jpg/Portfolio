@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; padding: 0; }
+    body { background: #EDEEF0; -webkit-font-smoothing: antialiased; }
+    @keyframes pageIn { from { opacity: 0; } to { opacity: 1; } }
+    ::selection { background: #CFE0FF; }
+    * { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpolygon points='3,1 17,10 10.5,11.5 8,19' fill='%23111418' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E") 3 1, auto !important; }
+  </style>
+</helmet>
+
+<div style="font-family: Manrope, sans-serif; color: #101828; animation: pageIn 0.5s ease both; min-height: 100vh;">
+
+  <!-- ====================== TOP TOOLBAR ====================== -->
+  <div data-comment-anchor="toolbar" style="position: fixed; top: 0; left: 0; right: 0; height: 48px; background: #15171C; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; z-index: 100; box-sizing: border-box;">
+    <div style="display: flex; align-items: center; gap: 4px;">
+      <div style="width: 30px; height: 30px; border-radius: 6px; background: #155DFC; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; margin-right: 6px;">A</div>
+      <div title="Move" style="width: 30px; height: 30px; border-radius: 6px; background: #2A2E37; display: flex; align-items: center; justify-content: center;">
+        <svg width="14" height="14" viewBox="0 0 18 18"><polygon points="3,1 15,9 9.5,10.5 7,16" fill="#E7E9EE"></polygon></svg>
+      </div>
+      <div title="Frame" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 13px;">▢</div>
+      <div title="Text" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;">T</div>
+      <div title="Comment" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px;">◯</div>
+    </div>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #AEB4C0; display: flex; align-items: center; gap: 8px;">
+      <span style="color: #6A7282;">Drafts</span>
+      <span style="color: #444A56;">/</span>
+      <span style="color: #E7E9EE;">Abhikant Nirbhavane · Portfolio</span>
+      <span style="color: #6A7282; font-size: 10px;">▾</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <div style="display: flex; align-items: center;">
+        <a href="index.html" title="Direction A" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #fff; background: #2A2E37; border: 1px solid #3A3F4B; padding: 4px 9px; border-radius: 6px 0 0 6px; text-decoration: none;">A</a>
+        <a href="Home B.dc.html" title="Direction B, spatial canvas" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8A8F9C; border: 1px solid #3A3F4B; border-left: none; padding: 4px 9px; border-radius: 0 6px 6px 0; text-decoration: none;" style-hover="color: #fff;">B</a>
+      </div>
+      <div style="display: flex;">
+        <div style="width: 26px; height: 26px; border-radius: 50%; background: #009966; border: 2px solid #15171C; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 700;">Y</div>
+        <div style="width: 26px; height: 26px; border-radius: 50%; background: #155DFC; border: 2px solid #15171C; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 700; margin-left: -8px;">A</div>
+      </div>
+      <div onClick="{{ copyLink }}" style="background: #155DFC; color: #fff; font-size: 12.5px; font-weight: 700; padding: 7px 14px; border-radius: 6px; cursor: pointer;" style-hover="background: #2B70FF;">Share</div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #AEB4C0; padding: 4px 6px;">100% ▾</div>
+    </div>
+  </div>
+
+  <!-- ====================== LEFT PANEL: PAGES + LAYERS ====================== -->
+  <div id="panel-left" style="position: fixed; top: 48px; left: 0; bottom: 0; width: 248px; background: #FFFFFF; border-right: 1px solid #E2E4E9; z-index: 90; overflow-y: auto; padding: 14px 0; box-sizing: border-box;">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; padding: 4px 16px 8px;">PAGES</div>
+    <a href="index.html" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; text-decoration: none; color: #155DFC; font-size: 13px; font-weight: 700; background: #EFF6FF;"><span style="font-size: 9px;">●</span> Home</a>
+    <a href="Work.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; text-decoration: none; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="font-size: 9px; color: #C9CDD6;">○</span> Work</a>
+    <a href="About.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; text-decoration: none; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="font-size: 9px; color: #C9CDD6;">○</span> About</a>
+    <div style="height: 1px; background: #ECEDF1; margin: 14px 16px;"></div>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; padding: 4px 16px 8px;">LAYERS</div>
+    <div data-layer="hero" onClick="{{ goHero }}" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; cursor: pointer; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 01 · Hero</div>
+    <div data-layer="work" onClick="{{ goWork }}" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; cursor: pointer; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 02 · Selected Work</div>
+    <div data-layer="dws" onClick="{{ goDws }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> Disputes Workspace</div>
+    <div data-layer="c360" onClick="{{ goC360 }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> 360 Control</div>
+    <div data-layer="cpq" onClick="{{ goCpq }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> CPQ</div>
+    <div data-layer="principles" onClick="{{ goPrinciples }}" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; cursor: pointer; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 03 · Principles</div>
+    <div data-layer="contact" onClick="{{ goContact }}" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; cursor: pointer; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 04 · Contact</div>
+  </div>
+
+  <!-- ====================== RIGHT PANEL: INSPECTOR ====================== -->
+  <div id="panel-right" style="position: fixed; top: 48px; right: 0; bottom: 0; width: 260px; background: #FFFFFF; border-left: 1px solid #E2E4E9; z-index: 90; overflow-y: auto; box-sizing: border-box;">
+    <div style="display: flex; border-bottom: 1px solid #ECEDF1;">
+      <div style="padding: 11px 14px; font-size: 12px; font-weight: 700; color: #101828; border-bottom: 2px solid #155DFC;">Design</div>
+      <div style="padding: 11px 14px; font-size: 12px; font-weight: 600; color: #9AA0AC;">Prototype</div>
+      <div style="padding: 11px 14px; font-size: 12px; font-weight: 600; color: #9AA0AC;">Inspect</div>
+    </div>
+    <div style="padding: 16px;">
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+        <span style="color: #155DFC; font-size: 12px;">◇</span>
+        <span data-insp="name" style="font-size: 13px; font-weight: 700;">01 · Hero</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565;">
+        <div style="border: 1px solid #ECEDF1; border-radius: 6px; padding: 6px 8px; display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">X</span><span data-insp="x">0</span></div>
+        <div style="border: 1px solid #ECEDF1; border-radius: 6px; padding: 6px 8px; display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">Y</span><span data-insp="y">0</span></div>
+        <div style="border: 1px solid #ECEDF1; border-radius: 6px; padding: 6px 8px; display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">W</span><span data-insp="w">1240</span></div>
+        <div style="border: 1px solid #ECEDF1; border-radius: 6px; padding: 6px 8px; display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">H</span><span data-insp="h">720</span></div>
+      </div>
+      <div style="height: 1px; background: #ECEDF1; margin: 16px 0;"></div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 10px;">FILL</div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <div data-insp="swatch" style="width: 16px; height: 16px; border-radius: 4px; background: #FFFFFF; border: 1px solid #D5D8DF;"></div>
+        <span data-insp="fill" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565;">#FFFFFF</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-left: auto;">100%</span>
+      </div>
+      <div style="height: 1px; background: #ECEDF1; margin: 16px 0;"></div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 10px;">TYPE</div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565; display: grid; gap: 6px;">
+        <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">Font</span><span>Manrope</span></div>
+        <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">Mono</span><span>JetBrains</span></div>
+        <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">Accent</span><span style="color: #155DFC;">#155DFC</span></div>
+      </div>
+      <div style="height: 1px; background: #ECEDF1; margin: 16px 0;"></div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 10px;">EXPORT</div>
+      <a href="https://resumego.link/abhikant/designer" target="_blank" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid #ECEDF1; border-radius: 8px; padding: 9px 12px; text-decoration: none; color: #101828; font-size: 12.5px; font-weight: 700; margin-bottom: 8px;" style-hover="border-color: #155DFC; color: #155DFC;"><span>Résumé.pdf</span><span style="font-family: 'JetBrains Mono', monospace; color: #9AA0AC;">↓</span></a>
+      <a href="https://www.linkedin.com/in/abhikant" target="_blank" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid #ECEDF1; border-radius: 8px; padding: 9px 12px; text-decoration: none; color: #101828; font-size: 12.5px; font-weight: 700;" style-hover="border-color: #155DFC; color: #155DFC;"><span>LinkedIn</span><span style="font-family: 'JetBrains Mono', monospace; color: #9AA0AC;">→</span></a>
+    </div>
+  </div>
+
+  <!-- ====================== CANVAS ====================== -->
+  <div id="canvas" style="margin: 48px 260px 0 248px; padding: 56px 48px 80px; background-image: radial-gradient(#D9DBE0 1px, transparent 1px); background-size: 24px 24px; min-height: calc(100vh - 48px); box-sizing: border-box; position: relative;">
+
+    <!-- floating multiplayer cursors -->
+    <div data-cursor="1" style="position: fixed; left: 0; top: 0; z-index: 80; pointer-events: none; will-change: transform;">
+      <svg width="18" height="18" viewBox="0 0 18 18"><polygon points="2,1 16,9 9.5,10.5 7,17" fill="#009966" stroke="#FFFFFF" stroke-width="1.5"></polygon></svg>
+      <div style="background: #009966; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 3px 7px; border-radius: 3px 10px 10px 10px; margin-left: 12px; white-space: nowrap;">you, probably</div>
+    </div>
+    <div data-cursor="2" style="position: fixed; left: 0; top: 0; z-index: 80; pointer-events: none; will-change: transform;">
+      <svg width="18" height="18" viewBox="0 0 18 18"><polygon points="2,1 16,9 9.5,10.5 7,17" fill="#155DFC" stroke="#FFFFFF" stroke-width="1.5"></polygon></svg>
+      <div style="background: #155DFC; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 3px 7px; border-radius: 3px 10px 10px 10px; margin-left: 12px; white-space: nowrap;">abhikant</div>
+    </div>
+
+    <div style="max-width: 1240px; margin: 0 auto;">
+
+      <!-- ============ FRAME 01 · HERO ============ -->
+      <section id="sec-hero" data-frame="hero" data-screen-label="Home / Hero">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+          <span data-lab="hero" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 01 · Hero</span>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #B7BCC7;">1240 × auto</span>
+        </div>
+        <div data-sel="hero" style="position: relative; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 80px 72px 72px; box-sizing: border-box;">
+          <div data-h="1" style="position: absolute; left: -5px; top: -5px; width: 9px; height: 9px; background: #fff; border: 1.5px solid #155DFC; opacity: 0; z-index: 5;"></div>
+          <div data-h="2" style="position: absolute; right: -5px; top: -5px; width: 9px; height: 9px; background: #fff; border: 1.5px solid #155DFC; opacity: 0; z-index: 5;"></div>
+          <div data-h="3" style="position: absolute; left: -5px; bottom: -5px; width: 9px; height: 9px; background: #fff; border: 1.5px solid #155DFC; opacity: 0; z-index: 5;"></div>
+          <div data-h="4" style="position: absolute; right: -5px; bottom: -5px; width: 9px; height: 9px; background: #fff; border: 1.5px solid #155DFC; opacity: 0; z-index: 5;"></div>
+
+          <div style="display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center;">
+            <div>
+              <div data-reveal="0" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #155DFC; margin-bottom: 24px;">ABHIKANT NIRBHAVANE · SENIOR UX DESIGNER</div>
+              <h1 data-reveal="1" style="font-size: 52px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 24px; text-wrap: pretty;">I design for environments where getting it wrong has real consequences.</h1>
+              <p data-reveal="2" style="font-size: 17px; line-height: 1.7; color: #4A5565; margin: 0 0 32px; max-width: 54ch;">Dispute management, card controls, compliance workflows, complex quoting, enterprise systems where clarity is a safety feature, not a nice-to-have. Most recently shipping fintech platforms at Fiserv.</p>
+              <div data-reveal="3" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Enterprise UX</span>
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Design systems</span>
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">AI workflows</span>
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Fintech</span>
+              </div>
+            </div>
+            <div data-reveal="2" style="position: relative;">
+              <div style="background: #F9FAFB; border: 1px solid #E2E4E9; border-radius: 10px; overflow: hidden; box-shadow: 0 24px 48px -24px rgba(16,24,40,0.25);">
+                <div style="display: flex; align-items: center; gap: 6px; padding: 10px 12px; border-bottom: 1px solid #E2E4E9; background: #fff;">
+                  <span style="width: 9px; height: 9px; border-radius: 50%; background: #E2E4E9; display: block;"></span>
+                  <span style="width: 9px; height: 9px; border-radius: 50%; background: #E2E4E9; display: block;"></span>
+                  <span style="width: 9px; height: 9px; border-radius: 50%; background: #E2E4E9; display: block;"></span>
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-left: 8px;">enterprise · shipped</span>
+                </div>
+                <img src="assets/hero-product.png" alt="Enterprise dashboard design" style="display: block; width: 100%; height: auto;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ FRAME 02 · SELECTED WORK ============ -->
+      <section id="sec-work" data-frame="work" data-screen-label="Home / Selected Work" style="margin-top: 72px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+          <span data-lab="work" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 02 · Selected Work</span>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #B7BCC7;">3 frames</span>
+        </div>
+
+        <div data-reveal="0" style="display: flex; align-items: baseline; gap: 16px; margin: 24px 8px 36px;">
+          <h2 style="font-size: 34px; font-weight: 800; letter-spacing: -0.02em; margin: 0;">Selected work</h2>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">2021–2026 · fintech &amp; enterprise SaaS</span>
+        </div>
+
+        <!-- DWS card -->
+        <a id="sec-dws" data-frame="dws" href="DWS.dc.html" style="text-decoration: none; color: inherit; display: block;">
+          <div data-reveal="0" style="margin-bottom: 8px;"><span data-lab="dws" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">▢ work / disputes-workspace</span></div>
+          <div data-sel="dws" data-reveal="1" style="position: relative; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05); margin-bottom: 48px; cursor: pointer;">
+            <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #0B0B0B;">
+              <img data-zoom="1" src="assets/dws-hero.png" alt="Dispute Workspace, Fiserv" style="display: block; width: 100%; height: auto; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
+            </div>
+            <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; padding: 36px 40px; align-items: start;">
+              <div>
+                <h3 style="font-size: 26px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 10px;">Disputes Workspace: AI-assisted dispute management</h3>
+                <p style="font-size: 15.5px; line-height: 1.65; color: #4A5565; margin: 0 0 18px;">Modernizing how financial institutions process thousands of credit-card disputes a month, with AI that explains itself instead of replacing judgment.</p>
+                <span style="font-size: 14px; font-weight: 800; color: #155DFC;">Open case study <span data-arr="1" style="display: inline-block; transition: transform 0.3s;">→</span></span>
+              </div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #4A5565; display: grid; gap: 7px;">
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">client</span><span>Fiserv</span></div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">role</span><span>Sole UX designer</span></div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">call handling</span><span style="color: #009966;">−25–35%</span></div>
+                <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">capacity</span><span style="color: #009966;">+40–50%</span></div>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <!-- 360 Control card -->
+        <a id="sec-c360" data-frame="c360" href="360 Control.dc.html" style="text-decoration: none; color: inherit; display: block;">
+          <div data-reveal="0" style="margin-bottom: 8px;"><span data-lab="c360" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">▢ work / 360-control</span></div>
+          <div data-sel="c360" data-reveal="1" style="position: relative; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05); margin-bottom: 48px; cursor: pointer;">
+            <div style="display: grid; grid-template-columns: 0.8fr 1.2fr;">
+              <div style="display: grid; grid-template-columns: 1.2fr; gap: 40px; padding: 36px 40px; align-items: start; order: 1;">
+                <div>
+                  <h3 style="font-size: 26px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 10px;">360 Control: rebuilding an issuer console from the IA up</h3>
+                  <p style="font-size: 15.5px; line-height: 1.65; color: #4A5565; margin: 0 0 18px;">A ground-up redesign of the admin console banks use to run commercial card programs, design system first, deliberately no AI, shipped for Desjardins on a contractual deadline.</p>
+                  <span style="font-size: 14px; font-weight: 800; color: #155DFC;">Open case study <span data-arr="1" style="display: inline-block; transition: transform 0.3s;">→</span></span>
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #4A5565; display: grid; gap: 7px; margin-top: 24px;">
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">client</span><span>Fiserv · Desjardins</span></div>
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">role</span><span>UX design + product owner</span></div>
+                    <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">outcome</span><span style="color: #009966;">launched on time</span></div>
+                  </div>
+                </div>
+              </div>
+              <div style="overflow: hidden; border-left: 1px solid #ECEDF1; background: #14152B; order: 2;">
+                <img data-zoom="1" src="assets/c360-hero.png" alt="360 Control, Fiserv" style="display: block; width: 100%; height: 100%; object-fit: cover; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <!-- CPQ card -->
+        <a id="sec-cpq" data-frame="cpq" href="CPQ.dc.html" style="text-decoration: none; color: inherit; display: block;">
+          <div data-reveal="0" style="margin-bottom: 8px;"><span data-lab="cpq" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">▢ work / cpq</span></div>
+          <div data-sel="cpq" data-reveal="1" style="position: relative; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05); cursor: pointer;">
+            <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #E6E0D6;">
+              <img data-zoom="1" src="assets/cpq-hero.png" alt="CPQ, Zywave" style="display: block; width: 100%; height: auto; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
+            </div>
+            <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; padding: 36px 40px; align-items: start;">
+              <div>
+                <h3 style="font-size: 26px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 10px;">CPQ: from 18 minutes to 10 per quote</h3>
+                <p style="font-size: 15.5px; line-height: 1.65; color: #4A5565; margin: 0 0 18px;">Untangling years of feature accretion in Zywave's enterprise quoting platform, research-led, design-system-first, measured against metrics defined before design started.</p>
+                <span style="font-size: 14px; font-weight: 800; color: #155DFC;">Open case study <span data-arr="1" style="display: inline-block; transition: transform 0.3s;">→</span></span>
+              </div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #4A5565; display: grid; gap: 7px;">
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">client</span><span>Zywave</span></div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">role</span><span>Sole designer</span></div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">quote time</span><span style="color: #009966;">18 → 10 min</span></div>
+                <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">pricing errors</span><span style="color: #009966;">↓ from 28%</span></div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </section>
+
+      <!-- ============ FRAME 03 · PRINCIPLES ============ -->
+      <section id="sec-principles" data-frame="principles" data-screen-label="Home / Principles" style="margin-top: 72px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+          <span data-lab="principles" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 03 · Principles</span>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #B7BCC7;">1240 × auto</span>
+        </div>
+        <div data-sel="principles" style="position: relative; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px 72px;">
+          <div data-reveal="0" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #155DFC; margin-bottom: 20px;">HOW I WORK</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px;">
+            <div data-reveal="1">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #9AA0AC; margin-bottom: 12px;">01</div>
+              <h3 style="font-size: 19px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 10px;">Predictable is trustworthy</h3>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">In financial systems, consistency isn't an aesthetic preference, every inconsistent pattern adds risk. Admins moving money need to know exactly what a click will do.</p>
+            </div>
+            <div data-reveal="2">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #9AA0AC; margin-bottom: 12px;">02</div>
+              <h3 style="font-size: 19px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 10px;">Transparency beats automation</h3>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">AI earns adoption when it shows its reasoning. I've shipped AI that explains itself, and deliberately kept AI out of systems where deterministic rules are more trustworthy.</p>
+            </div>
+            <div data-reveal="3">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #9AA0AC; margin-bottom: 12px;">03</div>
+              <h3 style="font-size: 19px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 10px;">Structure before surface</h3>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">The IA redesigns I've shipped moved usability more than any visual decision. Separate configuration from operations, then make it beautiful.</p>
+            </div>
+          </div>
+          <div data-reveal="3" style="margin-top: 40px;">
+            <a href="About.dc.html" style="font-size: 14px; font-weight: 800; color: #155DFC; text-decoration: none;">More about how I work →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ FRAME 04 · CONTACT ============ -->
+      <section id="sec-contact" data-frame="contact" data-screen-label="Home / Contact" style="margin-top: 72px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+          <span data-lab="contact" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 04 · Contact</span>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #B7BCC7;">1240 × auto</span>
+        </div>
+        <div data-sel="contact" style="position: relative; background: #15171C; border: 1px solid #15171C; border-radius: 12px; padding: 80px 72px; color: #fff;">
+          <div data-reveal="0" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #7AA5FF; margin-bottom: 24px;">STATUS: AVAILABLE FOR NEW WORK</div>
+          <h2 data-reveal="1" style="font-size: 56px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin: 0 0 20px; max-width: 16ch;">Let's build the next high-stakes thing.</h2>
+          <p data-reveal="2" style="font-size: 16.5px; line-height: 1.7; color: #AEB4C0; margin: 0 0 36px; max-width: 52ch;">If you're looking for a designer who's comfortable where compliance, complexity, and real money meet. Let's talk.</p>
+          <div data-reveal="3" style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+            <a href="#" data-email="show" style="background: #155DFC; color: #fff; font-size: 15px; font-weight: 800; padding: 14px 24px; border-radius: 8px; text-decoration: none;" style-hover="background: #2B70FF;">email me</a>
+            <a href="https://www.linkedin.com/in/abhikant" target="_blank" style="color: #E7E9EE; font-size: 14px; font-weight: 700; text-decoration: none; border: 1px solid #3A3F4B; padding: 13px 20px; border-radius: 8px;" style-hover="border-color: #7AA5FF; color: #7AA5FF;">LinkedIn ↗</a>
+            <a href="https://resumego.link/abhikant/designer" target="_blank" style="color: #E7E9EE; font-size: 14px; font-weight: 700; text-decoration: none; border: 1px solid #3A3F4B; padding: 13px 20px; border-radius: 8px;" style-hover="border-color: #7AA5FF; color: #7AA5FF;">Résumé ↓</a>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC;">
+          <span>© 2026 Abhikant Nirbhavane</span>
+          <span>designed as an open canvas · v2.0</span>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- toast -->
+  <div id="toast" style="position: fixed; bottom: 28px; left: 50%; transform: translate(-50%, 80px); background: #15171C; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 10px 18px; border-radius: 8px; z-index: 200; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); pointer-events: none;">Link copied, share away</div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const go = (id) => () => {
+      const el = document.getElementById(id);
+      if (el) window.scrollTo({ top: el.offsetTop + 48 - 60, behavior: "smooth" });
+    };
+    return {
+      goHero: go("sec-hero"),
+      goWork: go("sec-work"),
+      goDws: go("sec-dws"),
+      goC360: go("sec-c360"),
+      goCpq: go("sec-cpq"),
+      goPrinciples: go("sec-principles"),
+      goContact: go("sec-contact"),
+      copyLink: () => {
+        try { navigator.clipboard.writeText(location.href); } catch (e) {}
+        const t = document.getElementById("toast");
+        if (t) {
+          t.style.transform = "translate(-50%, 0)";
+          clearTimeout(this._toastT);
+          this._toastT = setTimeout(() => { t.style.transform = "translate(-50%, 80px)"; }, 2200);
+        }
+      }
+    };
+  }
+
+  componentDidMount() {
+    // ---- email links assembled at runtime (avoids static-HTML email rewriting) ----
+    const addr = ["abhikant5540", "gmail.com"].join("@");
+    document.querySelectorAll("[data-email]").forEach((el) => {
+      el.setAttribute("href", "mailto:" + addr + "?subject=Hi there");
+      if (el.getAttribute("data-email") === "show") el.textContent = addr;
+    });
+
+    // ---- scroll reveals ----
+    const reveals = Array.from(document.querySelectorAll("[data-reveal]"));
+    reveals.forEach((el) => {
+      const i = parseInt(el.getAttribute("data-reveal") || "0", 10);
+      el.style.opacity = "0";
+      el.style.transform = "translateY(26px)";
+      el.style.transition = "opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)";
+      el.style.transitionDelay = (i * 90) + "ms";
+    });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          en.target.style.opacity = "1";
+          en.target.style.transform = "translateY(0)";
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach((el) => io.observe(el));
+
+    // ---- frame hover selection (outline + handles + label + img zoom + arrow) ----
+    document.querySelectorAll("[data-sel]").forEach((wrap) => {
+      const key = wrap.getAttribute("data-sel");
+      const label = document.querySelector('[data-lab="' + key + '"]');
+      const handles = wrap.querySelectorAll("[data-h]");
+      const img = wrap.querySelector("[data-zoom]");
+      const arr = wrap.querySelector("[data-arr]");
+      wrap.addEventListener("mouseenter", () => {
+        wrap.style.outline = "2px solid #155DFC";
+        wrap.style.outlineOffset = "0px";
+        handles.forEach((h) => { h.style.opacity = "1"; });
+        if (label) label.style.color = "#155DFC";
+        if (img) img.style.transform = "scale(1.025)";
+        if (arr) arr.style.transform = "translateX(5px)";
+      });
+      wrap.addEventListener("mouseleave", () => {
+        wrap.style.outline = "none";
+        handles.forEach((h) => { h.style.opacity = "0"; });
+        if (label) label.style.color = "#6A7282";
+        if (img) img.style.transform = "scale(1)";
+        if (arr) arr.style.transform = "translateX(0)";
+      });
+    });
+
+    // ---- scroll spy -> layers panel + inspector ----
+    const meta = {
+      hero: { name: "01 · Hero", fill: "#FFFFFF" },
+      work: { name: "02 · Selected Work", fill: "#EDEEF0" },
+      dws: { name: "▢ disputes-workspace", fill: "#FFFFFF" },
+      c360: { name: "▢ 360-control", fill: "#FFFFFF" },
+      cpq: { name: "▢ cpq", fill: "#FFFFFF" },
+      principles: { name: "03 · Principles", fill: "#FFFFFF" },
+      contact: { name: "04 · Contact", fill: "#15171C" }
+    };
+    const sections = Array.from(document.querySelectorAll("section[data-frame], a[data-frame]"));
+    const rows = {};
+    document.querySelectorAll("[data-layer]").forEach((r) => { rows[r.getAttribute("data-layer")] = r; });
+    const insp = {};
+    document.querySelectorAll("[data-insp]").forEach((s) => { insp[s.getAttribute("data-insp")] = s; });
+    let current = "";
+    const update = () => {
+      const y = window.scrollY + 200;
+      let active = sections[0];
+      sections.forEach((s) => { if (s.offsetTop + 48 < y + 48) active = s; });
+      const key = active.getAttribute("data-frame");
+      if (key !== current) {
+        current = key;
+        Object.keys(rows).forEach((k) => {
+          const r = rows[k];
+          const isChild = ["dws", "c360", "cpq"].indexOf(k) >= 0;
+          if (k === key) {
+            r.style.background = "#EFF6FF";
+            r.style.color = "#155DFC";
+          } else {
+            r.style.background = "transparent";
+            r.style.color = isChild ? "#4A5565" : "#364153";
+          }
+        });
+        const m = meta[key] || { name: key, fill: "#FFFFFF" };
+        if (insp.name) insp.name.textContent = m.name;
+        if (insp.fill) insp.fill.textContent = m.fill;
+        if (insp.swatch) insp.swatch.style.background = m.fill;
+        const box = active.querySelector("[data-sel]") || active;
+        if (insp.w) insp.w.textContent = String(Math.round(box.offsetWidth));
+        if (insp.h) insp.h.textContent = String(Math.round(box.offsetHeight));
+        if (insp.x) insp.x.textContent = "0";
+        if (insp.y) insp.y.textContent = String(Math.round(active.offsetTop));
+      }
+    };
+    let ticking = false;
+    this._onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => { update(); ticking = false; });
+      }
+    };
+    window.addEventListener("scroll", this._onScroll, { passive: true });
+    update();
+
+    // ---- drifting multiplayer cursors ----
+    const c1 = document.querySelector('[data-cursor="1"]');
+    const c2 = document.querySelector('[data-cursor="2"]');
+    const t0 = performance.now();
+    const drift = (now) => {
+      const t = (now - t0) / 1000;
+      const vw = window.innerWidth, vh = window.innerHeight;
+      if (c1) {
+        const x = vw * 0.62 + Math.sin(t * 0.31) * 120 + Math.sin(t * 0.83) * 30;
+        const y = vh * 0.34 + Math.cos(t * 0.24) * 90 + Math.sin(t * 0.61) * 24;
+        c1.style.transform = "translate(" + x + "px," + y + "px)";
+      }
+      if (c2) {
+        const x = vw * 0.38 + Math.cos(t * 0.21) * 150 + Math.sin(t * 0.47) * 40;
+        const y = vh * 0.66 + Math.sin(t * 0.27) * 80 + Math.cos(t * 0.53) * 30;
+        c2.style.transform = "translate(" + x + "px," + y + "px)";
+      }
+      this._raf = requestAnimationFrame(drift);
+    };
+    this._raf = requestAnimationFrame(drift);
+
+    // ---- responsive: collapse panels under 1180px ----
+    const left = document.getElementById("panel-left");
+    const right = document.getElementById("panel-right");
+    const canvas = document.getElementById("canvas");
+    const mq = window.matchMedia("(max-width: 1180px)");
+    const applyMq = () => {
+      const narrow = mq.matches;
+      if (left) left.style.display = narrow ? "none" : "block";
+      if (right) right.style.display = narrow ? "none" : "block";
+      if (canvas) canvas.style.margin = narrow ? "48px 0 0 0" : "48px 260px 0 248px";
+    };
+    mq.addEventListener("change", applyMq);
+    this._mq = mq; this._applyMq = applyMq;
+    applyMq();
+
+    // ---- mobile linearization (dynamic responsive pass) ----
+    const gridEls = Array.from(document.querySelectorAll("[style]")).filter((el) => el.style.gridTemplateColumns);
+    gridEls.forEach((el) => { if (!el.getAttribute("data-gtc")) el.setAttribute("data-gtc", el.style.gridTemplateColumns); });
+    const padEls = Array.from(document.querySelectorAll("[style]")).filter((el) => parseInt(el.style.padding) >= 48);
+    padEls.forEach((el) => { if (!el.getAttribute("data-pad")) el.setAttribute("data-pad", el.style.padding); });
+    const headEls = Array.from(document.querySelectorAll("h1, h2")).filter((el) => parseFloat(el.style.fontSize) >= 36);
+    headEls.forEach((el) => { if (!el.getAttribute("data-fs")) el.setAttribute("data-fs", el.style.fontSize); });
+    const applyNarrow = () => {
+      const narrow = window.innerWidth < 880;
+      gridEls.forEach((el) => {
+        const orig = el.getAttribute("data-gtc");
+        const small = /^(\d+)px 1fr$/.exec(orig);
+        el.style.gridTemplateColumns = (narrow && !(small && parseInt(small[1]) <= 100)) ? "1fr" : orig;
+      });
+      padEls.forEach((el) => { el.style.padding = narrow ? "36px 22px" : el.getAttribute("data-pad"); });
+      headEls.forEach((el) => {
+        const orig = parseFloat(el.getAttribute("data-fs"));
+        el.style.fontSize = narrow ? Math.round(orig * 0.65) + "px" : el.getAttribute("data-fs");
+      });
+    };
+    window.addEventListener("resize", applyNarrow);
+    applyNarrow();
+  }
+
+  componentWillUnmount() {
+    if (this._raf) cancelAnimationFrame(this._raf);
+    if (this._onScroll) window.removeEventListener("scroll", this._onScroll);
+    if (this._mq && this._applyMq) this._mq.removeEventListener("change", this._applyMq);
+  }
+}
+
+</script>
+</body>
+</html>

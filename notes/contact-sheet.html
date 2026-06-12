@@ -1,0 +1,11 @@
+<!DOCTYPE html><html><head><style>
+body{font-family:monospace;background:#222;color:#fff;margin:0;padding:10px}
+.g{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.c{background:#333;padding:4px}
+.c img{width:100%;height:130px;object-fit:contain;background:#111;display:block}
+.c span{font-size:10px}
+</style></head><body><div class="g" id="g"></div><script>
+const imgs=["portrait.jpg","hero-product.png","dws-main.png","dws-2.png","dws-3.png","dws-4.png","dws-5.png","dws-6.png","dws-7.png","dws-8.png","c360-1.png","c360-2.png","c360-3.png","c360-4.png","c360-5.png","c360-6.png","c360-7.png","c360-8.png","c360-9.png","c360-10.png","c360-11.png"];
+const g=document.getElementById('g');
+imgs.forEach(n=>{const d=document.createElement('div');d.className='c';const i=new Image();i.src='../assets/'+n;i.onload=()=>{d.querySelector('span').textContent=n+' '+i.naturalWidth+'x'+i.naturalHeight};d.appendChild(i);const s=document.createElement('span');s.textContent=n;d.appendChild(s);g.appendChild(d);});
+</script></body></html>

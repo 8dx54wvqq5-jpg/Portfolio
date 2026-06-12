@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    html, body { margin: 0; padding: 0; background: #EEF1F6; }
+  </style>
+</helmet>
+
+<div style="font-family: -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color: #1A2230; background: #EEF1F6; min-height: 100vh; display: flex; flex-direction: column; box-sizing: border-box;">
+
+  <!-- ============ APP BAR ============ -->
+  <div style="height: 52px; background: #FFFFFF; border-bottom: 1px solid #E3E7EE; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; flex-shrink: 0;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <div style="width: 26px; height: 26px; border-radius: 6px; background: #155DFC; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800;">DW</div>
+      <span style="font-size: 13.5px; font-weight: 700;">Disputes Workspace</span>
+      <span style="color: #C6CCD7;">/</span>
+      <span style="font-size: 12.5px; color: #5A6472;">New dispute · AI-assisted intake</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <span style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10px; letter-spacing: 0.08em; color: #8A93A3; border: 1px solid #E3E7EE; border-radius: 999px; padding: 4px 10px;">PROTOTYPE · SIMULATED MODEL</span>
+      <div style="width: 28px; height: 28px; border-radius: 50%; background: #0E7A55; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700;">SM</div>
+    </div>
+  </div>
+
+  <!-- ============ MAIN ============ -->
+  <div style="flex: 1; width: 100%; max-width: 780px; margin: 0 auto; padding: 28px 24px 36px; box-sizing: border-box;">
+
+    <sc-if value="{{ notSuccess }}" hint-placeholder-val="{{ true }}">
+
+      <div style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; letter-spacing: 0.1em; color: #155DFC; margin-bottom: 8px;">AI-ASSISTED INTAKE</div>
+      <h1 style="font-size: 22px; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 6px;">What is the cardholder reporting?</h1>
+      <p style="font-size: 13.5px; line-height: 1.6; color: #5A6472; margin: 0 0 18px;">Type it in plain language. The model classifies it against card-network reason codes — and shows you why, so you stay in control.</p>
+
+      <!-- INTAKE CARD -->
+      <div style="background: #FFFFFF; border: 1px solid #E3E7EE; border-radius: 12px; padding: 18px; box-shadow: 0 1px 2px rgba(20,30,50,0.04);">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #F7F9FC; border: 1px solid #EDF0F5; border-radius: 8px; padding: 10px 14px; margin-bottom: 14px;">
+          <span style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11.5px; color: #435062;">Cardholder: M. Torres · Visa •• 4417</span>
+          <span style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11.5px; color: #8A93A3;">last txn $84.20 · May 31</span>
+        </div>
+        <textarea value="{{ text }}" onChange="{{ onText }}" onKeyDown="{{ onKey }}" placeholder="e.g. “The customer says they were charged twice for the same purchase…”" style="width: 100%; min-height: 88px; box-sizing: border-box; border: 1px solid #D7DCE5; border-radius: 8px; padding: 12px 14px; font-size: 14px; line-height: 1.55; font-family: inherit; color: #1A2230; resize: vertical; outline: none;" style-focus="border-color: #155DFC; box-shadow: 0 0 0 3px rgba(21,93,252,0.12);"></textarea>
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 12px 0 14px;">
+          <span style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; color: #8A93A3;">try:</span>
+          <sc-for list="{{ chips }}" as="chip" hint-placeholder-count="4">
+            <button onClick="{{ chip.pick }}" style="font-size: 12px; color: #435062; background: #F2F5FA; border: 1px solid #E3E7EE; border-radius: 999px; padding: 6px 12px; cursor: pointer; font-family: inherit;" style-hover="border-color: #155DFC; color: #155DFC; background: #EFF5FF;">{{ chip.label }}</button>
+          </sc-for>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <span style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; color: #B0B8C6;">⏎ Enter to classify</span>
+          <button onClick="{{ classify }}" style="background: #155DFC; color: #fff; border: none; border-radius: 8px; font-size: 13.5px; font-weight: 700; padding: 10px 20px; cursor: pointer; font-family: inherit; opacity: {{ btnOpacity }};" style-hover="background: #2B70FF;">✦ Classify dispute</button>
+        </div>
+      </div>
+
+      <!-- THINKING -->
+      <sc-if value="{{ showThinking }}" hint-placeholder-val="{{ false }}">
+        <div style="background: #F3F7FF; border: 1px solid #BFD3F8; border-radius: 12px; padding: 18px 20px; margin-top: 16px;">
+          <div style="display: grid; gap: 10px;">
+            <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="width: 8px; height: 8px; border-radius: 50%; background: {{ s.dot }}; display: block; flex-shrink: 0;"></span>
+                <span style="font-size: 13px; color: {{ s.color }};">{{ s.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- RESULT -->
+      <sc-if value="{{ showResult }}" hint-placeholder-val="{{ false }}">
+        <div style="border: 1px solid #BFD3F8; border-radius: 12px; overflow: hidden; margin-top: 16px; background: #F3F7FF;">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; background: #EAF1FE; border-bottom: 1px solid #D7E3FA;">
+            <span style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10.5px; letter-spacing: 0.1em; color: #155DFC;">✦ AI SUGGESTION — NOT A DECISION</span>
+            <span style="font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; background: {{ rConfBg }}; color: {{ rConfColor }};">{{ rConfLabel }}</span>
+          </div>
+          <div style="padding: 18px 20px;">
+            <div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 6px;">
+              <span style="font-size: 19px; font-weight: 800; letter-spacing: -0.01em;">{{ rCat }}</span>
+              <span style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 12px; color: #5A6472;">{{ rCode }}</span>
+            </div>
+            <p style="font-size: 13.5px; line-height: 1.55; margin: 0 0 14px; color: {{ rGuidanceColor }};">{{ rGuidance }}</p>
+
+            <div style="background: #FFFFFF; border: 1px solid #D7E3FA; border-radius: 8px; padding: 14px 16px; margin-bottom: 12px;">
+              <div style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10.5px; letter-spacing: 0.1em; color: #155DFC; margin-bottom: 10px;">WHY THIS CLASSIFICATION</div>
+              <div style="display: grid; gap: 8px;">
+                <sc-for list="{{ reasons }}" as="r" hint-placeholder-count="2">
+                  <div style="display: flex; align-items: baseline; gap: 8px;">
+                    <span style="color: #155DFC; font-size: 12px; flex-shrink: 0;">→</span>
+                    <span style="font-size: 13px; line-height: 1.55; color: #435062;"><span style="background: #DBEAFE; border-radius: 4px; padding: 1px 5px; font-weight: 600; color: #1A2230;">{{ r.phrase }}</span> {{ r.note }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="display: grid; gap: 7px; margin-bottom: 14px;">
+              <sc-for list="{{ checks }}" as="c" hint-placeholder-count="3">
+                <div style="display: flex; align-items: baseline; gap: 8px;">
+                  <span style="font-size: 12px; font-weight: 700; color: {{ c.color }}; flex-shrink: 0; width: 14px;">{{ c.mark }}</span>
+                  <span style="font-size: 12.5px; color: #435062;">{{ c.text }}</span>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; border-top: 1px dashed #D7E3FA; padding-top: 12px;">
+              <span style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10.5px; letter-spacing: 0.08em; color: #8A93A3;">ROUTES TO</span>
+              <span style="font-size: 12.5px; font-weight: 700; color: #1A2230;">{{ rQueue }}</span>
+              <sc-if value="{{ rHasTag }}" hint-placeholder-val="{{ false }}">
+                <span style="font-size: 11px; font-weight: 700; color: #0E7A55; background: #E6F6EE; border-radius: 999px; padding: 3px 10px;">{{ rTag }}</span>
+              </sc-if>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px; padding: 14px 18px; background: #FFFFFF; border-top: 1px solid #D7E3FA; flex-wrap: wrap;">
+            <button onClick="{{ accept }}" style="background: #155DFC; color: #fff; border: none; border-radius: 8px; font-size: 13.5px; font-weight: 700; padding: 10px 18px; cursor: pointer; font-family: inherit;" style-hover="background: #2B70FF;">Accept &amp; create case</button>
+            <button onClick="{{ toggleOverride }}" style="background: #fff; color: #435062; border: 1px solid #D7DCE5; border-radius: 8px; font-size: 13.5px; font-weight: 600; padding: 10px 16px; cursor: pointer; font-family: inherit;" style-hover="border-color: #155DFC; color: #155DFC;">{{ overrideLabel }}</button>
+            <span style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10.5px; color: #B0B8C6; margin-left: auto;">you decide — the model only suggests</span>
+          </div>
+
+          <!-- OVERRIDE PANEL -->
+          <sc-if value="{{ overrideOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 16px 18px; background: #FFFFFF; border-top: 1px solid #ECEFF5;">
+              <div style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10.5px; letter-spacing: 0.1em; color: #8A93A3; margin-bottom: 10px;">CHOOSE THE CORRECT CLASSIFICATION</div>
+              <div style="display: grid; gap: 6px; margin-bottom: 12px;">
+                <sc-for list="{{ overrideOptions }}" as="o" hint-placeholder-count="3">
+                  <div onClick="{{ o.pick }}" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid {{ o.border }}; background: {{ o.bg }}; border-radius: 8px; padding: 9px 14px; cursor: pointer;" style-hover="border-color: #155DFC;">
+                    <span style="font-size: 13px; font-weight: 600; color: #1A2230;">{{ o.name }}</span>
+                    <span style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; color: #8A93A3;">{{ o.code }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <p style="font-size: 12.5px; line-height: 1.55; color: #5A6472; margin: 0 0 12px;">Your correction is logged with a full audit trail and feeds back into the model. It learns from you — it never overrides you.</p>
+              <button onClick="{{ acceptOverride }}" style="background: #1A2230; color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 700; padding: 10px 18px; cursor: pointer; font-family: inherit; opacity: {{ overrideBtnOpacity }};" style-hover="background: #2C3648;">Create case with my classification</button>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+    </sc-if>
+
+    <!-- SUCCESS -->
+    <sc-if value="{{ showSuccess }}" hint-placeholder-val="{{ false }}">
+      <div style="background: #FFFFFF; border: 1px solid #E3E7EE; border-radius: 12px; padding: 44px 32px; text-align: center; margin-top: 24px;">
+        <div style="width: 56px; height: 56px; border-radius: 50%; background: #E6F6EE; color: #0E7A55; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 700; margin: 0 auto 18px;">✓</div>
+        <h2 style="font-size: 20px; font-weight: 800; margin: 0 0 8px;">Case {{ caseId }} created</h2>
+        <p style="font-size: 13.5px; line-height: 1.6; color: #5A6472; margin: 0 0 6px;">Classified as <strong>{{ finalCat }}</strong> · routed to {{ finalQueue }}.</p>
+        <p style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11.5px; color: #8A93A3; margin: 0 0 24px;">{{ auditLine }}</p>
+        <button onClick="{{ reset }}" style="background: #155DFC; color: #fff; border: none; border-radius: 8px; font-size: 13.5px; font-weight: 700; padding: 11px 22px; cursor: pointer; font-family: inherit;" style-hover="background: #2B70FF;">Start another intake</button>
+      </div>
+    </sc-if>
+
+    <div style="text-align: center; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10.5px; color: #B0B8C6; margin-top: 22px;">interactive prototype · the model is simulated and runs entirely in this page · no real data</div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1100, &quot;height&quot;: 820}}">
+class Component extends DCLogic {
+  state = { text: "", phase: "idle", step: 0, result: null, overrideOpen: false, overrideIdx: -1 };
+
+  cats() {
+    return [
+      { id: "dup", name: "Duplicate processing", code: "Visa 12.6.1", queue: "Standard queue", tag: "bulk-eligible",
+        note: "— same merchant, same amount, suggests the charge was processed twice.",
+        check: { mark: "✓", color: "#0E7A55", text: "Two authorizations with an identical amount found on May 31" },
+        kw: ["charged twice", "charged again", "two charges", "double charge", "duplicate", "twice", "double"] },
+      { id: "fraud", name: "Fraud · card-absent", code: "Visa 10.4", queue: "Fraud analyst queue", tag: "priority",
+        note: "— language consistent with an unauthorized or unrecognized transaction.",
+        check: { mark: "!", color: "#B45309", text: "Card not reported lost — confirm the cardholder still has possession" },
+        kw: ["don't recognize", "do not recognize", "didn't make", "never made", "unauthorized", "not mine", "wasn't me", "stolen", "unknown charge", "fraud"] },
+      { id: "gnr", name: "Merchandise not received", code: "Visa 13.1", queue: "Standard queue", tag: "",
+        note: "— indicates goods or services that were paid for but never delivered.",
+        check: { mark: "✓", color: "#0E7A55", text: "Expected delivery date has passed — merchant response window opens today" },
+        kw: ["never received", "never arrived", "didn't arrive", "not delivered", "never got", "hasn't shipped", "no tracking", "won't respond"] },
+      { id: "rec", name: "Cancelled recurring", code: "Visa 13.2", queue: "Standard queue", tag: "bulk-eligible",
+        note: "— points to a subscription or membership billed after cancellation.",
+        check: { mark: "✓", color: "#0E7A55", text: "Recurring billing pattern detected — monthly, same merchant" },
+        kw: ["subscription", "cancelled", "canceled", "recurring", "still billed", "still billing", "still charging", "membership", "free trial"] },
+      { id: "nad", name: "Not as described / defective", code: "Visa 13.3", queue: "Standard queue", tag: "",
+        note: "— suggests the goods arrived but were damaged, wrong, or misrepresented.",
+        check: { mark: "✓", color: "#0E7A55", text: "Return / repair attempt should be documented before filing" },
+        kw: ["broken", "damaged", "defective", "wrong item", "not as described", "counterfeit", "fake", "doesn't work"] },
+      { id: "cnp", name: "Credit not processed", code: "Visa 13.6", queue: "Standard queue", tag: "",
+        note: "— a promised refund or return credit that never posted.",
+        check: { mark: "✓", color: "#0E7A55", text: "No matching credit found in the last 30 days of postings" },
+        kw: ["refund", "returned", "money back", "credit never", "store credit", "return"] }
+    ];
+  }
+
+  classifyText(text) {
+    const t = " " + text.toLowerCase() + " ";
+    const cats = this.cats();
+    const scored = cats.map((c) => {
+      const matches = [];
+      let score = 0;
+      c.kw.forEach((k) => {
+        if (t.indexOf(k) >= 0) {
+          score += k.indexOf(" ") >= 0 ? 2 : 1;
+          matches.push(k);
+        }
+      });
+      return { cat: c, score: score, matches: matches.slice(0, 3) };
+    }).sort((a, b) => b.score - a.score);
+    const top = scored[0], second = scored[1];
+    let conf;
+    if (top.score >= 3 || (top.score >= 2 && top.score - second.score >= 2)) conf = "high";
+    else if (top.score >= 1) conf = "medium";
+    else conf = "low";
+    return { top: top, second: second, conf: conf };
+  }
+
+  buildResult(r) {
+    const confMap = {
+      high: { label: "High confidence", bg: "#E6F6EE", color: "#0E7A55",
+        guidance: "High confidence — review and accept. This classification is well supported by the description.", gcolor: "#0E7A55" },
+      medium: { label: "Medium confidence", bg: "#FEF6E7", color: "#B45309",
+        guidance: "Medium confidence — review carefully and confirm one detail with the cardholder before accepting.", gcolor: "#B45309" },
+      low: { label: "Low confidence", bg: "#F2F4F7", color: "#475467",
+        guidance: "Low confidence — the model couldn't find a strong match. Manual review recommended.", gcolor: "#475467" }
+    };
+    const m = confMap[r.conf];
+    if (r.conf === "low") {
+      return {
+        cat: "Needs human review", code: "no reason code matched",
+        confLabel: m.label, confBg: m.bg, confColor: m.color, guidance: m.guidance, gcolor: m.gcolor,
+        reasons: [{ phrase: "no strong signal", note: "— the description didn't match the language patterns of any known reason code." }],
+        checks: [
+          { mark: "✓", color: "#0E7A55", text: "Matched to a transaction — $84.20 · May 31" },
+          { mark: "!", color: "#B45309", text: "Ask the cardholder one clarifying question, then reclassify" }
+        ],
+        queue: "Specialist review queue", tag: ""
+      };
+    }
+    const c = r.top.cat;
+    const reasons = r.top.matches.map((mt) => ({ phrase: "\u201C" + mt + "\u201D", note: c.note }));
+    reasons.push({ phrase: "next-closest", note: "— " + r.second.cat.name + " (" + (r.second.score > 0 ? "weak match, ruled out" : "no match") + ")." });
+    return {
+      cat: c.name, code: c.code,
+      confLabel: m.label, confBg: m.bg, confColor: m.color, guidance: m.guidance, gcolor: m.gcolor,
+      reasons: reasons,
+      checks: [
+        { mark: "✓", color: "#0E7A55", text: "Matched to a transaction — $84.20 · May 31" },
+        { mark: "✓", color: "#0E7A55", text: "Filing window — day 12 of 60 · within Visa time limit" },
+        c.check
+      ],
+      queue: c.queue, tag: c.tag
+    };
+  }
+
+  startClassify(text) {
+    if (!text.trim()) return;
+    this.setState({ text: text, phase: "thinking", step: 0, result: null, overrideOpen: false, overrideIdx: -1 });
+    clearTimeout(this._t1); clearTimeout(this._t2); clearTimeout(this._t3);
+    this._t1 = setTimeout(() => this.setState({ step: 1 }), 550);
+    this._t2 = setTimeout(() => this.setState({ step: 2 }), 1100);
+    this._t3 = setTimeout(() => {
+      const r = this.classifyText(text);
+      this.setState({ phase: "result", result: this.buildResult(r) });
+    }, 1700);
+  }
+
+  renderVals() {
+    const st = this.state;
+    const res = st.result;
+    const chipTexts = [
+      "I was charged twice at a gas station",
+      "I don't recognize this charge from an online store",
+      "I cancelled my subscription but they billed me again",
+      "The package never arrived and the seller won't respond"
+    ];
+    const stepLabels = ["Reading the description", "Matching against 24 network reason codes", "Checking filing windows & network rules"];
+    const steps = stepLabels.map((label, i) => {
+      const done = st.step > i, active = st.step === i;
+      return {
+        label: done ? label + " — done" : label + (active ? "…" : ""),
+        dot: done ? "#0E7A55" : (active ? "#155DFC" : "#C6CCD7"),
+        color: done ? "#0E7A55" : (active ? "#1A2230" : "#8A93A3")
+      };
+    });
+    const cats = this.cats();
+    const finalCatName = st.overrideIdx >= 0 ? cats[st.overrideIdx].name : (res ? res.cat : "");
+    const finalQueueName = st.overrideIdx >= 0 ? cats[st.overrideIdx].queue : (res ? res.queue : "");
+    return {
+      text: st.text,
+      onText: (e) => this.setState({ text: e.target.value }),
+      onKey: (e) => {
+        if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); this.startClassify(this.state.text); }
+      },
+      classify: () => this.startClassify(this.state.text),
+      btnOpacity: st.text.trim() ? 1 : 0.45,
+      chips: chipTexts.map((c) => ({ label: c, pick: () => this.startClassify(c) })),
+      notSuccess: st.phase !== "success",
+      showThinking: st.phase === "thinking",
+      showResult: st.phase === "result" && !!res,
+      showSuccess: st.phase === "success",
+      steps: steps,
+      rCat: res ? res.cat : "",
+      rCode: res ? res.code : "",
+      rConfLabel: res ? res.confLabel : "",
+      rConfBg: res ? res.confBg : "#fff",
+      rConfColor: res ? res.confColor : "#000",
+      rGuidance: res ? res.guidance : "",
+      rGuidanceColor: res ? res.gcolor : "#000",
+      reasons: res ? res.reasons : [],
+      checks: res ? res.checks : [],
+      rQueue: res ? res.queue : "",
+      rHasTag: !!(res && res.tag),
+      rTag: res ? res.tag : "",
+      accept: () => this.setState({ phase: "success", overrideIdx: -1 }),
+      toggleOverride: () => this.setState({ overrideOpen: !st.overrideOpen }),
+      overrideLabel: st.overrideOpen ? "Keep AI suggestion" : "Override classification",
+      overrideOpen: st.overrideOpen,
+      overrideOptions: cats.map((c, i) => ({
+        name: c.name, code: c.code,
+        bg: st.overrideIdx === i ? "#EAF1FE" : "#FFFFFF",
+        border: st.overrideIdx === i ? "#155DFC" : "#E3E7EE",
+        pick: () => this.setState({ overrideIdx: i })
+      })),
+      overrideBtnOpacity: st.overrideIdx >= 0 ? 1 : 0.45,
+      acceptOverride: () => { if (this.state.overrideIdx >= 0) this.setState({ phase: "success" }); },
+      caseId: "DW-2026-04817",
+      finalCat: finalCatName,
+      finalQueue: finalQueueName,
+      auditLine: st.overrideIdx >= 0
+        ? "agent override recorded · fully traceable · model will learn from this correction"
+        : "intake time 38s — legacy intake averaged 11 min · decision logged with full audit trail",
+      reset: () => this.setState({ text: "", phase: "idle", step: 0, result: null, overrideOpen: false, overrideIdx: -1 })
+    };
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this._t1); clearTimeout(this._t2); clearTimeout(this._t3);
+  }
+}
+</script>
+</body>
+</html>

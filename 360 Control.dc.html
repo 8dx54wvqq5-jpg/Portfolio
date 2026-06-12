@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; padding: 0; }
+    body { background: #EDEEF0; -webkit-font-smoothing: antialiased; }
+    @keyframes pageIn { from { opacity: 0; } to { opacity: 1; } }
+    ::selection { background: #CFE0FF; }
+    * { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpolygon points='3,1 17,10 10.5,11.5 8,19' fill='%23111418' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E") 3 1, auto !important; }
+  </style>
+</helmet>
+
+<div style="font-family: Manrope, sans-serif; color: #101828; animation: pageIn 0.5s ease both; min-height: 100vh;">
+
+  <!-- ====================== TOP TOOLBAR ====================== -->
+  <div style="position: fixed; top: 0; left: 0; right: 0; height: 48px; background: #15171C; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; z-index: 100; box-sizing: border-box;">
+    <div style="display: flex; align-items: center; gap: 4px;">
+      <a href="index.html" style="width: 30px; height: 30px; border-radius: 6px; background: #155DFC; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; margin-right: 6px; text-decoration: none;">A</a>
+      <div title="Move" style="width: 30px; height: 30px; border-radius: 6px; background: #2A2E37; display: flex; align-items: center; justify-content: center;">
+        <svg width="14" height="14" viewBox="0 0 18 18"><polygon points="3,1 15,9 9.5,10.5 7,16" fill="#E7E9EE"></polygon></svg>
+      </div>
+      <div title="Comment" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px;">◯</div>
+    </div>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #AEB4C0; display: flex; align-items: center; gap: 8px;">
+      <a href="Work.dc.html" style="color: #6A7282; text-decoration: none;" style-hover="color: #E7E9EE;">Work</a>
+      <span style="color: #444A56;">/</span>
+      <span style="color: #E7E9EE;">360 Control</span>
+      <span style="background: #14532D; color: #86EFAC; font-size: 10px; padding: 2px 8px; border-radius: 999px;">deliberately no AI</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <a href="#" data-email="link" style="background: #155DFC; color: #fff; font-size: 12.5px; font-weight: 700; padding: 7px 14px; border-radius: 6px; text-decoration: none;" style-hover="background: #2B70FF;">Contact</a>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #AEB4C0; padding: 4px 6px;">100% ▾</div>
+    </div>
+  </div>
+  <div id="progress" style="position: fixed; top: 48px; left: 0; height: 2px; width: 0%; background: #155DFC; z-index: 101;"></div>
+
+  <!-- ====================== LEFT PANEL: SECTIONS ====================== -->
+  <div id="panel-left" style="position: fixed; top: 48px; left: 0; bottom: 0; width: 248px; background: #FFFFFF; border-right: 1px solid #E2E4E9; z-index: 90; overflow-y: auto; padding: 14px 0; box-sizing: border-box;">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; padding: 4px 16px 8px;">PAGES</div>
+    <a href="index.html" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="font-size: 9px; color: #C9CDD6;">○</span> Home</a>
+    <a href="Work.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: #155DFC; font-size: 13px; font-weight: 700; background: #EFF6FF;"><span style="font-size: 9px;">●</span> Work / 360 Control</a>
+    <a href="About.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="font-size: 9px; color: #C9CDD6;">○</span> About</a>
+    <div style="height: 1px; background: #ECEDF1; margin: 14px 16px;"></div>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; padding: 4px 16px 8px;">SECTIONS</div>
+    <div data-nav="s0" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 00 · Cover</div>
+    <div data-nav="s1" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 01 · Context</div>
+    <div data-nav="s2" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 02 · Dual Role</div>
+    <div data-nav="s3" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 03 · The Problem</div>
+    <div data-nav="s4" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 04 · Research</div>
+    <div data-nav="s5" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 05 · System First</div>
+    <div data-nav="s6" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 06 · The Solutions</div>
+    <div data-nav="s7" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 07 · Why No AI</div>
+    <div data-nav="s8" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 08 · Validation</div>
+    <div data-nav="s9" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 09 · Impact</div>
+    <div data-nav="s10" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 10 · Learnings</div>
+  </div>
+
+  <!-- ====================== RIGHT PANEL: PROJECT META ====================== -->
+  <div id="panel-right" style="position: fixed; top: 48px; right: 0; bottom: 0; width: 260px; background: #FFFFFF; border-left: 1px solid #E2E4E9; z-index: 90; overflow-y: auto; box-sizing: border-box;">
+    <div style="padding: 16px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 12px;">PROJECT</div>
+      <div style="font-size: 14px; font-weight: 800; margin-bottom: 16px;">360 Control</div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565; display: grid; gap: 8px;">
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 8px;"><span style="color: #9AA0AC;">client</span><span>Fiserv</span></div>
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 8px;"><span style="color: #9AA0AC;">launch client</span><span>Desjardins</span></div>
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 8px;"><span style="color: #9AA0AC;">role</span><span>UX + product owner</span></div>
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 8px;"><span style="color: #9AA0AC;">domain</span><span>Issuer admin</span></div>
+        <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">platforms</span><span>Desktop + mobile</span></div>
+      </div>
+      <div style="height: 1px; background: #ECEDF1; margin: 16px 0;"></div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 12px;">OUTCOMES</div>
+      <div style="display: grid; gap: 10px;">
+        <div style="border: 1px solid #ECEDF1; border-radius: 8px; padding: 10px 12px;"><div style="font-size: 15px; font-weight: 800; color: #009966;">Shipped on time</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">contractual Desjardins deadline met</div></div>
+        <div style="border: 1px solid #ECEDF1; border-radius: 8px; padding: 10px 12px;"><div style="font-size: 15px; font-weight: 800; color: #009966;">Division-wide DS</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">design system adopted beyond the project</div></div>
+        <div style="border: 1px solid #ECEDF1; border-radius: 8px; padding: 10px 12px;"><div style="font-size: 15px; font-weight: 800; color: #009966;">FR + EN, themed</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">bilingual, client-branded platform</div></div>
+      </div>
+      <div style="height: 1px; background: #ECEDF1; margin: 16px 0;"></div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 10px;">UP NEXT</div>
+      <a href="CPQ.dc.html" style="display: block; border: 1px solid #ECEDF1; border-radius: 8px; padding: 12px; text-decoration: none; color: #101828;" style-hover="border-color: #155DFC;">
+        <div style="font-size: 13px; font-weight: 800; margin-bottom: 2px;">CPQ →</div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">enterprise quoting, 18 → 10 min</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ====================== CANVAS ====================== -->
+  <div id="canvas" style="margin: 48px 260px 0 248px; padding: 56px 48px 80px; background-image: radial-gradient(#D9DBE0 1px, transparent 1px); background-size: 24px 24px; min-height: calc(100vh - 48px); box-sizing: border-box;">
+    <div style="max-width: 1080px; margin: 0 auto;">
+
+      <!-- 00 · COVER -->
+      <section id="s0" data-frame="s0" data-screen-label="360 / Cover">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 00 · Cover</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
+          <div style="padding: 72px 64px 56px;">
+            <div data-reveal="0" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #155DFC; margin-bottom: 20px;">CASE STUDY 02 · FISERV × DESJARDINS</div>
+            <h1 data-reveal="1" style="font-size: 48px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 22px; max-width: 22ch; text-wrap: pretty;">360 Control: rebuilding a financial admin system from the ground up</h1>
+            <p data-reveal="2" style="font-size: 17px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 64ch;">360 Control is the issuer administration console financial institutions use to run commercial card programs, managing cardholders, setting spend controls, handling credit limits, auditing every change. This is the story of a new information architecture, a design system built before a single screen was drawn, and a hard contractual deadline for one of Canada's largest financial cooperatives.</p>
+          </div>
+          <div data-reveal="2" style="padding: 0 64px 64px;">
+            <img src="assets/c360-hero.png" alt="360 Control, one platform, four roles, zero confusion" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px; box-shadow: 0 24px 48px -24px rgba(16,24,40,0.25);">
+          </div>
+        </div>
+      </section>
+
+      <!-- 01 · CONTEXT -->
+      <section id="s1" data-frame="s1" data-screen-label="360 / Context" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 01 · Context</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 28px;">Context</h2>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px;">
+            <div data-reveal="1">
+              <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 10px;">A platform showing its age</h3>
+              <p style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0;">By 2024, 360 Control carried the wear of years of incremental development by different teams: no shared UX language, desktop-only, and navigation organized around system features rather than user intent. Admins held a mental map of the system's architecture just to do their jobs.</p>
+            </div>
+            <div data-reveal="2">
+              <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 10px;">Then Desjardins signed</h3>
+              <p style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0;">One of Canada's largest financial cooperatives came with specific requirements, bilingual support, custom data fields, a branded experience, mobile access, and one immovable constraint: a contractual onboarding deadline. The rewrite was no longer optional.</p>
+            </div>
+          </div>
+          <div data-reveal="3" style="margin-top: 40px; background: #EFF6FF; border: 1px solid #D6E4FF; border-radius: 10px; padding: 24px 28px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; margin-bottom: 8px;">THE BRIEF</div>
+            <p style="font-size: 16.5px; line-height: 1.6; font-weight: 600; color: #101828; margin: 0;">Consistency, mobile access, and a better experience for the admins and cardholders who spent hours in this system every day, delivered on a deadline that couldn't move.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 · DUAL ROLE -->
+      <section id="s2" data-frame="s2" data-screen-label="360 / Dual Role" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 02 · Dual Role</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">Designer and product owner, at the same time</h2>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 16px; max-width: 70ch;">I was the sole UX designer and an embedded product owner simultaneously. That structure wasn't a formality, it changed how the whole project ran. Design intent wasn't handed off; it was built into every refinement session, every backlog call, every sprint.</p>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 36px; max-width: 70ch;">There were moments when the right UX approach needed more time than the timeline allowed. In those moments the product owner in me had to make the call: scope it for Phase 1, protect the intent for Phase 2. Knowing when to defer UX ideals without losing them entirely was one of the harder skills this role demanded, and what made the dual structure work.</p>
+          <div data-reveal="2" style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">End-to-end UX</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Backlog ownership</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">IA redesign</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Design system</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Scope &amp; phasing decisions</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">CAT release validation</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 · THE PROBLEM -->
+      <section id="s3" data-frame="s3" data-screen-label="360 / The Problem" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 03 · The Problem</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">The problem</h2>
+          <p data-reveal="1" style="font-size: 18px; line-height: 1.6; font-weight: 600; color: #101828; margin: 0 0 36px; max-width: 60ch;">The system made users think like engineers to do basic operations work.</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div data-reveal="1" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #D92D20; margin-bottom: 10px;">PAIN 01</div>
+              <h3 style="font-size: 17px; font-weight: 800; margin: 0 0 8px;">Feature-based navigation</h3>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">The IA reflected how the system was built, not how anyone used it. Completing a single task meant jumping between disconnected modules.</p>
+            </div>
+            <div data-reveal="2" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #D92D20; margin-bottom: 10px;">PAIN 02</div>
+              <h3 style="font-size: 17px; font-weight: 800; margin: 0 0 8px;">High-risk actions, no safety net</h3>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">Updating a credit limit, replacing a card, changing permissions, actions with real financial consequences had no preview, no confirmation patterns, no undo.</p>
+            </div>
+            <div data-reveal="3" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #D92D20; margin-bottom: 10px;">PAIN 03</div>
+              <h3 style="font-size: 17px; font-weight: 800; margin: 0 0 8px;">No meaningful landing page</h3>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">Admins navigated blind into deep menus with no context about which issuer they were managing or what had recently changed.</p>
+            </div>
+            <div data-reveal="4" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #D92D20; margin-bottom: 10px;">PAIN 04</div>
+              <h3 style="font-size: 17px; font-weight: 800; margin: 0 0 8px;">Audit by support ticket</h3>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">A compliance officer wanting to know who changed a credit limit last quarter had to raise a support request and wait for a database lookup.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 · RESEARCH -->
+      <section id="s4" data-frame="s4" data-screen-label="360 / Research" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 04 · Research</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">Research under constraints</h2>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 16px; max-width: 70ch;">Direct access to issuer administrators wasn't feasible, client-access constraints and timeline pressure made it a non-starter. So I used every input available and organized the work around one question:</p>
+          <div data-reveal="1" style="border-left: 3px solid #155DFC; padding: 4px 0 4px 24px; margin-bottom: 36px;">
+            <p style="font-size: 19px; line-height: 1.6; font-weight: 600; color: #101828; margin: 0;">"What does an issuer administrator actually do when the system makes this hard?"</p>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; margin-bottom: 36px;">
+            <div data-reveal="1" style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 20px;">
+              <div style="font-size: 14.5px; font-weight: 800; margin-bottom: 4px;">Heuristic evaluation</div>
+              <div style="font-size: 12.5px; line-height: 1.6; color: #6A7282;">Mapped every core workflow in the legacy platform and where it failed the user.</div>
+            </div>
+            <div data-reveal="2" style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 20px;">
+              <div style="font-size: 14.5px; font-weight: 800; margin-bottom: 4px;">Structured SME sessions</div>
+              <div style="font-size: 12.5px; line-height: 1.6; color: #6A7282;">Domain experts who knew how admins actually worked around the system.</div>
+            </div>
+            <div data-reveal="3" style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 20px;">
+              <div style="font-size: 14.5px; font-weight: 800; margin-bottom: 4px;">BRD review</div>
+              <div style="font-size: 12.5px; line-height: 1.6; color: #6A7282;">Business requirements translated into design constraints and priorities.</div>
+            </div>
+            <div data-reveal="4" style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 20px;">
+              <div style="font-size: 14.5px; font-weight: 800; margin-bottom: 4px;">Support-ticket analysis</div>
+              <div style="font-size: 12.5px; line-height: 1.6; color: #6A7282;">Where users got stuck, in their own words, at volume.</div>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div data-reveal="1" style="background: #ECFDF3; border: 1px solid #ABEFC6; border-radius: 10px; padding: 24px 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #009966; margin-bottom: 8px;">RISK INSIGHT</div>
+              <p style="font-size: 15px; line-height: 1.7; color: #101828; font-weight: 600; margin: 0;">In financial systems, predictable is trustworthy. Every inconsistent interaction pattern added risk for admins moving real money.</p>
+            </div>
+            <div data-reveal="2" style="background: #EFF6FF; border: 1px solid #D6E4FF; border-radius: 10px; padding: 24px 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; margin-bottom: 8px;">STRUCTURAL INSIGHT</div>
+              <p style="font-size: 15px; line-height: 1.7; color: #101828; font-weight: 600; margin: 0;">Configuration ≠ Operations. Keeping them separate in the IA removed the single biggest source of admin confusion.</p>
+            </div>
+          </div>
+          <div data-reveal="3" style="margin-top: 32px; background: #FFFAEB; border: 1px solid #FEDF89; border-radius: 10px; padding: 20px 24px;">
+            <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;"><strong style="color: #101828;">On research constraints:</strong> stakeholder-driven research works, but it's not a substitute for watching real users. Validation happened through weekly stakeholder reviews, engineering refinement, and monthly CAT releases with real data.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 · SYSTEM FIRST -->
+      <section id="s5" data-frame="s5" data-screen-label="360 / System First" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 05 · System First</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">The design system came before the screens</h2>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 16px; max-width: 70ch;">I built the design system before designing any product screen, working from Fiserv's Pixel design language as a foundation and extending it for everything 360 Control needed: foundation elements, data-dense grid patterns, form conventions, confirmation and safety patterns for high-risk actions.</p>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 36px; max-width: 70ch;">The single highest-impact decision: a unified grid pattern, the same interaction model across Users, Cards, Transactions, and Audit Logs. It did more for platform cohesion than any visual design choice. Learn the grid once, and every section of the platform behaves the way you expect.</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <img data-reveal="1" src="assets/c360-9.png" alt="Unified patterns, wizard flow screens" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px;">
+            <img data-reveal="2" src="assets/c360-5.png" alt="Unified grid pattern across modules" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px;">
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 · THE SOLUTIONS -->
+      <section id="s6" data-frame="s6" data-screen-label="360 / The Solutions" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 06 · The Solutions</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">The solutions</h2>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 24px; max-width: 70ch;">One guiding principle behind all of them: users should be able to complete a task without jumping between sections. Everything needed to complete an action lives where that action lives.</p>
+
+          <!-- Solution 1: IA -->
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;">
+              <div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTION 01</div>
+                <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">Intent-based information architecture</h3>
+                <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px;">The key decision: explicitly separating configuration workflows (setup mode) from operational workflows (day-to-day mode). Admins know what kind of work they're doing before they touch a single feature.</p>
+                <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;"><strong style="color: #009966;">Result:</strong> the IA redesign had more impact on usability than any visual decision on the project.</p>
+              </div>
+              <img src="assets/c360-2.png" alt="Role and structure mapping, cardholders, issuer, program admins" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px;">
+            </div>
+          </div>
+
+          <!-- Solution 2: Landing -->
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;">
+              <img src="assets/c360-4.png" alt="360 Control landing dashboard" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px; order: 1;">
+              <div style="order: 2;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTION 02</div>
+                <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">A landing page with actual context</h3>
+                <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0;">The legacy platform dropped admins into deep menus blind. The new dashboard answers the first three questions of any session: which issuer am I managing, what changed recently, and what needs my attention now.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Solution 3: Users & Cards -->
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTION 03</div>
+            <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">User &amp; card management, end to end</h3>
+            <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px; max-width: 70ch;">The most heavily used part of the platform, redesigned as complete flows instead of disconnected modules. Add User and Add Card became wizard flows with manageable steps and consistent patterns, one admin tester described the new flow as something they "could finally teach in one sitting." When Desjardins admins noted that cards are sometimes delegated to them, I added a dedicated "My Cards" space for program administrators managing both their own and delegated cards.</p>
+            <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;"><strong style="color: #009966;">Result:</strong> single tasks no longer span multiple modules; new-admin onboarding became a teachable flow.</p>
+          </div>
+
+          <!-- Solution 4: Spend controls -->
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;">
+              <div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTION 04</div>
+                <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">Spend controls you can preview</h3>
+                <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px;">The legacy spend controls had hardcoded rules and no preview of impact before applying. The UX problem wasn't rule complexity, it was that the interface forced engineers' mental models on admins. I consolidated everything into one focused task flow: progressive disclosure for advanced options, and a clear distinction between defining a rule and seeing its impact.</p>
+                <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;"><strong style="color: #009966;">Result:</strong> CAT issues on Advanced Spend Controls were medium-severity observations, not blockers, baseline usability held even at full complexity. The feature drew interest from other banking clients previewing the platform.</p>
+              </div>
+              <img src="assets/c360-1.png" alt="Spend control configuration flow" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px;">
+            </div>
+          </div>
+
+          <!-- Solution 5: Audit -->
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTION 05</div>
+            <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">Audit logs in the UI, not in a ticket queue</h3>
+            <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px; max-width: 70ch;">A comprehensive Business Audit Log built directly into the interface, accessible at company level, card level, and user level, filterable by action type, date range, and actor. No more backend lookups for a question the UI should answer.</p>
+            <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 70ch;"><strong style="color: #009966;">Result:</strong> Desjardins' security team could immediately see the oversight required for regulatory compliance. Audit visibility became a client trust signal, not a compliance checkbox.</p>
+          </div>
+
+          <!-- Solution 6: Mobile -->
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: center;">
+                <img src="assets/c360-m1.png" alt="360 Control mobile, program admin navigation" style="display: block; width: 100%; height: auto;">
+                <img src="assets/c360-m2.png" alt="360 Control mobile, users and cards with quick actions" style="display: block; width: 100%; height: auto;">
+              </div>
+              <div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTION 06</div>
+                <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">Mobile: a requirement, not an afterthought</h3>
+                <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0;">Mobile was a Desjardins requirement from day one. I introduced it after core desktop flows stabilized, a deliberate sequencing decision to avoid compounding complexity during the IA redesign. The unified patterns made the translation systematic rather than bespoke.</p>
+                <img src="assets/c360-m3.png" alt="360 Control as a native presence on the phone" style="display: block; width: 100%; height: auto; margin-top: 20px;">
+              </div>
+            </div>
+          </div>
+
+          <!-- Solution 7: AutoPay + theming -->
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0 0;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTIONS 07–09</div>
+            <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 16px;">AutoPay, theming, and what's queued next</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+              <div style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 22px;">
+                <div style="font-size: 15px; font-weight: 800; margin-bottom: 6px;">Native Manage AutoPay</div>
+                <p style="font-size: 13.5px; line-height: 1.65; color: #4A5565; margin: 0;">Integrated with Users, Cards, and a new Billing Control Accounts view, configure autopay for one card or an entire account.</p>
+              </div>
+              <div style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 22px;">
+                <div style="font-size: 15px; font-weight: 800; margin-bottom: 6px;">Desjardins theming + bilingual</div>
+                <p style="font-size: 13.5px; line-height: 1.65; color: #4A5565; margin: 0;">Custom brand theme and full French translation support, designed into the system rather than bolted on.</p>
+              </div>
+              <div style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 22px;">
+                <div style="font-size: 15px; font-weight: 800; margin-bottom: 6px;">Transactions + disputes (planned)</div>
+                <p style="font-size: 13.5px; line-height: 1.65; color: #4A5565; margin: 0;">The transactions grid redesigned as a query-and-reporting surface, with dispute integration queued for a later phase.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 · WHY NO AI -->
+      <section id="s7" data-frame="s7" data-screen-label="360 / Why No AI" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 07 · Why No AI</span></div>
+        <div style="background: #15171C; border: 1px solid #15171C; border-radius: 12px; padding: 64px; color: #fff;">
+          <div data-reveal="0" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #86EFAC; margin-bottom: 20px;">A DELIBERATE DESIGN DECISION</div>
+          <h2 data-reveal="1" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px; color: #fff;">Why 360 Control has no AI, on purpose</h2>
+          <p data-reveal="2" style="font-size: 15.5px; line-height: 1.75; color: #C5CAD3; margin: 0 0 16px; max-width: 70ch;">Everything in 360 Control is strategy-driven: human-defined authorization strategies, configurable spend-control logic, one-to-many rule application, real-time deterministic enforcement. Every outcome traces to a specific rule that a specific administrator defined. These are not AI inferences, they're explicit business rules the system executes predictably.</p>
+          <p data-reveal="2" style="font-size: 15.5px; line-height: 1.75; color: #C5CAD3; margin: 0 0 24px; max-width: 70ch;">Knowing when to use AI and when to deliberately avoid it is the more mature design skill. 360 Control isn't limited by the absence of AI, it's made more trustworthy by it. This contrasts directly with my work on Disputes Workspace, where ML was strategically applied to cut call time and improve classification. Two different domains, two different answers, one principle: the technology serves the trust model, never the other way around.</p>
+          <a data-reveal="3" href="DWS.dc.html" style="display: inline-block; color: #7AA5FF; font-size: 14px; font-weight: 700; text-decoration: none; border: 1px solid #3A3F4B; padding: 12px 20px; border-radius: 8px;" style-hover="border-color: #7AA5FF;">Compare: where I did use AI → Disputes Workspace</a>
+        </div>
+      </section>
+
+      <!-- 08 · VALIDATION -->
+      <section id="s8" data-frame="s8" data-screen-label="360 / Validation" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 08 · Validation</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">Validated in production-like conditions</h2>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 36px; max-width: 70ch;">Rather than designing everything upfront and launching once, we used CAT environments for incremental, limited-scope releases. Each monthly drop validated designs with real data and realistic workflows, design assumptions met reality every four weeks, not once at the end.</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+            <div data-reveal="1" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">CADENCE</div>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">Monthly CAT releases with real data; weekly stakeholder reviews; design refinement embedded in every engineering sprint.</p>
+            </div>
+            <div data-reveal="2" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SIGNAL</div>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">Advanced Spend Controls, the platform's most complex feature, produced only medium-severity observations in CAT. The baseline held.</p>
+            </div>
+            <div data-reveal="3" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">PULL</div>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">Other banking clients previewing the platform before full launch expressed interest, the redesign became a sales asset.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 09 · IMPACT -->
+      <section id="s9" data-frame="s9" data-screen-label="360 / Impact" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 09 · Impact</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 36px;">Impact</h2>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 40px;">
+            <div data-reveal="1" style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px;">
+              <div style="font-size: 21px; font-weight: 800; color: #009966; letter-spacing: -0.01em; margin-bottom: 6px;">Shipped on time</div>
+              <p style="font-size: 13.5px; line-height: 1.65; color: #4A5565; margin: 0;">Meeting the contractual obligation to onboard Desjardins on schedule was the primary business outcome. Phase 1 delivered it.</p>
+            </div>
+            <div data-reveal="2" style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px;">
+              <div style="font-size: 21px; font-weight: 800; color: #009966; letter-spacing: -0.01em; margin-bottom: 6px;">Beyond the project</div>
+              <p style="font-size: 13.5px; line-height: 1.65; color: #4A5565; margin: 0;">The 360 Control design system is becoming the foundation for a unified design language across Fiserv's Issuer Solutions division.</p>
+            </div>
+            <div data-reveal="3" style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px;">
+              <div style="font-size: 21px; font-weight: 800; color: #009966; letter-spacing: -0.01em; margin-bottom: 6px;">Trust made visible</div>
+              <p style="font-size: 13.5px; line-height: 1.65; color: #4A5565; margin: 0;">Built-in audit visibility turned a compliance requirement into a client trust signal during Desjardins' security review.</p>
+            </div>
+          </div>
+          <img data-reveal="2" src="assets/c360-8.png" alt="360 Control, themed operational view" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px;">
+        </div>
+      </section>
+
+      <!-- 10 · LEARNINGS -->
+      <section id="s10" data-frame="s10" data-screen-label="360 / Learnings" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 10 · Learnings</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">Learnings</h2>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 36px; max-width: 70ch;">360 Control isn't a flashy consumer product. It's a complex enterprise system where UX mistakes have real financial and regulatory consequences, and that context made every decision matter more.</p>
+          <div style="display: grid; gap: 0; margin-bottom: 48px;">
+            <div data-reveal="1" style="display: grid; grid-template-columns: 72px 1fr; gap: 24px; padding: 24px 0; border-top: 1px solid #ECEDF1;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 600; color: #C9CDD6;">01</div>
+              <div>
+                <h3 style="font-size: 18px; font-weight: 800; margin: 0 0 8px;">Structure matters more than surface</h3>
+                <p style="font-size: 15px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 64ch;">The IA redesign from feature-based to intent-based navigation had more impact on usability than any visual decision. Get the structure right first, separate config from operations, then refine the surface.</p>
+              </div>
+            </div>
+            <div data-reveal="2" style="display: grid; grid-template-columns: 72px 1fr; gap: 24px; padding: 24px 0; border-top: 1px solid #ECEDF1;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 600; color: #C9CDD6;">02</div>
+              <div>
+                <h3 style="font-size: 18px; font-weight: 800; margin: 0 0 8px;">Being embedded in delivery beats handoffs every time</h3>
+                <p style="font-size: 15px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 64ch;">Owning refinement meant design intent was built into every sprint rather than translated (and diluted) through documents.</p>
+              </div>
+            </div>
+            <div data-reveal="3" style="display: grid; grid-template-columns: 72px 1fr; gap: 24px; padding: 24px 0; border-top: 1px solid #ECEDF1; border-bottom: 1px solid #ECEDF1;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 600; color: #C9CDD6;">03</div>
+              <div>
+                <h3 style="font-size: 18px; font-weight: 800; margin: 0 0 8px;">Restraint is a design skill</h3>
+                <p style="font-size: 15px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 64ch;">Choosing deterministic rules over AI, phasing scope without losing intent, sequencing mobile after desktop, the hard calls were about what <em>not</em> to do yet.</p>
+              </div>
+            </div>
+          </div>
+          <h3 data-reveal="0" style="font-size: 18px; font-weight: 800; margin: 0 0 20px;">What I'd do differently</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px;">
+            <div data-reveal="1" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px;">
+              <h4 style="font-size: 15px; font-weight: 800; margin: 0 0 8px;">Think about mobile constraints earlier</h4>
+              <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;">Sequencing mobile after desktop was intentional, but considering its constraints during desktop design would have made the translation smoother.</p>
+            </div>
+            <div data-reveal="2" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px;">
+              <h4 style="font-size: 15px; font-weight: 800; margin: 0 0 8px;">Watch a few real admins</h4>
+              <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;">Stakeholder-driven research worked, but observing even a few real issuer admins would have validated assumptions and uncovered edge cases earlier.</p>
+            </div>
+          </div>
+          <a data-reveal="3" href="CPQ.dc.html" style="display: flex; justify-content: space-between; align-items: center; border: 1px solid #E2E4E9; border-radius: 12px; padding: 28px 32px; text-decoration: none; color: #101828;" style-hover="border-color: #155DFC; background: #F8FAFF;">
+            <div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 6px;">NEXT CASE STUDY</div>
+              <div style="font-size: 22px; font-weight: 800; letter-spacing: -0.01em;">CPQ: from 18 minutes to 10 per quote</div>
+            </div>
+            <div style="font-size: 28px; color: #155DFC;">→</div>
+          </a>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC;">
+          <span>© 2026 Abhikant Nirbhavane</span>
+          <span>case study · 360 control</span>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    // ---- email links assembled at runtime (avoids static-HTML email rewriting) ----
+    const addr = ["abhikant5540", "gmail.com"].join("@");
+    document.querySelectorAll("[data-email]").forEach((el) => {
+      el.setAttribute("href", "mailto:" + addr + "?subject=Hi there");
+      if (el.getAttribute("data-email") === "show") el.textContent = addr;
+    });
+
+    // ---- scroll reveals ----
+    const reveals = Array.from(document.querySelectorAll("[data-reveal]"));
+    reveals.forEach((el) => {
+      const i = parseInt(el.getAttribute("data-reveal") || "0", 10);
+      el.style.opacity = "0";
+      el.style.transform = "translateY(26px)";
+      el.style.transition = "opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)";
+      el.style.transitionDelay = (i * 80) + "ms";
+    });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          en.target.style.opacity = "1";
+          en.target.style.transform = "translateY(0)";
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach((el) => io.observe(el));
+
+    // ---- section nav (click) ----
+    document.querySelectorAll("[data-nav]").forEach((row) => {
+      row.addEventListener("click", () => {
+        const el = document.getElementById(row.getAttribute("data-nav"));
+        if (el) window.scrollTo({ top: el.offsetTop + 48 - 60, behavior: "smooth" });
+      });
+    });
+
+    // ---- scroll spy + reading progress ----
+    const sections = Array.from(document.querySelectorAll("section[data-frame]"));
+    const rows = {};
+    document.querySelectorAll("[data-nav]").forEach((r) => { rows[r.getAttribute("data-nav")] = r; });
+    const progress = document.getElementById("progress");
+    let current = "";
+    const update = () => {
+      const y = window.scrollY + 220;
+      let active = sections[0];
+      sections.forEach((s) => { if (s.offsetTop + 48 < y) active = s; });
+      const key = active.getAttribute("data-frame");
+      if (key !== current) {
+        current = key;
+        Object.keys(rows).forEach((k) => {
+          rows[k].style.background = k === key ? "#EFF6FF" : "transparent";
+          rows[k].style.color = k === key ? "#155DFC" : "#364153";
+        });
+      }
+      if (progress) {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + "%";
+      }
+    };
+    let ticking = false;
+    this._onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => { update(); ticking = false; });
+      }
+    };
+    window.addEventListener("scroll", this._onScroll, { passive: true });
+    update();
+
+    // ---- responsive: collapse panels under 1180px ----
+    const left = document.getElementById("panel-left");
+    const right = document.getElementById("panel-right");
+    const canvas = document.getElementById("canvas");
+    const mq = window.matchMedia("(max-width: 1180px)");
+    const applyMq = () => {
+      const narrow = mq.matches;
+      if (left) left.style.display = narrow ? "none" : "block";
+      if (right) right.style.display = narrow ? "none" : "block";
+      if (canvas) canvas.style.margin = narrow ? "48px 0 0 0" : "48px 260px 0 248px";
+    };
+    mq.addEventListener("change", applyMq);
+    this._mq = mq; this._applyMq = applyMq;
+    applyMq();
+
+    // ---- mobile linearization (dynamic responsive pass) ----
+    const gridEls = Array.from(document.querySelectorAll("[style]")).filter((el) => el.style.gridTemplateColumns);
+    gridEls.forEach((el) => { if (!el.getAttribute("data-gtc")) el.setAttribute("data-gtc", el.style.gridTemplateColumns); });
+    const padEls = Array.from(document.querySelectorAll("[style]")).filter((el) => parseInt(el.style.padding) >= 48);
+    padEls.forEach((el) => { if (!el.getAttribute("data-pad")) el.setAttribute("data-pad", el.style.padding); });
+    const headEls = Array.from(document.querySelectorAll("h1, h2")).filter((el) => parseFloat(el.style.fontSize) >= 36);
+    headEls.forEach((el) => { if (!el.getAttribute("data-fs")) el.setAttribute("data-fs", el.style.fontSize); });
+    const applyNarrow = () => {
+      const narrow = window.innerWidth < 880;
+      gridEls.forEach((el) => {
+        const orig = el.getAttribute("data-gtc");
+        const small = /^(\d+)px 1fr$/.exec(orig);
+        el.style.gridTemplateColumns = (narrow && !(small && parseInt(small[1]) <= 100)) ? "1fr" : orig;
+      });
+      padEls.forEach((el) => { el.style.padding = narrow ? "36px 22px" : el.getAttribute("data-pad"); });
+      headEls.forEach((el) => {
+        const orig = parseFloat(el.getAttribute("data-fs"));
+        el.style.fontSize = narrow ? Math.round(orig * 0.65) + "px" : el.getAttribute("data-fs");
+      });
+    };
+    window.addEventListener("resize", applyNarrow);
+    applyNarrow();
+  }
+
+  componentWillUnmount() {
+    if (this._onScroll) window.removeEventListener("scroll", this._onScroll);
+    if (this._mq && this._applyMq) this._mq.removeEventListener("change", this._applyMq);
+  }
+}
+
+</script>
+</body>
+</html>

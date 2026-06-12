@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; padding: 0; }
+    body { background: #EDEEF0; -webkit-font-smoothing: antialiased; }
+    @keyframes pageIn { from { opacity: 0; } to { opacity: 1; } }
+    ::selection { background: #CFE0FF; }
+    * { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpolygon points='3,1 17,10 10.5,11.5 8,19' fill='%23111418' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E") 3 1, auto !important; }
+  </style>
+</helmet>
+
+<div style="font-family: Manrope, sans-serif; color: #101828; animation: pageIn 0.5s ease both; min-height: 100vh;">
+
+  <!-- ====================== TOP TOOLBAR ====================== -->
+  <div style="position: fixed; top: 0; left: 0; right: 0; height: 48px; background: #15171C; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; z-index: 100; box-sizing: border-box;">
+    <div style="display: flex; align-items: center; gap: 4px;">
+      <a href="index.html" style="width: 30px; height: 30px; border-radius: 6px; background: #155DFC; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; margin-right: 6px; text-decoration: none;">A</a>
+      <div title="Move" style="width: 30px; height: 30px; border-radius: 6px; background: #2A2E37; display: flex; align-items: center; justify-content: center;">
+        <svg width="14" height="14" viewBox="0 0 18 18"><polygon points="3,1 15,9 9.5,10.5 7,16" fill="#E7E9EE"></polygon></svg>
+      </div>
+      <div title="Comment" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px;">◯</div>
+    </div>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #AEB4C0; display: flex; align-items: center; gap: 8px;">
+      <a href="Work.dc.html" style="color: #6A7282; text-decoration: none;" style-hover="color: #E7E9EE;">Work</a>
+      <span style="color: #444A56;">/</span>
+      <span style="color: #E7E9EE;">Disputes Workspace</span>
+      <span style="background: #1E3A8A; color: #93C5FD; font-size: 10px; padding: 2px 8px; border-radius: 999px;">AI-assisted</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <a href="#" data-email="link" style="background: #155DFC; color: #fff; font-size: 12.5px; font-weight: 700; padding: 7px 14px; border-radius: 6px; text-decoration: none;" style-hover="background: #2B70FF;">Contact</a>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #AEB4C0; padding: 4px 6px;">100% ▾</div>
+    </div>
+  </div>
+  <div id="progress" style="position: fixed; top: 48px; left: 0; height: 2px; width: 0%; background: #155DFC; z-index: 101;"></div>
+
+  <!-- ====================== LEFT PANEL: SECTIONS ====================== -->
+  <div id="panel-left" style="position: fixed; top: 48px; left: 0; bottom: 0; width: 248px; background: #FFFFFF; border-right: 1px solid #E2E4E9; z-index: 90; overflow-y: auto; padding: 14px 0; box-sizing: border-box;">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; padding: 4px 16px 8px;">PAGES</div>
+    <a href="index.html" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="font-size: 9px; color: #C9CDD6;">○</span> Home</a>
+    <a href="Work.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: #155DFC; font-size: 13px; font-weight: 700; background: #EFF6FF;"><span style="font-size: 9px;">●</span> Work / DWS</a>
+    <a href="About.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="font-size: 9px; color: #C9CDD6;">○</span> About</a>
+    <div style="height: 1px; background: #ECEDF1; margin: 14px 16px;"></div>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; padding: 4px 16px 8px;">SECTIONS</div>
+    <div data-nav="s0" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 00 · Cover</div>
+    <div data-nav="s1" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 01 · Overview</div>
+    <div data-nav="s2" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 02 · My Role</div>
+    <div data-nav="s3" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 03 · The Problem</div>
+    <div data-nav="s4" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 04 · Research</div>
+    <div data-nav="s5" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 05 · Insights</div>
+    <div data-nav="s6" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 06 · Design Process</div>
+    <div data-nav="s7" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 07 · The Solution</div>
+    <div data-nav="sp" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #155DFC; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="font-size: 10px;">▶</span> Try the prototype</div>
+    <div data-nav="s8" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 08 · Visual System</div>
+    <div data-nav="s9" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 09 · Impact</div>
+    <div data-nav="s10" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 10 · Learnings</div>
+    <div data-nav="s11" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 11 · What's Next</div>
+  </div>
+
+  <!-- ====================== RIGHT PANEL: PROJECT META ====================== -->
+  <div id="panel-right" style="position: fixed; top: 48px; right: 0; bottom: 0; width: 260px; background: #FFFFFF; border-left: 1px solid #E2E4E9; z-index: 90; overflow-y: auto; box-sizing: border-box;">
+    <div style="padding: 16px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 12px;">PROJECT</div>
+      <div style="font-size: 14px; font-weight: 800; margin-bottom: 16px;">Disputes Workspace</div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565; display: grid; gap: 8px;">
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 8px;"><span style="color: #9AA0AC;">client</span><span>Fiserv</span></div>
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 8px;"><span style="color: #9AA0AC;">role</span><span>Sole UX designer</span></div>
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 8px;"><span style="color: #9AA0AC;">domain</span><span>Card disputes</span></div>
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 8px;"><span style="color: #9AA0AC;">scale</span><span>1000s / month</span></div>
+        <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">type</span><span style="color: #155DFC;">AI-assisted</span></div>
+      </div>
+      <div style="height: 1px; background: #ECEDF1; margin: 16px 0;"></div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 12px;">OUTCOMES</div>
+      <div style="display: grid; gap: 10px;">
+        <div style="border: 1px solid #ECEDF1; border-radius: 8px; padding: 10px 12px;"><div style="font-size: 18px; font-weight: 800; color: #009966;">−25–35%</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">call handling time</div></div>
+        <div style="border: 1px solid #ECEDF1; border-radius: 8px; padding: 10px 12px;"><div style="font-size: 18px; font-weight: 800; color: #009966;">+40–50%</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">processing capacity</div></div>
+        <div style="border: 1px solid #ECEDF1; border-radius: 8px; padding: 10px 12px;"><div style="font-size: 18px; font-weight: 800; color: #009966;">+15–25%</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">classification accuracy</div></div>
+        <div style="border: 1px solid #ECEDF1; border-radius: 8px; padding: 10px 12px;"><div style="font-size: 18px; font-weight: 800; color: #009966;">−30–40%</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">training time</div></div>
+      </div>
+      <div style="height: 1px; background: #ECEDF1; margin: 16px 0;"></div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 10px;">UP NEXT</div>
+      <a href="360 Control.dc.html" style="display: block; border: 1px solid #ECEDF1; border-radius: 8px; padding: 12px; text-decoration: none; color: #101828;" style-hover="border-color: #155DFC;">
+        <div style="font-size: 13px; font-weight: 800; margin-bottom: 2px;">360 Control →</div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">issuer console rebuild</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ====================== CANVAS ====================== -->
+  <div id="canvas" style="margin: 48px 260px 0 248px; padding: 56px 48px 80px; background-image: radial-gradient(#D9DBE0 1px, transparent 1px); background-size: 24px 24px; min-height: calc(100vh - 48px); box-sizing: border-box;">
+    <div style="max-width: 1080px; margin: 0 auto;">
+
+      <!-- 00 · COVER -->
+      <section id="s0" data-frame="s0" data-screen-label="DWS / Cover">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 00 · Cover</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
+          <div style="padding: 72px 64px 56px;">
+            <div data-reveal="0" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #155DFC; margin-bottom: 20px;">CASE STUDY 01 · FISERV</div>
+            <h1 data-reveal="1" style="font-size: 48px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 22px; max-width: 22ch; text-wrap: pretty;">Disputes Workspace: AI-assisted dispute management that earns trust</h1>
+            <p data-reveal="2" style="font-size: 17px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 64ch;">Disputes Workspace (DWS) is an enterprise-grade financial application that streamlines the entire lifecycle of a credit-card dispute, from intake through investigation and resolution. I led the end-to-end redesign of a system that processes thousands of disputes a month, introducing AI assistance in a way that preserves human judgment and regulatory compliance.</p>
+          </div>
+          <div data-reveal="2" style="padding: 0 64px 64px;">
+            <img src="assets/dws-hero.png" alt="Dispute Workspace, Fiserv" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px; box-shadow: 0 24px 48px -24px rgba(16,24,40,0.25);">
+          </div>
+        </div>
+      </section>
+
+      <!-- 01 · OVERVIEW -->
+      <section id="s1" data-frame="s1" data-screen-label="DWS / Overview" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 01 · Overview</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 28px;">Project overview</h2>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px;">
+            <div data-reveal="1">
+              <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 10px;">The product</h3>
+              <p style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0;">DWS serves the people who keep card disputes moving: call-center agents taking the first call, fraud analysts investigating suspicious activity, dispute processors working queues, and compliance officers auditing every decision. The legacy system they relied on had grown brittle, slow to navigate, easy to get wrong, expensive to train on.</p>
+            </div>
+            <div data-reveal="2">
+              <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 10px;">The mandate</h3>
+              <p style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0;">Redesign a legacy dispute-management system to reduce operational costs, improve accuracy, and maintain regulatory compliance, while introducing AI-assisted intelligence in a way that preserves trust. Balancing innovation and compliance was the defining constraint: modern AI capability, full auditability.</p>
+            </div>
+          </div>
+          <div data-reveal="3" style="margin-top: 40px; background: #EFF6FF; border: 1px solid #D6E4FF; border-radius: 10px; padding: 24px 28px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; margin-bottom: 8px;">DESIGN GOAL</div>
+            <p style="font-size: 16.5px; line-height: 1.6; font-weight: 600; color: #101828; margin: 0;">Create an intelligent, user-centered dispute management experience that reduces cognitive load, accelerates accurate decision-making, and introduces AI assistance in a way that builds trust rather than erodes it.</p>
+          </div>
+          <img data-reveal="3" src="assets/hero-product.png" alt="The redesigned workspace home" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px; margin-top: 40px;">
+          <div data-reveal="3" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 10px;">the redesigned workspace home: action due, pended cases by date and reason, and a prioritized case queue</div>
+        </div>
+      </section>
+
+      <!-- 02 · MY ROLE -->
+      <section id="s2" data-frame="s2" data-screen-label="DWS / My Role" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 02 · My Role</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">My role</h2>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 16px; max-width: 70ch;">As the sole UX designer on the Disputes Workspace modernization, I owned the complete design lifecycle, from research and strategy through delivery and post-launch refinement.</p>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 36px; max-width: 70ch;">Working solo on an enterprise-scale application required more than design execution, it required strategic leadership. I established UX as a first-class concern in sprint planning, advocated for users in rooms where they weren't represented, and made the case for AI transparency principles before a single screen was drawn.</p>
+          <div data-reveal="2" style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Research &amp; synthesis</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Information architecture</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">AI interaction patterns</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Design system (50+ components)</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Prototyping &amp; validation</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Engineering &amp; QA collaboration</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 · THE PROBLEM -->
+      <section id="s3" data-frame="s3" data-screen-label="DWS / The Problem" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 03 · The Problem</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">The problem</h2>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 36px; max-width: 70ch;">Financial institutions using the legacy system faced operational challenges that directly impacted customer satisfaction, processing costs, and compliance exposure. The fix wasn't a prettier interface, it was fundamentally rethinking how users interact with dispute data.</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div data-reveal="1" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #D92D20; margin-bottom: 10px;">PAIN 01</div>
+              <h3 style="font-size: 17px; font-weight: 800; margin: 0 0 8px;">Manual, error-prone intake</h3>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">Agents classified disputes by hand while customers waited on the line. Misclassifications surfaced far downstream, where they were costly to correct.</p>
+            </div>
+            <div data-reveal="2" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #D92D20; margin-bottom: 10px;">PAIN 02</div>
+              <h3 style="font-size: 17px; font-weight: 800; margin: 0 0 8px;">Fragmented context</h3>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">Investigating a single case meant hopping between screens. No persistent context panel; key transaction data buried in unexpected places.</p>
+            </div>
+            <div data-reveal="3" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #D92D20; margin-bottom: 10px;">PAIN 03</div>
+              <h3 style="font-size: 17px; font-weight: 800; margin: 0 0 8px;">No way to work at volume</h3>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">Routine disputes and complex ones flowed through the same one-at-a-time workflow. No bulk actions, no intelligent routing, no prioritization.</p>
+            </div>
+            <div data-reveal="4" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #D92D20; margin-bottom: 10px;">PAIN 04</div>
+              <h3 style="font-size: 17px; font-weight: 800; margin: 0 0 8px;">One interface, four jobs</h3>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">Agents, analysts, processors, and compliance officers all used the same screens, optimized for none of them, with weeks of training to compensate.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 · RESEARCH -->
+      <section id="s4" data-frame="s4" data-screen-label="DWS / Research" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 04 · Research</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">Research &amp; discovery</h2>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 36px; max-width: 70ch;">Due to client-access constraints and the enterprise B2B nature of the system, direct research with call-center agents and processors wasn't feasible. I built the evidence base through every channel I could get: internal stakeholders and subject-matter experts with deep domain knowledge of dispute operations.</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 36px;">
+            <div data-reveal="1" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">METHOD 01</div>
+              <h3 style="font-size: 15.5px; font-weight: 800; margin: 0 0 8px;">Stakeholder interviews</h3>
+              <p style="font-size: 14px; line-height: 1.65; color: #4A5565; margin: 0;">Extensive sessions with product managers, operations leaders, and compliance officers with direct visibility into user pain points.</p>
+            </div>
+            <div data-reveal="2" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">METHOD 02</div>
+              <h3 style="font-size: 15.5px; font-weight: 800; margin: 0 0 8px;">SME walkthroughs</h3>
+              <p style="font-size: 14px; line-height: 1.65; color: #4A5565; margin: 0;">Design walkthroughs with subject-matter experts who understood end-user workflows, validating patterns before they hardened.</p>
+            </div>
+            <div data-reveal="3" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">METHOD 03</div>
+              <h3 style="font-size: 15.5px; font-weight: 800; margin: 0 0 8px;">System archaeology</h3>
+              <p style="font-size: 14px; line-height: 1.65; color: #4A5565; margin: 0;">Reviewed system documentation, workflow diagrams, and operational reports to map the current state and its failure points.</p>
+            </div>
+          </div>
+          <h3 data-reveal="0" style="font-size: 18px; font-weight: 800; margin: 0 0 16px;">Four roles, four different jobs</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; margin-bottom: 36px;">
+            <div data-reveal="1" style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 20px;">
+              <div style="font-size: 15px; font-weight: 800; margin-bottom: 4px;">Call-center agent</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #6A7282; line-height: 1.6;">First intake · customer on the line · speed under pressure</div>
+            </div>
+            <div data-reveal="2" style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 20px;">
+              <div style="font-size: 15px; font-weight: 800; margin-bottom: 4px;">Fraud analyst</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #6A7282; line-height: 1.6;">Deep investigation · full transaction context · flexible tools</div>
+            </div>
+            <div data-reveal="3" style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 20px;">
+              <div style="font-size: 15px; font-weight: 800; margin-bottom: 4px;">Dispute processor</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #6A7282; line-height: 1.6;">High volume queues · bulk work · accuracy at speed</div>
+            </div>
+            <div data-reveal="4" style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 20px;">
+              <div style="font-size: 15px; font-weight: 800; margin-bottom: 4px;">Compliance officer</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #6A7282; line-height: 1.6;">Oversight &amp; audit · regulatory reporting · ~10% of users</div>
+            </div>
+          </div>
+          <div data-reveal="2" style="border-left: 3px solid #155DFC; padding: 4px 0 4px 24px;">
+            <p style="font-size: 19px; line-height: 1.6; font-weight: 600; color: #101828; margin: 0 0 8px;">"I just want the system to guide me so I don't mess up. I don't have time to look up rules while a customer is on the phone."</p>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC;">— key insight, via call-center operations SMEs</div>
+          </div>
+          <div data-reveal="3" style="margin-top: 32px; background: #FFFAEB; border: 1px solid #FEDF89; border-radius: 10px; padding: 20px 24px;">
+            <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;"><strong style="color: #101828;">Honest constraint:</strong> stakeholder-driven research works, but it isn't a substitute for watching real users. I treated every assumption as provisional and validated continuously through SME walkthroughs and post-release feedback loops.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 · INSIGHTS -->
+      <section id="s5" data-frame="s5" data-screen-label="DWS / Insights" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 05 · Insights</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 36px;">What the research kept saying</h2>
+          <div style="display: grid; gap: 0;">
+            <div data-reveal="1" style="display: grid; grid-template-columns: 72px 1fr; gap: 24px; padding: 24px 0; border-top: 1px solid #ECEDF1;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 600; color: #C9CDD6;">1.</div>
+              <div>
+                <h3 style="font-size: 18px; font-weight: 800; margin: 0 0 8px;">Speed vs. accuracy is the central tension</h3>
+                <p style="font-size: 15px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 64ch;">Users felt pressure to work quickly but feared making costly mistakes. The design had to optimize for both speed and confidence, not trade one for the other.</p>
+              </div>
+            </div>
+            <div data-reveal="2" style="display: grid; grid-template-columns: 72px 1fr; gap: 24px; padding: 24px 0; border-top: 1px solid #ECEDF1;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 600; color: #C9CDD6;">2.</div>
+              <div>
+                <h3 style="font-size: 18px; font-weight: 800; margin: 0 0 8px;">AI trust requires transparency</h3>
+                <p style="font-size: 15px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 64ch;">Users were skeptical of "black box" AI recommendations. They needed to understand <em>why</em> the system suggested something before they would act on it.</p>
+              </div>
+            </div>
+            <div data-reveal="3" style="display: grid; grid-template-columns: 72px 1fr; gap: 24px; padding: 24px 0; border-top: 1px solid #ECEDF1;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 600; color: #C9CDD6;">3.</div>
+              <div>
+                <h3 style="font-size: 18px; font-weight: 800; margin: 0 0 8px;">Four personas can't share one workflow</h3>
+                <p style="font-size: 15px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 64ch;">Rather than compromising on a middle-ground solution that satisfied no one, the system needed role-specific experiences sharing a common design language.</p>
+              </div>
+            </div>
+            <div data-reveal="4" style="display: grid; grid-template-columns: 72px 1fr; gap: 24px; padding: 24px 0; border-top: 1px solid #ECEDF1; border-bottom: 1px solid #ECEDF1;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 600; color: #C9CDD6;">4.</div>
+              <div>
+                <h3 style="font-size: 18px; font-weight: 800; margin: 0 0 8px;">Actionable clarity beats technical accuracy</h3>
+                <p style="font-size: 15px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 64ch;">"87% confident" means nothing to someone deciding whether to trust a suggestion. Plain guidance, high, medium, low, and what to do about it, does.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 · DESIGN PROCESS -->
+      <section id="s6" data-frame="s6" data-screen-label="DWS / Design Process" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 06 · Design Process</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">Design process</h2>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 36px; max-width: 70ch;">With research insights in hand, I followed a structured process that balanced strategic thinking with iterative execution, in close collaboration with product and engineering throughout.</p>
+          <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 40px;">
+            <div data-reveal="1" style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 16px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #155DFC; margin-bottom: 8px;">STEP 1</div>
+              <div style="font-size: 13.5px; font-weight: 800; line-height: 1.4;">Discovery &amp; framing</div>
+            </div>
+            <div data-reveal="2" style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 16px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #155DFC; margin-bottom: 8px;">STEP 2</div>
+              <div style="font-size: 13.5px; font-weight: 800; line-height: 1.4;">IA &amp; data hierarchy</div>
+            </div>
+            <div data-reveal="3" style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 16px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #155DFC; margin-bottom: 8px;">STEP 3</div>
+              <div style="font-size: 13.5px; font-weight: 800; line-height: 1.4;">Design system</div>
+            </div>
+            <div data-reveal="4" style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 16px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #155DFC; margin-bottom: 8px;">STEP 4</div>
+              <div style="font-size: 13.5px; font-weight: 800; line-height: 1.4;">Hi-fi flows &amp; prototypes</div>
+            </div>
+            <div data-reveal="5" style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 16px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #155DFC; margin-bottom: 8px;">STEP 5</div>
+              <div style="font-size: 13.5px; font-weight: 800; line-height: 1.4;">Validate &amp; refine</div>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-bottom: 36px;">
+            <div data-reveal="1">
+              <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 10px;">Structure first</h3>
+              <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0;">I established which information should be visible at each workflow stage and what could be progressively disclosed, the data-hierarchy decisions that made dense financial screens feel manageable. Interactive prototypes were validated through stakeholder reviews and SME walkthroughs throughout development, with QA collaboration catching edge cases early.</p>
+            </div>
+            <div data-reveal="2">
+              <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 10px;">Solo at enterprise scale</h3>
+              <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0;">Being both the visionary (defining AI transparency principles) and the practitioner (designing every screen) demanded ruthless prioritization: high-impact workflows first, reusable patterns everywhere, and continuous validation instead of designing in isolation.</p>
+            </div>
+          </div>
+          <div data-reveal="2" style="background: #EFF6FF; border: 1px solid #D6E4FF; border-radius: 10px; padding: 24px 28px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; margin-bottom: 10px;">KEY ITERATION · CONFIDENCE WITHOUT CONFUSION</div>
+            <p style="font-size: 15px; line-height: 1.7; color: #364153; margin: 0;">Initial AI confidence indicators used percentages ("85% confident"). Stakeholders flagged it: users wouldn't know when to trust the system. I redesigned to simple <strong>High / Medium / Low</strong> labels with contextual guidance, "High confidence: review and accept" vs. "Low confidence: manual review recommended." Technical accuracy matters less than actionable clarity.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 · THE SOLUTION -->
+      <section id="s7" data-frame="s7" data-screen-label="DWS / The Solution" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 07 · The Solution</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">The solution</h2>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 48px; max-width: 70ch;">Here's how research insights and design strategy translated into concrete solutions, each one addressing a core operational problem while introducing AI responsibly.</p>
+
+          <!-- Solution 1 -->
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;">
+              <div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTION 01</div>
+                <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">AI-assisted intake</h3>
+                <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px;">The agent or cardholder describes the dispute in plain language, "I was charged $47.50 twice for the same Uber ride on March 3rd", and the system extracts the data, suggests a classification, and shows its confidence.</p>
+                <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;"><strong style="color: #009966;">Result:</strong> shorter calls. Agents focus on the customer while the system handles extraction and classification, no repetitive questioning, no manual lookup.</p>
+              </div>
+              <div style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 14px;">HOW THE CONFIDENCE BADGE BEHAVES</div>
+                <div style="display: grid; gap: 10px;">
+                  <div style="display: flex; align-items: center; gap: 12px;"><span style="background: #ECFDF3; color: #009966; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px;">HIGH</span><span style="font-size: 13.5px; color: #4A5565;">Review and accept, routine path</span></div>
+                  <div style="display: flex; align-items: center; gap: 12px;"><span style="background: #FFFAEB; color: #B54708; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px;">MED</span><span style="font-size: 13.5px; color: #4A5565;">Verify key fields before continuing</span></div>
+                  <div style="display: flex; align-items: center; gap: 12px;"><span style="background: #FEF3F2; color: #D92D20; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px;">LOW</span><span style="font-size: 13.5px; color: #4A5565;">Manual review recommended</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Solution 2 -->
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTION 02</div>
+            <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">Smart validation at the source</h3>
+            <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px; max-width: 70ch;">The system validates intake data against card-network rules in real time, for example, that a dispute is filed within the 60-day window for its transaction type. Errors get caught at intake, not three steps downstream.</p>
+            <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 70ch;"><strong style="color: #009966;">Result:</strong> fewer classification errors and downstream corrections; analysts and processors spend their time on complex cases instead of fixing intake mistakes.</p>
+          </div>
+
+          <!-- Solution 3 -->
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;">
+              <div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTION 03</div>
+                <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">Tiered processing &amp; bulk actions</h3>
+                <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px;">Disputes route to queues by classification confidence and complexity: auto-approve eligible, standard processing, or dedicated review. Processors clear routine cases in bulk and give complex ones real attention.</p>
+                <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;"><strong style="color: #009966;">Result:</strong> significantly more cases handled per day, effort goes where it matters.</p>
+              </div>
+              <img src="assets/dws-8.png" alt="Queue management with bulk actions" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px;">
+            </div>
+          </div>
+
+          <!-- Solution 4 -->
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTION 04</div>
+            <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">AI that shows its work</h3>
+            <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px; max-width: 70ch;">Every AI suggestion is visually distinct, blue tints, lightbulb icons, and always explainable. Users see why the system suggests a classification, what evidence supports it, and they can override with a reason. The boundaries are explicit: AI extracts, classifies, and routes; humans decide.</p>
+            <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 70ch;"><strong style="color: #009966;">Result:</strong> adoption went up when reasoning became visible. Trust came from transparency, not accuracy claims.</p>
+            <img src="assets/dws-ai-components.png" alt="The AI components built from scratch: suggestion containers and confidence indicators" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px; margin-top: 24px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 10px;">the AI components built from scratch: suggestion containers with explainability, and the confidence indicator iteration from percentages to high/medium/low labels</div>
+          </div>
+
+          <!-- Solution 5 -->
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;">
+              <img src="assets/dws-main.png" alt="Match Index, document matching during investigation" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px; order: 1;">
+              <div style="order: 2;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTION 05</div>
+                <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">An investigation workspace, not a form</h3>
+                <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px;">Fraud analysts needed flexible tools and complete transaction context, not rigid forms. I designed a side-by-side workspace with collapsible panels, contextual data surfacing, and document matching that links evidence to the case without leaving the screen.</p>
+                <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;"><strong style="color: #009966;">Result:</strong> complex investigations move faster, and the interface adapts to different investigation styles instead of forcing one workflow.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Solution 6 -->
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0 0;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTION 06</div>
+            <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">Role-based experiences, one design language</h3>
+            <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 24px; max-width: 70ch;">Each role gets an experience optimized for its job, navigation shows only relevant sections, workflows match mental models, while a single design system keeps maintenance sane and patterns transferable.</p>
+            <img src="assets/dws-2.png" alt="The case workspace with persistent context panel" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px; margin: 0 0 12px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin: 0 0 24px;">the case workspace: persistent context panel, role-relevant navigation, and workflow-stage data hierarchy</div>
+            <div style="background: #15171C; border-radius: 10px; padding: 24px 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #7AA5FF; margin-bottom: 10px;">DESIGN PHILOSOPHY</div>
+              <p style="font-size: 15px; line-height: 1.7; color: #E7E9EE; margin: 0;">Transparency designed into every AI interaction. Human agency in every decision. Interfaces that build trust through explainability, because in high-stakes domains, AI should make humans more capable, not replace their judgment.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07b · INTERACTIVE PROTOTYPE -->
+      <section id="sp" data-frame="sp" data-screen-label="DWS / Prototype" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">▶ 07b · Interactive Prototype</span></div>
+        <div style="background: #0A0B0E; border: 1px solid #0A0B0E; border-radius: 12px; overflow: hidden;">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-bottom: 1px solid #23262E;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="width: 9px; height: 9px; border-radius: 50%; background: #34D399; display: block;"></span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #A4ABB8;">try it yourself — the AI-assisted intake from this case study</span>
+            </div>
+            <a href="prototypes/dispute-ai-intake.dc.html" target="_blank" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #7AA5FF; text-decoration: none; border: 1px solid #2A2E37; border-radius: 6px; padding: 6px 12px;" style-hover="border-color: #7AA5FF;">open full screen ↗</a>
+          </div>
+          <iframe src="prototypes/dispute-ai-intake.dc.html" title="AI dispute intake prototype" style="display: block; width: 100%; height: 820px; border: none; background: #EEF1F6;"></iframe>
+        </div>
+        <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin: 12px 0 0;">describe a dispute in plain language — the classification, confidence, reasoning and routing respond live. accept it, or override it and stay in control.</p>
+      </section>
+
+      <!-- 08 · VISUAL SYSTEM -->
+      <section id="s8" data-frame="s8" data-screen-label="DWS / Visual System" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 08 · Visual System</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">Visual design &amp; system</h2>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 36px; max-width: 70ch;">I created a comprehensive design system balancing enterprise professionalism with modern usability, optimized for data-heavy financial workflows, system font stacks for performance, semantic color for instant state recognition, and 50+ components covering 12+ core workflows.</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 36px;">
+            <img data-reveal="1" src="assets/dws-4.png" alt="Component library, buttons and forms" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px;">
+            <img data-reveal="2" src="assets/dws-7.png" alt="Semantic color palette" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px;">
+            <img data-reveal="3" src="assets/dws-6.png" alt="Reusable component patterns" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px;">
+            <img data-reveal="4" src="assets/dws-5.png" alt="Form components, dark documentation sheet" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px; object-fit: cover;">
+          </div>
+          <div data-reveal="2" style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px 28px;">
+            <p style="font-size: 14.5px; line-height: 1.75; color: #4A5565; margin: 0;">A comprehensive design system was essential for a solo designer on an enterprise application: faster iteration, consistent implementation, less design debt. Most importantly, it ensured every screen, whether I designed it explicitly or engineers assembled it from components, maintained the same usability and accessibility bar.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 09 · IMPACT -->
+      <section id="s9" data-frame="s9" data-screen-label="DWS / Impact" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 09 · Impact</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">Impact</h2>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 36px; max-width: 70ch;">The redesigned workspace delivered measurable improvements across operational efficiency, user satisfaction, and compliance. In high-volume financial operations, these percentages translate directly into cost savings and better customer outcomes.</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div data-reveal="1" style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px 20px;">
+              <div style="font-size: 30px; font-weight: 800; color: #009966; letter-spacing: -0.02em;">25–35%</div>
+              <div style="font-size: 13px; font-weight: 700; margin: 6px 0 4px;">Faster call handling</div>
+              <div style="font-size: 12.5px; line-height: 1.55; color: #6A7282;">AI-assisted intake eliminated repetitive questioning and manual classification.</div>
+            </div>
+            <div data-reveal="2" style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px 20px;">
+              <div style="font-size: 30px; font-weight: 800; color: #009966; letter-spacing: -0.02em;">15–25%</div>
+              <div style="font-size: 13px; font-weight: 700; margin: 6px 0 4px;">Better classification accuracy</div>
+              <div style="font-size: 12.5px; line-height: 1.55; color: #6A7282;">Real-time validation and ML assistance caught errors at intake.</div>
+            </div>
+            <div data-reveal="3" style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px 20px;">
+              <div style="font-size: 30px; font-weight: 800; color: #009966; letter-spacing: -0.02em;">40–50%</div>
+              <div style="font-size: 13px; font-weight: 700; margin: 6px 0 4px;">More processing capacity</div>
+              <div style="font-size: 12.5px; line-height: 1.55; color: #6A7282;">Bulk actions, intelligent routing, and priority sorting raised daily throughput.</div>
+            </div>
+            <div data-reveal="4" style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px 20px;">
+              <div style="font-size: 30px; font-weight: 800; color: #009966; letter-spacing: -0.02em;">30–40%</div>
+              <div style="font-size: 13px; font-weight: 700; margin: 6px 0 4px;">Less training time</div>
+              <div style="font-size: 12.5px; line-height: 1.55; color: #6A7282;">AI guidance and intuitive workflows accelerated time-to-productivity for new agents.</div>
+            </div>
+          </div>
+          <p data-reveal="1" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin: 0 0 40px;">* Ranges reflect typical results across institutions; actuals vary by size, volume, and process maturity.</p>
+          <h3 data-reveal="0" style="font-size: 18px; font-weight: 800; margin: 0 0 20px;">What users said</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 36px;">
+            <div data-reveal="1" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px;">
+              <p style="font-size: 14px; line-height: 1.7; color: #364153; margin: 0 0 14px;">"I can finally see WHY the system thinks something is fraud. That transparency makes me trust it more, not less. And when I need to override, I can explain my reasoning."</p>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #9AA0AC;">— FRAUD ANALYST</div>
+            </div>
+            <div data-reveal="2" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px;">
+              <p style="font-size: 14px; line-height: 1.7; color: #364153; margin: 0 0 14px;">"I spend way less time fixing intake errors now. The bulk action tools let me clear routine cases in minutes instead of hours. I can focus on complex investigations."</p>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #9AA0AC;">— DISPUTE PROCESSOR</div>
+            </div>
+            <div data-reveal="3" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px;">
+              <p style="font-size: 14px; line-height: 1.7; color: #364153; margin: 0 0 14px;">"The audit trail is exactly what we need for compliance. Every AI decision is traceable, explainable, and defensible. That's huge for regulatory review."</p>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #9AA0AC;">— COMPLIANCE OFFICER</div>
+            </div>
+          </div>
+          <div data-reveal="2" style="border-left: 3px solid #009966; padding: 4px 0 4px 24px;">
+            <p style="font-size: 15px; line-height: 1.7; color: #364153; margin: 0;">Most importantly: users trust the system. They understand AI suggestions, feel empowered to override when appropriate, and work more confidently. The override tracking even feeds back into model improvement, every human correction makes the system better.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10 · LEARNINGS -->
+      <section id="s10" data-frame="s10" data-screen-label="DWS / Learnings" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 10 · Learnings</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 36px;">What this project taught me</h2>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 48px;">
+            <div data-reveal="1" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 28px;">
+              <h3 style="font-size: 17px; font-weight: 800; margin: 0 0 10px;">Enterprise UX is strategic, not just visual</h3>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">Senior UX work here was about strategic decisions, how AI is introduced, how trust is built, how four roles share one system, more than about any individual screen.</p>
+            </div>
+            <div data-reveal="2" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 28px;">
+              <h3 style="font-size: 17px; font-weight: 800; margin: 0 0 10px;">Users are smarter than we think</h3>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">I worried that AI confidence levels and explainability details would overwhelm users. Instead, they engaged with them, what they couldn't use was vagueness.</p>
+            </div>
+            <div data-reveal="3" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 28px;">
+              <h3 style="font-size: 17px; font-weight: 800; margin: 0 0 10px;">Serve different needs without fragmenting</h3>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">Role-specific experiences sharing one design language beat a middle-ground compromise that satisfied no one, flexibility without fragmenting the system.</p>
+            </div>
+            <div data-reveal="4" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 28px;">
+              <h3 style="font-size: 17px; font-weight: 800; margin: 0 0 10px;">Systems are a solo designer's leverage</h3>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">Strategic prioritization and a strong design system are what let one designer deliver an enterprise-scale application without quality collapsing.</p>
+            </div>
+          </div>
+          <h3 data-reveal="0" style="font-size: 18px; font-weight: 800; margin: 0 0 20px;">What I'd do differently</h3>
+          <div style="display: grid; gap: 14px;">
+            <div data-reveal="1" style="display: grid; grid-template-columns: 28px 1fr; gap: 16px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #9AA0AC;">01</div>
+              <p style="font-size: 15px; line-height: 1.7; color: #364153; margin: 0;"><strong>Prototype AI patterns earlier.</strong> Low-fidelity explorations of confidence indicators and suggestion containers earlier in the process would have surfaced the percentage-confusion problem before hi-fi.</p>
+            </div>
+            <div data-reveal="2" style="display: grid; grid-template-columns: 28px 1fr; gap: 16px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #9AA0AC;">02</div>
+              <p style="font-size: 15px; line-height: 1.7; color: #364153; margin: 0;"><strong>Document the system as thoroughly as I built it.</strong> The component library was comprehensive; its usage guidelines deserved the same rigor.</p>
+            </div>
+            <div data-reveal="3" style="display: grid; grid-template-columns: 28px 1fr; gap: 16px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #9AA0AC;">03</div>
+              <p style="font-size: 15px; line-height: 1.7; color: #364153; margin: 0;"><strong>Study AI UX patterns beyond the domain.</strong> I researched dispute systems deeply but would invest more in how other enterprise products handle AI transparency.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 11 · WHAT'S NEXT -->
+      <section id="s11" data-frame="s11" data-screen-label="DWS / What's Next" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 11 · What's Next</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 28px;">Where it goes from here</h2>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-bottom: 40px;">
+            <div data-reveal="1">
+              <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 10px;">Override-driven model improvement</h3>
+              <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0;">The system captures when users override AI suggestions and why, a feedback loop for improving the ML models. Future work could visualize these patterns for the teams tuning them.</p>
+            </div>
+            <div data-reveal="2">
+              <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 10px;">Personalized assistance levels</h3>
+              <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0;">Different users have different expertise and trust preferences. Future iterations could let users tune how much AI guidance they receive as their confidence grows.</p>
+            </div>
+          </div>
+          <div data-reveal="2" style="background: #15171C; border-radius: 10px; padding: 28px 32px; margin-bottom: 40px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #7AA5FF; margin-bottom: 10px;">FINAL REFLECTION</div>
+            <p style="font-size: 15.5px; line-height: 1.75; color: #E7E9EE; margin: 0;">The Disputes Workspace was one of the most challenging and rewarding projects of my career: cutting-edge AI capability balanced against conservative regulatory requirements, designed alone, shipped at enterprise scale. It cemented my conviction that in high-stakes domains, the goal isn't full automation, it's making humans more capable.</p>
+          </div>
+          <a data-reveal="3" href="360 Control.dc.html" style="display: flex; justify-content: space-between; align-items: center; border: 1px solid #E2E4E9; border-radius: 12px; padding: 28px 32px; text-decoration: none; color: #101828;" style-hover="border-color: #155DFC; background: #F8FAFF;">
+            <div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 6px;">NEXT CASE STUDY</div>
+              <div style="font-size: 22px; font-weight: 800; letter-spacing: -0.01em;">360 Control: rebuilding an issuer console from the IA up</div>
+            </div>
+            <div style="font-size: 28px; color: #155DFC;">→</div>
+          </a>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC;">
+          <span>© 2026 Abhikant Nirbhavane</span>
+          <span>case study · disputes workspace</span>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    // ---- email links assembled at runtime (avoids static-HTML email rewriting) ----
+    const addr = ["abhikant5540", "gmail.com"].join("@");
+    document.querySelectorAll("[data-email]").forEach((el) => {
+      el.setAttribute("href", "mailto:" + addr + "?subject=Hi there");
+      if (el.getAttribute("data-email") === "show") el.textContent = addr;
+    });
+
+    // ---- scroll reveals ----
+    const reveals = Array.from(document.querySelectorAll("[data-reveal]"));
+    reveals.forEach((el) => {
+      const i = parseInt(el.getAttribute("data-reveal") || "0", 10);
+      el.style.opacity = "0";
+      el.style.transform = "translateY(26px)";
+      el.style.transition = "opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)";
+      el.style.transitionDelay = (i * 80) + "ms";
+    });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          en.target.style.opacity = "1";
+          en.target.style.transform = "translateY(0)";
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach((el) => io.observe(el));
+
+    // ---- section nav (click) ----
+    document.querySelectorAll("[data-nav]").forEach((row) => {
+      row.addEventListener("click", () => {
+        const el = document.getElementById(row.getAttribute("data-nav"));
+        if (el) window.scrollTo({ top: el.offsetTop + 48 - 60, behavior: "smooth" });
+      });
+    });
+
+    // ---- scroll spy + reading progress ----
+    const sections = Array.from(document.querySelectorAll("section[data-frame]"));
+    const rows = {};
+    document.querySelectorAll("[data-nav]").forEach((r) => { rows[r.getAttribute("data-nav")] = r; });
+    const progress = document.getElementById("progress");
+    let current = "";
+    const update = () => {
+      const y = window.scrollY + 220;
+      let active = sections[0];
+      sections.forEach((s) => { if (s.offsetTop + 48 < y) active = s; });
+      const key = active.getAttribute("data-frame");
+      if (key !== current) {
+        current = key;
+        Object.keys(rows).forEach((k) => {
+          rows[k].style.background = k === key ? "#EFF6FF" : "transparent";
+          rows[k].style.color = k === key ? "#155DFC" : "#364153";
+        });
+        const row = rows[key];
+        if (row && row.scrollIntoView !== undefined) {
+          const panel = document.getElementById("panel-left");
+          if (panel) {
+            const rTop = row.offsetTop;
+            if (rTop < panel.scrollTop + 60 || rTop > panel.scrollTop + panel.clientHeight - 60) {
+              panel.scrollTo({ top: rTop - panel.clientHeight / 2, behavior: "smooth" });
+            }
+          }
+        }
+      }
+      if (progress) {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + "%";
+      }
+    };
+    let ticking = false;
+    this._onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => { update(); ticking = false; });
+      }
+    };
+    window.addEventListener("scroll", this._onScroll, { passive: true });
+    update();
+
+    // ---- responsive: collapse panels under 1180px ----
+    const left = document.getElementById("panel-left");
+    const right = document.getElementById("panel-right");
+    const canvas = document.getElementById("canvas");
+    const mq = window.matchMedia("(max-width: 1180px)");
+    const applyMq = () => {
+      const narrow = mq.matches;
+      if (left) left.style.display = narrow ? "none" : "block";
+      if (right) right.style.display = narrow ? "none" : "block";
+      if (canvas) canvas.style.margin = narrow ? "48px 0 0 0" : "48px 260px 0 248px";
+    };
+    mq.addEventListener("change", applyMq);
+    this._mq = mq; this._applyMq = applyMq;
+    applyMq();
+
+    // ---- mobile linearization (dynamic responsive pass) ----
+    const gridEls = Array.from(document.querySelectorAll("[style]")).filter((el) => el.style.gridTemplateColumns);
+    gridEls.forEach((el) => { if (!el.getAttribute("data-gtc")) el.setAttribute("data-gtc", el.style.gridTemplateColumns); });
+    const padEls = Array.from(document.querySelectorAll("[style]")).filter((el) => parseInt(el.style.padding) >= 48);
+    padEls.forEach((el) => { if (!el.getAttribute("data-pad")) el.setAttribute("data-pad", el.style.padding); });
+    const headEls = Array.from(document.querySelectorAll("h1, h2")).filter((el) => parseFloat(el.style.fontSize) >= 36);
+    headEls.forEach((el) => { if (!el.getAttribute("data-fs")) el.setAttribute("data-fs", el.style.fontSize); });
+    const applyNarrow = () => {
+      const narrow = window.innerWidth < 880;
+      gridEls.forEach((el) => {
+        const orig = el.getAttribute("data-gtc");
+        const small = /^(\d+)px 1fr$/.exec(orig);
+        el.style.gridTemplateColumns = (narrow && !(small && parseInt(small[1]) <= 100)) ? "1fr" : orig;
+      });
+      padEls.forEach((el) => { el.style.padding = narrow ? "36px 22px" : el.getAttribute("data-pad"); });
+      headEls.forEach((el) => {
+        const orig = parseFloat(el.getAttribute("data-fs"));
+        el.style.fontSize = narrow ? Math.round(orig * 0.65) + "px" : el.getAttribute("data-fs");
+      });
+    };
+    window.addEventListener("resize", applyNarrow);
+    applyNarrow();
+  }
+
+  componentWillUnmount() {
+    if (this._onScroll) window.removeEventListener("scroll", this._onScroll);
+    if (this._mq && this._applyMq) this._mq.removeEventListener("change", this._applyMq);
+  }
+}
+
+</script>
+</body>
+</html>
