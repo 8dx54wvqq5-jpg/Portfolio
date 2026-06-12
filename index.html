@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<title>Abhikant Nirbhavane · Product Designer</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>
@@ -21,6 +22,7 @@
     body { background: #EDEEF0; -webkit-font-smoothing: antialiased; }
     @keyframes pageIn { from { opacity: 0; } to { opacity: 1; } }
     ::selection { background: #CFE0FF; }
+    a:focus-visible, [tabindex]:focus-visible, button:focus-visible { outline: 2px solid #155DFC; outline-offset: 2px; }
     * { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpolygon points='3,1 17,10 10.5,11.5 8,19' fill='%23111418' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E") 3 1, auto !important; }
   </style>
 </helmet>
@@ -94,10 +96,17 @@
         <div style="border: 1px solid #ECEDF1; border-radius: 6px; padding: 6px 8px; display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">H</span><span data-insp="h">620</span></div>
       </div>
       <div style="height: 1px; background: #ECEDF1; margin: 16px 0;"></div>
-      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 10px;">FILL</div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 10px;">CANVAS FILL</div>
+      <div style="display: flex; gap: 6px; margin-bottom: 8px;">
+        <div data-theme-swatch="0" onclick="setTheme(0)" title="Default Gray" tabindex="0" role="button" style="width: 24px; height: 24px; border-radius: 5px; background: #EDEEF0; border: 2px solid #155DFC; cursor: pointer;"></div>
+        <div data-theme-swatch="1" onclick="setTheme(1)" title="Pure White" tabindex="0" role="button" style="width: 24px; height: 24px; border-radius: 5px; background: #F8F8F8; border: 1px solid #D5D8DF; cursor: pointer;"></div>
+        <div data-theme-swatch="2" onclick="setTheme(2)" title="Night" tabindex="0" role="button" style="width: 24px; height: 24px; border-radius: 5px; background: #1A1D23; border: 1px solid #D5D8DF; cursor: pointer;"></div>
+        <div data-theme-swatch="3" onclick="setTheme(3)" title="Warm Sand" tabindex="0" role="button" style="width: 24px; height: 24px; border-radius: 5px; background: #F0EDE8; border: 1px solid #D5D8DF; cursor: pointer;"></div>
+        <div data-theme-swatch="4" onclick="setTheme(4)" title="Blueprint" tabindex="0" role="button" style="width: 24px; height: 24px; border-radius: 5px; background: #E8EDF5; border: 1px solid #D5D8DF; cursor: pointer;"></div>
+      </div>
       <div style="display: flex; align-items: center; gap: 8px;">
-        <div data-insp="swatch" style="width: 16px; height: 16px; border-radius: 4px; background: #FFFFFF; border: 1px solid #D5D8DF;"></div>
-        <span data-insp="fill" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565;">#FFFFFF</span>
+        <div id="theme-swatch-preview" style="width: 16px; height: 16px; border-radius: 4px; background: #EDEEF0; border: 1px solid #D5D8DF;"></div>
+        <span id="theme-hex-label" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565;">#EDEEF0</span>
         <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-left: auto;">100%</span>
       </div>
       <div style="height: 1px; background: #ECEDF1; margin: 16px 0;"></div>
@@ -163,8 +172,8 @@
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565; display: grid; gap: 7px;">
               <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">client</span><span>Fiserv</span></div>
               <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">role</span><span>Sole UX designer</span></div>
-              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">call handling</span><span style="color: #009966;">−25–35%</span></div>
-              <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">capacity</span><span style="color: #009966;">+40–50%</span></div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">call handling</span><span style="color: #00825A;">−25–35%</span></div>
+              <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">capacity</span><span style="color: #00825A;">+40–50%</span></div>
             </div>
           </div>
         </a>
@@ -204,8 +213,8 @@
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565; display: grid; gap: 7px;">
               <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">client</span><span>Zywave</span></div>
               <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">role</span><span>Sole designer</span></div>
-              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">quote time</span><span style="color: #009966;">18 → 10 min</span></div>
-              <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">pricing errors</span><span style="color: #009966;">↓ from 28%</span></div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">quote time</span><span style="color: #00825A;">18 → 10 min</span></div>
+              <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">pricing errors</span><span style="color: #00825A;">↓ from 28%</span></div>
             </div>
           </div>
         </a>
@@ -785,6 +794,37 @@ class Component extends DCLogic {
     if (this._mobileMq && this._applyMobile) this._mobileMq.removeEventListener("change", this._applyMobile);
   }
 }
+</script>
+<script>
+const _themes = [
+  { bg: '#EDEEF0', dot: '#D9DBE0', label: '#EDEEF0' },
+  { bg: '#F8F8F8', dot: '#E2E3E7', label: '#F8F8F8' },
+  { bg: '#1A1D23', dot: '#252930', label: '#1A1D23' },
+  { bg: '#F0EDE8', dot: '#DDDAD2', label: '#F0EDE8' },
+  { bg: '#E8EDF5', dot: '#D0D8E8', label: '#E8EDF5' },
+];
+function setTheme(idx) {
+  const t = _themes[idx];
+  document.body.style.background = t.bg;
+  const canvas = document.getElementById('canvas');
+  if (canvas) canvas.style.backgroundImage = 'radial-gradient(' + t.dot + ' 1px, transparent 1px)';
+  const preview = document.getElementById('theme-swatch-preview');
+  const label = document.getElementById('theme-hex-label');
+  if (preview) preview.style.background = t.bg;
+  if (label) label.textContent = t.label;
+  document.querySelectorAll('[data-theme-swatch]').forEach(function(el) {
+    el.style.border = el.getAttribute('data-theme-swatch') == idx ? '2px solid #155DFC' : '1px solid #D5D8DF';
+  });
+}
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('[data-layer]').forEach(function(el) {
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('role', 'button');
+    el.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
+    });
+  });
+});
 </script>
 </body>
 </html>
