@@ -98,11 +98,11 @@
       <div style="height: 1px; background: #ECEDF1; margin: 16px 0;"></div>
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 10px;">CANVAS FILL</div>
       <div style="display: flex; gap: 6px; margin-bottom: 8px;">
-        <div data-theme-swatch="0" onclick="setTheme(0)" title="Default Gray" tabindex="0" role="button" style="width: 24px; height: 24px; border-radius: 5px; background: #EDEEF0; border: 2px solid #155DFC; cursor: pointer;"></div>
-        <div data-theme-swatch="1" onclick="setTheme(1)" title="Pure White" tabindex="0" role="button" style="width: 24px; height: 24px; border-radius: 5px; background: #F8F8F8; border: 1px solid #D5D8DF; cursor: pointer;"></div>
-        <div data-theme-swatch="2" onclick="setTheme(2)" title="Night" tabindex="0" role="button" style="width: 24px; height: 24px; border-radius: 5px; background: #1A1D23; border: 1px solid #D5D8DF; cursor: pointer;"></div>
-        <div data-theme-swatch="3" onclick="setTheme(3)" title="Warm Sand" tabindex="0" role="button" style="width: 24px; height: 24px; border-radius: 5px; background: #F0EDE8; border: 1px solid #D5D8DF; cursor: pointer;"></div>
-        <div data-theme-swatch="4" onclick="setTheme(4)" title="Blueprint" tabindex="0" role="button" style="width: 24px; height: 24px; border-radius: 5px; background: #E8EDF5; border: 1px solid #D5D8DF; cursor: pointer;"></div>
+        <div data-theme-swatch="0" title="Default Gray" tabindex="0" role="button" style="width: 24px; height: 24px; border-radius: 5px; background: #EDEEF0; border: 2px solid #155DFC; cursor: pointer;"></div>
+        <div data-theme-swatch="1" title="Pure White" tabindex="0" role="button" style="width: 24px; height: 24px; border-radius: 5px; background: #F8F8F8; border: 1px solid #D5D8DF; cursor: pointer;"></div>
+        <div data-theme-swatch="2" title="Night" tabindex="0" role="button" style="width: 24px; height: 24px; border-radius: 5px; background: #1A1D23; border: 1px solid #D5D8DF; cursor: pointer;"></div>
+        <div data-theme-swatch="3" title="Warm Sand" tabindex="0" role="button" style="width: 24px; height: 24px; border-radius: 5px; background: #F0EDE8; border: 1px solid #D5D8DF; cursor: pointer;"></div>
+        <div data-theme-swatch="4" title="Blueprint" tabindex="0" role="button" style="width: 24px; height: 24px; border-radius: 5px; background: #E8EDF5; border: 1px solid #D5D8DF; cursor: pointer;"></div>
       </div>
       <div style="display: flex; align-items: center; gap: 8px;">
         <div id="theme-swatch-preview" style="width: 16px; height: 16px; border-radius: 4px; background: #EDEEF0; border: 1px solid #D5D8DF;"></div>
@@ -816,7 +816,17 @@ function setTheme(idx) {
     el.style.border = el.getAttribute('data-theme-swatch') == idx ? '2px solid #155DFC' : '1px solid #D5D8DF';
   });
 }
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('click', function(e) {
+  var swatch = e.target.closest('[data-theme-swatch]');
+  if (swatch) setTheme(parseInt(swatch.getAttribute('data-theme-swatch'), 10));
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' || e.key === ' ') {
+    var swatch = e.target.closest('[data-theme-swatch]');
+    if (swatch) { e.preventDefault(); setTheme(parseInt(swatch.getAttribute('data-theme-swatch'), 10)); }
+  }
+});
+setTimeout(function() {
   document.querySelectorAll('[data-layer]').forEach(function(el) {
     el.setAttribute('tabindex', '0');
     el.setAttribute('role', 'button');
@@ -824,7 +834,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
     });
   });
-});
+}, 100);
 </script>
 </body>
 </html>
