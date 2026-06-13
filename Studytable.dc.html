@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Studytable — Abhikant Nirbhavane</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script src="./support.js"></script>
+
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; padding: 0; }
+    body { background: #EDEEF0; -webkit-font-smoothing: antialiased; }
+    @keyframes pageIn { from { opacity: 0; } to { opacity: 1; } }
+    ::selection { background: #CFE0FF; }
+    a:focus-visible, [tabindex]:focus-visible, button:focus-visible { outline: 2px solid #155DFC; outline-offset: 2px; }
+    * { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpolygon points='3,1 17,10 10.5,11.5 8,19' fill='%23111418' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E") 3 1, auto !important; }
+    /* ---- Studytable prototype tokens ---- */
+    #st-proto { --st-green: #27B173; --st-green-d: #1E9C63; --st-purple: #8B7FEA; --st-ink: #20242E; --st-muted: #6B7280; --st-line: #E7E9F0; }
+    .st-screen { animation: stFade 0.35s ease both; }
+    @keyframes stFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .st-btn-green { background: var(--st-green); color: #fff; border: none; border-radius: 8px; padding: 12px 22px; font-family: Manrope, sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; transition: background 0.15s; }
+    .st-btn-green:hover { background: var(--st-green-d); }
+    .st-btn-purple { background: var(--st-purple); color: #fff; border: none; border-radius: 8px; padding: 10px 20px; font-family: Manrope, sans-serif; font-weight: 700; font-size: 13px; cursor: pointer; }
+    .st-btn-ghost { background: #fff; color: var(--st-ink); border: 1px solid var(--st-line); border-radius: 8px; padding: 11px 20px; font-family: Manrope, sans-serif; font-weight: 600; font-size: 13px; cursor: pointer; }
+    .st-grade { width: 30px; height: 30px; border-radius: 7px; border: 1px solid var(--st-line); background: #fff; font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 12px; color: var(--st-muted); cursor: pointer; }
+    .st-grade.on { background: var(--st-green); color: #fff; border-color: var(--st-green); }
+    .st-pick { cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
+    .st-pick:hover { border-color: var(--st-green) !important; box-shadow: 0 6px 18px -10px rgba(39,177,115,0.5); }
+  </style>
+</helmet>
+
+<div style="font-family: Manrope, sans-serif; color: #101828; animation: pageIn 0.5s ease both; min-height: 100vh;">
+
+  <!-- ====================== TOP TOOLBAR ====================== -->
+  <div style="position: fixed; top: 0; left: 0; right: 0; height: 48px; background: #15171C; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; z-index: 100; box-sizing: border-box;">
+    <div style="display: flex; align-items: center; gap: 4px;">
+      <a href="index.html" style="width: 30px; height: 30px; border-radius: 6px; background: #155DFC; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; margin-right: 6px; text-decoration: none;">A</a>
+      <div title="Move" style="width: 30px; height: 30px; border-radius: 6px; background: #2A2E37; display: flex; align-items: center; justify-content: center;">
+        <svg width="14" height="14" viewBox="0 0 18 18"><polygon points="3,1 15,9 9.5,10.5 7,16" fill="#E7E9EE"></polygon></svg>
+      </div>
+      <div title="Comment" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px;">◯</div>
+    </div>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #AEB4C0; display: flex; align-items: center; gap: 8px;">
+      <a href="Work.dc.html" style="color: #6A7282; text-decoration: none;">Work</a>
+      <span style="color: #444A56;">/</span>
+      <span style="color: #6A7282;">Academic Work</span>
+      <span style="color: #444A56;">/</span>
+      <span style="color: #E7E9EE;">Studytable</span>
+      <span style="background: #14532D; color: #86EFAC; font-size: 10px; padding: 2px 8px; border-radius: 999px;">Capstone</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <a href="#" data-email="link" style="background: #155DFC; color: #fff; font-size: 12.5px; font-weight: 700; padding: 7px 14px; border-radius: 6px; text-decoration: none;">Contact</a>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #AEB4C0; padding: 4px 6px;">100% ▾</div>
+    </div>
+  </div>
+  <div id="progress" style="position: fixed; top: 48px; left: 0; height: 2px; width: 0%; background: #155DFC; z-index: 101;"></div>
+
+  <!-- ====================== LEFT PANEL: SECTIONS ====================== -->
+  <div id="panel-left" style="position: fixed; top: 48px; left: 0; bottom: 0; width: 248px; background: #FFFFFF; border-right: 1px solid #E2E4E9; z-index: 90; overflow-y: auto; padding: 14px 0; box-sizing: border-box;">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; padding: 4px 16px 8px;">PAGES</div>
+    <a href="index.html" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: #364153; font-size: 13px; font-weight: 600;"><span style="font-size: 9px; color: #C9CDD6;">○</span> Home</a>
+    <a href="Work.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: #155DFC; font-size: 13px; font-weight: 700; background: #EFF6FF;"><span style="font-size: 9px;">●</span> Work / Academic</a>
+    <a href="About.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: #364153; font-size: 13px; font-weight: 600;"><span style="font-size: 9px; color: #C9CDD6;">○</span> About</a>
+    <div style="height: 1px; background: #ECEDF1; margin: 14px 16px;"></div>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; padding: 4px 16px 8px;">CASE STUDIES</div>
+    <a href="DWS.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: #4A5565; font-size: 12.5px; font-weight: 500;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> Disputes Workspace</a>
+    <a href="360 Control.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: #4A5565; font-size: 12.5px; font-weight: 500;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> 360 Control</a>
+    <a href="DS.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: #4A5565; font-size: 12.5px; font-weight: 500;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> Design System</a>
+    <a href="CPQ.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: #4A5565; font-size: 12.5px; font-weight: 500;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> CPQ</a>
+    <a href="EcoCash.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: #4A5565; font-size: 12.5px; font-weight: 500;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> Academic · Eco-Cash</a>
+    <a href="GEA.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: #4A5565; font-size: 12.5px; font-weight: 500;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> Academic · GEA-Spin</a>
+    <a href="Studytable.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: #155DFC; font-size: 12.5px; font-weight: 700; background: #EFF6FF;"><span style="color: #155DFC; font-size: 10px;">▢</span> Academic · Studytable</a>
+    <div style="height: 1px; background: #ECEDF1; margin: 14px 16px;"></div>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; padding: 4px 16px 8px;">SECTIONS</div>
+    <div data-nav="s0" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 00 · Cover</div>
+    <div data-nav="s1" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 01 · Overview</div>
+    <div data-nav="s2" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 02 · My Role</div>
+    <div data-nav="s3" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 03 · The Problem</div>
+    <div data-nav="s4" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 04 · The Approach</div>
+    <div data-nav="s5" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 05 · Interactive Prototype</div>
+    <div data-nav="s6" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 06 · Key Screens</div>
+    <div data-nav="s7" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 07 · Reflection</div>
+  </div>
+
+  <!-- ====================== RIGHT PANEL: PROJECT META ====================== -->
+  <div id="panel-right" style="position: fixed; top: 48px; right: 0; bottom: 0; width: 260px; background: #FFFFFF; border-left: 1px solid #E2E4E9; z-index: 90; overflow-y: auto; box-sizing: border-box;">
+    <div style="padding: 16px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 12px;">PROJECT</div>
+      <div style="font-size: 14px; font-weight: 800; margin-bottom: 16px;">Studytable</div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565; display: grid; gap: 8px;">
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 8px;"><span style="color: #9AA0AC;">context</span><span>IUPUI · Capstone</span></div>
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 8px;"><span style="color: #9AA0AC;">role</span><span>End-to-end UX</span></div>
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 8px;"><span style="color: #9AA0AC;">domain</span><span>EdTech</span></div>
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 8px;"><span style="color: #9AA0AC;">platform</span><span>Responsive Web</span></div>
+        <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">deliverable</span><span style="color: #155DFC;">Prototype</span></div>
+      </div>
+      <div style="height: 1px; background: #ECEDF1; margin: 16px 0;"></div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 12px;">HIGHLIGHTS</div>
+      <div style="display: grid; gap: 10px;">
+        <div style="border: 1px solid #ECEDF1; border-radius: 8px; padding: 10px 12px;"><div style="font-size: 18px; font-weight: 800; color: #155DFC;">2</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">decision paths designed</div></div>
+        <div style="border: 1px solid #ECEDF1; border-radius: 8px; padding: 10px 12px;"><div style="font-size: 18px; font-weight: 800; color: #155DFC;">20</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">screens designed</div></div>
+        <div style="border: 1px solid #ECEDF1; border-radius: 8px; padding: 10px 12px;"><div style="font-size: 18px; font-weight: 800; color: #155DFC;">3</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">decision factors: fit, cost, time</div></div>
+      </div>
+      <div style="height: 1px; background: #ECEDF1; margin: 16px 0;"></div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 10px;">UP NEXT</div>
+      <a href="EcoCash.dc.html" style="display: block; border: 1px solid #ECEDF1; border-radius: 8px; padding: 12px; text-decoration: none; color: #101828;">
+        <div style="font-size: 13px; font-weight: 800; margin-bottom: 2px;">Eco-Cash →</div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">back to academic work 01</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ====================== CANVAS ====================== -->
+  <div id="canvas" style="margin: 48px 260px 0 248px; padding: 56px 48px 80px; background-image: radial-gradient(#D9DBE0 1px, transparent 1px); background-size: 24px 24px; min-height: calc(100vh - 48px); box-sizing: border-box;">
+    <div style="max-width: 1080px; margin: 0 auto;">
+
+      <!-- ===== ACADEMIC WORK TAB BAR ===== -->
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 28px; flex-wrap: wrap;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-right: 4px;">ACADEMIC WORK · INDIANA UNIVERSITY</span>
+        <a href="EcoCash.dc.html" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: #364153; background: #FFFFFF; border: 1px solid #D5D8DF; border-radius: 999px; padding: 7px 16px; text-decoration: none;">01 · Eco-Cash</a>
+        <a href="GEA.dc.html" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: #364153; background: #FFFFFF; border: 1px solid #D5D8DF; border-radius: 999px; padding: 7px 16px; text-decoration: none;">02 · GEA-Spin</a>
+        <a href="Studytable.dc.html" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #FFFFFF; background: #155DFC; border: 1px solid #155DFC; border-radius: 999px; padding: 7px 16px; text-decoration: none;">03 · Studytable</a>
+      </div>
+
+      <!-- 00 · COVER -->
+      <section id="s0" data-frame="s0" data-screen-label="Studytable / Cover">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 00 · Cover</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
+          <div style="padding: 72px 64px 56px;">
+            <div data-reveal="0" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #155DFC; margin-bottom: 20px;">CAPSTONE · EDTECH</div>
+            <h1 data-reveal="1" style="font-size: 48px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 22px; max-width: 22ch; text-wrap: pretty;">Studytable: helping students choose a major before it costs them</h1>
+            <p data-reveal="2" style="font-size: 17px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 64ch;">Studytable is a platform for high school and college students who are unsure what to major in. It turns a vague, high-stakes decision into a guided one: it reads the courses and grades a student already has, recommends majors that fit, shows the real difficulty, salary, and cost of each, and connects students to mentors who have walked that path. This was my capstone project at IUPUI.</p>
+          </div>
+          <div data-reveal="2" style="padding: 0 64px 64px;">
+            <img src="assets/studytable/st-main.png" alt="Studytable landing page" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px; box-shadow: 0 24px 48px -24px rgba(16,24,40,0.35);">
+          </div>
+        </div>
+      </section>
+
+      <!-- 01 · OVERVIEW -->
+      <section id="s1" data-frame="s1" data-screen-label="Studytable / Overview" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 01 · Overview</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 28px;">Project overview</h2>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px;">
+            <div data-reveal="1">
+              <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 10px;">The product</h3>
+              <p style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0;">Studytable guides students to a major that fits. It looks at the courses and grades they already have, recommends majors, and lays out the parts of the decision that usually stay hidden: how hard the courses are, what careers and salaries follow, and what financial aid covers. When students want a human, it matches them with mentors for a call.</p>
+            </div>
+            <div data-reveal="2">
+              <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 10px;">The mandate</h3>
+              <p style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0;">As my IUPUI capstone, this was an end-to-end brief: take a real, costly student problem and carry it from research all the way to a working prototype. The decision to pick or switch a major has money and years attached to it, so the design had to be trustworthy, not just pretty.</p>
+            </div>
+          </div>
+          <div data-reveal="3" style="margin-top: 40px; background: #EFF6FF; border: 1px solid #D6E4FF; border-radius: 10px; padding: 24px 28px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; margin-bottom: 8px;">DESIGN GOAL</div>
+            <p style="font-size: 16.5px; line-height: 1.6; font-weight: 600; color: #101828; margin: 0;">Turn "I have no idea what to major in" into a confident, informed choice, by showing students the fit, the cost, and the time of each path before they commit.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 · MY ROLE -->
+      <section id="s2" data-frame="s2" data-screen-label="Studytable / My Role" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 02 · My Role</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">My role</h2>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 16px; max-width: 70ch;">This was my capstone, so I owned all of it: the research, the information architecture, the two decision flows, the full screen design, and the clickable prototype that tied it together.</p>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 36px; max-width: 70ch;">The real design work was structural. A major decision has three moving parts, fit, cost, and time, and most tools only show one. My job was to put all three in front of a student at the moment they actually decide.</p>
+          <div data-reveal="2" style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">User research</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Information architecture</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Interaction design</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Visual design</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Prototyping</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 · THE PROBLEM -->
+      <section id="s3" data-frame="s3" data-screen-label="Studytable / The Problem" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 03 · The Problem</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">The problem</h2>
+          <div data-reveal="1" style="border-left: 3px solid #155DFC; padding: 4px 0 4px 24px; margin-bottom: 36px;">
+            <p style="font-size: 17px; line-height: 1.65; color: #101828; font-weight: 600; margin: 0;">Students choose one of the most expensive decisions of their lives, a major, with almost no usable information. They go on gut feel, then discover the cost, the difficulty, or the job market too late to change course cheaply.</p>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+            <div data-reveal="1" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">GAP 01</div>
+              <h3 style="font-size: 17px; font-weight: 800; margin: 0 0 8px;">No sense of fit</h3>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">Students rarely connect the subjects they already do well in to the majors that would suit them. The signal is there in their grades; nothing reads it back to them.</p>
+            </div>
+            <div data-reveal="2" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">GAP 02</div>
+              <h3 style="font-size: 17px; font-weight: 800; margin: 0 0 8px;">Switching is expensive</h3>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">Changing a major late can add semesters and fees. Students need to know what a switch actually costs in time and money before they make it.</p>
+            </div>
+            <div data-reveal="3" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">GAP 03</div>
+              <h3 style="font-size: 17px; font-weight: 800; margin: 0 0 8px;">Advice is scattered</h3>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">Difficulty, salaries, financial aid, and real mentor experience live in different places. No single view helps a student weigh them together.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 · THE APPROACH -->
+      <section id="s4" data-frame="s4" data-screen-label="Studytable / The Approach" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 04 · The Approach</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">Two students, two paths</h2>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 36px; max-width: 70ch;">Research kept surfacing two very different students with the same anxiety. The whole experience starts by asking one question, "which one are you?", and branches from there.</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div data-reveal="1" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #27B173; margin-bottom: 10px;">PATH A</div>
+              <h3 style="font-size: 18px; font-weight: 800; margin: 0 0 10px;">First time choosing a major</h3>
+              <p style="font-size: 15px; line-height: 1.7; color: #4A5565; margin: 0;">The student enters the courses they have taken and the grades they earned. Studytable reads the pattern and recommends majors that fit, then opens each one up: difficulty, careers, salaries, and aid.</p>
+            </div>
+            <div data-reveal="2" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8B7FEA; margin-bottom: 10px;">PATH B</div>
+              <h3 style="font-size: 18px; font-weight: 800; margin: 0 0 10px;">Want to change my major</h3>
+              <p style="font-size: 15px; line-height: 1.7; color: #4A5565; margin: 0;">The student gives their current college and major, then their completed courses. Studytable shows what a switch really costs: which credits carry over, when they would graduate, and whether they would owe extra fees.</p>
+            </div>
+          </div>
+          <div data-reveal="3" style="margin-top: 28px; background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 22px 26px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 8px;">WHY START WITH THE QUESTION</div>
+            <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">Splitting on intent up front meant neither student ever waded through steps meant for the other. Try it yourself in the prototype below.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 · INTERACTIVE PROTOTYPE -->
+      <section id="s5" data-frame="s5" data-screen-label="Studytable / Prototype" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 05 · Interactive Prototype</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 12px;">Try the flow</h2>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 70ch;">The actual Studytable screens, made clickable. Pick a path and step through the flow, either choosing a major for the first time or working out what it costs to switch one.</p>
+
+          <div data-reveal="1" id="st-proto" style="background: #EEF0F6; border: 1px solid #E2E4E9; border-radius: 16px; padding: 18px;">
+            <div style="background: #fff; border-radius: 12px; box-shadow: 0 12px 30px -16px rgba(16,24,40,0.45); overflow: hidden;">
+              <div style="display: flex; align-items: center; gap: 8px; padding: 11px 14px; border-bottom: 1px solid #E7E9F0; background: #FBFBFD;">
+                <span style="width: 11px; height: 11px; border-radius: 50%; background: #FF5F57;"></span>
+                <span style="width: 11px; height: 11px; border-radius: 50%; background: #FEBC2E;"></span>
+                <span style="width: 11px; height: 11px; border-radius: 50%; background: #28C840;"></span>
+                <div id="st-url" style="flex: 1; margin-left: 10px; background: #fff; border: 1px solid #E7E9F0; border-radius: 7px; padding: 5px 12px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC;">studytable.app / major-search</div>
+              </div>
+              <div id="st-view" style="height: 480px; overflow-y: auto; background: #fff;">
+                <img id="st-img" src="assets/studytable/st-flow-start.png" alt="Studytable major search" style="display: block; width: 100%; height: auto;">
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; padding: 14px 6px 4px; flex-wrap: wrap;">
+              <div id="st-steps" style="display: flex; gap: 6px;"></div>
+              <div id="st-cap" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6B7280; flex: 1; min-width: 160px;"></div>
+              <div id="st-actions" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>
+              <button class="st-btn-ghost" data-restart style="padding: 7px 14px; font-size: 12px;">↺ Restart</button>
+            </div>
+          </div>
+          <div data-reveal="1" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 12px;">The real Studytable screens, made clickable. Pick a path and step through the major-search flow.</div>
+        </div>
+      </section>
+
+      <!-- 06 · KEY SCREENS -->
+      <section id="s6" data-frame="s6" data-screen-label="Studytable / Key Screens" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 06 · Key Screens</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 12px;">The real screens</h2>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 40px; max-width: 70ch;">Beyond the search flow, Studytable had to feel like a real advisor. These are the actual capstone screens: a side-by-side comparison, the data behind each major, and mentors students could message, watch, and call.</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div data-reveal="1" style="border: 1px solid #ECEDF1; border-radius: 12px; overflow: hidden; background: #fff;">
+              <div style="height: 290px; overflow: hidden; background: #EEF0F6; border-bottom: 1px solid #ECEDF1;">
+                <img src="assets/studytable/st-compare.png" alt="Compare two majors" style="display: block; width: 100%; height: auto;">
+              </div>
+              <div style="padding: 18px 20px;">
+                <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 6px;">Compare two majors</h3>
+                <p style="font-size: 13.5px; line-height: 1.65; color: #4A5565; margin: 0;">Put two majors side by side, difficulty, salary, and time to degree, and let the student weigh them in one view.</p>
+              </div>
+            </div>
+            <div data-reveal="1" style="border: 1px solid #ECEDF1; border-radius: 12px; overflow: hidden; background: #fff;">
+              <div style="height: 290px; overflow: hidden; background: #EEF0F6; border-bottom: 1px solid #ECEDF1;">
+                <img src="assets/studytable/st-data.png" alt="Major data deep dive" style="display: block; width: 100%; height: auto;">
+              </div>
+              <div style="padding: 18px 20px;">
+                <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 6px;">The deep dive</h3>
+                <p style="font-size: 13.5px; line-height: 1.65; color: #4A5565; margin: 0;">Course difficulty, career salaries pulled from Glassdoor, and a full financial-aid breakdown for the major.</p>
+              </div>
+            </div>
+            <div data-reveal="1" style="border: 1px solid #ECEDF1; border-radius: 12px; overflow: hidden; background: #fff;">
+              <div style="height: 290px; overflow: hidden; background: #EEF0F6; border-bottom: 1px solid #ECEDF1;">
+                <img src="assets/studytable/st-mentor-doc.png" alt="Mentor profile" style="display: block; width: 100%; height: auto;">
+              </div>
+              <div style="padding: 18px 20px;">
+                <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 6px;">A mentor with a face</h3>
+                <p style="font-size: 13.5px; line-height: 1.65; color: #4A5565; margin: 0;">A mentor profile: John Doe, CS Engineer at Amazon, his expertise, the languages he speaks, and a Schedule a call button.</p>
+              </div>
+            </div>
+            <div data-reveal="1" style="border: 1px solid #ECEDF1; border-radius: 12px; overflow: hidden; background: #fff;">
+              <div style="height: 290px; overflow: hidden; background: #EEF0F6; border-bottom: 1px solid #ECEDF1;">
+                <img src="assets/studytable/st-mentor-videos.png" alt="Mentor videos" style="display: block; width: 100%; height: auto;">
+              </div>
+              <div style="padding: 18px 20px;">
+                <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 6px;">Learn before you book</h3>
+                <p style="font-size: 13.5px; line-height: 1.65; color: #4A5565; margin: 0;">A mentor's video library, so students can learn from someone in the field before spending a call.</p>
+              </div>
+            </div>
+            <div data-reveal="1" style="border: 1px solid #ECEDF1; border-radius: 12px; overflow: hidden; background: #fff;">
+              <div style="height: 290px; overflow: hidden; background: #EEF0F6; border-bottom: 1px solid #ECEDF1;">
+                <img src="assets/studytable/st-call.png" alt="In-app chat and call" style="display: block; width: 100%; height: auto;">
+              </div>
+              <div style="padding: 18px 20px;">
+                <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 6px;">Talk it through</h3>
+                <p style="font-size: 13.5px; line-height: 1.65; color: #4A5565; margin: 0;">In-app chat and conference call, so the conversation happens inside Studytable, not scattered across tools.</p>
+              </div>
+            </div>
+            <div data-reveal="1" style="border: 1px solid #ECEDF1; border-radius: 12px; overflow: hidden; background: #fff;">
+              <div style="height: 290px; overflow: hidden; background: #EEF0F6; border-bottom: 1px solid #ECEDF1;">
+                <img src="assets/studytable/st-mentors.png" alt="Top mentors and blog" style="display: block; width: 100%; height: auto;">
+              </div>
+              <div style="padding: 18px 20px;">
+                <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 6px;">Mentors and the blog</h3>
+                <p style="font-size: 13.5px; line-height: 1.65; color: #4A5565; margin: 0;">Top-rated mentors and an editorial blog, the human and informational layer around the decision.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 · REFLECTION -->
+      <section id="s7" data-frame="s7" data-screen-label="Studytable / Reflection" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 07 · Reflection</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 28px;">What the capstone taught me</h2>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 40px;">
+            <div data-reveal="1" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #155DFC; margin-bottom: 10px;">01</div>
+              <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 10px;">Branch on intent early</h3>
+              <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;">Asking "which one are you?" first kept two different students out of each other's way. One upfront question saved a dozen wrong-fit steps later.</p>
+            </div>
+            <div data-reveal="2" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #155DFC; margin-bottom: 10px;">02</div>
+              <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 10px;">Show cost, not just fit</h3>
+              <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;">The feature students reacted to most was the one that named the price of a decision: extra time, extra fees. Honesty about cost built more trust than any recommendation.</p>
+            </div>
+            <div data-reveal="3" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #155DFC; margin-bottom: 10px;">03</div>
+              <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 10px;">Data needs a human</h3>
+              <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;">Salaries and difficulty percentages only go so far. Pairing the numbers with mentors gave the whole thing the credibility a life decision deserves.</p>
+            </div>
+          </div>
+          <div data-reveal="2" style="background: #15171C; border-radius: 10px; padding: 28px 32px; margin-bottom: 40px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #7AA5FF; margin-bottom: 10px;">REFLECTION</div>
+            <p style="font-size: 15.5px; line-height: 1.75; color: #E7E9EE; margin: 0;">Studytable was where I learned to design around a decision, not a feature list. The interface is simple on purpose, because the thing it carries is not: a choice with years and money attached. If I built it again I would test the recommendation logic with real transcripts, since trust in the match is the entire product.</p>
+          </div>
+          <a data-reveal="3" href="EcoCash.dc.html" style="display: flex; justify-content: space-between; align-items: center; border: 1px solid #E2E4E9; border-radius: 12px; padding: 28px 32px; text-decoration: none; color: #101828;">
+            <div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 6px;">BACK TO START · ACADEMIC WORK 01</div>
+              <div style="font-size: 22px; font-weight: 800; letter-spacing: -0.01em;">Eco-Cash: gamifying conservation for Indiana's forests</div>
+            </div>
+            <div style="font-size: 28px; color: #155DFC;">→</div>
+          </a>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC;">
+          <span>© 2026 Abhikant Nirbhavane</span>
+          <span>case study · studytable</span>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const addr = ["abhikant5540", "gmail.com"].join("@");
+    document.querySelectorAll("[data-email]").forEach((el) => {
+      el.setAttribute("href", "mailto:" + addr + "?subject=Hi there");
+      if (el.getAttribute("data-email") === "show") el.textContent = addr;
+    });
+
+    const reveals = Array.from(document.querySelectorAll("[data-reveal]"));
+    reveals.forEach((el) => {
+      const i = parseInt(el.getAttribute("data-reveal") || "0", 10);
+      el.style.opacity = "0";
+      el.style.transform = "translateY(26px)";
+      el.style.transition = "opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)";
+      el.style.transitionDelay = (i * 80) + "ms";
+    });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          en.target.style.opacity = "1";
+          en.target.style.transform = "translateY(0)";
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach((el) => io.observe(el));
+
+    document.querySelectorAll("[data-nav]").forEach((row) => {
+      row.addEventListener("click", () => {
+        const el = document.getElementById(row.getAttribute("data-nav"));
+        if (el) window.scrollTo({ top: el.offsetTop + 48 - 60, behavior: "smooth" });
+      });
+    });
+
+    const sections = Array.from(document.querySelectorAll("section[data-frame]"));
+    const rows = {};
+    document.querySelectorAll("[data-nav]").forEach((r) => { rows[r.getAttribute("data-nav")] = r; });
+    const progress = document.getElementById("progress");
+    let current = "";
+    const update = () => {
+      const y = window.scrollY + 220;
+      let active = sections[0];
+      sections.forEach((s) => { if (s.offsetTop + 48 < y) active = s; });
+      const key = active.getAttribute("data-frame");
+      if (key !== current) {
+        current = key;
+        Object.keys(rows).forEach((k) => {
+          rows[k].style.background = k === key ? "#EFF6FF" : "transparent";
+          rows[k].style.color = k === key ? "#155DFC" : "#364153";
+        });
+        const row = rows[key];
+        if (row) {
+          const panel = document.getElementById("panel-left");
+          if (panel) {
+            const rTop = row.offsetTop;
+            if (rTop < panel.scrollTop + 60 || rTop > panel.scrollTop + panel.clientHeight - 60) {
+              panel.scrollTo({ top: rTop - panel.clientHeight / 2, behavior: "smooth" });
+            }
+          }
+        }
+      }
+      if (progress) {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + "%";
+      }
+    };
+    let ticking = false;
+    this._onScroll = () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(() => { update(); ticking = false; }); }
+    };
+    window.addEventListener("scroll", this._onScroll, { passive: true });
+    update();
+
+    const left = document.getElementById("panel-left");
+    const right = document.getElementById("panel-right");
+    const canvas = document.getElementById("canvas");
+    const mq = window.matchMedia("(max-width: 1180px)");
+    const applyMq = () => {
+      const narrow = mq.matches;
+      if (left) left.style.display = narrow ? "none" : "block";
+      if (right) right.style.display = narrow ? "none" : "block";
+      if (canvas) canvas.style.margin = narrow ? "48px 0 0 0" : "48px 260px 0 248px";
+    };
+    mq.addEventListener("change", applyMq);
+    this._mq = mq; this._applyMq = applyMq;
+    applyMq();
+
+    const gridEls = Array.from(document.querySelectorAll("[style]")).filter((el) => el.style.gridTemplateColumns);
+    gridEls.forEach((el) => { if (!el.getAttribute("data-gtc")) el.setAttribute("data-gtc", el.style.gridTemplateColumns); });
+    const padEls = Array.from(document.querySelectorAll("[style]")).filter((el) => parseInt(el.style.padding) >= 48);
+    padEls.forEach((el) => { if (!el.getAttribute("data-pad")) el.setAttribute("data-pad", el.style.padding); });
+    const headEls = Array.from(document.querySelectorAll("h1, h2")).filter((el) => parseFloat(el.style.fontSize) >= 30);
+    headEls.forEach((el) => { if (!el.getAttribute("data-fs")) el.setAttribute("data-fs", el.style.fontSize); });
+    const applyNarrow = () => {
+      const narrow = window.innerWidth < 880;
+      gridEls.forEach((el) => {
+        const orig = el.getAttribute("data-gtc");
+        const small = /^(\d+)px 1fr$/.exec(orig);
+        el.style.gridTemplateColumns = (narrow && !(small && parseInt(small[1]) <= 100)) ? "1fr" : orig;
+      });
+      padEls.forEach((el) => { el.style.padding = narrow ? "36px 22px" : el.getAttribute("data-pad"); });
+      headEls.forEach((el) => {
+        const orig = parseFloat(el.getAttribute("data-fs"));
+        el.style.fontSize = narrow ? Math.round(orig * 0.65) + "px" : el.getAttribute("data-fs");
+      });
+    };
+    window.addEventListener("resize", applyNarrow);
+    applyNarrow();
+
+    // ---- Studytable interactive prototype (real screens) ----
+    (function initProto() {
+      var proto = document.getElementById("st-proto");
+      if (!proto) return;
+      var BASE = "assets/studytable/";
+      var S = {
+        start:        { img: "st-flow-start.png",     url: "major-search",                 cap: "Which one are you?",                                  step: 0, total: 4, actions: [{ label: "First time choosing a major", to: "grades", primary: true }, { label: "Want to change my major", to: "changeCollege" }] },
+        grades:       { img: "st-flow-grades.png",     url: "major-search/grades",          cap: "First time \u00b7 enter your courses and grades",        step: 1, total: 4, actions: [{ label: "Back", to: "start" }, { label: "Next \u2192", to: "result", primary: true }] },
+        result:       { img: "st-flow-result.png",     url: "major-search/result",          cap: "Your recommended major",                              step: 2, total: 4, actions: [{ label: "Back", to: "grades" }, { label: "Learn more \u2192", to: "major", primary: true }] },
+        major:        { img: "st-flow-major.png",      url: "major/computer-science",       cap: "Inside the major \u00b7 about, specialisations, classes", step: 3, total: 4, actions: [{ label: "Back", to: "result" }, { label: "Difficulty, salary & aid \u2192", to: "data", primary: true }, { label: "Start over", to: "start" }] },
+        data:         { img: "st-data.png",            url: "major/computer-science/data",  cap: "Difficulty, careers, salaries and financial aid",     step: 4, total: 4, actions: [{ label: "Back", to: "major" }, { label: "Start over", to: "start" }] },
+        changeCollege:{ img: "st-change-college.png",  url: "change-major",                 cap: "Change major \u00b7 where you are now",                  step: 1, total: 5, actions: [{ label: "Back", to: "start" }, { label: "Next \u2192", to: "concern", primary: true }] },
+        concern:      { img: "st-change-concern.png",  url: "change-major/cost",            cap: "Change major \u00b7 the time and money question",        step: 2, total: 5, actions: [{ label: "Back", to: "changeCollege" }, { label: "Next \u2192", to: "changeCourses", primary: true }] },
+        changeCourses:{ img: "st-change-courses.png",  url: "change-major/courses",         cap: "Change major \u00b7 courses you have already taken",     step: 3, total: 5, actions: [{ label: "Back", to: "concern" }, { label: "See result \u2192", to: "changeResult", primary: true }] },
+        changeResult: { img: "st-change-result.png",   url: "change-major/result",          cap: "What a switch actually costs",                        step: 4, total: 5, actions: [{ label: "Back", to: "changeCourses" }, { label: "Explore this major \u2192", to: "major", primary: true }, { label: "Start over", to: "start" }] }
+      };
+      var img = proto.querySelector("#st-img"), url = proto.querySelector("#st-url"),
+          cap = proto.querySelector("#st-cap"), acts = proto.querySelector("#st-actions"),
+          steps = proto.querySelector("#st-steps"), view = proto.querySelector("#st-view");
+      function render(name) {
+        var s = S[name]; if (!s) return;
+        if (img) { img.src = BASE + s.img; img.alt = s.cap; }
+        if (url) url.textContent = "studytable.app / " + s.url;
+        if (cap) cap.textContent = s.cap;
+        if (view) view.scrollTop = 0;
+        if (steps) {
+          steps.innerHTML = "";
+          for (var i = 0; i < s.total; i++) {
+            var d = document.createElement("span");
+            d.style.cssText = "width:" + (i === s.step ? "22px" : "8px") + ";height:8px;border-radius:99px;background:" + (i <= s.step ? "#8B7FEA" : "#D5D8DF") + ";transition:all .2s;";
+            steps.appendChild(d);
+          }
+        }
+        if (acts) {
+          acts.innerHTML = "";
+          s.actions.forEach(function (a) {
+            var b = document.createElement("button");
+            b.textContent = a.label;
+            b.className = a.primary ? "st-btn-purple" : "st-btn-ghost";
+            b.style.padding = "9px 16px"; b.style.fontSize = "12.5px";
+            b.addEventListener("click", function () { render(a.to); });
+            acts.appendChild(b);
+          });
+        }
+      }
+      var rb = proto.querySelector("[data-restart]");
+      if (rb) rb.addEventListener("click", function () { render("start"); });
+      render("start");
+    })();
+  }
+
+  componentWillUnmount() {
+    if (this._onScroll) window.removeEventListener("scroll", this._onScroll);
+    if (this._mq && this._applyMq) this._mq.removeEventListener("change", this._applyMq);
+  }
+}
+</script>
+
+<div id="nav-loader" style="position: fixed; top: 0; left: 0; height: 2px; width: 0; background: #155DFC; z-index: 102; opacity: 0; box-shadow: 0 0 8px rgba(21,93,252,0.7); transition: width 0.2s ease, opacity 0.3s ease; pointer-events: none;"></div>
+<script>
+(function () {
+  var bar = document.getElementById('nav-loader');
+  if (!bar) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) bar.style.transition = 'opacity 0.2s ease';
+  function set(w) { bar.style.width = w + '%'; }
+  function show() { bar.style.opacity = '1'; }
+  function done() {
+    set(100);
+    setTimeout(function () { bar.style.opacity = '0'; setTimeout(function () { set(0); }, 300); }, 150);
+  }
+  show(); set(reduce ? 100 : 35);
+  if (document.readyState === 'complete') { done(); }
+  else { window.addEventListener('load', done); }
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.charAt(0) === '#' || a.target === '_blank') return;
+    if (/^(https?:|mailto:|tel:)/i.test(href)) return;
+    show(); set(12);
+    if (reduce) return;
+    var p = 12;
+    clearInterval(window.__navInt);
+    window.__navInt = setInterval(function () { p += (90 - p) * 0.18; set(p > 90 ? 90 : p); }, 120);
+  }, true);
+  window.addEventListener('pageshow', function (ev) {
+    if (ev.persisted) { clearInterval(window.__navInt); set(0); bar.style.opacity = '0'; }
+  });
+})();
+</script>
+</body>
+</html>
