@@ -940,7 +940,14 @@ class Component extends DCLogic {
           const href = clickTarget.getAttribute("href");
           const frameEl = clickTarget.closest ? clickTarget.closest("[data-frame]") : null;
           if (href) {
-            if (this.reduce || !frameEl) {
+            const blank = clickTarget.getAttribute("target") === "_blank";
+            const external = blank || /^(mailto:|tel:|https?:)/i.test(href);
+            if (external) {
+              // mailto/tel/external: navigate in-gesture so the browser doesn't
+              // block the protocol handler; no fly-to-frame for these.
+              if (blank) window.open(href, "_blank", "noopener");
+              else window.location.href = href;
+            } else if (this.reduce || !frameEl) {
               setTimeout(() => { window.location.href = href; }, 0);
             } else {
               const L = frameEl.offsetLeft, T = frameEl.offsetTop;

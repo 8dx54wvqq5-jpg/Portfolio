@@ -842,6 +842,29 @@ class Component extends DCLogic {
     mq.addEventListener("change", applyMq);
     this._mq = mq; this._applyMq = applyMq;
     applyMq();
+
+    // ---- mobile linearization (dynamic responsive pass) ----
+    const gridEls = Array.from(document.querySelectorAll("[style]")).filter((el) => el.style.gridTemplateColumns);
+    gridEls.forEach((el) => { if (!el.getAttribute("data-gtc")) el.setAttribute("data-gtc", el.style.gridTemplateColumns); });
+    const padEls = Array.from(document.querySelectorAll("[style]")).filter((el) => parseInt(el.style.padding) >= 48);
+    padEls.forEach((el) => { if (!el.getAttribute("data-pad")) el.setAttribute("data-pad", el.style.padding); });
+    const headEls = Array.from(document.querySelectorAll("h1, h2")).filter((el) => parseFloat(el.style.fontSize) >= 30);
+    headEls.forEach((el) => { if (!el.getAttribute("data-fs")) el.setAttribute("data-fs", el.style.fontSize); });
+    const applyNarrow = () => {
+      const narrow = window.innerWidth < 880;
+      gridEls.forEach((el) => {
+        const orig = el.getAttribute("data-gtc");
+        const small = /^(\d+)px 1fr$/.exec(orig);
+        el.style.gridTemplateColumns = (narrow && !(small && parseInt(small[1]) <= 100)) ? "1fr" : orig;
+      });
+      padEls.forEach((el) => { el.style.padding = narrow ? "36px 22px" : el.getAttribute("data-pad"); });
+      headEls.forEach((el) => {
+        const orig = parseFloat(el.getAttribute("data-fs"));
+        el.style.fontSize = narrow ? Math.round(orig * 0.65) + "px" : el.getAttribute("data-fs");
+      });
+    };
+    window.addEventListener("resize", applyNarrow);
+    applyNarrow();
   }
 
   componentWillUnmount() {
