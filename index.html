@@ -137,7 +137,7 @@
             <div>
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #155DFC; margin-bottom: 22px;">ABHIKANT NIRBHAVANE · SENIOR UX DESIGNER</div>
               <h1 style="font-size: 46px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 20px; text-wrap: pretty;">I design for environments where getting it wrong has real consequences.</h1>
-              <p style="font-size: 16px; line-height: 1.7; color: #4A5565; margin: 0 0 26px; max-width: 54ch;">Dispute management, card controls, compliance workflows, complex quoting — enterprise systems where clarity is a safety feature, not a nice-to-have. Most recently shipping fintech platforms at Fiserv.</p>
+              <p style="font-size: 16px; line-height: 1.7; color: #4A5565; margin: 0 0 26px; max-width: 54ch;">Dispute management, card controls, compliance workflows, complex quoting. Enterprise systems where clarity is a safety feature, not a nice-to-have. Most recently at Fiserv, where I shipped AI that explains itself: confidence indicators, reasoning you can actually see, and a human override that's always there. In these systems you can't afford a black box.</p>
               <div style="display: flex; flex-wrap: wrap; gap: 8px;">
                 <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Enterprise UX</span>
                 <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Design systems</span>
@@ -298,7 +298,7 @@
             <div>
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #9AA0AC; margin-bottom: 12px;">02</div>
               <h3 style="font-size: 18px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 10px;">Transparency beats automation</h3>
-              <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;">AI earns adoption when it shows its reasoning. I've shipped AI that explains itself, and deliberately kept AI out of systems where deterministic rules are more trustworthy.</p>
+              <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;">AI earns adoption when it shows its reasoning. On Disputes Workspace I shipped AI-assisted intake with confidence indicators, visible evidence, and a one-click way for a person to override it. I also kept AI out of systems where plain deterministic rules are safer to trust. Knowing which call to make is most of the job.</p>
             </div>
             <div>
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #9AA0AC; margin-bottom: 12px;">03</div>
@@ -790,29 +790,6 @@ class Component extends DCLogic {
   startCursorLife() {
     if (this.reduce) return;
     const T = (fn, ms) => { const id = setTimeout(fn, ms); if (this._timers) this._timers.push(id); return id; };
-    const mk = (sel, color, msgs) => {
-      const c = document.querySelector(sel);
-      if (!c) return null;
-      const b = document.createElement("div");
-      b.style.cssText = "position:absolute;left:30px;top:24px;background:" + color + ";color:#fff;font-family:'JetBrains Mono',monospace;font-size:10px;padding:4px 8px;border-radius:10px 10px 10px 2px;white-space:nowrap;opacity:0;transform:translateY(3px);transition:opacity 0.3s ease, transform 0.3s ease;box-shadow:0 4px 10px rgba(16,24,40,0.18);";
-      c.appendChild(b);
-      return { b: b, msgs: msgs, i: 0 };
-    };
-    const a = mk('[data-cursor="1"]', "#009966", ["nice, drag works", "where's the work? →", "ooh, metrics"]);
-    const z = mk('[data-cursor="2"]', "#155DFC", ["try the work cards →", "thanks for stopping by", "drag to explore"]);
-    const cycle = (o, base) => {
-      if (!o) return;
-      const loop = () => {
-        o.b.textContent = o.msgs[o.i % o.msgs.length];
-        o.i++;
-        o.b.style.opacity = "1"; o.b.style.transform = "translateY(0)";
-        T(() => { o.b.style.opacity = "0"; o.b.style.transform = "translateY(3px)"; }, 2600);
-        T(loop, 6000);
-      };
-      T(loop, base);
-    };
-    cycle(a, 2200);
-    cycle(z, 4800);
     const workKeys = ["dws", "c360", "cpq", "ds", "ecocash"];
     let pi = 0;
     const pulse = () => {
