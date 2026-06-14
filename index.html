@@ -40,6 +40,17 @@
     * { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpolygon points='3,1 17,10 10.5,11.5 8,19' fill='%23111418' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E") 3 1, auto !important; }
     .cFlow { animation: dashFlow 0.9s linear infinite; }
     @keyframes dashFlow { to { stroke-dashoffset: -14; } }
+    .hero-motif .hmd { fill: #C2C6CF; transform-box: fill-box; transform-origin: center; animation: hmsh 4.6s ease-in-out infinite; }
+    .hero-motif .hme { stroke: #155DFC; stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-dasharray: 170; stroke-dashoffset: 170; animation: hmdraw 7s ease-in-out infinite; }
+    .hero-motif .hmn { fill: #155DFC; transform-box: fill-box; transform-origin: center; opacity: 0; animation: hmnode 7s ease-in-out infinite; }
+    .hero-motif .hmr { fill: none; stroke: #009966; stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; animation: hmring 7s ease-in-out infinite; }
+    .hero-motif .hmt { stroke: #009966; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 14; stroke-dashoffset: 14; animation: hmtick 7s ease-in-out infinite; }
+    @keyframes hmsh { 0%,100% { opacity: .32; transform: scale(.85); } 50% { opacity: .8; transform: scale(1.12); } }
+    @keyframes hmdraw { 0%,18% { stroke-dashoffset: 170; opacity: 0; } 34% { opacity: 1; } 40%,68% { stroke-dashoffset: 0; opacity: 1; } 84%,100% { stroke-dashoffset: 170; opacity: 0; } }
+    @keyframes hmnode { 0%,12% { opacity: 0; transform: scale(0); } 28%,72% { opacity: 1; transform: scale(1); } 86%,100% { opacity: 0; transform: scale(0); } }
+    @keyframes hmring { 0%,40% { opacity: 0; transform: scale(.4); } 52%,70% { opacity: 1; transform: scale(1); } 84%,100% { opacity: 0; transform: scale(1.1); } }
+    @keyframes hmtick { 0%,44% { stroke-dashoffset: 14; opacity: 0; } 56% { opacity: 1; } 60%,70% { stroke-dashoffset: 0; opacity: 1; } 84%,100% { stroke-dashoffset: 14; opacity: 0; } }
+    @media (prefers-reduced-motion: reduce) { .hero-motif .hmd, .hero-motif .hme, .hero-motif .hmn, .hero-motif .hmr, .hero-motif .hmt { animation: none; } .hero-motif .hmd { opacity: .55; transform: scale(1); } .hero-motif .hme { stroke-dashoffset: 0; opacity: 1; } .hero-motif .hmn { opacity: 1; transform: scale(1); } .hero-motif .hmr { opacity: 1; transform: scale(1); } .hero-motif .hmt { stroke-dashoffset: 0; opacity: 1; } }
   </style>
 </helmet>
 
@@ -161,7 +172,41 @@
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 28px;">this portfolio is a canvas — drag to pan, the work lives to the right ↗</div>
             </div>
             <div style="display: flex; align-items: center; justify-content: center;">
-              <img src="assets/memoji-anim.gif" alt="Abhikant Nirbhavane memoji" style="display: block; width: 80%; max-width: 340px; height: auto; filter: drop-shadow(0 20px 40px rgba(16,24,40,0.12));">
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 16px; width: 100%;">
+                <svg class="hero-motif" width="320" height="320" viewBox="0 0 360 360" role="img" aria-label="Scattered points settle into an ordered structure, with one node confirmed by a confidence tick." style="max-width: 88%; height: auto;">
+                  <title>Structure from noise</title>
+                  <g>
+                    <circle class="hmd" cx="70" cy="70" r="3.5" style="animation-delay:0s"/>
+                    <circle class="hmd" cx="125" cy="70" r="3.5" style="animation-delay:.18s"/>
+                    <circle class="hmd" cx="180" cy="70" r="3.5" style="animation-delay:.36s"/>
+                    <circle class="hmd" cx="235" cy="70" r="3.5" style="animation-delay:.54s"/>
+                    <circle class="hmd" cx="290" cy="70" r="3.5" style="animation-delay:.72s"/>
+                    <circle class="hmd" cx="70" cy="125" r="3.5" style="animation-delay:.18s"/>
+                    <circle class="hmd" cx="180" cy="125" r="3.5" style="animation-delay:.54s"/>
+                    <circle class="hmd" cx="290" cy="125" r="3.5" style="animation-delay:.9s"/>
+                    <circle class="hmd" cx="70" cy="180" r="3.5" style="animation-delay:.36s"/>
+                    <circle class="hmd" cx="125" cy="180" r="3.5" style="animation-delay:.54s"/>
+                    <circle class="hmd" cx="235" cy="180" r="3.5" style="animation-delay:.9s"/>
+                    <circle class="hmd" cx="290" cy="180" r="3.5" style="animation-delay:1.08s"/>
+                    <circle class="hmd" cx="70" cy="235" r="3.5" style="animation-delay:.54s"/>
+                    <circle class="hmd" cx="125" cy="235" r="3.5" style="animation-delay:.72s"/>
+                    <circle class="hmd" cx="235" cy="235" r="3.5" style="animation-delay:1.08s"/>
+                    <circle class="hmd" cx="290" cy="235" r="3.5" style="animation-delay:1.26s"/>
+                    <circle class="hmd" cx="70" cy="290" r="3.5" style="animation-delay:.72s"/>
+                    <circle class="hmd" cx="125" cy="290" r="3.5" style="animation-delay:.9s"/>
+                    <circle class="hmd" cx="180" cy="290" r="3.5" style="animation-delay:1.08s"/>
+                    <circle class="hmd" cx="235" cy="290" r="3.5" style="animation-delay:1.26s"/>
+                    <circle class="hmd" cx="290" cy="290" r="3.5" style="animation-delay:1.44s"/>
+                  </g>
+                  <path class="hme" d="M125 125 L235 125 L180 235 Z"/>
+                  <circle class="hmn" cx="125" cy="125" r="6"/>
+                  <circle class="hmn" cx="235" cy="125" r="6"/>
+                  <circle class="hmn" cx="180" cy="235" r="7"/>
+                  <circle class="hmr" cx="180" cy="235" r="14"/>
+                  <path class="hmt" d="M173 235 L178 240 L188 229"/>
+                </svg>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: #9AA0AC;">structure → clarity</div>
+              </div>
             </div>
           </div>
         </div>
