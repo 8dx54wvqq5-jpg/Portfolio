@@ -543,11 +543,33 @@
           </div>
 
           <!-- Solution 10 -->
-          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0 0;">
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0;">
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTION 10</div>
             <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">Resolving disputes before they become chargebacks</h3>
             <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px; max-width: 70ch;">Not every dispute needs to travel the full chargeback path. When a cardholder disputes a charge, the workspace can send it to Ethoca, Mastercard's pre-dispute network, which notifies the merchant in near real time. The merchant can refund or cancel the order inside the alert window, and the dispute closes before a chargeback is ever filed.</p>
             <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 70ch;"><strong style="color: #009966;">Result:</strong> disputes resolve at the source when they can, so only the cases that truly need the formal process go there. Fewer chargebacks, faster outcomes for the cardholder.</p>
+          </div>
+
+          <!-- Solution 11 -->
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTION 11</div>
+            <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">Catching fraud before it posts</h3>
+            <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px; max-width: 70ch;">Cardholders often report a charge while it is still pending, before it posts to the account. Agents used to have no way to act on an authorization that had not settled, so the dispute waited, or slipped through. Match Authorization Charges to the Transaction List reconciles pending fraud authorizations against the posted transaction list as charges settle. The agent notes the dispute now, the system watches for the post, and the charge is marked fraud on the case the moment it lands.</p>
+            <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0 0 24px; max-width: 70ch;"><strong style="color: #009966;">Result:</strong> agents act the instant a cardholder reports a charge, even before it posts, and nothing is lost in the gap between authorization and posting.</p>
+            <img src="assets/dws-auth-match.png" alt="Matching pending fraud authorization charges to the posted transaction list inside a case" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 10px;">matching pending fraud authorizations to posted transactions: the agent reconciles an unsettled charge and marks it fraud the moment it posts</div>
+          </div>
+
+          <!-- Solution 12 -->
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0 0;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTION 12</div>
+            <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">Queries supervisors build, agents run at scale</h3>
+            <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px; max-width: 70ch;">A supervisor codifies a filter once in the Query Editor, say every fraud transaction over $100, sets which roles can use or modify it, and publishes it. Agents pull that saved query into the Case Manager instead of rebuilding the same filter by hand, then apply a case action across every matching case at once. The Execution Results screen reports back case by case, what succeeded and what failed, so a bulk action never hides a quiet error.</p>
+            <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0 0 24px; max-width: 70ch;"><strong style="color: #009966;">Result:</strong> expertise written by the people who have it, reused by the whole team. Routine work clears in bulk, and accountability survives the scale.</p>
+            <img src="assets/dws-query-editor.png" alt="Query Editor: supervisors build and publish reusable case queries with role-based access" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 10px;">the Query Editor: supervisors author reusable queries and control which roles can use or modify each one</div>
+            <img src="assets/dws-query-exec.png" alt="Execution Results: per-case success and failure after a bulk action" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px; margin-top: 20px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 10px;">after a bulk action, the Execution Results screen reports back case by case, so a failure inside the batch is never silent</div>
           </div>
         </div>
       </section>
