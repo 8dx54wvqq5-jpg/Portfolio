@@ -1,21 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Abhikant Nirbhavane · Senior UX Designer</title>
+<title>Abhikant Nirbhavane · Product Designer</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Senior UX designer for enterprise fintech: dispute management, card controls, compliance workflows, and AI that explains itself. Most recently at Fiserv.">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="canonical" href="https://abhikant.com/">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://abhikant.com/">
-<meta property="og:title" content="Abhikant Nirbhavane · Senior UX Designer">
-<meta property="og:description" content="I design for environments where getting it wrong has real consequences. Enterprise fintech, dispute management, and AI that explains itself.">
-<meta property="og:image" content="https://abhikant.com/assets/dws-hero.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Abhikant Nirbhavane · Senior UX Designer">
-<meta name="twitter:description" content="Enterprise fintech UX. Dispute management, card controls, and AI that explains itself.">
-<meta name="twitter:image" content="https://abhikant.com/assets/dws-hero.png">
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>
@@ -28,9 +16,8 @@
 <helmet>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet">
   <style>
-  h1, h2 { font-family: 'Fraunces', serif !important; font-weight: 600 !important; letter-spacing: -0.015em; }
     html, body { margin: 0; padding: 0; overflow: hidden; }
     body { background: #EDEEF0; -webkit-font-smoothing: antialiased; }
     @keyframes pageIn { from { opacity: 0; } to { opacity: 1; } }
@@ -39,6 +26,28 @@
     * { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpolygon points='3,1 17,10 10.5,11.5 8,19' fill='%23111418' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E") 3 1, auto !important; }
     .cFlow { animation: dashFlow 0.9s linear infinite; }
     @keyframes dashFlow { to { stroke-dashoffset: -14; } }
+    /* ---- cinematic video hero (intro frame) ---- */
+    .hv-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+    .hv-veil { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: linear-gradient(180deg, rgba(3,28,38,0.5) 0%, rgba(3,28,38,0.22) 45%, rgba(3,28,38,0.62) 100%); }
+    .hv-glass { background: rgba(255,255,255,0.01); background-blend-mode: luminosity;
+      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.1); position: relative; overflow: hidden;
+      transition: transform 0.25s ease; }
+    .hv-glass:hover { transform: scale(1.03); }
+    .hv-glass::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1.4px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 20%,
+        rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.15) 80%, rgba(255,255,255,0.45) 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+    @keyframes hvRise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .hv-rise { animation: hvRise 0.8s ease-out both; }
+    .hv-d1 { animation-delay: 0.18s; }
+    .hv-d2 { animation-delay: 0.36s; }
+    .hv-chip { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.85);
+      border: 1px solid rgba(255,255,255,0.25); border-radius: 999px; padding: 6px 12px;
+      background: rgba(255,255,255,0.06); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); }
+    @media (prefers-reduced-motion: reduce) { .hv-rise { animation: none; } }
   </style>
 </helmet>
 
@@ -127,7 +136,7 @@
       <div style="height: 1px; background: #ECEDF1; margin: 16px 0;"></div>
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 10px;">TYPE</div>
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565; display: grid; gap: 6px;">
-        <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">Font</span><span>Fraunces · Manrope</span></div>
+        <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">Font</span><span>Manrope</span></div>
         <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">Mono</span><span>JetBrains</span></div>
         <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">Accent</span><span style="color: #155DFC;">#155DFC</span></div>
       </div>
@@ -145,23 +154,23 @@
       <!-- ============ FRAME · HERO ============ -->
       <div data-screen-label="Home / Intro">
         <div data-flab="hero" style="position: absolute; left: 320px; top: 292px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">◇ 01 · Intro</div>
-        <div data-frame="hero" data-fade="0" style="position: absolute; left: 320px; top: 320px; width: 1240px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); padding: 64px; box-sizing: border-box;">
-          <div style="display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center;">
-            <div>
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #155DFC; margin-bottom: 22px;">ABHIKANT NIRBHAVANE · SENIOR UX DESIGNER</div>
-              <h1 style="font-size: 46px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 20px; text-wrap: pretty;">I design for environments where getting it wrong has real consequences.</h1>
-              <p style="font-size: 16px; line-height: 1.7; color: #4A5565; margin: 0 0 26px; max-width: 54ch;">Dispute management, card controls, compliance workflows, complex quoting. Enterprise systems where clarity is a safety feature, not a nice-to-have. Most recently at Fiserv, where I shipped AI that explains itself: confidence indicators, reasoning you can actually see, and a human override that's always there. In these systems you can't afford a black box.</p>
-              <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Enterprise UX</span>
-                <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Design systems</span>
-                <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">AI workflows</span>
-                <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Fintech</span>
-              </div>
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 28px;">this portfolio is a canvas — drag to pan, the work lives to the right ↗</div>
+        <div data-frame="hero" data-fade="0" style="position: absolute; left: 320px; top: 320px; width: 1240px; min-height: 540px; background: #03303F; border: 1px solid #0C2330; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; box-sizing: border-box;">
+          <video class="hv-video" autoplay loop muted playsinline>
+            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260314_131748_f2ca2a28-fed7-44c8-b9a9-bd9acdd5ec31.mp4" type="video/mp4">
+          </video>
+          <div class="hv-veil"></div>
+          <div style="position: relative; z-index: 2; min-height: 540px; padding: 76px 64px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; box-sizing: border-box;">
+            <div class="hv-rise" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #8FB4FF; margin-bottom: 24px;">ABHIKANT NIRBHAVANE · SENIOR PRODUCT DESIGNER</div>
+            <h1 class="hv-rise hv-d1" style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 72px; line-height: 0.95; letter-spacing: -2.46px; color: #FFFFFF; margin: 0; max-width: 20ch; text-wrap: balance;">I design for <em style="font-style: normal; color: hsl(240 5% 74%);">environments</em> where getting it wrong has <em style="font-style: normal; color: hsl(240 5% 74%);">real consequences.</em></h1>
+            <p class="hv-rise hv-d1" style="font-family: Manrope, sans-serif; font-size: 17px; line-height: 1.7; color: hsl(240 5% 80%); max-width: 62ch; margin: 28px 0 0;">Enterprise systems where clarity is a safety feature, not a nice-to-have. Dispute management, card controls, compliance workflows, complex quoting. Most recently shipping fintech platforms at Fiserv.</p>
+            <div class="hv-rise hv-d2" style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 28px;">
+              <span class="hv-chip">Enterprise UX</span>
+              <span class="hv-chip">Design systems</span>
+              <span class="hv-chip">AI workflows</span>
+              <span class="hv-chip">Fintech</span>
             </div>
-            <div style="display: flex; align-items: center; justify-content: center;">
-              <img src="assets/memoji-anim.gif" alt="Abhikant Nirbhavane memoji" style="display: block; width: 80%; max-width: 340px; height: auto; filter: drop-shadow(0 20px 40px rgba(16,24,40,0.12));">
-            </div>
+            <div onClick="{{ goWork }}" class="hv-rise hv-d2 hv-glass" style="border-radius: 9999px; padding: 15px 34px; margin-top: 28px; font-family: Manrope, sans-serif; font-size: 15px; font-weight: 600; color: #FFFFFF; cursor: pointer;">See the work →</div>
+            <div class="hv-rise hv-d2" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 26px;">this portfolio is a canvas, drag to pan, the work lives to the right ↗</div>
           </div>
         </div>
       </div>
@@ -276,7 +285,7 @@
 
       <!-- ============ FRAME · ECO-CASH ============ -->
       <div data-screen-label="Home / Academic Work">
-        <div data-flab="ecocash" style="position: absolute; left: 2800px; top: 1800px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">▢ academic</div>
+        <div data-flab="ecocash" style="position: absolute; left: 2800px; top: 1800px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">▢ work / academic</div>
         <a data-frame="ecocash" data-fade="3" href="EcoCash.dc.html" style="position: absolute; left: 2800px; top: 1828px; width: 800px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
           <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #15171C;">
             <img data-zoomimg="1" src="assets/academic-hero.png" alt="Academic Work, Indiana University" style="display: block; width: 100%; height: 360px; object-fit: cover; object-position: center; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
@@ -311,7 +320,7 @@
             <div>
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #9AA0AC; margin-bottom: 12px;">02</div>
               <h3 style="font-size: 18px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 10px;">Transparency beats automation</h3>
-              <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;">AI earns adoption when it shows its reasoning. On Disputes Workspace I shipped AI-assisted intake with confidence indicators, visible evidence, and a one-click way for a person to override it. I also kept AI out of systems where plain deterministic rules are safer to trust. Knowing which call to make is most of the job.</p>
+              <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;">AI earns adoption when it shows its reasoning. I've shipped AI that explains itself, and deliberately kept AI out of systems where deterministic rules are more trustworthy.</p>
             </div>
             <div>
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #9AA0AC; margin-bottom: 12px;">03</div>
@@ -332,8 +341,8 @@
 
       <!-- ============ FRAME · CONTACT ============ -->
       <div data-screen-label="Home / Contact">
-        <div data-flab="contact" style="position: absolute; left: 320px; top: 1872px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">◇ 04 · Contact</div>
-        <div data-frame="contact" data-fade="3" style="position: absolute; left: 320px; top: 1900px; width: 1240px; background: #15171C; border: 1px solid #15171C; border-radius: 14px; padding: 64px; box-sizing: border-box; color: #fff;">
+        <div data-flab="contact" style="position: absolute; left: 320px; top: 1672px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">◇ 04 · Contact</div>
+        <div data-frame="contact" data-fade="3" style="position: absolute; left: 320px; top: 1700px; width: 1240px; background: #15171C; border: 1px solid #15171C; border-radius: 14px; padding: 64px; box-sizing: border-box; color: #fff;">
           <h2 style="font-size: 46px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin: 0 0 18px; max-width: 18ch;">Let's build the next high-stakes thing.</h2>
           <p style="font-size: 16px; line-height: 1.7; color: #AEB4C0; margin: 0 0 32px; max-width: 52ch;">If you're looking for a designer who's comfortable where compliance, complexity, and real money meet — let's talk.</p>
           <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
@@ -342,7 +351,7 @@
             <a href="https://resumego.link/abhikant/designer" target="_blank" style="color: #E7E9EE; font-size: 14px; font-weight: 700; text-decoration: none; border: 1px solid #3A3F4B; padding: 13px 20px; border-radius: 8px;" style-hover="border-color: #7AA5FF; color: #7AA5FF;">Resume ↓</a>
           </div>
         </div>
-        <div style="position: absolute; left: 320px; top: 2270px; width: 1240px; display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC;">
+        <div style="position: absolute; left: 320px; top: 2070px; width: 1240px; display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC;">
           <span>© 2026 Abhikant Nirbhavane</span>
           <span>designed as an open canvas · v2 final</span>
         </div>
@@ -364,13 +373,24 @@
   <!-- ====================== MOBILE VIEW ====================== -->
   <div id="mobile-view" style="display: none; font-family: Manrope, sans-serif; color: #101828; padding-top: 48px; min-height: 100vh; background: #EDEEF0;">
     <!-- hero -->
-    <div style="padding: 36px 22px 28px; background: #FFFFFF; border-bottom: 1px solid #E2E4E9;">
-      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #155DFC; margin-bottom: 12px;">ABHIKANT NIRBHAVANE · SENIOR UX DESIGNER</div>
-      <h1 style="font-size: 28px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; margin: 0 0 14px;">I design for environments where getting it wrong has real consequences.</h1>
-      <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0 0 22px;">Dispute management, card controls, compliance workflows. Enterprise systems where clarity is a safety feature. Most recently at Fiserv, shipping AI that explains itself: confidence indicators, visible reasoning, human override.</p>
-      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <a href="Work.dc.html" style="background: #155DFC; color: #fff; font-size: 13px; font-weight: 700; padding: 11px 20px; border-radius: 7px; text-decoration: none;">View all work →</a>
-        <a href="About.dc.html" style="color: #364153; font-size: 13px; font-weight: 700; padding: 11px 20px; border-radius: 7px; text-decoration: none; border: 1px solid #D5D8DF;">About</a>
+    <div style="position: relative; overflow: hidden; background: #03303F; border-bottom: 1px solid #0C2330;">
+      <video class="hv-video" autoplay loop muted playsinline preload="metadata">
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260314_131748_f2ca2a28-fed7-44c8-b9a9-bd9acdd5ec31.mp4" type="video/mp4">
+      </video>
+      <div class="hv-veil"></div>
+      <div style="position: relative; z-index: 2; padding: 44px 22px 40px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #8FB4FF; margin-bottom: 14px;">ABHIKANT NIRBHAVANE · SENIOR PRODUCT DESIGNER</div>
+        <h1 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 40px; line-height: 1.0; letter-spacing: -0.5px; color: #FFFFFF; margin: 0 0 16px;">I design for <em style="font-style: normal; color: hsl(240 5% 74%);">environments</em> where getting it wrong has <em style="font-style: normal; color: hsl(240 5% 74%);">real consequences.</em></h1>
+        <p style="font-size: 14.5px; line-height: 1.7; color: hsl(240 5% 82%); margin: 0 0 18px;">Enterprise systems where clarity is a safety feature, not a nice-to-have. Most recently shipping fintech platforms at Fiserv.</p>
+        <div style="display: flex; gap: 7px; flex-wrap: wrap; margin: 0 0 22px;">
+          <span class="hv-chip">Enterprise UX</span>
+          <span class="hv-chip">Design systems</span>
+          <span class="hv-chip">Fintech</span>
+        </div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <a href="Work.dc.html" class="hv-glass" style="border-radius: 9999px; color: #FFFFFF; font-size: 13px; font-weight: 600; padding: 12px 22px; text-decoration: none;">View all work →</a>
+          <a href="About.dc.html" class="hv-glass" style="border-radius: 9999px; color: #FFFFFF; font-size: 13px; font-weight: 600; padding: 12px 22px; text-decoration: none;">About</a>
+        </div>
       </div>
     </div>
     <!-- work cards -->
@@ -803,6 +823,29 @@ class Component extends DCLogic {
   startCursorLife() {
     if (this.reduce) return;
     const T = (fn, ms) => { const id = setTimeout(fn, ms); if (this._timers) this._timers.push(id); return id; };
+    const mk = (sel, color, msgs) => {
+      const c = document.querySelector(sel);
+      if (!c) return null;
+      const b = document.createElement("div");
+      b.style.cssText = "position:absolute;left:30px;top:24px;background:" + color + ";color:#fff;font-family:'JetBrains Mono',monospace;font-size:10px;padding:4px 8px;border-radius:10px 10px 10px 2px;white-space:nowrap;opacity:0;transform:translateY(3px);transition:opacity 0.3s ease, transform 0.3s ease;box-shadow:0 4px 10px rgba(16,24,40,0.18);";
+      c.appendChild(b);
+      return { b: b, msgs: msgs, i: 0 };
+    };
+    const a = mk('[data-cursor="1"]', "#009966", ["nice, drag works", "where's the work? →", "ooh, metrics"]);
+    const z = mk('[data-cursor="2"]', "#155DFC", ["try the work cards →", "thanks for stopping by", "drag to explore"]);
+    const cycle = (o, base) => {
+      if (!o) return;
+      const loop = () => {
+        o.b.textContent = o.msgs[o.i % o.msgs.length];
+        o.i++;
+        o.b.style.opacity = "1"; o.b.style.transform = "translateY(0)";
+        T(() => { o.b.style.opacity = "0"; o.b.style.transform = "translateY(3px)"; }, 2600);
+        T(loop, 6000);
+      };
+      T(loop, base);
+    };
+    cycle(a, 2200);
+    cycle(z, 4800);
     const workKeys = ["dws", "c360", "cpq", "ds", "ecocash"];
     let pi = 0;
     const pulse = () => {
@@ -953,14 +996,7 @@ class Component extends DCLogic {
           const href = clickTarget.getAttribute("href");
           const frameEl = clickTarget.closest ? clickTarget.closest("[data-frame]") : null;
           if (href) {
-            const blank = clickTarget.getAttribute("target") === "_blank";
-            const external = blank || /^(mailto:|tel:|https?:)/i.test(href);
-            if (external) {
-              // mailto/tel/external: navigate in-gesture so the browser doesn't
-              // block the protocol handler; no fly-to-frame for these.
-              if (blank) window.open(href, "_blank", "noopener");
-              else window.location.href = href;
-            } else if (this.reduce || !frameEl) {
+            if (this.reduce || !frameEl) {
               setTimeout(() => { window.location.href = href; }, 0);
             } else {
               const L = frameEl.offsetLeft, T = frameEl.offsetTop;
