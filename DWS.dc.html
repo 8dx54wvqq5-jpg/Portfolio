@@ -443,7 +443,7 @@
               <div>
                 <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTION 01</div>
                 <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">AI-assisted intake</h3>
-                <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px;">The agent or cardholder describes the dispute in plain language, "I was charged $47.50 twice for the same Uber ride on March 3rd", and the system extracts the data, suggests a classification, and shows its confidence.</p>
+                <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px;">The agent or cardholder describes the dispute in plain language, "I was charged $47.50 twice for the same Uber ride on March 3rd", and the system extracts the data, suggests a classification, and shows its confidence. Whatever the cardholder entered at intake stays on the case for the agent to review and verify, the same way for a fraud claim or a non-fraud merchant dispute, so no one re-asks for what was already provided.</p>
                 <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;"><strong style="color: #009966;">Result:</strong> shorter calls. Agents focus on the customer while the system handles extraction and classification, no repetitive questioning, no manual lookup.</p>
               </div>
               <div style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px;">
@@ -525,11 +525,29 @@
           </div>
 
           <!-- Solution 8 -->
-          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0 0;">
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0;">
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTION 08</div>
             <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">Bilingual from the foundation</h3>
             <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px; max-width: 70ch;">A flagship Canadian client needed full English/French parity. Rather than retrofit it, I designed for it from the start: every string externalized for translation, and every layout pressure-tested for French text that runs roughly 30% longer, so labels, buttons, and table headers hold up without truncation or breakage in either language.</p>
             <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 70ch;"><strong style="color: #009966;">Result:</strong> the client adopted without a localization scramble, and the pattern turned future-market expansion into a config change rather than a redesign.</p>
+          </div>
+
+          <!-- Solution 9 -->
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTION 09</div>
+            <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">A virtual analyst that works the queue on its own</h3>
+            <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px; max-width: 70ch;">A virtual analyst is a non-human operator. You define the actions it is allowed to take in the Action Editor, the queries that decide which cases it runs on in the Query Editor, then assign both to the operator. From there it works its assigned cases on its own. A client who needs an acknowledgement letter on every case does not staff that work, the virtual analyst sends one on each matching case. People set the rules and the boundaries, the operator handles the volume.</p>
+            <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0 0 24px; max-width: 70ch;"><strong style="color: #009966;">Result:</strong> rule-bound, repetitive work runs without a person in the loop, and agents spend their time on the cases that actually need judgment.</p>
+            <img src="assets/dws-va-assignment.png" alt="Virtual Analyst Editor: each assignment pairs a saved query with an action and a non-human VA operator" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 10px;">the Virtual Analyst Editor: each assignment pairs a saved query with an action and a non-human operator, so deterministic, rule-bound work runs on its own</div>
+          </div>
+
+          <!-- Solution 10 -->
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0 0;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTION 10</div>
+            <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">Resolving disputes before they become chargebacks</h3>
+            <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px; max-width: 70ch;">Not every dispute needs to travel the full chargeback path. When a cardholder disputes a charge, the workspace can send it to Ethoca, Mastercard's pre-dispute network, which notifies the merchant in near real time. The merchant can refund or cancel the order inside the alert window, and the dispute closes before a chargeback is ever filed.</p>
+            <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 70ch;"><strong style="color: #009966;">Result:</strong> disputes resolve at the source when they can, so only the cases that truly need the formal process go there. Fewer chargebacks, faster outcomes for the cardholder.</p>
           </div>
         </div>
       </section>
