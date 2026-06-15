@@ -50,6 +50,26 @@ Two levels, very different effort:
   flying to a case-study frame, elements sequence in with spring physics). If we
   ever want that polish, that's the time to bring in anime.js (or just CSS + JS).
 
+## Left-nav → case study: reduce clicks — discussed June 15, 2026
+
+Today opening a case study takes two clicks: click the case study in the left
+layers panel (camera flies to the frame), then click "Open case study →" on the
+frame. Brainstormed ways to cut the friction without breaking the Figma metaphor
+(in real Figma, clicking a layer selects/navigates to it on canvas — it does not
+open a new doc, so the current fly-to-frame is actually on-theme).
+
+Options on the table:
+- **Hover `↗ open` shortcut (recommended):** keep left-nav click = fly-to-frame,
+  but show a small "↗ open" affordance on hover of each case-study row that jumps
+  straight into the case study. Best of both — metaphor preserved + one-click path
+  for the impatient.
+- **Direct-open swap (raw version):** left-nav case-study item opens the page
+  directly. Simplest, but breaks the Figma "layers panel" mental model. Easy to
+  trial and revert.
+- **Punchier frame CTA:** leave nav as-is, but make the "Open case study →" CTA
+  on the frame more obviously clickable (the likely real blocker is discoverability
+  of step two, not the existence of step two).
+
 ## Misc cleanup
 - `heroDrift1/2/3` keyframes in the `<style>` block are now unused (the old
   gradient mesh that referenced them was removed). Harmless dead CSS — clean up
