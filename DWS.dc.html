@@ -1174,8 +1174,17 @@ class Component extends DCLogic {
 <style>
   .dws-cmp { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
   .dws-cmp > div { min-width: 0; }
-  .dws-cmp img { width: 100%; aspect-ratio: 16 / 10; object-fit: contain; background: #F9FAFB; border: 1px solid #E2E4E9; border-radius: 8px; display: block; }
+  .dws-cmp img { width: 100%; height: auto; display: block; }
   img[src*="assets/dws"] { cursor: zoom-in; }
+  /* zoom affordance */
+  .zoom-wrap { position: relative; display: block; }
+  .zoom-wrap img { display: block; }
+  .zoom-badge { position: absolute; top: 10px; right: 10px; z-index: 2; display: inline-flex; align-items: center; justify-content: center; gap: 5px; height: 28px; padding: 0 10px; border-radius: 999px; background: rgba(16,24,40,0.6); color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; line-height: 1; pointer-events: none; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); transition: background 0.15s ease; }
+  .zoom-wrap:hover .zoom-badge { background: rgba(16,24,40,0.85); }
+  .zoom-overlay { position: absolute; inset: 0; z-index: 1; display: flex; align-items: center; justify-content: center; background: rgba(8,9,12,0); opacity: 0; transition: opacity 0.18s ease, background 0.18s ease; pointer-events: none; }
+  .zoom-wrap:hover .zoom-overlay { opacity: 1; background: rgba(8,9,12,0.32); }
+  .zoom-overlay-label { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: #fff; background: rgba(16,24,40,0.78); padding: 8px 14px; border-radius: 999px; }
+  @media (hover: none) { .zoom-overlay { display: none; } }
   #img-lightbox { position: fixed; inset: 0; z-index: 9999; background: rgba(8,9,12,0.92); display: none; align-items: center; justify-content: center; padding: 32px; opacity: 0; transition: opacity 0.18s ease; }
   #img-lightbox.open { display: flex; opacity: 1; }
   #img-lightbox img { max-width: 96vw; max-height: 92vh; object-fit: contain; border-radius: 8px; box-shadow: 0 24px 64px -16px rgba(0,0,0,0.6); }
@@ -1192,6 +1201,35 @@ class Component extends DCLogic {
   if (!lb) return;
   var lbImg = lb.querySelector('img');
   var lbClose = lb.querySelector('.lb-close');
+  // wrap each zoomable screenshot with a hover overlay + persistent badge.
+  // idempotent + retried because some images get their src after parse.
+  function wrapZoomables() {
+    [].forEach.call(document.querySelectorAll('img[src*="assets/dws"]'), function (img) {
+      if (img.closest('#img-lightbox')) return;
+      if (img.parentElement && img.parentElement.classList.contains('zoom-wrap')) return;
+      var cs = getComputedStyle(img);
+      var radius = cs.borderRadius;
+      var wrap = document.createElement('span');
+      wrap.className = 'zoom-wrap';
+      wrap.style.margin = cs.margin;
+      img.parentNode.insertBefore(wrap, img);
+      wrap.appendChild(img);
+      img.style.margin = '0';
+      var ov = document.createElement('span');
+      ov.className = 'zoom-overlay';
+      ov.style.borderRadius = radius;
+      ov.innerHTML = '<span class="zoom-overlay-label">⤢ Click to expand</span>';
+      var badge = document.createElement('span');
+      badge.className = 'zoom-badge';
+      badge.innerHTML = '⤢ Expand';
+      wrap.appendChild(ov);
+      wrap.appendChild(badge);
+    });
+  }
+  wrapZoomables();
+  if (document.readyState !== 'complete') window.addEventListener('load', wrapZoomables);
+  setTimeout(wrapZoomables, 400);
+  setTimeout(wrapZoomables, 1200);
   function open(src, alt) {
     lbImg.src = src; lbImg.alt = alt || '';
     lb.classList.add('open');
