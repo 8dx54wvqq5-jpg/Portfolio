@@ -165,6 +165,8 @@
         <div data-frame="hero" data-fade="0" style="position: absolute; left: 320px; top: 320px; width: 1240px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); padding: 64px; box-sizing: border-box; overflow: hidden;">
           <!-- soft cover accent -->
           <div style="position: absolute; right: -6%; top: -12%; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(21,93,252,0.10), rgba(21,93,252,0) 70%); pointer-events: none; z-index: 0;"></div>
+          <!-- cursor-follow glow -->
+          <div id="hero-glow" style="position: absolute; width: 460px; height: 460px; border-radius: 50%; background: radial-gradient(circle, rgba(21,93,252,0.18), rgba(124,58,237,0.10) 45%, rgba(21,93,252,0) 72%); transform: translate(-50%,-50%); left: 72%; top: 30%; opacity: 0; pointer-events: none; z-index: 1; transition: opacity 0.45s ease, left 0.2s ease-out, top 0.2s ease-out;"></div>
           <div style="position: relative; z-index: 2; display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 48px; align-items: center;">
             <div>
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #155DFC; margin-bottom: 22px;">ABHIKANT NIRBHAVANE · SENIOR UX DESIGNER</div>
@@ -1079,15 +1081,24 @@ class Component extends DCLogic {
     if (!this.reduce) {
       const heroFrame = document.querySelector('[data-frame="hero"]');
       const orbMouse = document.getElementById('hero-orb-mouse');
+      const heroGlow = document.getElementById('hero-glow');
       if (heroFrame && orbMouse) {
         heroFrame.addEventListener('mousemove', (e) => {
           const rect = heroFrame.getBoundingClientRect();
-          const dx = (e.clientX - (rect.left + rect.width  * 0.5)) / (rect.width  * 0.5);
-          const dy = (e.clientY - (rect.top  + rect.height * 0.5)) / (rect.height * 0.5);
+          const px = (e.clientX - rect.left) / rect.width;
+          const py = (e.clientY - rect.top) / rect.height;
+          const dx = (px - 0.5) * 2;
+          const dy = (py - 0.5) * 2;
           orbMouse.style.transform = `translate(${dx * 22}px, ${dy * 14}px)`;
+          if (heroGlow) {
+            heroGlow.style.left = (px * 100) + "%";
+            heroGlow.style.top = (py * 100) + "%";
+            heroGlow.style.opacity = "1";
+          }
         });
         heroFrame.addEventListener('mouseleave', () => {
           orbMouse.style.transform = 'translate(0,0)';
+          if (heroGlow) heroGlow.style.opacity = "0";
         });
       }
     }
