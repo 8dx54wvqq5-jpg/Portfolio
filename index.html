@@ -40,6 +40,7 @@
     @keyframes heroDrift3 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(30px,-40px) scale(1.2); } }
     @keyframes heroBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
     @keyframes heroRing { 0%,100% { opacity: .18; transform: scale(1); } 50% { opacity: .06; transform: scale(1.08); } }
+    @keyframes presencePulse { 0% { box-shadow: 0 0 0 0 rgba(20,195,142,0.5); } 70% { box-shadow: 0 0 0 6px rgba(20,195,142,0); } 100% { box-shadow: 0 0 0 0 rgba(20,195,142,0); } }
     ::selection { background: #CFE0FF; }
     a:focus-visible, [tabindex]:focus-visible, button:focus-visible { outline: 2px solid #155DFC; outline-offset: 2px; }
     * { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpolygon points='3,1 17,10 10.5,11.5 8,19' fill='%23111418' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E") 3 1, auto !important; }
@@ -82,7 +83,10 @@
       <div style="display: flex;">
         <div style="width: 26px; height: 26px; border-radius: 50%; background: #009966; border: 2px solid #15171C; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 700;">Y</div>
         <div style="width: 26px; height: 26px; border-radius: 50%; background: #155DFC; border: 2px solid #15171C; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 700; margin-left: -8px;">A</div>
+        <div style="width: 26px; height: 26px; border-radius: 50%; background: #7C3AED; border: 2px solid #15171C; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 700; margin-left: -8px;">D</div>
+        <div style="width: 26px; height: 26px; border-radius: 50%; background: #E8590C; border: 2px solid #15171C; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 700; margin-left: -8px;">R</div>
       </div>
+      <div style="display: flex; align-items: center; gap: 5px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #8A8F9C;"><span style="width: 6px; height: 6px; border-radius: 50%; background: #14C38E; animation: presencePulse 2s ease-out infinite;"></span>4 here now</div>
       <div onClick="{{ copyLink }}" style="background: #155DFC; color: #fff; font-size: 12.5px; font-weight: 700; padding: 7px 14px; border-radius: 6px; cursor: pointer;" style-hover="background: #2B70FF;">Share</div>
       <div id="zoom-label" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #AEB4C0; padding: 4px 6px; min-width: 44px; text-align: right;">100%</div>
     </div>
@@ -389,6 +393,14 @@
       <div data-cursor="2" style="position: absolute; left: 0; top: 0; pointer-events: none; will-change: transform; z-index: 50;">
         <svg width="18" height="18" viewBox="0 0 18 18"><polygon points="2,1 16,9 9.5,10.5 7,17" fill="#155DFC" stroke="#FFFFFF" stroke-width="1.5"></polygon></svg>
         <div style="background: #155DFC; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 3px 7px; border-radius: 3px 10px 10px 10px; margin-left: 12px; white-space: nowrap;">abhikant</div>
+      </div>
+      <div data-cursor="3" style="position: absolute; left: 0; top: 0; pointer-events: none; will-change: transform; z-index: 50;">
+        <svg width="18" height="18" viewBox="0 0 18 18"><polygon points="2,1 16,9 9.5,10.5 7,17" fill="#7C3AED" stroke="#FFFFFF" stroke-width="1.5"></polygon></svg>
+        <div style="background: #7C3AED; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 3px 7px; border-radius: 3px 10px 10px 10px; margin-left: 12px; white-space: nowrap;">design lead</div>
+      </div>
+      <div data-cursor="4" style="position: absolute; left: 0; top: 0; pointer-events: none; will-change: transform; z-index: 50;">
+        <svg width="18" height="18" viewBox="0 0 18 18"><polygon points="2,1 16,9 9.5,10.5 7,17" fill="#E8590C" stroke="#FFFFFF" stroke-width="1.5"></polygon></svg>
+        <div style="background: #E8590C; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 3px 7px; border-radius: 3px 10px 10px 10px; margin-left: 12px; white-space: nowrap;">recruiter</div>
       </div>
 
     </div>
@@ -821,11 +833,11 @@ class Component extends DCLogic {
     const plane = document.getElementById("plane");
     if (!plane) return;
     const notes = {
-      dws: "AI that explains itself — not autopilot.",
-      c360: "Shipped on a hard contractual deadline.",
-      cpq: "18 → 10 min per quote. Measured, not guessed.",
-      ds: "Foundation first — 45+ components, WCAG AA.",
-      ecocash: "Student project — gamified AR for conservation."
+      dws: { by: "Design Lead", text: "AI that explains itself — not autopilot." },
+      c360: { by: "Product Mgr", text: "Shipped on a hard contractual deadline." },
+      cpq: { by: "Design Lead", text: "18 → 10 min per quote. Measured, not guessed." },
+      ds: { by: "Eng Partner", text: "Foundation first — 45+ components, WCAG AA." },
+      ecocash: { by: "Professor", text: "Student project — gamified AR for conservation." }
     };
     let n = 0;
     Object.keys(notes).forEach((k) => {
@@ -837,7 +849,13 @@ class Component extends DCLogic {
       pin.textContent = String(n);
       const note = document.createElement("div");
       note.style.cssText = "position:absolute;left:30px;top:0;width:200px;background:#15171C;color:#fff;font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.5;padding:8px 11px;border-radius:8px;box-shadow:0 6px 18px rgba(16,24,40,0.25);opacity:0;transform:translateY(-4px) scale(0.96);transform-origin:left top;transition:opacity 0.2s ease, transform 0.2s ease;pointer-events:none;";
-      note.textContent = notes[k];
+      const head = document.createElement("div");
+      head.style.cssText = "font-weight:700;color:#7FB0FF;margin-bottom:3px;";
+      head.textContent = notes[k].by;
+      const body = document.createElement("div");
+      body.textContent = notes[k].text;
+      note.appendChild(head);
+      note.appendChild(body);
       pin.appendChild(note);
       pin.addEventListener("mouseenter", () => { note.style.opacity = "1"; note.style.transform = "translateY(0) scale(1)"; pin.style.zIndex = "60"; });
       pin.addEventListener("mouseleave", () => { note.style.opacity = "0"; note.style.transform = "translateY(-4px) scale(0.96)"; pin.style.zIndex = "40"; });
@@ -919,7 +937,19 @@ class Component extends DCLogic {
     this.buildPins();
     this.startCursorLife();
 
-    // ---- frame hover: selection outline + label + image zoom + arrow ----
+    // ---- frame hover: selection outline + corner handles + label + image zoom + arrow ----
+    const makeHandles = (el) => {
+      const plane = document.getElementById("plane");
+      if (!plane) return null;
+      const L = el.offsetLeft, T = el.offsetTop, W = el.offsetWidth, H = el.offsetHeight;
+      const corners = [[L, T], [L + W, T], [L, T + H], [L + W, T + H]];
+      return corners.map(([cx, cy]) => {
+        const h = document.createElement("div");
+        h.style.cssText = "position:absolute;z-index:45;width:8px;height:8px;background:#fff;border:1.5px solid #155DFC;border-radius:2px;pointer-events:none;box-shadow:0 1px 2px rgba(16,24,40,0.2);left:" + (cx - 4) + "px;top:" + (cy - 4) + "px;";
+        plane.appendChild(h);
+        return h;
+      });
+    };
     Object.keys(this.frames).forEach((key) => {
       const wrap = this.frames[key];
       const label = document.querySelector('[data-flab="' + key + '"]');
@@ -927,12 +957,14 @@ class Component extends DCLogic {
       const arr = wrap.querySelector("[data-arr]");
       wrap.addEventListener("mouseenter", () => {
         wrap.style.outline = "2px solid #155DFC";
+        if (!wrap._handles) wrap._handles = makeHandles(wrap);
         if (label) label.style.color = "#155DFC";
         if (img) img.style.transform = "scale(1.025)";
         if (arr) arr.style.transform = "translateX(5px)";
       });
       wrap.addEventListener("mouseleave", () => {
         wrap.style.outline = "none";
+        if (wrap._handles) { wrap._handles.forEach((h) => h.remove()); wrap._handles = null; }
         if (label) label.style.color = "#6A7282";
         if (img) img.style.transform = "scale(1)";
         if (arr) arr.style.transform = "translateX(0)";
@@ -1055,9 +1087,13 @@ class Component extends DCLogic {
     // ---- drifting cursors (plane coordinates, slow) ----
     const c1 = document.querySelector('[data-cursor="1"]');
     const c2 = document.querySelector('[data-cursor="2"]');
+    const c3 = document.querySelector('[data-cursor="3"]');
+    const c4 = document.querySelector('[data-cursor="4"]');
     if (this.reduce) {
       if (c1) c1.style.transform = "translate(2050px,1050px)";
       if (c2) c2.style.transform = "translate(1150px,1450px)";
+      if (c3) c3.style.transform = "translate(2680px,1820px)";
+      if (c4) c4.style.transform = "translate(1780px,760px)";
     } else {
       const t0 = performance.now();
       const drift = (now) => {
@@ -1071,6 +1107,16 @@ class Component extends DCLogic {
           const x = 1150 + Math.cos(t * 0.16) * 300 + Math.sin(t * 0.4) * 60;
           const y = 1450 + Math.sin(t * 0.2) * 180 + Math.cos(t * 0.36) * 50;
           c2.style.transform = "translate(" + x + "px," + y + "px)";
+        }
+        if (c3) {
+          const x = 2680 + Math.sin(t * 0.14) * 320 + Math.cos(t * 0.5) * 55;
+          const y = 1820 + Math.cos(t * 0.19) * 220 + Math.sin(t * 0.42) * 45;
+          c3.style.transform = "translate(" + x + "px," + y + "px)";
+        }
+        if (c4) {
+          const x = 1780 + Math.cos(t * 0.21) * 240 + Math.sin(t * 0.55) * 50;
+          const y = 760 + Math.sin(t * 0.17) * 170 + Math.cos(t * 0.38) * 38;
+          c4.style.transform = "translate(" + x + "px," + y + "px)";
         }
         this._raf = requestAnimationFrame(drift);
       };
