@@ -179,7 +179,7 @@
             </div>
           </div>
           <div data-reveal="2" style="padding: 0 64px 64px;">
-            <img src="assets/dws-hero.png" alt="Dispute Workspace, Fiserv" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px; box-shadow: 0 24px 48px -24px rgba(16,24,40,0.25);">
+            <img src="assets/dws-hero.png" data-no-zoom alt="Dispute Workspace, Fiserv" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px; box-shadow: 0 24px 48px -24px rgba(16,24,40,0.25);">
           </div>
         </div>
       </section>
@@ -1174,11 +1174,11 @@ class Component extends DCLogic {
 <style>
   .dws-cmp { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
   .dws-cmp > div { min-width: 0; }
-  .dws-cmp img { width: 100%; height: auto; display: block; }
-  img[src*="assets/dws"] { cursor: zoom-in; }
-  /* zoom affordance */
-  .zoom-wrap { position: relative; display: block; }
-  .zoom-wrap img { display: block; }
+  .dws-cmp img { width: 100%; display: block; }
+  img[src*="assets/dws"]:not([data-no-zoom]) { cursor: zoom-in; }
+  /* zoom affordance — uniform thumbnail size; full detail on click */
+  .zoom-wrap { position: relative; display: block; width: 100%; }
+  .zoom-wrap img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; }
   .zoom-badge { position: absolute; top: 10px; right: 10px; z-index: 2; display: inline-flex; align-items: center; justify-content: center; gap: 5px; height: 28px; padding: 0 10px; border-radius: 999px; background: rgba(16,24,40,0.6); color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; line-height: 1; pointer-events: none; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); transition: background 0.15s ease; }
   .zoom-wrap:hover .zoom-badge { background: rgba(16,24,40,0.85); }
   .zoom-overlay { position: absolute; inset: 0; z-index: 1; display: flex; align-items: center; justify-content: center; background: rgba(8,9,12,0); opacity: 0; transition: opacity 0.18s ease, background 0.18s ease; pointer-events: none; }
@@ -1204,7 +1204,7 @@ class Component extends DCLogic {
   // wrap each zoomable screenshot with a hover overlay + persistent badge.
   // idempotent + retried because some images get their src after parse.
   function wrapZoomables() {
-    [].forEach.call(document.querySelectorAll('img[src*="assets/dws"]'), function (img) {
+    [].forEach.call(document.querySelectorAll('img[src*="assets/dws"]:not([data-no-zoom])'), function (img) {
       if (img.closest('#img-lightbox')) return;
       if (img.parentElement && img.parentElement.classList.contains('zoom-wrap')) return;
       var cs = getComputedStyle(img);
@@ -1241,7 +1241,7 @@ class Component extends DCLogic {
     setTimeout(function () { lbImg.src = ''; }, 200);
   }
   document.addEventListener('click', function (e) {
-    var img = e.target && e.target.closest ? e.target.closest('img[src*="assets/dws"]') : null;
+    var img = e.target && e.target.closest ? e.target.closest('img[src*="assets/dws"]:not([data-no-zoom])') : null;
     if (img && !lb.contains(img)) { e.preventDefault(); open(img.currentSrc || img.src, img.alt); return; }
     if (e.target === lb || e.target === lbClose) close();
   });
