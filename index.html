@@ -537,14 +537,6 @@
   <!-- bottom hint -->
   <div id="hint" style="position: fixed; bottom: 20px; left: 268px; z-index: 100; background: #FFFFFFE6; border: 1px solid #E2E4E9; border-radius: 8px; padding: 10px 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282; backdrop-filter: blur(4px);">drag or scroll to pan · pinch to zoom · click a frame to open</div>
 
-  <!-- bottom page tabs -->
-  <div id="page-tabs" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 100; display: flex; align-items: center; gap: 2px; background: #FFFFFFE6; border: 1px solid #E2E4E9; border-radius: 8px; padding: 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; backdrop-filter: blur(4px); box-shadow: 0 4px 12px rgba(16,24,40,0.08);">
-    <span style="color: #9AA0AC; padding: 0 8px 0 6px; font-size: 10px; letter-spacing: 0.08em;">PAGES</span>
-    <a href="index.html" style="text-decoration: none; color: #155DFC; background: #EFF6FF; padding: 5px 12px; border-radius: 6px; font-weight: 700;">Home</a>
-    <a href="Work.dc.html" style="text-decoration: none; color: #4A5565; padding: 5px 12px; border-radius: 6px; font-weight: 600;" style-hover="background: #F4F5F7;">Work</a>
-    <a href="About.dc.html" style="text-decoration: none; color: #4A5565; padding: 5px 12px; border-radius: 6px; font-weight: 600;" style-hover="background: #F4F5F7;">About</a>
-  </div>
-
   <!-- bottom-right zoom controls -->
   <div id="zoom-controls" style="position: fixed; bottom: 20px; right: 280px; z-index: 100; display: flex; gap: 8px;">
     <div onClick="{{ zoomOut }}" style="width: 36px; height: 36px; background: #fff; border: 1px solid #E2E4E9; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; color: #364153; user-select: none;" style-hover="border-color: #155DFC; color: #155DFC;">−</div>
@@ -1184,7 +1176,6 @@ class Component extends DCLogic {
     const mobileView = document.getElementById("mobile-view");
     const toolbarCenter = document.getElementById("toolbar-center");
     const mainWrap = document.getElementById("main-wrap");
-    const pageTabs = document.getElementById("page-tabs");
     const mobileMq = window.matchMedia("(max-width: 767px)");
     const applyMobile = () => {
       const mob = mobileMq.matches;
@@ -1192,7 +1183,6 @@ class Component extends DCLogic {
       if (mobileView) mobileView.style.display = mob ? "block" : "none";
       if (hint) hint.style.display = mob ? "none" : "block";
       if (zc) zc.style.display = mob ? "none" : "flex";
-      if (pageTabs) pageTabs.style.display = mob ? "none" : "flex";
       if (toolbarCenter) toolbarCenter.style.display = mob ? "none" : "flex";
       if (mainWrap) { mainWrap.style.height = mob ? "auto" : "100vh"; mainWrap.style.overflow = mob ? "visible" : "hidden"; }
       document.body.style.overflowY = mob ? "auto" : "hidden";
