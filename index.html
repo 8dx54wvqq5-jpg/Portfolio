@@ -41,6 +41,10 @@
     @keyframes heroBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
     @keyframes heroRing { 0%,100% { opacity: .18; transform: scale(1); } 50% { opacity: .06; transform: scale(1.08); } }
     @keyframes presencePulse { 0% { box-shadow: 0 0 0 0 rgba(20,195,142,0.5); } 70% { box-shadow: 0 0 0 6px rgba(20,195,142,0); } 100% { box-shadow: 0 0 0 0 rgba(20,195,142,0); } }
+    .presence-av { position: relative; }
+    .presence-av:hover { z-index: 5; }
+    .presence-av::after { content: attr(data-name); position: absolute; top: 34px; left: 50%; transform: translateX(-50%) translateY(-4px); background: #15171C; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 10px; white-space: nowrap; padding: 4px 8px; border-radius: 6px; opacity: 0; pointer-events: none; transition: opacity 0.15s ease, transform 0.15s ease; box-shadow: 0 6px 18px rgba(16,24,40,0.28); z-index: 120; }
+    .presence-av:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
     ::selection { background: #CFE0FF; }
     a:focus-visible, [tabindex]:focus-visible, button:focus-visible { outline: 2px solid #155DFC; outline-offset: 2px; }
     * { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpolygon points='3,1 17,10 10.5,11.5 8,19' fill='%23111418' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E") 3 1, auto !important; }
@@ -81,10 +85,10 @@
     </div>
     <div style="display: flex; align-items: center; gap: 10px;">
       <div style="display: flex;">
-        <div style="width: 26px; height: 26px; border-radius: 50%; background: #009966; border: 2px solid #15171C; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 700;">Y</div>
-        <div style="width: 26px; height: 26px; border-radius: 50%; background: #155DFC; border: 2px solid #15171C; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 700; margin-left: -8px;">A</div>
-        <div style="width: 26px; height: 26px; border-radius: 50%; background: #7C3AED; border: 2px solid #15171C; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 700; margin-left: -8px;">D</div>
-        <div style="width: 26px; height: 26px; border-radius: 50%; background: #E8590C; border: 2px solid #15171C; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 700; margin-left: -8px;">R</div>
+        <div class="presence-av" data-name="you, probably" style="width: 26px; height: 26px; border-radius: 50%; background: #009966; border: 2px solid #15171C; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 700;">Y</div>
+        <div class="presence-av" data-name="abhikant" style="width: 26px; height: 26px; border-radius: 50%; background: #155DFC; border: 2px solid #15171C; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 700; margin-left: -8px;">A</div>
+        <div class="presence-av" data-name="design lead" style="width: 26px; height: 26px; border-radius: 50%; background: #7C3AED; border: 2px solid #15171C; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 700; margin-left: -8px;">D</div>
+        <div class="presence-av" data-name="recruiter" style="width: 26px; height: 26px; border-radius: 50%; background: #E8590C; border: 2px solid #15171C; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 700; margin-left: -8px;">R</div>
       </div>
       <div style="display: flex; align-items: center; gap: 5px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #8A8F9C;"><span style="width: 6px; height: 6px; border-radius: 50%; background: #14C38E; animation: presencePulse 2s ease-out infinite;"></span>4 here now</div>
       <div onClick="{{ copyLink }}" style="background: #155DFC; color: #fff; font-size: 12.5px; font-weight: 700; padding: 7px 14px; border-radius: 6px; cursor: pointer;" style-hover="background: #2B70FF;">Share</div>
