@@ -445,7 +445,10 @@
           <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0;">
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;">
               <div>
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTION 01</div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC;">SOLUTION 01</div>
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; color: #009966; background: #ECFDF3; border: 1px solid #6CE9A6; border-radius: 999px; padding: 2px 8px;">NEW · did not exist in legacy</span>
+                </div>
                 <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">AI-assisted intake</h3>
                 <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px;">The agent or cardholder describes the dispute in plain language, "I was charged $47.50 twice for the same Uber ride on March 3rd", and the system extracts the data, suggests a classification, and shows its confidence. Whatever the cardholder entered at intake stays on the case for the agent to review and verify, the same way for a fraud claim or a non-fraud merchant dispute, so no one re-asks for what was already provided.</p>
                 <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;"><strong style="color: #009966;">Result:</strong> shorter calls. Agents focus on the customer while the system handles extraction and classification, no repetitive questioning, no manual lookup.</p>
@@ -478,7 +481,36 @@
                 <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px;">Disputes route to queues by classification confidence and complexity: auto-approve eligible, standard processing, or dedicated review. Processors clear routine cases in bulk and give complex ones real attention.</p>
                 <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;"><strong style="color: #009966;">Result:</strong> significantly more cases handled per day, effort goes where it matters.</p>
               </div>
-              <img src="assets/dws-8.png" alt="Queue management with bulk actions" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px;">
+              <div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                  <div>
+                    <img src="assets/dws-legacy-case-queue.png" alt="Legacy case queue" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 8px;">
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 8px;">before</div>
+                  </div>
+                  <div>
+                    <img src="assets/dws-8.png" alt="Queue management with bulk actions" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 8px;">
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 8px;">after</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Solution 3b: Advanced Search -->
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTION 03b</div>
+            <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">Advanced search</h3>
+            <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px; max-width: 70ch;">The legacy system offered a basic name search — a single field, no parameters, no keyboard support. The redesign replaced it with a composable search: agents type to add parameters (account number, name, phone, SSN), navigate with keyboard shortcuts, and combine criteria to narrow results precisely. Drop-down guidance surfaces valid formats inline so agents never guess what to type.</p>
+            <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0 0 24px; max-width: 70ch;"><strong style="color: #009966;">Result:</strong> agents find cases faster, fewer dead-end searches, no switching to a separate lookup tool.</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <img src="assets/dws-legacy-name-search.png" alt="Legacy name search" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 8px;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 8px;">before — basic name search</div>
+              </div>
+              <div>
+                <img src="assets/dws-advanced-search.png" alt="Advanced search with composable parameters" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 8px;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 8px;">after — composable parameter search with keyboard navigation</div>
+              </div>
             </div>
           </div>
 
@@ -510,7 +542,16 @@
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; margin-bottom: 10px;">SOLUTION 06</div>
             <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">Role-based experiences, one design language</h3>
             <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 24px; max-width: 70ch;">Each role gets an experience optimized for its job, navigation shows only relevant sections, workflows match mental models, while a single design system keeps maintenance sane and patterns transferable.</p>
-            <img src="assets/dws-2.png" alt="The case workspace with persistent context panel" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px; margin: 0 0 12px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 12px;">
+              <div>
+                <img src="assets/dws-legacy-case-details.png" alt="Legacy case details" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 8px;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 8px;">before</div>
+              </div>
+              <div>
+                <img src="assets/dws-2.png" alt="The case workspace with persistent context panel" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 8px;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 8px;">after</div>
+              </div>
+            </div>
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin: 0 0 24px;">the case workspace: persistent context panel, role-relevant navigation, and workflow-stage data hierarchy</div>
             <div style="background: #15171C; border-radius: 10px; padding: 24px 28px;">
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #7AA5FF; margin-bottom: 10px;">DESIGN PHILOSOPHY</div>
@@ -542,8 +583,16 @@
             <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">A virtual analyst that works the queue on its own</h3>
             <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px; max-width: 70ch;">A virtual analyst is a non-human operator. You define the actions it is allowed to take in the Action Editor, the queries that decide which cases it runs on in the Query Editor, then assign both to the operator. From there it works its assigned cases on its own. A client who needs an acknowledgement letter on every case does not staff that work, the virtual analyst sends one on each matching case. People set the rules and the boundaries, the operator handles the volume.</p>
             <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0 0 24px; max-width: 70ch;"><strong style="color: #009966;">Result:</strong> rule-bound, repetitive work runs without a person in the loop, and agents spend their time on the cases that actually need judgment.</p>
-            <img src="assets/dws-va-operators.png" alt="VA Operators tab: creating a non-human virtual-analyst operator" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px;">
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 10px;">first the operator itself is created in the VA Operators tab</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <img src="assets/dws-legacy-va-operator.png" alt="Legacy VA operator screen" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 8px;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 8px;">before</div>
+              </div>
+              <div>
+                <img src="assets/dws-va-operators.png" alt="VA Operators tab: creating a non-human virtual-analyst operator" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 8px;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 8px;">after — operator created in VA Operators tab</div>
+              </div>
+            </div>
             <img src="assets/dws-va-assignment.png" alt="VA Assignment: pairing a saved query with an action for the operator" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px; margin-top: 20px;">
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 10px;">then each assignment pairs a saved query with an action, so the operator works only the cases its query matches</div>
           </div>
@@ -572,8 +621,16 @@
             <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">Queries supervisors build, agents run at scale</h3>
             <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px; max-width: 70ch;">A supervisor codifies a filter once in the Query Editor, say every fraud transaction over $100, sets which roles can use or modify it, and publishes it. Agents pull that saved query into the Case Manager instead of rebuilding the same filter by hand, then apply a case action across every matching case at once. The Execution Results screen reports back case by case, what succeeded and what failed, so a bulk action never hides a quiet error.</p>
             <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0 0 24px; max-width: 70ch;"><strong style="color: #009966;">Result:</strong> expertise written by the people who have it, reused by the whole team. Routine work clears in bulk, and accountability survives the scale.</p>
-            <img src="assets/dws-query-build.png" alt="Add Query: a supervisor builds a reusable query with role-based access and a virtual-analyst flag" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px;">
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 10px;">supervisor: a reusable query is built once, with role-based access and a flag for whether the virtual analyst may run it</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <img src="assets/dws-legacy-query-editor.png" alt="Legacy query editor" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 8px;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 8px;">before</div>
+              </div>
+              <div>
+                <img src="assets/dws-query-build.png" alt="Add Query: a supervisor builds a reusable query with role-based access and a virtual-analyst flag" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 8px;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 8px;">after — reusable query built once, role-based access, VA flag</div>
+              </div>
+            </div>
             <img src="assets/dws-query-bulk.png" alt="Agent Case Manager: running a saved query and applying a case action across every matching case" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px; margin-top: 20px;">
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 10px;">agent: that saved query is pulled into the Case Manager, and one case action is applied across every matching case at once</div>
             <img src="assets/dws-query-exec.png" alt="Execution Results: per-case success and failure after a bulk action" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px; margin-top: 20px;">
