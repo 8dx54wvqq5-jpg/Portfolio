@@ -56,7 +56,7 @@
       <span style="color: #E7E9EE;">About · Abhikant Nirbhavane</span>
     </div>
     <div style="display: flex; align-items: center; gap: 10px;">
-      <a href="#" data-email="link" style="background: #155DFC; color: #fff; font-size: 12.5px; font-weight: 700; padding: 7px 14px; border-radius: 6px; text-decoration: none;" style-hover="background: #2B70FF;">Contact</a>
+      <a href="mailto:abhikant5540@gmail.com?subject=Hi%20there" data-email="link" style="background: #155DFC; color: #fff; font-size: 12.5px; font-weight: 700; padding: 7px 14px; border-radius: 6px; text-decoration: none;" style-hover="background: #2B70FF;">Contact</a>
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #AEB4C0; padding: 4px 6px;">100% ▾</div>
     </div>
   </div>
@@ -200,9 +200,14 @@
         <div style="background: #15171C; border: 1px solid #15171C; border-radius: 12px; padding: 72px 64px; color: #fff;">
           <h2 data-reveal="1" style="font-size: 48px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin: 0 0 20px; max-width: 18ch;">Let's talk about the next big thing.</h2>
           <div data-reveal="2" style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 32px;">
-            <a href="#" data-email="show" style="background: #155DFC; color: #fff; font-size: 15px; font-weight: 800; padding: 14px 24px; border-radius: 8px; text-decoration: none;" style-hover="background: #2B70FF;">email me</a>
+            <a href="mailto:abhikant5540@gmail.com?subject=Hi%20there" style="background: #155DFC; color: #fff; font-size: 15px; font-weight: 800; padding: 14px 24px; border-radius: 8px; text-decoration: none;" style-hover="background: #2B70FF;">Email me</a>
             <a href="https://www.linkedin.com/in/abhikant" target="_blank" style="color: #E7E9EE; font-size: 14px; font-weight: 700; text-decoration: none; border: 1px solid #3A3F4B; padding: 13px 20px; border-radius: 8px;" style-hover="border-color: #7AA5FF; color: #7AA5FF;">LinkedIn ↗</a>
             <a href="https://resumego.link/abhikant/designer" target="_blank" style="color: #E7E9EE; font-size: 14px; font-weight: 700; text-decoration: none; border: 1px solid #3A3F4B; padding: 13px 20px; border-radius: 8px;" style-hover="border-color: #7AA5FF; color: #7AA5FF;">Resume ↓</a>
+          </div>
+          <div data-reveal="2" style="margin-top: 20px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8A8F9C;">or reach me at</span>
+            <a href="mailto:abhikant5540@gmail.com?subject=Hi%20there" style="font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; color: #7AA5FF; text-decoration: none; user-select: all;">abhikant5540@gmail.com</a>
+            <button type="button" data-copy-email style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #E7E9EE; background: #2A2E37; border: 1px solid #3A3F4B; border-radius: 6px; padding: 6px 11px; cursor: pointer;">Copy</button>
           </div>
         </div>
         <div style="display: flex; justify-content: space-between; margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC;">
@@ -223,6 +228,18 @@ class Component extends DCLogic {
     document.querySelectorAll("[data-email]").forEach((el) => {
       el.setAttribute("href", "mailto:" + addr + "?subject=Hi there");
       if (el.getAttribute("data-email") === "show") el.textContent = addr;
+    });
+
+    // ---- copy-email buttons ----
+    document.querySelectorAll("[data-copy-email]").forEach((btn) => {
+      const label = btn.textContent;
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const done = () => { btn.textContent = "Copied ✓"; setTimeout(() => { btn.textContent = label; }, 1600); };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(addr).then(done).catch(done);
+        } else { done(); }
+      });
     });
 
     const reveals = Array.from(document.querySelectorAll("[data-reveal]"));

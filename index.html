@@ -462,9 +462,14 @@
           <h2 style="font-size: 46px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin: 0 0 18px; max-width: 18ch;">Let's build the next high-stakes thing.</h2>
           <p style="font-size: 16px; line-height: 1.7; color: #AEB4C0; margin: 0 0 32px; max-width: 52ch;">If you're looking for a designer who's comfortable where compliance, complexity, and real money meet — let's talk.</p>
           <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
-            <a href="#" data-email="show" style="background: #155DFC; color: #fff; font-size: 15px; font-weight: 800; padding: 14px 24px; border-radius: 8px; text-decoration: none;" style-hover="background: #2B70FF;">email me</a>
+            <a href="mailto:abhikant5540@gmail.com?subject=Hi%20there" style="background: #155DFC; color: #fff; font-size: 15px; font-weight: 800; padding: 14px 24px; border-radius: 8px; text-decoration: none;" style-hover="background: #2B70FF;">Email me</a>
             <a href="https://www.linkedin.com/in/abhikant" target="_blank" style="color: #E7E9EE; font-size: 14px; font-weight: 700; text-decoration: none; border: 1px solid #3A3F4B; padding: 13px 20px; border-radius: 8px;" style-hover="border-color: #7AA5FF; color: #7AA5FF;">LinkedIn ↗</a>
             <a href="https://resumego.link/abhikant/designer" target="_blank" style="color: #E7E9EE; font-size: 14px; font-weight: 700; text-decoration: none; border: 1px solid #3A3F4B; padding: 13px 20px; border-radius: 8px;" style-hover="border-color: #7AA5FF; color: #7AA5FF;">Resume ↓</a>
+          </div>
+          <div style="margin-top: 20px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8A8F9C;">or reach me at</span>
+            <a href="mailto:abhikant5540@gmail.com?subject=Hi%20there" style="font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; color: #7AA5FF; text-decoration: none; user-select: all;">abhikant5540@gmail.com</a>
+            <button type="button" data-copy-email style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #E7E9EE; background: #2A2E37; border: 1px solid #3A3F4B; border-radius: 6px; padding: 6px 11px; cursor: pointer;">Copy</button>
           </div>
         </div>
         <div style="position: absolute; left: 320px; top: 2270px; width: 1240px; display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC;">
@@ -657,7 +662,11 @@
       <h2 style="font-size: 24px; font-weight: 800; letter-spacing: -0.02em; color: #fff; margin: 0 0 12px; line-height: 1.2;">Let's build the next high-stakes thing.</h2>
       <p style="font-size: 14px; line-height: 1.7; color: #AEB4C0; margin: 0 0 24px;">Looking for a designer for complex, high-stakes software? Let's talk.</p>
       <div style="display: flex; flex-direction: column; gap: 10px;">
-        <a href="#" data-email="show" style="background: #155DFC; color: #fff; font-size: 14px; font-weight: 800; padding: 13px 20px; border-radius: 8px; text-decoration: none; text-align: center;">email me</a>
+        <a href="mailto:abhikant5540@gmail.com?subject=Hi%20there" style="background: #155DFC; color: #fff; font-size: 14px; font-weight: 800; padding: 13px 20px; border-radius: 8px; text-decoration: none; text-align: center;">Email me</a>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin: 2px 0 2px;">
+          <a href="mailto:abhikant5540@gmail.com?subject=Hi%20there" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #7AA5FF; text-decoration: none; user-select: all;">abhikant5540@gmail.com</a>
+          <button type="button" data-copy-email style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: #E7E9EE; background: #2A2E37; border: 1px solid #3A3F4B; border-radius: 6px; padding: 5px 9px; cursor: pointer;">Copy</button>
+        </div>
         <div style="display: flex; gap: 10px;">
           <a href="https://www.linkedin.com/in/abhikant" target="_blank" style="flex: 1; color: #E7E9EE; font-size: 13px; font-weight: 700; text-decoration: none; border: 1px solid #3A3F4B; padding: 11px 16px; border-radius: 8px; text-align: center;">LinkedIn ↗</a>
           <a href="https://resumego.link/abhikant/designer" target="_blank" style="flex: 1; color: #E7E9EE; font-size: 13px; font-weight: 700; text-decoration: none; border: 1px solid #3A3F4B; padding: 11px 16px; border-radius: 8px; text-align: center;">Resume ↓</a>
@@ -1050,6 +1059,25 @@ class Component extends DCLogic {
     document.querySelectorAll("[data-email]").forEach((el) => {
       el.setAttribute("href", "mailto:" + addr + "?subject=Hi there");
       if (el.getAttribute("data-email") === "show") el.textContent = addr;
+    });
+
+    // ---- copy-email buttons ----
+    document.querySelectorAll("[data-copy-email]").forEach((btn) => {
+      const label = btn.textContent;
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const done = () => { btn.textContent = "Copied ✓"; setTimeout(() => { btn.textContent = label; }, 1600); };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(addr).then(done).catch(() => {
+            const r = document.createRange(); r.selectNodeContents(btn.previousElementSibling);
+            const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r); done();
+          });
+        } else {
+          const r = document.createRange(); r.selectNodeContents(btn.previousElementSibling);
+          const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+          try { document.execCommand("copy"); } catch (_) {} done();
+        }
+      });
     });
 
     const vp = document.getElementById("viewport");
