@@ -97,6 +97,30 @@
 
   <!-- ====================== RIGHT PANEL: PROJECT META ====================== -->
   <div id="panel-right" style="position: fixed; top: 48px; right: 0; bottom: 0; width: 260px; background: #FFFFFF; border-left: 1px solid #E2E4E9; z-index: 90; overflow-y: auto; box-sizing: border-box;">
+    <div style="border-bottom: 1px solid #ECEDF1; padding: 14px 16px; background: #FAFBFC;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px;">
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#155DFC" stroke-width="1.5"></circle><polygon points="6.5,5 12,8 6.5,11" fill="#155DFC"></polygon></svg>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; font-weight: 600;">AUDIO OVERVIEW</span>
+        </div>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">~2 min</span>
+      </div>
+      <div style="font-size: 12px; color: #6A7282; margin-bottom: 11px; line-height: 1.5;">Spoken walkthrough: problem, approach &amp; outcomes</div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div data-ap-btn style="width: 34px; height: 34px; border-radius: 50%; background: #155DFC; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: background 0.15s; user-select: none;">
+          <svg data-ap-icon width="11" height="13" viewBox="0 0 11 13"><polygon points="1,0.5 10.5,6.5 1,12.5" fill="white"></polygon></svg>
+        </div>
+        <div style="flex: 1; min-width: 0;">
+          <div style="background: #ECEDF1; border-radius: 999px; height: 4px; overflow: hidden; margin-bottom: 6px;">
+            <div data-ap-bar style="height: 100%; background: #155DFC; border-radius: 999px; width: 0%; transition: width 0.5s linear;"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span data-ap-time style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">0:00</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">2:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
     <div style="padding: 16px;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 12px;">PROJECT</div>
       <div style="font-size: 14px; font-weight: 800; margin-bottom: 16px;">Food Safety Program</div>
@@ -140,6 +164,21 @@
             </div>
             <h1 data-reveal="1" style="font-size: 48px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 22px; max-width: 22ch; text-wrap: pretty;">Food Safety: turning paper compliance into a guided, scored system</h1>
             <p data-reveal="2" style="font-size: 17px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 64ch;">Logile's Food Safety program digitizes how grocery retailers run and prove food-safety compliance across every department and every store. I designed the application end to end as the UX designer, the logs, tasks, communications, reference library, and KPI dashboards that store teams use every day, on desktop and on the floor.</p>
+            <div data-reveal="2" style="margin-top: 28px; border: 1px solid #D6E4FF; background: #EFF6FF; border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; gap: 16px;">
+              <div data-ap-btn style="width: 44px; height: 44px; border-radius: 50%; background: #155DFC; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: background 0.15s; user-select: none;">
+                <svg data-ap-icon width="13" height="15" viewBox="0 0 11 13"><polygon points="1,0.5 10.5,6.5 1,12.5" fill="white"></polygon></svg>
+              </div>
+              <div style="flex: 1; min-width: 0;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; gap: 8px;">
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: #155DFC; letter-spacing: 0.06em;">AUDIO OVERVIEW · ~2 MIN</span>
+                  <span data-ap-time style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A72C4;">0:00</span>
+                </div>
+                <div style="background: #C7DCFF; border-radius: 999px; height: 4px; overflow: hidden; margin-bottom: 8px;">
+                  <div data-ap-bar style="height: 100%; background: #155DFC; border-radius: 999px; width: 0%; transition: width 0.5s linear;"></div>
+                </div>
+                <div style="font-size: 12.5px; color: #4A5565; line-height: 1.4;">Press play for a spoken walkthrough of this case study</div>
+              </div>
+            </div>
           </div>
           <div data-reveal="2" style="padding: 0 64px 64px;">
             <img src="assets/fs-hero.svg" data-no-zoom alt="Food Safety by Logile — guided, scored, auditable retail food-safety compliance" style="display: block; width: 100%; height: auto; border: 1px solid #E2E4E9; border-radius: 10px; box-shadow: 0 24px 48px -24px rgba(16,24,40,0.25);">
@@ -652,12 +691,75 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
+  _ttsDuration = 120; _ttsElapsed = 0; _ttsPlaying = false; _tts = null; _apTimer = null;
+  _ttsScript = `Food Safety is Logile's program for grocery retailers to run and prove compliance across every department and every store. Before this, food-safety work lived on paper — brittle logs, disconnected checklists, and binders no one could audit in real time. A store could be doing the work and still fail an inspection, because there was no way to see risk as it happened. I designed the application end to end: the logs teams fill out, the tasks that schedule the work, the communications that push guidance to the floor, the reference library, and the dashboards leaders use to answer for compliance. The hardest constraint wasn't the regulation — it was speed. Compliance work is dense, but it has to be fast enough to do between tasks, on the sales floor, by a high-turnover team. So capture had to be near-instant: scan a product, probe a temperature, tap a result. The system schedules the work, captures the entry, scores the result, and surfaces risk immediately. And it doesn't just store raw logs — it grades and ranks them, so a district manager sees which stores and which departments are slipping, not just that a box was checked. We shipped it as a packaged, configurable solution that drops into the Logile modules a retailer already owns, or stands on its own, rolled out across three phases. The lesson: in high-stakes operational work, digitizing the paper isn't the win. The win is turning every entry into a signal — scored, ranked, and visible — so the people accountable for safety can act before a problem becomes an incident.`;
+
+  _apUpdateUI() {
+    const pct = Math.min(100, ((this._ttsElapsed || 0) / this._ttsDuration) * 100);
+    const s = Math.round(this._ttsElapsed || 0);
+    const t = Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
+    document.querySelectorAll("[data-ap-bar]").forEach((el) => { el.style.width = pct + "%"; });
+    document.querySelectorAll("[data-ap-time]").forEach((el) => { el.textContent = t; });
+    document.querySelectorAll("[data-ap-icon]").forEach((svg) => {
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+      if (this._ttsPlaying) {
+        ["1,1,3.5,11", "6.5,1,3.5,11"].forEach((d) => {
+          const r = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+          const [x, y, w, h] = d.split(",");
+          r.setAttribute("x", x); r.setAttribute("y", y); r.setAttribute("width", w); r.setAttribute("height", h);
+          r.setAttribute("rx", "1"); r.setAttribute("fill", "white"); svg.appendChild(r);
+        });
+      } else {
+        const p = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+        p.setAttribute("points", "1,0.5 10.5,6.5 1,12.5"); p.setAttribute("fill", "white"); svg.appendChild(p);
+      }
+    });
+  }
+
+  _apPlay() {
+    if (!window.speechSynthesis) return;
+    if (this._ttsPlaying) {
+      window.speechSynthesis.pause(); this._ttsPlaying = false; clearInterval(this._apTimer); this._apUpdateUI();
+    } else if (this._tts && window.speechSynthesis.paused) {
+      window.speechSynthesis.resume(); this._ttsPlaying = true;
+      const ref = Date.now() - (this._ttsElapsed || 0) * 1000;
+      this._apTimer = setInterval(() => {
+        this._ttsElapsed = (Date.now() - ref) / 1000;
+        if (this._ttsElapsed >= this._ttsDuration) { clearInterval(this._apTimer); this._ttsElapsed = this._ttsDuration; this._ttsPlaying = false; }
+        this._apUpdateUI();
+      }, 400); this._apUpdateUI();
+    } else {
+      this._ttsElapsed = 0; window.speechSynthesis.cancel();
+      this._tts = new SpeechSynthesisUtterance(this._ttsScript);
+      this._tts.rate = 0.92;
+      const voices = window.speechSynthesis.getVoices();
+      const pick = voices.find((v) => /Samantha|Daniel|Karen|Moira|Alex/.test(v.name)) || null;
+      if (pick) this._tts.voice = pick;
+      this._tts.onend = () => { this._ttsPlaying = false; this._ttsElapsed = this._ttsDuration; clearInterval(this._apTimer); this._apUpdateUI(); };
+      this._tts.onerror = () => { this._ttsPlaying = false; clearInterval(this._apTimer); this._apUpdateUI(); };
+      window.speechSynthesis.speak(this._tts); this._ttsPlaying = true;
+      const t0 = Date.now();
+      this._apTimer = setInterval(() => {
+        this._ttsElapsed = (Date.now() - t0) / 1000;
+        if (this._ttsElapsed >= this._ttsDuration) { clearInterval(this._apTimer); this._ttsElapsed = this._ttsDuration; this._ttsPlaying = false; }
+        this._apUpdateUI();
+      }, 400); this._apUpdateUI();
+    }
+  }
+
   componentDidMount() {
     // ---- email links assembled at runtime ----
     const addr = ["abhikant5540", "gmail.com"].join("@");
     document.querySelectorAll("[data-email]").forEach((el) => {
       el.setAttribute("href", "mailto:" + addr + "?subject=Hi there");
       if (el.getAttribute("data-email") === "show") el.textContent = addr;
+    });
+
+    // ---- TTS audio player buttons ----
+    document.querySelectorAll("[data-ap-btn]").forEach((btn) => {
+      btn.addEventListener("click", () => this._apPlay());
+      btn.addEventListener("mouseenter", () => { btn.style.background = "#2B70FF"; });
+      btn.addEventListener("mouseleave", () => { btn.style.background = "#155DFC"; });
     });
 
     // ---- scroll reveals ----
