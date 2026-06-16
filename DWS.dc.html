@@ -403,17 +403,78 @@
           <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 16px; max-width: 70ch;">The real decision was where AI belonged, and where it didn't. Agents were classifying disputes by hand while a customer waited on the line, and a wrong guess only surfaced days later, when it was expensive to undo. So I scoped AI to the work that was slow and mechanical: reading the dispute, suggesting a classification, checking it against network rules. The judgment stayed with the agent.</p>
           <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 70ch;">That split is what moved the numbers. Calls came down 25 to 35 percent, and new agents got productive in a fraction of the old ramp time, because the system now carried the network rules they used to keep in their head. Here's how it played out across the dispute lifecycle.</p>
 
-          <!-- Lifecycle ribbon -->
-          <div data-reveal="1" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 0 0 44px; padding: 18px 22px; background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px;">
-            <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-right: 4px;">DISPUTE LIFECYCLE</span>
-            <span style="font-size: 13px; font-weight: 700; background: #EFF6FF; color: #155DFC; border: 1px solid #D6E4FF; border-radius: 999px; padding: 5px 14px;">Intake</span>
-            <span style="color: #C9CDD6;">→</span>
-            <span style="font-size: 13px; font-weight: 700; background: #EFF6FF; color: #155DFC; border: 1px solid #D6E4FF; border-radius: 999px; padding: 5px 14px;">Validation</span>
-            <span style="color: #C9CDD6;">→</span>
-            <span style="font-size: 13px; font-weight: 700; background: #EFF6FF; color: #155DFC; border: 1px solid #D6E4FF; border-radius: 999px; padding: 5px 14px;">Chargeback</span>
-            <span style="color: #C9CDD6;">→</span>
-            <span style="font-size: 13px; font-weight: 700; background: #EFF6FF; color: #155DFC; border: 1px solid #D6E4FF; border-radius: 999px; padding: 5px 14px;">Resolution</span>
-            <span style="font-size: 12.5px; color: #6A7282; margin-left: 6px;">one workspace, the whole flow — no system-hopping</span>
+          <!-- Dispute lifecycle (structured IA) -->
+          <div data-reveal="1" style="margin: 0 0 48px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; margin-bottom: 6px;">DISPUTE LIFECYCLE</div>
+            <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 24px; max-width: 70ch;">A dispute travels one path, intake to resolution. I mapped every stage to a single screen, the role that owns it, and a clear boundary for where AI assists and where a human decides, so the whole flow lives in one workspace instead of five disconnected systems.</p>
+
+            <!-- stepper -->
+            <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin: 0 0 22px;">
+              <span style="font-size: 13px; font-weight: 700; background: #EFF6FF; color: #155DFC; border: 1px solid #D6E4FF; border-radius: 999px; padding: 6px 15px;">1 · Intake</span>
+              <span style="color: #C9CDD6;">→</span>
+              <span style="font-size: 13px; font-weight: 700; background: #EFF6FF; color: #155DFC; border: 1px solid #D6E4FF; border-radius: 999px; padding: 6px 15px;">2 · Validation</span>
+              <span style="color: #C9CDD6;">→</span>
+              <span style="font-size: 13px; font-weight: 700; background: #EFF6FF; color: #155DFC; border: 1px solid #D6E4FF; border-radius: 999px; padding: 6px 15px;">3 · Investigation</span>
+              <span style="color: #C9CDD6;">→</span>
+              <span style="font-size: 13px; font-weight: 700; background: #EFF6FF; color: #155DFC; border: 1px solid #D6E4FF; border-radius: 999px; padding: 6px 15px;">4 · Chargeback</span>
+              <span style="color: #C9CDD6;">→</span>
+              <span style="font-size: 13px; font-weight: 700; background: #EFF6FF; color: #155DFC; border: 1px solid #D6E4FF; border-radius: 999px; padding: 6px 15px;">5 · Resolution</span>
+            </div>
+
+            <!-- stage detail cards -->
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;">
+              <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 10px;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">STAGE 01</div>
+                <div style="font-size: 15px; font-weight: 800; line-height: 1.3;">Intake</div>
+                <div style="font-size: 12.5px; line-height: 1.6; color: #4A5565;">Describe the dispute in plain language; the system extracts data and suggests a classification.</div>
+                <div style="margin-top: auto; display: flex; flex-direction: column; gap: 6px;">
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282;">screen · <strong style="color: #364153;">Cases</strong></span>
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282;">owner · agent</span>
+                  <span style="align-self: flex-start; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; color: #155DFC; background: #EFF6FF; border: 1px solid #D6E4FF; border-radius: 999px; padding: 2px 8px;">AI EXTRACTS</span>
+                </div>
+              </div>
+              <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 10px;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">STAGE 02</div>
+                <div style="font-size: 15px; font-weight: 800; line-height: 1.3;">Validation</div>
+                <div style="font-size: 12.5px; line-height: 1.6; color: #4A5565;">Inputs are checked against card-network rules and filing windows at the source, before they go downstream.</div>
+                <div style="margin-top: auto; display: flex; flex-direction: column; gap: 6px;">
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282;">screen · <strong style="color: #364153;">Cases</strong></span>
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282;">owner · agent</span>
+                  <span style="align-self: flex-start; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; color: #155DFC; background: #EFF6FF; border: 1px solid #D6E4FF; border-radius: 999px; padding: 2px 8px;">AI CHECKS</span>
+                </div>
+              </div>
+              <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 10px;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">STAGE 03</div>
+                <div style="font-size: 15px; font-weight: 800; line-height: 1.3;">Investigation</div>
+                <div style="font-size: 12.5px; line-height: 1.6; color: #4A5565;">Evidence from the network and cardholder is mapped to the case in the Match Index, with full context in view.</div>
+                <div style="margin-top: auto; display: flex; flex-direction: column; gap: 6px;">
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282;">screen · <strong style="color: #364153;">Cases</strong></span>
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282;">owner · analyst</span>
+                  <span style="align-self: flex-start; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; color: #047857; background: #ECFDF3; border: 1px solid #A7E8C6; border-radius: 999px; padding: 2px 8px;">HUMAN DECIDES</span>
+                </div>
+              </div>
+              <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 10px;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">STAGE 04</div>
+                <div style="font-size: 15px; font-weight: 800; line-height: 1.3;">Chargeback</div>
+                <div style="font-size: 12.5px; line-height: 1.6; color: #4A5565;">File inside the case: valid reason codes per network, with representment and arbitration tracked on the timeline.</div>
+                <div style="margin-top: auto; display: flex; flex-direction: column; gap: 6px;">
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282;">screen · <strong style="color: #364153;">Cases</strong></span>
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282;">owner · agent · analyst</span>
+                  <span style="align-self: flex-start; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; color: #047857; background: #ECFDF3; border: 1px solid #A7E8C6; border-radius: 999px; padding: 2px 8px;">HUMAN DECIDES</span>
+                </div>
+              </div>
+              <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 10px;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">STAGE 05</div>
+                <div style="font-size: 15px; font-weight: 800; line-height: 1.3;">Resolution</div>
+                <div style="font-size: 12.5px; line-height: 1.6; color: #4A5565;">Resolve at scale, bulk actions for routine cases, with a complete, auditable trail for every decision.</div>
+                <div style="margin-top: auto; display: flex; flex-direction: column; gap: 6px;">
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282;">screen · <strong style="color: #364153;">Work Queues · Reports</strong></span>
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282;">owner · processor · compliance</span>
+                  <span style="align-self: flex-start; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; color: #155DFC; background: #EFF6FF; border: 1px solid #D6E4FF; border-radius: 999px; padding: 2px 8px;">AI ASSISTS</span>
+                </div>
+              </div>
+            </div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 14px;">one workspace, the whole flow — no system-hopping, and a clear line between where AI assists and where a human decides</div>
           </div>
 
           <!-- Information architecture -->
