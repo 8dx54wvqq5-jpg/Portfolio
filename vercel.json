@@ -11,5 +11,18 @@
     { "source": "/gea", "destination": "/GEA.dc.html" },
     { "source": "/work", "destination": "/Work.dc.html" },
     { "source": "/about", "destination": "/About.dc.html" }
+  ],
+  "redirects": [
+    { "source": "/DWS.dc.html", "destination": "/dispute-workspace", "permanent": true },
+    { "source": "/DS.dc.html", "destination": "/design-system", "permanent": true },
+    { "source": "/360 Control.dc.html", "destination": "/360-control", "permanent": true },
+    { "source": "/CPQ.dc.html", "destination": "/cpq", "permanent": true },
+    { "source": "/EcoCash.dc.html", "destination": "/ecocash", "permanent": true },
+    { "source": "/Engage.dc.html", "destination": "/engage", "permanent": true },
+    { "source": "/FoodSafety.dc.html", "destination": "/food-safety", "permanent": true },
+    { "source": "/Banfield.dc.html", "destination": "/banfield", "permanent": true },
+    { "source": "/GEA.dc.html", "destination": "/gea", "permanent": true },
+    { "source": "/Work.dc.html", "destination": "/work", "permanent": true },
+    { "source": "/About.dc.html", "destination": "/about", "permanent": true }
   ]
 }
