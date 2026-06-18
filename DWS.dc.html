@@ -29,6 +29,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
   <style>
+  /* highlighter marker — accent swipe behind key phrase */
+  .hl { background-image: linear-gradient(120deg, rgba(21,93,252,0.20) 0%, rgba(21,93,252,0.20) 100%); background-repeat: no-repeat; background-position: 0 88%; background-size: 100% 42%; padding: 0 0.06em; border-radius: 2px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
   h1, h2 { font-family: 'Fraunces', serif !important; font-weight: 600 !important; letter-spacing: -0.015em; }
     html, body { margin: 0; padding: 0; }
     body { background: #EDEEF0; -webkit-font-smoothing: antialiased; }
@@ -234,7 +236,7 @@
         <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 03 · The Problem</span></div>
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
           <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">The problem</h2>
-          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 36px; max-width: 70ch;">Financial institutions using the legacy system faced operational challenges that directly impacted customer satisfaction, processing costs, and compliance exposure. The fix wasn't a prettier interface, it was fundamentally rethinking how users interact with dispute data.</p>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 36px; max-width: 70ch;">Financial institutions using the legacy system faced operational challenges that directly impacted customer satisfaction, processing costs, and compliance exposure. <span class="hl">The fix wasn't a prettier interface</span>, it was fundamentally rethinking how users interact with dispute data.</p>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div data-reveal="1" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px 28px;">
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #D92D20; margin-bottom: 10px;">PAIN 01</div>
@@ -401,7 +403,7 @@
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
           <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">The solution</h2>
           <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 16px; max-width: 70ch;">The real decision was where AI belonged, and where it didn't. Agents were classifying disputes by hand while a customer waited on the line, and a wrong guess only surfaced days later, when it was expensive to undo. So I scoped AI to the work that was slow and mechanical: reading the dispute, suggesting a classification, checking it against network rules. The judgment stayed with the agent.</p>
-          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 70ch;">That split is what moved the numbers. Calls came down 25 to 35 percent, and new agents got productive in a fraction of the old ramp time, because the system now carried the network rules they used to keep in their head. Here's how it played out across the dispute lifecycle.</p>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 70ch;">That split is what moved the numbers. <span class="hl">Calls came down 25 to 35 percent</span>, and new agents got productive in a fraction of the old ramp time, because the system now carried the network rules they used to keep in their head. Here's how it played out across the dispute lifecycle.</p>
 
           <!-- Dispute lifecycle (structured IA) -->
           <div data-reveal="1" style="margin: 0 0 48px;">
