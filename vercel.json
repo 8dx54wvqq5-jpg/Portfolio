@@ -1,0 +1,15 @@
+{
+  "rewrites": [
+    { "source": "/dispute-workspace", "destination": "/DWS.dc.html" },
+    { "source": "/design-system", "destination": "/DS.dc.html" },
+    { "source": "/360-control", "destination": "/360 Control.dc.html" },
+    { "source": "/cpq", "destination": "/CPQ.dc.html" },
+    { "source": "/ecocash", "destination": "/EcoCash.dc.html" },
+    { "source": "/engage", "destination": "/Engage.dc.html" },
+    { "source": "/food-safety", "destination": "/FoodSafety.dc.html" },
+    { "source": "/banfield", "destination": "/Banfield.dc.html" },
+    { "source": "/gea", "destination": "/GEA.dc.html" },
+    { "source": "/work", "destination": "/Work.dc.html" },
+    { "source": "/about", "destination": "/About.dc.html" }
+  ]
+}
