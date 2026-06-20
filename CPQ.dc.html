@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>CPQ — Abhikant Nirbhavane</title>
+<title>CPQ. Abhikant Nirbhavane</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="CPQ: a research-led redesign of an enterprise quoting platform. Quote time cut from 18 to 10 minutes, measured against metrics defined before design started.">
@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://abhikant.com/CPQ.dc.html">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://abhikant.com/CPQ.dc.html">
-<meta property="og:title" content="CPQ — enterprise quoting redesign">
+<meta property="og:title" content="CPQ: enterprise quoting redesign">
 <meta property="og:description" content="A research-led redesign of Zywave's quoting platform. Quote time cut from 18 to 10 minutes.">
 <meta property="og:image" content="https://abhikant.com/assets/cpq-hero.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -382,7 +382,7 @@
           </div>
           <div data-reveal="2" style="border-left: 3px solid #009966; padding: 4px 0 4px 24px;">
             <p style="font-size: 19px; line-height: 1.6; font-weight: 600; color: #101828; margin: 0 0 8px;">"Finally! Quote duplication was our #1 request. Now I can create variations for clients in seconds instead of starting from scratch."</p>
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC;">— SENIOR ACCOUNT MANAGER</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC;">SENIOR ACCOUNT MANAGER</div>
           </div>
         </div>
       </section>
@@ -447,7 +447,7 @@
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   _ttsDuration = 120; _ttsElapsed = 0; _ttsPlaying = false; _tts = null; _apTimer = null;
-  _ttsScript = `CPQ — Configure, Price, Quote — is Zywave's enterprise quoting platform for commercial insurance brokers. Before the redesign, generating a quote took an average of eighteen minutes. Not because quoting is simple — it isn't — but because eight years of feature additions left the interface without a structural rethink. Brokers were context-switching constantly, form logic was opaque, pricing errors hit twenty-eight percent of all quotes, and new users needed weeks to become productive. My approach started before design. I insisted on defining success metrics before drawing a single screen — to make sure we were solving the right problem, not just redesigning it. Research identified three distinct quoting contexts the system was forcing through one workflow: quick renewals, complex new-business quotes, and multi-carrier comparisons. Each had different cognitive demands, different data needs, different time pressure. The redesign introduced tiered quoting flows matched to those three contexts, a persistent quote sidebar keeping the full picture visible while editing any section, inline validation catching errors at the field level instead of on submission, and a carrier comparison view making multi-option quoting usable for the first time. Quote time dropped from eighteen to ten minutes. Pricing errors fell significantly from the twenty-eight percent baseline. Broker satisfaction improved in post-launch surveys. The lesson: when workflows feel slow, the fix is almost never speed. It is removing the sources of uncertainty that make people hesitate.`;
+  _ttsScript = `CPQ, short for Configure, Price, Quote, is Zywave's enterprise quoting platform for commercial insurance brokers. Before the redesign, generating one quote took an average of eighteen minutes. Eight years of feature additions had made the workflow difficult to follow. Brokers switched context often, pricing logic was unclear, twenty-eight percent of quotes contained pricing errors, and new users needed weeks to become productive. Before designing screens, I worked with the product owner and sales team to define how we would measure success. Research then revealed three distinct quoting situations: quick renewals, complex new-business quotes, and multi-carrier comparisons. Each required different information and a different pace. The redesign matched the flow to those contexts. It added a persistent quote sidebar, field-level validation, and a carrier comparison view. Average quote time dropped from eighteen to ten minutes. Pricing errors decreased from the twenty-eight percent baseline, and post-launch surveys showed higher broker satisfaction. The project showed that a slow workflow is often a clarity problem. Removing uncertainty helped brokers work faster.`;
 
   _apUpdateUI() {
     const pct = Math.min(100, ((this._ttsElapsed || 0) / this._ttsDuration) * 100);

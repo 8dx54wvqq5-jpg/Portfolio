@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>360 Control — Abhikant Nirbhavane</title>
+<title>360 Control, Abhikant Nirbhavane</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="360 Control: a ground-up redesign of the issuer admin console banks use to run commercial card programs. Design-system-first, shipped for a major Canadian bank.">
@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://abhikant.com/360%20Control.dc.html">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://abhikant.com/360%20Control.dc.html">
-<meta property="og:title" content="360 Control — issuer administration console">
+<meta property="og:title" content="360 Control: issuer administration console">
 <meta property="og:description" content="Redesigning the admin console banks use to run commercial card programs. Design system first, deliberately no AI, shipped on a contractual deadline.">
 <meta property="og:image" content="https://abhikant.com/assets/c360-1.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -529,7 +529,7 @@
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   _ttsDuration = 120; _ttsElapsed = 0; _ttsPlaying = false; _tts = null; _apTimer = null;
-  _ttsScript = `Three-sixty Control is the issuer console I redesigned for Fiserv and a major Canadian bank — the backend that banks use to run commercial card programs. Card controls, spend limits, program hierarchies, merchant restrictions — all the configuration that sits above the cardholder and below the network. The existing interface had accumulated seven years of additions with no architectural rethink. Navigation was opaque, configuration and operations were mixed together, and the training burden was high. My role was unusual: I was the UX designer and design system contributor simultaneously. That constraint became the strategy — design system first, flows second. Every component decision had to work across the entire product, enforcing consistency the old interface had never had. The key architectural insight: separate configuration from operations. Administrators setting up a card program have entirely different goals from operators monitoring one, yet both lived in the same navigation. I split them cleanly, then rebuilt the card control hierarchy from the information architecture up. One deliberate choice stands out: no AI. This product serves a compliance context where predictability is non-negotiable. Every rule had to be deterministic and auditable. AI would have introduced variability that neither the bank nor their clients could accept. That was the right call, not the cautious one. Launched on schedule against a hard contractual deadline. Design output time cut sixty-five percent. Development time cut forty percent. A bilingual, mobile-accessible platform the legacy system could never have been.`;
+  _ttsScript = `Three-sixty Control is the issuer console I redesigned for Fiserv and a major Canadian bank. Banks use it to run commercial card programs, including card controls, spend limits, program hierarchies, and merchant restrictions. Seven years of additions had left the existing interface difficult to navigate. Configuration and daily operations shared the same structure, and new administrators needed extensive training. I worked as both UX designer and design system contributor, so I built shared patterns before expanding the flows. The main information architecture decision was to separate configuration from operations. Administrators setting up a program have different goals from people monitoring one, but the legacy navigation treated them the same. I separated those tasks, then rebuilt the card-control hierarchy around each role's work. I also chose not to use AI. This product operates in a compliance setting where every rule must be predictable and auditable. AI would have added variability the bank and its clients did not need. The platform launched on schedule against a contractual deadline. Design output time decreased by sixty-five percent, development time by forty percent, and the new platform supports bilingual content and mobile access.`;
 
   _apUpdateUI() {
     const pct = Math.min(100, ((this._ttsElapsed || 0) / this._ttsDuration) * 100);

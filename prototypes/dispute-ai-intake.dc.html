@@ -36,11 +36,11 @@
 
       <div style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; letter-spacing: 0.1em; color: #155DFC; margin-bottom: 8px;">AI-ASSISTED INTAKE</div>
       <h1 style="font-size: 22px; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 6px;">What is the cardholder reporting?</h1>
-      <p style="font-size: 13.5px; line-height: 1.6; color: #5A6472; margin: 0 0 14px;">Type it in plain language. The AI extracts each field — amount, date, merchant, dispute type — with its own confidence, classifies it against card-network reason codes, and shows you why. You stay in control.</p>
+      <p style="font-size: 13.5px; line-height: 1.6; color: #5A6472; margin: 0 0 14px;">Type it in plain language. The AI extracts each field, amount, date, merchant, dispute type, with its own confidence, classifies it against card-network reason codes, and shows you why. You stay in control.</p>
 
       <div style="display: flex; align-items: flex-start; gap: 9px; background: #EFF5FF; border: 1px solid #D6E4FF; border-radius: 8px; padding: 11px 13px; margin-bottom: 18px;">
         <span style="color: #155DFC; font-size: 13px; line-height: 1.5;">✦</span>
-        <span style="font-size: 12.5px; line-height: 1.6; color: #435062;"><strong style="color: #1A2230;">You're the agent in this demo.</strong> Describe what the cardholder reports — the AI extracts the details, matches a card-network reason code, checks the filing window, and suggests a queue. It assists; you accept or override. Try a sample below.</span>
+        <span style="font-size: 12.5px; line-height: 1.6; color: #435062;"><strong style="color: #1A2230;">You're the agent in this demo.</strong> Describe what the cardholder reports. The AI extracts the details, matches a card-network reason code, checks the filing window, and suggests a queue. It assists; you accept or override. Try a sample below.</span>
       </div>
 
       <!-- INTAKE CARD -->
@@ -65,7 +65,7 @@
       <!-- THINKING -->
       <sc-if value="{{ showThinking }}" hint-placeholder-val="{{ false }}">
         <div style="background: #F3F7FF; border: 1px solid #BFD3F8; border-radius: 12px; padding: 18px 20px; margin-top: 16px;">
-          <div style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10.5px; letter-spacing: 0.1em; color: #155DFC; margin-bottom: 12px;">✦ THE AI IS WORKING — ITS REASONING, STEP BY STEP</div>
+          <div style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10.5px; letter-spacing: 0.1em; color: #155DFC; margin-bottom: 12px;">✦ THE AI IS WORKING: ITS REASONING, STEP BY STEP</div>
           <div style="display: grid; gap: 10px;">
             <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
               <div style="display: flex; align-items: center; gap: 10px;">
@@ -81,10 +81,10 @@
       <sc-if value="{{ showResult }}" hint-placeholder-val="{{ false }}">
         <div style="border: 1px solid #BFD3F8; border-radius: 12px; overflow: hidden; margin-top: 16px; background: #F3F7FF;">
           <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; background: #EAF1FE; border-bottom: 1px solid #D7E3FA;">
-            <span style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10.5px; letter-spacing: 0.1em; color: #155DFC;">✦ AI SUGGESTION — NOT A DECISION</span>
+            <span style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10.5px; letter-spacing: 0.1em; color: #155DFC;">✦ AI SUGGESTION, NOT A DECISION</span>
             <span style="font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; background: {{ rConfBg }}; color: {{ rConfColor }};">{{ rConfLabel }}</span>
           </div>
-          <div style="padding: 12px 20px 0; font-size: 12px; line-height: 1.55; color: #5A6472;">This is the AI's suggestion and <strong style="color: #1A2230;">exactly why</strong> — the phrases it matched, the rule checks it ran, and the queue it would route to. Nothing is filed until you accept.</div>
+          <div style="padding: 12px 20px 0; font-size: 12px; line-height: 1.55; color: #5A6472;">This is the AI's suggestion and <strong style="color: #1A2230;">exactly why</strong>: the phrases it matched, the rule checks it ran, and the queue it would route to. Nothing is filed until you accept.</div>
           <div style="padding: 18px 20px;">
             <div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 6px;">
               <span style="font-size: 19px; font-weight: 800; letter-spacing: -0.01em;">{{ rCat }}</span>
@@ -93,7 +93,7 @@
             <p style="font-size: 13.5px; line-height: 1.55; margin: 0 0 14px; color: {{ rGuidanceColor }};">{{ rGuidance }}</p>
 
             <div style="background: #FFFFFF; border: 1px solid #D7E3FA; border-radius: 8px; padding: 14px 16px; margin-bottom: 12px;">
-              <div style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10.5px; letter-spacing: 0.1em; color: #155DFC; margin-bottom: 10px;">FIELDS THE AI CAPTURED — EACH WITH ITS OWN CONFIDENCE</div>
+              <div style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10.5px; letter-spacing: 0.1em; color: #155DFC; margin-bottom: 10px;">FIELDS THE AI CAPTURED, EACH WITH ITS OWN CONFIDENCE</div>
               <div style="display: grid; gap: 9px;">
                 <sc-for list="{{ fields }}" as="f" hint-placeholder-count="4">
                   <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
@@ -140,7 +140,7 @@
           <div style="display: flex; align-items: center; gap: 10px; padding: 14px 18px; background: #FFFFFF; border-top: 1px solid #D7E3FA; flex-wrap: wrap;">
             <button onClick="{{ accept }}" style="background: #155DFC; color: #fff; border: none; border-radius: 8px; font-size: 13.5px; font-weight: 700; padding: 10px 18px; cursor: pointer; font-family: inherit;" style-hover="background: #2B70FF;">Accept &amp; create case</button>
             <button onClick="{{ toggleOverride }}" style="background: #fff; color: #435062; border: 1px solid #D7DCE5; border-radius: 8px; font-size: 13.5px; font-weight: 600; padding: 10px 16px; cursor: pointer; font-family: inherit;" style-hover="border-color: #155DFC; color: #155DFC;">{{ overrideLabel }}</button>
-            <span style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10.5px; color: #B0B8C6; margin-left: auto;">you decide — the model only suggests</span>
+            <span style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10.5px; color: #B0B8C6; margin-left: auto;">you decide. the model only suggests</span>
           </div>
 
           <!-- OVERRIDE PANEL -->
@@ -155,7 +155,7 @@
                   </div>
                 </sc-for>
               </div>
-              <p style="font-size: 12.5px; line-height: 1.55; color: #5A6472; margin: 0 0 12px;">Your correction is logged with a full audit trail and feeds back into the model. It learns from you — it never overrides you.</p>
+              <p style="font-size: 12.5px; line-height: 1.55; color: #5A6472; margin: 0 0 12px;">Your correction is logged with a full audit trail and feeds back into the model. It learns from your input but never overrides you.</p>
               <button onClick="{{ acceptOverride }}" style="background: #1A2230; color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 700; padding: 10px 18px; cursor: pointer; font-family: inherit; opacity: {{ overrideBtnOpacity }};" style-hover="background: #2C3648;">Create case with my classification</button>
             </div>
           </sc-if>
@@ -186,27 +186,27 @@ class Component extends DCLogic {
   cats() {
     return [
       { id: "dup", name: "Duplicate processing", code: "Visa 12.6.1", queue: "Standard queue", tag: "bulk-eligible",
-        note: "— same merchant, same amount, suggests the charge was processed twice.",
+        note: "The same merchant and amount suggest the charge was processed twice.",
         check: { mark: "✓", color: "#0E7A55", text: "Two authorizations with an identical amount found on May 31" },
         kw: ["charged twice", "charged again", "two charges", "double charge", "duplicate", "twice", "double"] },
       { id: "fraud", name: "Fraud · card-absent", code: "Visa 10.4", queue: "Fraud analyst queue", tag: "priority",
-        note: "— language consistent with an unauthorized or unrecognized transaction.",
-        check: { mark: "!", color: "#B45309", text: "Card not reported lost — confirm the cardholder still has possession" },
+        note: "The language is consistent with an unauthorized or unrecognized transaction.",
+        check: { mark: "!", color: "#B45309", text: "Card not reported lost. Confirm the cardholder still has possession" },
         kw: ["don't recognize", "do not recognize", "didn't make", "never made", "unauthorized", "not mine", "wasn't me", "stolen", "unknown charge", "fraud"] },
       { id: "gnr", name: "Merchandise not received", code: "Visa 13.1", queue: "Standard queue", tag: "",
-        note: "— indicates goods or services that were paid for but never delivered.",
-        check: { mark: "✓", color: "#0E7A55", text: "Expected delivery date has passed — merchant response window opens today" },
+        note: "This indicates goods or services that were paid for but never delivered.",
+        check: { mark: "✓", color: "#0E7A55", text: "Expected delivery date has passed. Merchant response window opens today" },
         kw: ["never received", "never arrived", "didn't arrive", "not delivered", "never got", "hasn't shipped", "no tracking", "won't respond"] },
       { id: "rec", name: "Cancelled recurring", code: "Visa 13.2", queue: "Standard queue", tag: "bulk-eligible",
-        note: "— points to a subscription or membership billed after cancellation.",
-        check: { mark: "✓", color: "#0E7A55", text: "Recurring billing pattern detected — monthly, same merchant" },
+        note: "This points to a subscription or membership billed after cancellation.",
+        check: { mark: "✓", color: "#0E7A55", text: "Recurring monthly billing detected from the same merchant" },
         kw: ["subscription", "cancelled", "canceled", "recurring", "still billed", "still billing", "still charging", "membership", "free trial"] },
       { id: "nad", name: "Not as described / defective", code: "Visa 13.3", queue: "Standard queue", tag: "",
-        note: "— suggests the goods arrived but were damaged, wrong, or misrepresented.",
+        note: "This suggests the goods arrived damaged, incorrect, or misrepresented.",
         check: { mark: "✓", color: "#0E7A55", text: "Return / repair attempt should be documented before filing" },
         kw: ["broken", "damaged", "defective", "wrong item", "not as described", "counterfeit", "fake", "doesn't work"] },
       { id: "cnp", name: "Credit not processed", code: "Visa 13.6", queue: "Standard queue", tag: "",
-        note: "— a promised refund or return credit that never posted.",
+        note: "A promised refund or return credit never posted.",
         check: { mark: "✓", color: "#0E7A55", text: "No matching credit found in the last 30 days of postings" },
         kw: ["refund", "returned", "money back", "credit never", "store credit", "return"] }
     ];
@@ -270,11 +270,11 @@ class Component extends DCLogic {
     const fa = this.makeFields(r, text);
     const confMap = {
       high: { label: "High confidence", bg: "#E6F6EE", color: "#0E7A55",
-        guidance: "High confidence — review and accept. This classification is well supported by the description.", gcolor: "#0E7A55" },
+        guidance: "High confidence. Review and accept. The description strongly supports this classification.", gcolor: "#0E7A55" },
       medium: { label: "Medium confidence", bg: "#FEF6E7", color: "#B45309",
-        guidance: "Medium confidence — verify the key fields and confirm one detail with the cardholder before accepting.", gcolor: "#B45309" },
+        guidance: "Medium confidence. Verify the key fields and confirm one detail with the cardholder before accepting.", gcolor: "#B45309" },
       low: { label: "Low confidence", bg: "#F2F4F7", color: "#475467",
-        guidance: "Low confidence — the model couldn't find a strong match. Manual review recommended.", gcolor: "#475467" }
+        guidance: "Low confidence. The model could not find a strong match. Manual review recommended.", gcolor: "#475467" }
     };
     const m = confMap[r.conf];
     if (r.conf === "low") {
@@ -282,9 +282,9 @@ class Component extends DCLogic {
         cat: "Needs human review", code: "no reason code matched",
         fields: fa.fields, audit: fa.audit,
         confLabel: m.label, confBg: m.bg, confColor: m.color, guidance: m.guidance, gcolor: m.gcolor,
-        reasons: [{ phrase: "no strong signal", note: "— the description didn't match the language patterns of any known reason code." }],
+        reasons: [{ phrase: "no strong signal", note: "The description did not match the language patterns of any known reason code." }],
         checks: [
-          { mark: "✓", color: "#0E7A55", text: "Matched to a transaction — $84.20 · May 31" },
+          { mark: "✓", color: "#0E7A55", text: "Matched to a transaction: $84.20 · May 31" },
           { mark: "!", color: "#B45309", text: "Ask the cardholder one clarifying question, then reclassify" }
         ],
         queue: "Specialist review queue", tag: ""
@@ -292,15 +292,15 @@ class Component extends DCLogic {
     }
     const c = r.top.cat;
     const reasons = r.top.matches.map((mt) => ({ phrase: "\u201C" + mt + "\u201D", note: c.note }));
-    reasons.push({ phrase: "next-closest", note: "— " + r.second.cat.name + " (" + (r.second.score > 0 ? "weak match, ruled out" : "no match") + ")." });
+    reasons.push({ phrase: "next-closest", note: r.second.cat.name + " (" + (r.second.score > 0 ? "weak match, ruled out" : "no match") + ")." });
     return {
       cat: c.name, code: c.code,
       fields: fa.fields, audit: fa.audit,
       confLabel: m.label, confBg: m.bg, confColor: m.color, guidance: m.guidance, gcolor: m.gcolor,
       reasons: reasons,
       checks: [
-        { mark: "✓", color: "#0E7A55", text: "Matched to a transaction — $84.20 · May 31" },
-        { mark: "✓", color: "#0E7A55", text: "Filing window — day 12 of 60 · within Visa time limit" },
+        { mark: "✓", color: "#0E7A55", text: "Matched to a transaction: $84.20 · May 31" },
+        { mark: "✓", color: "#0E7A55", text: "Filing window: day 12 of 60 · within Visa time limit" },
         c.check
       ],
       queue: c.queue, tag: c.tag
@@ -332,7 +332,7 @@ class Component extends DCLogic {
     const steps = stepLabels.map((label, i) => {
       const done = st.step > i, active = st.step === i;
       return {
-        label: done ? label + " — done" : label + (active ? "…" : ""),
+        label: done ? label + ": done" : label + (active ? "…" : ""),
         dot: done ? "#0E7A55" : (active ? "#155DFC" : "#C6CCD7"),
         color: done ? "#0E7A55" : (active ? "#1A2230" : "#8A93A3")
       };
@@ -385,7 +385,7 @@ class Component extends DCLogic {
       finalQueue: finalQueueName,
       auditLine: st.overrideIdx >= 0
         ? "agent override recorded · fully traceable · model will learn from this correction"
-        : "intake in 38s — a fraction of the legacy flow · decision logged with full audit trail",
+        : "intake in 38s, a fraction of the legacy flow · decision logged with full audit trail",
       reset: () => this.setState({ text: "", phase: "idle", step: 0, result: null, overrideOpen: false, overrideIdx: -1 })
     };
   }
