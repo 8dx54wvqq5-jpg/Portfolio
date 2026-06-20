@@ -515,16 +515,17 @@
                   <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; color: #009966; background: #ECFDF3; border: 1px solid #6CE9A6; border-radius: 999px; padding: 2px 8px;">NEW · did not exist in legacy</span>
                 </div>
                 <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">AI-assisted intake</h3>
-                <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px;">The agent or cardholder describes the dispute in plain language, "I was charged $47.50 twice for the same Uber ride on March 3rd", and an LLM extracts the structured data and proposes a classification, which a card-network rules engine then checks before it shows its confidence. Whatever the cardholder entered at intake stays on the case for the agent to review and verify, the same way for a fraud claim or a non-fraud merchant dispute, so no one re-asks for what was already provided.</p>
+                <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px;">The agent or cardholder describes the dispute in plain language, "I was charged $47.50 twice for the same Uber ride on March 3rd", and instead of the agent typing fields in by hand, an LLM extracts each one, amount, date, merchant, dispute type, and populates the case, with a card-network rules engine checking the classification. Every captured field carries its own confidence, high, medium, or low, so the agent knows which values to trust and which to verify before accepting or overriding. Whatever the cardholder entered at intake stays on the case to review, so no one re-asks for what was already provided.</p>
                 <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;"><strong style="color: #009966;">Result:</strong> shorter calls. Agents focus on the customer while the system handles extraction and classification, no repetitive questioning, no manual lookup.</p>
               </div>
               <div style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px;">
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 14px;">HOW THE CONFIDENCE BADGE BEHAVES</div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 14px;">HOW PER-FIELD CONFIDENCE BEHAVES</div>
                 <div style="display: grid; gap: 10px;">
                   <div style="display: flex; align-items: center; gap: 12px;"><span style="background: #ECFDF3; color: #009966; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px;">HIGH</span><span style="font-size: 13.5px; color: #4A5565;">Review and accept, routine path</span></div>
                   <div style="display: flex; align-items: center; gap: 12px;"><span style="background: #FFFAEB; color: #B54708; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px;">MED</span><span style="font-size: 13.5px; color: #4A5565;">Verify key fields before continuing</span></div>
                   <div style="display: flex; align-items: center; gap: 12px;"><span style="background: #FEF3F2; color: #D92D20; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px;">LOW</span><span style="font-size: 13.5px; color: #4A5565;">Manual review recommended</span></div>
                 </div>
+                <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed #ECEDF1; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #6A7282; line-height: 1.95;">Amount $47.50 <span style="color: #009966; font-weight: 600;">HIGH</span> · Date Mar 3 <span style="color: #009966; font-weight: 600;">HIGH</span> · Merchant "Uber" <span style="color: #B54708; font-weight: 600;">MED</span></div>
               </div>
             </div>
           </div>
@@ -569,6 +570,17 @@
               <iframe src="prototypes/dispute-ai-intake.dc.html" title="AI dispute intake prototype" style="display: block; width: 100%; height: 820px; border: none; background: #EEF1F6;"></iframe>
             </div>
             <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin: 12px 0 0;">describe a dispute in plain language — the classification, confidence, reasoning and routing respond live. accept it, or override it and stay in control.</p>
+          </div>
+
+          <!-- Solution 1c: Audit log + metrics -->
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding: 36px 0;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC;">AUDIT &amp; METRICS</div>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; color: #009966; background: #ECFDF3; border: 1px solid #6CE9A6; border-radius: 999px; padding: 2px 8px;">NEW · did not exist in legacy</span>
+            </div>
+            <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">The audit log, and an early read on the AI</h3>
+            <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px; max-width: 70ch;">Every intake records what the system captured, what it flagged low-confidence, and what the agent overrode or skipped. For compliance, that makes every AI decision traceable and defensible — exactly what a regulatory review asks for.</p>
+            <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 70ch;"><strong style="color: #009966;">Result:</strong> because the tool is new, that same log is the metric — capture accuracy, override rate, and skipped-field rate show, in production, how well the AI is actually performing and where to tune it next.</p>
           </div>
 
           <!-- Solution 2 -->

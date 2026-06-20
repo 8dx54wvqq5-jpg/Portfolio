@@ -36,7 +36,7 @@
 
       <div style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; letter-spacing: 0.1em; color: #155DFC; margin-bottom: 8px;">AI-ASSISTED INTAKE</div>
       <h1 style="font-size: 22px; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 6px;">What is the cardholder reporting?</h1>
-      <p style="font-size: 13.5px; line-height: 1.6; color: #5A6472; margin: 0 0 14px;">Type it in plain language. The model classifies it against card-network reason codes — and shows you why, so you stay in control.</p>
+      <p style="font-size: 13.5px; line-height: 1.6; color: #5A6472; margin: 0 0 14px;">Type it in plain language. The AI extracts each field — amount, date, merchant, dispute type — with its own confidence, classifies it against card-network reason codes, and shows you why. You stay in control.</p>
 
       <div style="display: flex; align-items: flex-start; gap: 9px; background: #EFF5FF; border: 1px solid #D6E4FF; border-radius: 8px; padding: 11px 13px; margin-bottom: 18px;">
         <span style="color: #155DFC; font-size: 13px; line-height: 1.5;">✦</span>
@@ -91,6 +91,22 @@
               <span style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 12px; color: #5A6472;">{{ rCode }}</span>
             </div>
             <p style="font-size: 13.5px; line-height: 1.55; margin: 0 0 14px; color: {{ rGuidanceColor }};">{{ rGuidance }}</p>
+
+            <div style="background: #FFFFFF; border: 1px solid #D7E3FA; border-radius: 8px; padding: 14px 16px; margin-bottom: 12px;">
+              <div style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10.5px; letter-spacing: 0.1em; color: #155DFC; margin-bottom: 10px;">FIELDS THE AI CAPTURED — EACH WITH ITS OWN CONFIDENCE</div>
+              <div style="display: grid; gap: 9px;">
+                <sc-for list="{{ fields }}" as="f" hint-placeholder-count="4">
+                  <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+                    <span style="font-size: 12.5px; color: #5A6472;">{{ f.label }}</span>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <span style="font-size: 13px; font-weight: 600; color: {{ f.valColor }};">{{ f.value }}</span>
+                      <span style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: {{ f.confBg }}; color: {{ f.confColor }};">{{ f.confText }}</span>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="margin-top: 12px; padding-top: 10px; border-top: 1px dashed #E3E7EE; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10.5px; color: #8A93A3;">{{ auditSummary }}</div>
+            </div>
 
             <div style="background: #FFFFFF; border: 1px solid #D7E3FA; border-radius: 8px; padding: 14px 16px; margin-bottom: 12px;">
               <div style="font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 10.5px; letter-spacing: 0.1em; color: #155DFC; margin-bottom: 10px;">WHY THIS CLASSIFICATION</div>
@@ -218,7 +234,40 @@ class Component extends DCLogic {
     return { top: top, second: second, conf: conf };
   }
 
-  buildResult(r) {
+  fieldConf(lvl) {
+    const m = {
+      high: { confText: "HIGH", confBg: "#E6F6EE", confColor: "#0E7A55", valColor: "#1A2230" },
+      medium: { confText: "MED", confBg: "#FEF6E7", confColor: "#B45309", valColor: "#1A2230" },
+      low: { confText: "LOW", confBg: "#F2F4F7", confColor: "#475467", valColor: "#8A93A3" }
+    };
+    return m[lvl];
+  }
+
+  makeFields(r, text) {
+    const t = (text || "").toLowerCase();
+    const am = (text || "").match(/\$\s?\d[\d,]*(\.\d{2})?/);
+    const amount = am
+      ? { label: "Amount", value: am[0].replace(/\s/g, ""), lvl: "high" }
+      : { label: "Amount", value: "$84.20", lvl: "medium" };
+    const date = { label: "Transaction date", value: "May 31", lvl: "high" };
+    const merchants = [["gas station", "Gas station"], ["online store", "Online store"], ["subscription", "Subscription"], ["membership", "Membership"], ["seller", "Online seller"], ["store", "Retail store"]];
+    let merch = null;
+    for (let i = 0; i < merchants.length; i++) {
+      if (t.indexOf(merchants[i][0]) >= 0) { merch = { label: "Merchant", value: merchants[i][1], lvl: "medium" }; break; }
+    }
+    if (!merch) merch = { label: "Merchant", value: "Not captured", lvl: "low" };
+    const dispute = { label: "Dispute type", value: r.conf === "low" ? "Unmatched" : r.top.cat.name, lvl: r.conf };
+    const raw = [amount, date, merch, dispute];
+    const fields = raw.map((f) => Object.assign({ label: f.label, value: f.value }, this.fieldConf(f.lvl)));
+    const hi = raw.filter((f) => f.lvl === "high").length;
+    const md = raw.filter((f) => f.lvl === "medium").length;
+    const lo = raw.filter((f) => f.lvl === "low").length;
+    const audit = "Audit: " + hi + " captured · " + md + " to verify · " + lo + " not found · logged to audit trail";
+    return { fields: fields, audit: audit };
+  }
+
+  buildResult(r, text) {
+    const fa = this.makeFields(r, text);
     const confMap = {
       high: { label: "High confidence", bg: "#E6F6EE", color: "#0E7A55",
         guidance: "High confidence — review and accept. This classification is well supported by the description.", gcolor: "#0E7A55" },
@@ -231,6 +280,7 @@ class Component extends DCLogic {
     if (r.conf === "low") {
       return {
         cat: "Needs human review", code: "no reason code matched",
+        fields: fa.fields, audit: fa.audit,
         confLabel: m.label, confBg: m.bg, confColor: m.color, guidance: m.guidance, gcolor: m.gcolor,
         reasons: [{ phrase: "no strong signal", note: "— the description didn't match the language patterns of any known reason code." }],
         checks: [
@@ -245,6 +295,7 @@ class Component extends DCLogic {
     reasons.push({ phrase: "next-closest", note: "— " + r.second.cat.name + " (" + (r.second.score > 0 ? "weak match, ruled out" : "no match") + ")." });
     return {
       cat: c.name, code: c.code,
+      fields: fa.fields, audit: fa.audit,
       confLabel: m.label, confBg: m.bg, confColor: m.color, guidance: m.guidance, gcolor: m.gcolor,
       reasons: reasons,
       checks: [
@@ -264,7 +315,7 @@ class Component extends DCLogic {
     this._t2 = setTimeout(() => this.setState({ step: 2 }), 1100);
     this._t3 = setTimeout(() => {
       const r = this.classifyText(text);
-      this.setState({ phase: "result", result: this.buildResult(r) });
+      this.setState({ phase: "result", result: this.buildResult(r, text) });
     }, 1700);
   }
 
@@ -310,6 +361,8 @@ class Component extends DCLogic {
       rConfColor: res ? res.confColor : "#000",
       rGuidance: res ? res.guidance : "",
       rGuidanceColor: res ? res.gcolor : "#000",
+      fields: res ? res.fields : [],
+      auditSummary: res ? res.audit : "",
       reasons: res ? res.reasons : [],
       checks: res ? res.checks : [],
       rQueue: res ? res.queue : "",
