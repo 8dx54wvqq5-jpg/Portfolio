@@ -1406,11 +1406,20 @@
   }
   function installPortfolioCursors() {
     if (document.getElementById("portfolio-action-cursors")) return;
-    const arrow = `<path d="M4 2l14 10-7.2 1.3L8 22 4 2z" fill="#0B0F19" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>`;
-    const badge = (content) => `<circle cx="18" cy="18" r="7.5" fill="#2F64FF"/><circle cx="18" cy="18" r="7.5" fill="none" stroke="#1D4ED8" stroke-width="1"/>${content}`;
-    const label = (txt) => `<text x="18" y="21.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="700" fill="#fff">${txt}</text>`;
-    const cursor = (content) => `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">${arrow}${content || ""}</svg>`)}") 4 2`;
-    const hand = (closed) => `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"><path d="${closed ? "M7 13c0-1.4 1.8-1.7 2.5-.6V7.5a1.5 1.5 0 013 0V12V6.5a1.5 1.5 0 013 0V12V7.5a1.5 1.5 0 013 0V13V10a1.5 1.5 0 013 0v6.2c0 5-3.4 8.3-8.2 8.3h-1.6c-3.2 0-5.8-2.6-5.8-5.8V13z" : "M7 16V7.5a1.5 1.5 0 013 0V14V5.5a1.5 1.5 0 013 0V14V6.5a1.5 1.5 0 013 0V14V9.5a1.5 1.5 0 013 0v7c0 5-3.3 8-8 8h-1.5C10.4 24.5 8 22.1 8 19v-3z"}" fill="#0B0F19" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`)}") 13 13`;
+    const arrow = `<path d="M4 2l17 12-8.5 1.5L9 27 4 2z" fill="#0B0F19" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/>`;
+    const icons = {
+      open: `<path d="M25 20h5v5M30 20l-8 8" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>`,
+      external: `<path d="M24 19h6v6M30 19l-9 9" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>`,
+      download: `<path d="M26 18v8M22.5 22.5L26 26l3.5-3.5M21 28.5h10" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>`,
+      email: `<text x="26" y="27" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="800" fill="#fff">@</text>`,
+      copy: `<path d="M23 22h6v6h-6zM20 19h6v3h-3v3h-3z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/>`,
+      check: `<path d="M21.5 25.5l2.5 2.5 7-8" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>`
+    };
+    const tag = (icon) => icon ? `<path d="M19 18h12l4 5-4 5H19z" fill="#155DFC"/>${icons[icon] || icons.open}` : "";
+    const cursorSvg = (icon) => `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">${arrow}${tag(icon)}</svg>`;
+    const cursor = (icon) => `url("data:image/svg+xml,${encodeURIComponent(cursorSvg(icon))}") 4 2`;
+    const handSvg = (closed) => `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><path d="${closed ? "M9 17c0-1.8 2.2-2 3-.7V9.5a2 2 0 014 0V16V8.5a2 2 0 014 0V16V10a2 2 0 014 0v7V13a2 2 0 014 0v7.4c0 6-4.1 10-9.8 10h-2c-4 0-7.2-3.2-7.2-7.2V17z" : "M8.5 20V9.5a2 2 0 014 0V18V7.5a2 2 0 014 0V18V9a2 2 0 014 0v9V12a2 2 0 014 0v8.2c0 6-4 9.8-9.6 9.8h-2C12.8 30 9.5 26.7 9.5 22.6V20z"}" fill="#0B0F19" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    const hand = (closed) => `url("data:image/svg+xml,${encodeURIComponent(handSvg(closed))}") 16 16`;
     const style = document.createElement("style");
     style.id = "portfolio-action-cursors";
     style.textContent = `
@@ -1423,33 +1432,97 @@
       html body [onclick],
       html body summary,
       html body label[for],
-      html body [tabindex="0"] { cursor: ${cursor(badge(label("→")))}, pointer !important; }
+      html body [tabindex="0"] { cursor: ${cursor("open")}, pointer !important; }
       html body a[href^="http"],
-      html body a[target="_blank"] { cursor: ${cursor(badge('<path d="M15 13h5v5M20 13l-7 7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'))}, pointer !important; }
+      html body a[target="_blank"] { cursor: ${cursor("external")}, pointer !important; }
       html body a[href*="resumego"],
       html body a[href$=".pdf"],
-      html body a[download] { cursor: ${cursor(badge('<path d="M18 12v8M14.5 16.5L18 20l3.5-3.5M13 22h10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'))}, pointer !important; }
-      html body a[href^="mailto:"] { cursor: ${cursor(badge(label("@")))}, pointer !important; }
-      html body [data-copy-email] { cursor: ${cursor(badge('<path d="M15 14h6v6h-6zM12 11h6v3h-3v3h-3z" fill="none" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"/>'))}, pointer !important; }
-      html body [data-cursor-copied="true"] { cursor: ${cursor(badge('<path d="M14 18l2.4 2.4L22 14.8" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>'))}, pointer !important; }
+      html body a[download] { cursor: ${cursor("download")}, pointer !important; }
+      html body a[href^="mailto:"] { cursor: ${cursor("email")}, pointer !important; }
+      html body [data-copy-email] { cursor: ${cursor("copy")}, pointer !important; }
+      html body [data-cursor-copied="true"] { cursor: ${cursor("check")}, pointer !important; }
       html body #viewport { cursor: ${hand(false)}, grab !important; }
       html[data-cursor-panning="true"] body #viewport,
       html[data-cursor-panning="true"] body #viewport * { cursor: ${hand(true)}, grabbing !important; }
+      #portfolio-motion-cursor { position: fixed; left: 0; top: 0; width: 36px; height: 36px; z-index: 2147483647; pointer-events: none; opacity: 0; transform: translate3d(-60px,-60px,0); transition: opacity 0.16s ease, filter 0.18s ease; filter: drop-shadow(0 8px 10px rgba(0,0,0,0.24)); }
+      #portfolio-motion-cursor svg { width: 36px; height: 36px; display: block; transition: transform 0.16s cubic-bezier(0.16,1,0.3,1); transform-origin: 4px 2px; }
+      html[data-cursor-action="true"] #portfolio-motion-cursor svg { transform: scale(1.06); }
+      html[data-cursor-panning="true"] #portfolio-motion-cursor svg { transform: scale(0.96); }
+      @media (pointer: fine) {
+        html body *,
+        html body a,
+        html body button,
+        html body [role="button"],
+        html body [data-nav],
+        html body [data-copy-email],
+        html body [onclick],
+        html body #viewport,
+        html body #viewport * { cursor: none !important; }
+      }
     `;
     document.head.appendChild(style);
+    const motion = document.createElement("div");
+    motion.id = "portfolio-motion-cursor";
+    document.body.appendChild(motion);
+    let cursorKind = "";
+    let targetX = -60;
+    let targetY = -60;
+    let currentX = targetX;
+    let currentY = targetY;
+    const render = (kind) => {
+      if (kind === cursorKind) return;
+      cursorKind = kind;
+      motion.innerHTML = kind === "hand" || kind === "grabbing" ? handSvg(kind === "grabbing") : cursorSvg(kind || "");
+      document.documentElement.toggleAttribute("data-cursor-action", !!kind && kind !== "hand" && kind !== "grabbing");
+    };
+    const kindFor = (target) => {
+      if (document.documentElement.hasAttribute("data-cursor-panning")) return "grabbing";
+      const el = target && target.closest && target.closest("a, button, [role='button'], [data-nav], [data-copy-email], [onclick], summary, label[for], [tabindex='0']");
+      if (el) {
+        const href = el.getAttribute("href") || "";
+        if (el.matches("[data-cursor-copied='true']")) return "check";
+        if (el.matches("[data-copy-email]")) return "copy";
+        if (/^mailto:/i.test(href)) return "email";
+        if (/resumego|\\.pdf$/i.test(href) || el.hasAttribute("download")) return "download";
+        if (/^https?:/i.test(href) || el.getAttribute("target") === "_blank") return "external";
+        return "open";
+      }
+      if (target && target.closest && target.closest("#viewport")) return "hand";
+      return "";
+    };
+    const tick = () => {
+      currentX += (targetX - currentX) * 0.32;
+      currentY += (targetY - currentY) * 0.32;
+      motion.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    document.addEventListener("pointermove", (event) => {
+      targetX = event.clientX - 4;
+      targetY = event.clientY - 2;
+      motion.style.opacity = "1";
+      render(kindFor(event.target));
+    }, true);
+    document.addEventListener("pointerover", (event) => render(kindFor(event.target)), true);
+    document.addEventListener("pointerleave", () => { motion.style.opacity = "0"; }, true);
     document.addEventListener("pointerdown", (event) => {
       const btn = event.target.closest("[data-copy-email]");
       if (!btn) return;
       btn.setAttribute("data-cursor-copied", "true");
+      render("check");
       setTimeout(() => btn.removeAttribute("data-cursor-copied"), 1400);
     }, true);
     document.addEventListener("pointerdown", (event) => {
       if (!event.target.closest("#viewport")) return;
       if (event.target.closest("a, button, [role='button'], [data-nav], [data-copy-email], [onclick], summary, label[for], [tabindex='0']")) return;
       document.documentElement.setAttribute("data-cursor-panning", "true");
+      render("grabbing");
     });
     ["pointerup", "pointercancel", "lostpointercapture"].forEach((type) => {
-      document.addEventListener(type, () => document.documentElement.removeAttribute("data-cursor-panning"));
+      document.addEventListener(type, (event) => {
+        document.documentElement.removeAttribute("data-cursor-panning");
+        render(kindFor(event.target));
+      });
     });
   }
   function init() {
