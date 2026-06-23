@@ -1431,6 +1431,15 @@
       html body summary,
       html body label[for],
       html body [tabindex="0"] { cursor: ${cursor("open")}, pointer !important; }
+      html body a *,
+      html body button *,
+      html body [role="button"] *,
+      html body [data-nav] *,
+      html body [data-copy-email] *,
+      html body [onclick] *,
+      html body summary *,
+      html body label[for] *,
+      html body [tabindex="0"] * { cursor: inherit !important; }
       html body a[href^="http"],
       html body a[target="_blank"] { cursor: ${cursor("external")}, pointer !important; }
       html body a[href*="resumego"],
