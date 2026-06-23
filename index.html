@@ -6,7 +6,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#15171C">
   <meta name="color-scheme" content="light">
-  <style>*{touch-action:manipulation;-webkit-tap-highlight-color:transparent}</style>
+  <style>*{touch-action:manipulation;-webkit-tap-highlight-color:transparent}    [data-tip] { position: relative; }
+    [data-tip]::after { content: attr(data-tip); position: absolute; top: 38px; left: 50%; transform: translateX(-50%) translateY(-4px); background: #15171C; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.03em; white-space: nowrap; padding: 4px 8px; border-radius: 6px; opacity: 0; pointer-events: none; transition: opacity 0.15s ease, transform 0.15s ease; box-shadow: 0 6px 18px rgba(16,24,40,0.28); z-index: 120; }
+    [data-tip]:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
 <meta name="description" content="Senior UX designer for enterprise fintech: dispute management, card controls, compliance workflows, and AI that explains itself. Most recently at Fiserv.">
 <link rel="icon" type="image/png" href="/assets/favicon-memoji.png">
 <link rel="apple-touch-icon" href="/assets/favicon-memoji.png">
@@ -83,13 +86,13 @@
   <!-- ====================== TOP TOOLBAR ====================== -->
   <div data-comment-anchor="toolbar" style="position: fixed; top: 0; left: 0; right: 0; height: 48px; background: #15171C; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; z-index: 100; box-sizing: border-box;">
     <div style="display: flex; align-items: center; gap: 4px;">
-      <div data-toolfit title="Reset view" style="width: 30px; height: 30px; border-radius: 6px; background: #155DFC; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; margin-right: 6px;">A</div>
-      <div data-toolmsg="Select tool ✦ already on — drag the canvas to look around." title="Move" style="width: 30px; height: 30px; border-radius: 6px; background: #2A2E37; display: flex; align-items: center; justify-content: center;">
+      <div data-toolfit data-tip="Reset view" style="width: 30px; height: 30px; border-radius: 6px; background: #155DFC; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; margin-right: 6px;">A</div>
+      <div data-toolmsg="Select tool ✦ already on. Drag the canvas to look around." data-tip="Move" style="width: 30px; height: 30px; border-radius: 6px; background: #2A2E37; display: flex; align-items: center; justify-content: center;">
         <svg width="14" height="14" viewBox="0 0 18 18"><polygon points="3,1 15,9 9.5,10.5 7,16" fill="#E7E9EE"></polygon></svg>
       </div>
-      <div data-toolmsg="Hand tool ✦ just drag anywhere to pan around." title="Hand, drag to pan" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px;">✥</div>
-      <div data-toolmsg="No typing needed ✦ my work does the talking — scroll right →" title="Text" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;">T</div>
-      <div data-toolmsg="Comment tool ✦ the real notes are pinned out on the canvas." title="Comment" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px;">◯</div>
+      <div data-toolmsg="Hand tool ✦ just drag anywhere to pan around." data-tip="Hand · drag to pan" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px;">✥</div>
+      <div data-toolmsg="No typing needed ✦ my work does the talking. Scroll right →" data-tip="Text" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;">T</div>
+      <div data-toolmsg="Comment tool ✦ the real notes are pinned out on the canvas." data-tip="Comment" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px;">◯</div>
     </div>
     <div id="toolbar-center" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282; display: flex; align-items: center; gap: 8px;">
       <span style="color: #6A7282;">Drafts</span>

@@ -6,7 +6,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#15171C">
   <meta name="color-scheme" content="light">
-  <style>*{touch-action:manipulation;-webkit-tap-highlight-color:transparent}</style>
+  <style>*{touch-action:manipulation;-webkit-tap-highlight-color:transparent}    [data-tip] { position: relative; }
+    [data-tip]::after { content: attr(data-tip); position: absolute; top: 38px; left: 50%; transform: translateX(-50%) translateY(-4px); background: #15171C; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.03em; white-space: nowrap; padding: 4px 8px; border-radius: 6px; opacity: 0; pointer-events: none; transition: opacity 0.15s ease, transform 0.15s ease; box-shadow: 0 6px 18px rgba(16,24,40,0.28); z-index: 120; }
+    [data-tip]:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
 <meta name="description" content="Eco-Cash: a gamified AR app that reconnects students with Indiana's forests. Academic work from the IU Grand Challenge on Environmental Change.">
 <link rel="icon" type="image/png" href="/assets/favicon-memoji.png">
 <link rel="apple-touch-icon" href="/assets/favicon-memoji.png">
@@ -52,11 +55,11 @@
   <!-- ====================== TOP TOOLBAR ====================== -->
   <div style="position: fixed; top: 0; left: 0; right: 0; height: 48px; background: #15171C; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; z-index: 100; box-sizing: border-box;">
     <div style="display: flex; align-items: center; gap: 4px;">
-      <a href="index.html" style="width: 30px; height: 30px; border-radius: 6px; background: #155DFC; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; margin-right: 6px; text-decoration: none;">A</a>
-      <div data-toolmsg="Select tool ✦ already active — scroll to explore." title="Move" style="width: 30px; height: 30px; border-radius: 6px; background: #2A2E37; display: flex; align-items: center; justify-content: center;">
+      <a href="index.html" style="width: 30px; height: 30px; border-radius: 6px; background: #155DFC; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; margin-right: 6px; text-decoration: none;" data-tip="Home">A</a>
+      <div data-toolmsg="Select tool ✦ already active. Scroll to explore." data-tip="Move" style="width: 30px; height: 30px; border-radius: 6px; background: #2A2E37; display: flex; align-items: center; justify-content: center;">
         <svg width="14" height="14" viewBox="0 0 18 18"><polygon points="3,1 15,9 9.5,10.5 7,16" fill="#E7E9EE"></polygon></svg>
       </div>
-      <div data-toolmsg="Comment tool ✦ the pins are decorative — say hi from the footer." title="Comment" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px;">◯</div>
+      <div data-toolmsg="Comment tool ✦ the pins are decorative. Say hi from the footer." data-tip="Comment" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px;">◯</div>
     </div>
     <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #AEB4C0; display: flex; align-items: center; gap: 8px;">
       <a href="/work" style="color: #6A7282; text-decoration: none;">Academic</a>
