@@ -1404,6 +1404,54 @@
       loadScript(REACT_DOM_URL, REACT_DOM_SRI)
     ]).then(() => void 0);
   }
+  function installPortfolioCursors() {
+    if (document.getElementById("portfolio-action-cursors")) return;
+    const arrow = `<path d="M4 2l14 10-7.2 1.3L8 22 4 2z" fill="#0B0F19" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>`;
+    const badge = (content) => `<circle cx="18" cy="18" r="7.5" fill="#2F64FF"/><circle cx="18" cy="18" r="7.5" fill="none" stroke="#1D4ED8" stroke-width="1"/>${content}`;
+    const label = (txt) => `<text x="18" y="21.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="700" fill="#fff">${txt}</text>`;
+    const cursor = (content) => `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">${arrow}${content || ""}</svg>`)}") 4 2`;
+    const hand = (closed) => `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"><path d="${closed ? "M7 13c0-1.4 1.8-1.7 2.5-.6V7.5a1.5 1.5 0 013 0V12V6.5a1.5 1.5 0 013 0V12V7.5a1.5 1.5 0 013 0V13V10a1.5 1.5 0 013 0v6.2c0 5-3.4 8.3-8.2 8.3h-1.6c-3.2 0-5.8-2.6-5.8-5.8V13z" : "M7 16V7.5a1.5 1.5 0 013 0V14V5.5a1.5 1.5 0 013 0V14V6.5a1.5 1.5 0 013 0V14V9.5a1.5 1.5 0 013 0v7c0 5-3.3 8-8 8h-1.5C10.4 24.5 8 22.1 8 19v-3z"}" fill="#0B0F19" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`)}") 13 13`;
+    const style = document.createElement("style");
+    style.id = "portfolio-action-cursors";
+    style.textContent = `
+      html body * { cursor: ${cursor("")}, auto !important; }
+      html body a,
+      html body button,
+      html body [role="button"],
+      html body [data-nav],
+      html body [data-copy-email],
+      html body [onclick],
+      html body summary,
+      html body label[for],
+      html body [tabindex="0"] { cursor: ${cursor(badge(label("→")))}, pointer !important; }
+      html body a[href^="http"],
+      html body a[target="_blank"] { cursor: ${cursor(badge('<path d="M15 13h5v5M20 13l-7 7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'))}, pointer !important; }
+      html body a[href*="resumego"],
+      html body a[href$=".pdf"],
+      html body a[download] { cursor: ${cursor(badge('<path d="M18 12v8M14.5 16.5L18 20l3.5-3.5M13 22h10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'))}, pointer !important; }
+      html body a[href^="mailto:"] { cursor: ${cursor(badge(label("@")))}, pointer !important; }
+      html body [data-copy-email] { cursor: ${cursor(badge('<path d="M15 14h6v6h-6zM12 11h6v3h-3v3h-3z" fill="none" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"/>'))}, pointer !important; }
+      html body [data-cursor-copied="true"] { cursor: ${cursor(badge('<path d="M14 18l2.4 2.4L22 14.8" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>'))}, pointer !important; }
+      html body #viewport { cursor: ${hand(false)}, grab !important; }
+      html[data-cursor-panning="true"] body #viewport,
+      html[data-cursor-panning="true"] body #viewport * { cursor: ${hand(true)}, grabbing !important; }
+    `;
+    document.head.appendChild(style);
+    document.addEventListener("pointerdown", (event) => {
+      const btn = event.target.closest("[data-copy-email]");
+      if (!btn) return;
+      btn.setAttribute("data-cursor-copied", "true");
+      setTimeout(() => btn.removeAttribute("data-cursor-copied"), 1400);
+    }, true);
+    document.addEventListener("pointerdown", (event) => {
+      if (!event.target.closest("#viewport")) return;
+      if (event.target.closest("a, button, [role='button'], [data-nav], [data-copy-email], [onclick], summary, label[for], [tabindex='0']")) return;
+      document.documentElement.setAttribute("data-cursor-panning", "true");
+    });
+    ["pointerup", "pointercancel", "lostpointercapture"].forEach((type) => {
+      document.addEventListener(type, () => document.documentElement.removeAttribute("data-cursor-panning"));
+    });
+  }
   function init() {
     const runtime = createRuntime(document);
     let rootName = "Root";
@@ -1445,6 +1493,7 @@
       __dcTemplateSource: (name) => runtime.templateSource(name),
       __dcBoot: () => {
         rootName = boot(runtime, document) ?? rootName;
+        requestAnimationFrame(installPortfolioCursors);
         notifyHost();
       },
       __dcRegistry: runtime.registry.entries,
