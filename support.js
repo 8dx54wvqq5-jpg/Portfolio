@@ -1408,15 +1408,15 @@
     if (document.getElementById("portfolio-action-cursors")) return;
     const arrow = `<path d="M4 2l17 12-8.5 1.5L9 27 4 2z" fill="#0B0F19" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/>`;
     const icons = {
-      open: `<path d="M25 20h5v5M30 20l-8 8" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>`,
-      external: `<path d="M24 19h6v6M30 19l-9 9" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>`,
-      download: `<path d="M26 18v8M22.5 22.5L26 26l3.5-3.5M21 28.5h10" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>`,
-      email: `<text x="26" y="27" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="800" fill="#fff">@</text>`,
-      copy: `<path d="M23 22h6v6h-6zM20 19h6v3h-3v3h-3z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/>`,
-      check: `<path d="M21.5 25.5l2.5 2.5 7-8" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>`
+      open: `<text x="32" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="8.5" font-weight="800" fill="#fff">OPEN</text>`,
+      external: `<path d="M32 22h5v5M37 22l-8 8" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>`,
+      download: `<path d="M33 21v8M29.5 25.5L33 29l3.5-3.5M28 31.5h10" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>`,
+      email: `<text x="33" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="800" fill="#fff">@</text>`,
+      copy: `<path d="M30 25h6v6h-6zM27 22h6v3h-3v3h-3z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/>`,
+      check: `<path d="M28.5 28.5l2.5 2.5 7-8" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>`
     };
-    const tag = (icon) => icon ? `<path d="M19 18h12l4 5-4 5H19z" fill="#155DFC"/>${icons[icon] || icons.open}` : "";
-    const cursorSvg = (icon) => `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">${arrow}${tag(icon)}</svg>`;
+    const tag = (icon) => icon ? `<rect x="19" y="20" width="${icon === "open" ? 26 : 28}" height="14" rx="6" fill="#155DFC"/>${icons[icon] || icons.open}` : "";
+    const cursorSvg = (icon) => `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="40" viewBox="0 0 48 40">${arrow}${tag(icon)}</svg>`;
     const cursor = (icon) => `url("data:image/svg+xml,${encodeURIComponent(cursorSvg(icon))}") 4 2`;
     const style = document.createElement("style");
     style.id = "portfolio-action-cursors";
