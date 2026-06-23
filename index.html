@@ -1096,6 +1096,15 @@ class Component extends DCLogic {
       this.frames[el.getAttribute("data-frame")] = el;
     });
 
+    // ---- keyboard a11y: pan canvas to whichever frame receives focus ----
+    // ponytail: reuse flyToKey; off-screen anchors are invisible to keyboard users without this
+    vp.addEventListener("focusin", (e) => {
+      const fr = e.target.closest && e.target.closest("[data-frame]");
+      if (!fr) return;
+      const key = fr.getAttribute("data-frame");
+      if (this.frames[key]) this.flyToKey(key, this.reduce ? 0 : 600);
+    });
+
     // ---- frames fade in ----
     document.querySelectorAll("[data-fade]").forEach((el) => {
       const i = parseInt(el.getAttribute("data-fade") || "0", 10);
