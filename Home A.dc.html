@@ -36,7 +36,7 @@
       <div title="Move" style="width: 30px; height: 30px; border-radius: 6px; background: #2A2E37; display: flex; align-items: center; justify-content: center;">
         <svg width="14" height="14" viewBox="0 0 18 18"><polygon points="3,1 15,9 9.5,10.5 7,16" fill="#E7E9EE"></polygon></svg>
       </div>
-      <div title="Frame" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 13px;">▢</div>
+      <div title="Frame" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 13px;">#</div>
       <div title="Text" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;">T</div>
       <div title="Comment" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px;">◯</div>
     </div>
@@ -184,7 +184,7 @@
 
         <!-- DWS card -->
         <a id="sec-dws" data-frame="dws" href="/dispute-workspace" style="text-decoration: none; color: inherit; display: block;">
-          <div data-reveal="0" style="margin-bottom: 8px;"><span data-lab="dws" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">▢ work / disputes-workspace</span></div>
+          <div data-reveal="0" style="margin-bottom: 8px;"><span data-lab="dws" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;"># work / disputes-workspace</span></div>
           <div data-sel="dws" data-reveal="1" style="position: relative; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05); margin-bottom: 48px; cursor: pointer;">
             <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #0B0B0B;">
               <img data-zoom="1" src="assets/dws-hero.png" alt="Dispute Workspace, Fiserv" style="display: block; width: 100%; height: auto; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
@@ -207,7 +207,7 @@
 
         <!-- 360 Control card -->
         <a id="sec-c360" data-frame="c360" href="/360-control" style="text-decoration: none; color: inherit; display: block;">
-          <div data-reveal="0" style="margin-bottom: 8px;"><span data-lab="c360" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">▢ work / 360-control</span></div>
+          <div data-reveal="0" style="margin-bottom: 8px;"><span data-lab="c360" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;"># work / 360-control</span></div>
           <div data-sel="c360" data-reveal="1" style="position: relative; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05); margin-bottom: 48px; cursor: pointer;">
             <div style="display: grid; grid-template-columns: 0.8fr 1.2fr;">
               <div style="display: grid; grid-template-columns: 1.2fr; gap: 40px; padding: 36px 40px; align-items: start; order: 1;">
@@ -231,7 +231,7 @@
 
         <!-- CPQ card -->
         <a id="sec-cpq" data-frame="cpq" href="/cpq" style="text-decoration: none; color: inherit; display: block;">
-          <div data-reveal="0" style="margin-bottom: 8px;"><span data-lab="cpq" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">▢ work / cpq</span></div>
+          <div data-reveal="0" style="margin-bottom: 8px;"><span data-lab="cpq" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;"># work / cpq</span></div>
           <div data-sel="cpq" data-reveal="1" style="position: relative; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05); cursor: pointer;">
             <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #E6E0D6;">
               <img data-zoom="1" src="assets/cpq-hero.png" alt="CPQ, Zywave" style="display: block; width: 100%; height: auto; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
@@ -396,9 +396,9 @@ class Component extends DCLogic {
     const meta = {
       hero: { name: "01 · Hero", fill: "#FFFFFF" },
       work: { name: "02 · Selected Work", fill: "#EDEEF0" },
-      dws: { name: "▢ disputes-workspace", fill: "#FFFFFF" },
-      c360: { name: "▢ 360-control", fill: "#FFFFFF" },
-      cpq: { name: "▢ cpq", fill: "#FFFFFF" },
+      dws: { name: "# disputes-workspace", fill: "#FFFFFF" },
+      c360: { name: "# 360-control", fill: "#FFFFFF" },
+      cpq: { name: "# cpq", fill: "#FFFFFF" },
       principles: { name: "03 · Principles", fill: "#FFFFFF" },
       contact: { name: "04 · Contact", fill: "#15171C" }
     };
