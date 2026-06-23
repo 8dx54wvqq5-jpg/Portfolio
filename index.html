@@ -83,7 +83,7 @@
       <div title="Text" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;">T</div>
       <div title="Comment" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px;">◯</div>
     </div>
-    <div id="toolbar-center" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #AEB4C0; display: flex; align-items: center; gap: 8px;">
+    <div id="toolbar-center" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282; display: flex; align-items: center; gap: 8px;">
       <span style="color: #6A7282;">Drafts</span>
       <span style="color: #444A56;">/</span>
       <span style="color: #E7E9EE;">Abhikant Nirbhavane · Portfolio</span>
@@ -98,18 +98,18 @@
       </div>
       <div style="display: flex; align-items: center; gap: 5px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #8A8F9C;"><span style="width: 6px; height: 6px; border-radius: 50%; background: #14C38E; animation: presencePulse 2s ease-out infinite;"></span>4 here now</div>
       <div onClick="{{ copyLink }}" style="background: #155DFC; color: #fff; font-size: 12.5px; font-weight: 700; padding: 7px 14px; border-radius: 6px; cursor: pointer;" style-hover="background: #2B70FF;">Share</div>
-      <div id="zoom-label" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #AEB4C0; padding: 4px 6px; min-width: 44px; text-align: right;">100%</div>
+      <div id="zoom-label" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282; padding: 4px 6px; min-width: 44px; text-align: right;">100%</div>
     </div>
   </div>
 
   <!-- ====================== LEFT PANEL: PAGES + LAYERS ====================== -->
   <div id="panel-left" style="position: fixed; top: 48px; left: 0; bottom: 0; width: 248px; background: #FFFFFF; border-right: 1px solid #E2E4E9; z-index: 90; overflow-y: auto; padding: 14px 0; box-sizing: border-box;">
-    <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; padding: 4px 16px 8px;">PAGES</div>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #6A7282; padding: 4px 16px 8px;">PAGES</div>
     <a href="index.html" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; text-decoration: none; color: #155DFC; font-size: 13px; font-weight: 700; background: #EFF6FF;"><span style="font-size: 9px;">●</span> Home</a>
     <a href="Work.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; text-decoration: none; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="font-size: 9px; color: #C9CDD6;">○</span> Work</a>
     <a href="About.dc.html" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; text-decoration: none; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="font-size: 9px; color: #C9CDD6;">○</span> About</a>
     <div style="height: 1px; background: #ECEDF1; margin: 14px 16px;"></div>
-    <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; padding: 4px 16px 8px;">LAYERS</div>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #6A7282; padding: 4px 16px 8px;">LAYERS</div>
     <div data-layer="hero" onClick="{{ goHero }}" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; cursor: pointer; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 01 · Intro</div>
     <div data-layer="work" onClick="{{ goWork }}" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; cursor: pointer; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 02 · Selected Work</div>
     <div data-layer="dws" onClick="{{ goDws }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">▢</span> Disputes Workspace</div>
@@ -130,8 +130,8 @@
   <div id="panel-right" style="position: fixed; top: 48px; right: 0; bottom: 0; width: 260px; background: #FFFFFF; border-left: 1px solid #E2E4E9; z-index: 90; overflow-y: auto; box-sizing: border-box;">
     <div style="display: flex; border-bottom: 1px solid #ECEDF1;">
       <div style="padding: 11px 14px; font-size: 12px; font-weight: 700; color: #101828; border-bottom: 2px solid #155DFC;">Design</div>
-      <div style="padding: 11px 14px; font-size: 12px; font-weight: 600; color: #9AA0AC;">Prototype</div>
-      <div style="padding: 11px 14px; font-size: 12px; font-weight: 600; color: #9AA0AC;">Inspect</div>
+      <div style="padding: 11px 14px; font-size: 12px; font-weight: 600; color: #6A7282;">Prototype</div>
+      <div style="padding: 11px 14px; font-size: 12px; font-weight: 600; color: #6A7282;">Inspect</div>
     </div>
     <div style="padding: 16px;">
       <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
@@ -139,13 +139,13 @@
         <span data-insp="name" style="font-size: 13px; font-weight: 700;">01 · Intro</span>
       </div>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565;">
-        <div style="border: 1px solid #ECEDF1; border-radius: 6px; padding: 6px 8px; display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">X</span><span data-insp="x">320</span></div>
-        <div style="border: 1px solid #ECEDF1; border-radius: 6px; padding: 6px 8px; display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">Y</span><span data-insp="y">320</span></div>
-        <div style="border: 1px solid #ECEDF1; border-radius: 6px; padding: 6px 8px; display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">W</span><span data-insp="w">1240</span></div>
-        <div style="border: 1px solid #ECEDF1; border-radius: 6px; padding: 6px 8px; display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">H</span><span data-insp="h">620</span></div>
+        <div style="border: 1px solid #ECEDF1; border-radius: 6px; padding: 6px 8px; display: flex; justify-content: space-between;"><span style="color: #6A7282;">X</span><span data-insp="x">320</span></div>
+        <div style="border: 1px solid #ECEDF1; border-radius: 6px; padding: 6px 8px; display: flex; justify-content: space-between;"><span style="color: #6A7282;">Y</span><span data-insp="y">320</span></div>
+        <div style="border: 1px solid #ECEDF1; border-radius: 6px; padding: 6px 8px; display: flex; justify-content: space-between;"><span style="color: #6A7282;">W</span><span data-insp="w">1240</span></div>
+        <div style="border: 1px solid #ECEDF1; border-radius: 6px; padding: 6px 8px; display: flex; justify-content: space-between;"><span style="color: #6A7282;">H</span><span data-insp="h">620</span></div>
       </div>
       <div style="height: 1px; background: #ECEDF1; margin: 16px 0;"></div>
-      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 10px;">CANVAS FILL</div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #6A7282; margin-bottom: 10px;">CANVAS FILL</div>
       <div style="display: flex; gap: 6px; margin-bottom: 8px;">
         <div data-theme-swatch="0" title="Default Gray" tabindex="0" role="button" style="width: 24px; height: 24px; border-radius: 5px; background: #EDEEF0; border: 2px solid #155DFC; cursor: pointer;"></div>
         <div data-theme-swatch="1" title="Pure White" tabindex="0" role="button" style="width: 24px; height: 24px; border-radius: 5px; background: #F8F8F8; border: 1px solid #D5D8DF; cursor: pointer;"></div>
@@ -156,19 +156,19 @@
       <div style="display: flex; align-items: center; gap: 8px;">
         <div id="theme-swatch-preview" style="width: 16px; height: 16px; border-radius: 4px; background: #EDEEF0; border: 1px solid #D5D8DF;"></div>
         <span id="theme-hex-label" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565;">#EDEEF0</span>
-        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-left: auto;">100%</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282; margin-left: auto;">100%</span>
       </div>
       <div style="height: 1px; background: #ECEDF1; margin: 16px 0;"></div>
-      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 10px;">TYPE</div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #6A7282; margin-bottom: 10px;">TYPE</div>
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565; display: grid; gap: 6px;">
-        <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">Font</span><span>Fraunces · Manrope</span></div>
-        <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">Mono</span><span>JetBrains</span></div>
-        <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">Accent</span><span style="color: #155DFC;">#155DFC</span></div>
+        <div style="display: flex; justify-content: space-between;"><span style="color: #6A7282;">Font</span><span>Fraunces · Manrope</span></div>
+        <div style="display: flex; justify-content: space-between;"><span style="color: #6A7282;">Mono</span><span>JetBrains</span></div>
+        <div style="display: flex; justify-content: space-between;"><span style="color: #6A7282;">Accent</span><span style="color: #155DFC;">#155DFC</span></div>
       </div>
       <div style="height: 1px; background: #ECEDF1; margin: 16px 0;"></div>
-      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 10px;">EXPORT</div>
-      <a href="https://resumego.link/abhikant/designer" target="_blank" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid #ECEDF1; border-radius: 8px; padding: 9px 12px; text-decoration: none; color: #101828; font-size: 12.5px; font-weight: 700; margin-bottom: 8px;" style-hover="border-color: #155DFC; color: #155DFC;"><span>Resume.pdf</span><span style="font-family: 'JetBrains Mono', monospace; color: #9AA0AC;">↓</span></a>
-      <a href="https://www.linkedin.com/in/abhikant" target="_blank" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid #ECEDF1; border-radius: 8px; padding: 9px 12px; text-decoration: none; color: #101828; font-size: 12.5px; font-weight: 700;" style-hover="border-color: #155DFC; color: #155DFC;"><span>LinkedIn</span><span style="font-family: 'JetBrains Mono', monospace; color: #9AA0AC;">→</span></a>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #6A7282; margin-bottom: 10px;">EXPORT</div>
+      <a href="https://resumego.link/abhikant/designer" target="_blank" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid #ECEDF1; border-radius: 8px; padding: 9px 12px; text-decoration: none; color: #101828; font-size: 12.5px; font-weight: 700; margin-bottom: 8px;" style-hover="border-color: #155DFC; color: #155DFC;"><span>Resume.pdf</span><span style="font-family: 'JetBrains Mono', monospace; color: #6A7282;">↓</span></a>
+      <a href="https://www.linkedin.com/in/abhikant" target="_blank" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid #ECEDF1; border-radius: 8px; padding: 9px 12px; text-decoration: none; color: #101828; font-size: 12.5px; font-weight: 700;" style-hover="border-color: #155DFC; color: #155DFC;"><span>LinkedIn</span><span style="font-family: 'JetBrains Mono', monospace; color: #6A7282;">→</span></a>
     </div>
   </div>
 
@@ -195,7 +195,7 @@
                 <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">AI workflows</span>
                 <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Fintech</span>
               </div>
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 28px;">this portfolio is a canvas: drag to pan, the work lives to the right ↗</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282; margin-top: 28px;">this portfolio is a canvas: drag to pan, the work lives to the right ↗</div>
             </div>
             <div style="display: flex; align-items: center; justify-content: center;">
               <div id="hero-orb-mouse" style="position: relative; will-change: transform; transition: transform 0.14s cubic-bezier(0.25,0.46,0.45,0.94);">
@@ -223,7 +223,7 @@
         <a data-frame="dws" data-fade="1" href="DWS.dc.html" style="position: absolute; left: 1760px; top: 320px; width: 880px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
           <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #0B0B0B; position: relative;">
             <div style="position: absolute; top: 14px; left: 14px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 4px 11px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 10px rgba(0,0,0,0.22);"><span style="width: 6px; height: 6px; border-radius: 50%; background: #009966;"></span>SHIPPED</div>
-            <img data-zoomimg="1" src="assets/dws-hero.png" alt="Dispute Workspace, Fiserv" style="display: block; width: 100%; height: 400px; object-fit: cover; object-position: top; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
+            <img data-zoomimg="1" loading="lazy" src="assets/dws-hero.png" alt="Dispute Workspace, Fiserv" style="display: block; width: 100%; height: 400px; object-fit: cover; object-position: top; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
           </div>
           <div style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 32px; padding: 28px 32px; align-items: start;">
             <div>
@@ -238,10 +238,10 @@
               <span style="font-size: 13.5px; font-weight: 800; color: #155DFC;">Open case study <span data-arr="1" style="display: inline-block; transition: transform 0.3s;">→</span></span>
             </div>
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565; display: grid; gap: 7px;">
-              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">client</span><span>Fiserv</span></div>
-              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">role</span><span>UX Designer</span></div>
-              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">call handling</span><span style="color: #00825A;">−25–35%</span></div>
-              <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">capacity</span><span style="color: #00825A;">+40–50%</span></div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #6A7282;">client</span><span>Fiserv</span></div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #6A7282;">role</span><span>UX Designer</span></div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #6A7282;">call handling</span><span style="color: #00825A;">−25–35%</span></div>
+              <div style="display: flex; justify-content: space-between;"><span style="color: #6A7282;">capacity</span><span style="color: #00825A;">+40–50%</span></div>
             </div>
           </div>
         </a>
@@ -253,7 +253,7 @@
         <a data-frame="c360" data-fade="2" href="360 Control.dc.html" style="position: absolute; left: 2800px; top: 520px; width: 800px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
           <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #14152B; position: relative;">
             <div style="position: absolute; top: 14px; left: 14px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 4px 11px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 10px rgba(0,0,0,0.22);"><span style="width: 6px; height: 6px; border-radius: 50%; background: #009966;"></span>SHIPPED</div>
-            <img data-zoomimg="1" src="assets/c360-hero.png" alt="360 Control, Fiserv" style="display: block; width: 100%; height: 360px; object-fit: cover; object-position: top; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
+            <img data-zoomimg="1" loading="lazy" src="assets/c360-hero.png" alt="360 Control, Fiserv" style="display: block; width: 100%; height: 360px; object-fit: cover; object-position: top; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
           </div>
           <div style="padding: 28px 32px;">
             <h3 style="font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 8px;">360 Control: rebuilding an issuer console from the IA up</h3>
@@ -277,7 +277,7 @@
         <a data-frame="cpq" data-fade="2" href="CPQ.dc.html" style="position: absolute; left: 2800px; top: 1160px; width: 880px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
           <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #E6E0D6; position: relative;">
             <div style="position: absolute; top: 14px; left: 14px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 4px 11px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 10px rgba(0,0,0,0.22);"><span style="width: 6px; height: 6px; border-radius: 50%; background: #009966;"></span>SHIPPED</div>
-            <img data-zoomimg="1" src="assets/cpq-hero.png" alt="CPQ, Zywave" style="display: block; width: 100%; height: 300px; object-fit: cover; object-position: top; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
+            <img data-zoomimg="1" loading="lazy" src="assets/cpq-hero.png" alt="CPQ, Zywave" style="display: block; width: 100%; height: 300px; object-fit: cover; object-position: top; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
           </div>
           <div style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 32px; padding: 28px 32px; align-items: start;">
             <div>
@@ -291,10 +291,10 @@
               <span style="font-size: 13.5px; font-weight: 800; color: #155DFC;">Open case study <span data-arr="1" style="display: inline-block; transition: transform 0.3s;">→</span></span>
             </div>
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565; display: grid; gap: 7px;">
-              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">client</span><span>Zywave</span></div>
-              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">role</span><span>UX Designer</span></div>
-              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">quote time</span><span style="color: #00825A;">18 → 10 min</span></div>
-              <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">pricing errors</span><span style="color: #00825A;">↓ from 28%</span></div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #6A7282;">client</span><span>Zywave</span></div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #6A7282;">role</span><span>UX Designer</span></div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #6A7282;">quote time</span><span style="color: #00825A;">18 → 10 min</span></div>
+              <div style="display: flex; justify-content: space-between;"><span style="color: #6A7282;">pricing errors</span><span style="color: #00825A;">↓ from 28%</span></div>
             </div>
           </div>
         </a>
@@ -306,7 +306,7 @@
         <a data-frame="ds" data-fade="3" href="DS.dc.html" style="position: absolute; left: 1760px; top: 1570px; width: 800px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
           <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #0D1B3E; position: relative;">
             <div style="position: absolute; top: 14px; left: 14px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 4px 11px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 10px rgba(0,0,0,0.22);"><span style="width: 6px; height: 6px; border-radius: 50%; background: #009966;"></span>SHIPPED</div>
-            <img data-zoomimg="1" src="assets/ds-hero.png" alt="Dispute Workspace Design System, Fiserv" style="display: block; width: 100%; height: 360px; object-fit: cover; object-position: top; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
+            <img data-zoomimg="1" loading="lazy" src="assets/ds-hero.png" alt="Dispute Workspace Design System, Fiserv" style="display: block; width: 100%; height: 360px; object-fit: cover; object-position: top; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
           </div>
           <div style="padding: 28px 32px;">
             <h3 style="font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 8px;">Dispute Workspace Design System</h3>
@@ -330,7 +330,7 @@
         <a data-frame="fs" data-fade="3" href="FoodSafety.dc.html" style="position: absolute; left: 1760px; top: 2360px; width: 880px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
           <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #EEF1F6; position: relative;">
             <div style="position: absolute; top: 14px; left: 14px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 4px 11px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 10px rgba(0,0,0,0.22);"><span style="width: 6px; height: 6px; border-radius: 50%; background: #009966;"></span>SHIPPED</div>
-            <img data-zoomimg="1" src="assets/fs-hero.svg" alt="Food Safety, Logile" style="display: block; width: 100%; height: 400px; object-fit: cover; object-position: center; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
+            <img data-zoomimg="1" loading="lazy" src="assets/fs-hero.svg" alt="Food Safety, Logile" style="display: block; width: 100%; height: 400px; object-fit: cover; object-position: center; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
           </div>
           <div style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 32px; padding: 28px 32px; align-items: start;">
             <div>
@@ -345,10 +345,10 @@
               <span style="font-size: 13.5px; font-weight: 800; color: #155DFC;">Open case study <span data-arr="1" style="display: inline-block; transition: transform 0.3s;">→</span></span>
             </div>
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565; display: grid; gap: 7px;">
-              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">client</span><span>Logile</span></div>
-              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">role</span><span>UX Designer</span></div>
-              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">paper logs</span><span style="color: #00825A;">→ live &amp; scored</span></div>
-              <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">platform</span><span>desktop + mobile</span></div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #6A7282;">client</span><span>Logile</span></div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #6A7282;">role</span><span>UX Designer</span></div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #6A7282;">paper logs</span><span style="color: #00825A;">→ live &amp; scored</span></div>
+              <div style="display: flex; justify-content: space-between;"><span style="color: #6A7282;">platform</span><span>desktop + mobile</span></div>
             </div>
           </div>
         </a>
@@ -359,7 +359,7 @@
         <div data-flab="banfield" style="position: absolute; left: 1760px; top: 3152px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">▢ work / banfield</div>
         <a data-frame="banfield" data-fade="3" href="Banfield.dc.html" style="position: absolute; left: 1760px; top: 3180px; width: 880px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
           <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #2A1606;">
-            <img data-zoomimg="1" src="assets/banfield-hero.svg" alt="Banfield, Photon" style="display: block; width: 100%; height: 360px; object-fit: cover; object-position: center; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
+            <img data-zoomimg="1" loading="lazy" src="assets/banfield-hero.svg" alt="Banfield, Photon" style="display: block; width: 100%; height: 360px; object-fit: cover; object-position: center; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
           </div>
           <div style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 32px; padding: 28px 32px; align-items: start;">
             <div>
@@ -373,10 +373,10 @@
               <span style="font-size: 13.5px; font-weight: 800; color: #155DFC;">Open case study <span data-arr="1" style="display: inline-block; transition: transform 0.3s;">→</span></span>
             </div>
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565; display: grid; gap: 7px;">
-              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">client</span><span>Banfield</span></div>
-              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">via</span><span>Photon</span></div>
-              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #9AA0AC;">modules</span><span>nutrition · meds</span></div>
-              <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">flow</span><span style="color: #B91C1C;">recommend → dispense</span></div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #6A7282;">client</span><span>Banfield</span></div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #6A7282;">via</span><span>Photon</span></div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #6A7282;">modules</span><span>nutrition · meds</span></div>
+              <div style="display: flex; justify-content: space-between;"><span style="color: #6A7282;">flow</span><span style="color: #B91C1C;">recommend → dispense</span></div>
             </div>
           </div>
         </a>
@@ -387,7 +387,7 @@
         <div data-flab="engage" style="position: absolute; left: 2800px; top: 2572px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">▢ work / engage</div>
         <a data-frame="engage" data-fade="3" href="Engage.dc.html" style="position: absolute; left: 2800px; top: 2600px; width: 800px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
           <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #2A160A;">
-            <img data-zoomimg="1" src="assets/engage-hero.svg" alt="Engage, Destiny Discover" style="display: block; width: 100%; height: 360px; object-fit: cover; object-position: center; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
+            <img data-zoomimg="1" loading="lazy" src="assets/engage-hero.svg" alt="Engage, Destiny Discover" style="display: block; width: 100%; height: 360px; object-fit: cover; object-position: center; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
           </div>
           <div style="padding: 28px 32px;">
             <h3 style="font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 8px;">Engage: reading, made a game worth playing</h3>
@@ -410,7 +410,7 @@
         <div data-flab="ecocash" style="position: absolute; left: 2800px; top: 1800px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">▢ academic</div>
         <a data-frame="ecocash" data-fade="3" href="EcoCash.dc.html" style="position: absolute; left: 2800px; top: 1828px; width: 800px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
           <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #15171C;">
-            <img data-zoomimg="1" src="assets/academic-hero.png" alt="Academic Work, Indiana University" style="display: block; width: 100%; height: 360px; object-fit: cover; object-position: center; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
+            <img data-zoomimg="1" loading="lazy" src="assets/academic-hero.png" alt="Academic Work, Indiana University" style="display: block; width: 100%; height: 360px; object-fit: cover; object-position: center; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
           </div>
           <div style="padding: 28px 32px;">
             <h3 style="font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 8px;">Academic Work</h3>
@@ -435,22 +435,22 @@
           <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #155DFC; margin-bottom: 20px;">HOW I WORK</div>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
             <div>
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #9AA0AC; margin-bottom: 12px;">01</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282; margin-bottom: 12px;">01</div>
               <h3 style="font-size: 18px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 10px;">Predictable is trustworthy</h3>
               <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;">In financial systems, consistency isn't an aesthetic preference. Every inconsistent pattern adds risk. Admins moving money need to know exactly what a click will do.</p>
             </div>
             <div>
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #9AA0AC; margin-bottom: 12px;">02</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282; margin-bottom: 12px;">02</div>
               <h3 style="font-size: 18px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 10px;">Transparency beats automation</h3>
               <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;">AI earns adoption when it shows its reasoning. On Disputes Workspace I shipped AI-assisted intake with confidence indicators, visible evidence, and a one-click way for a person to override it. I also kept AI out of systems where plain deterministic rules are safer to trust. Knowing which call to make is most of the job.</p>
             </div>
             <div>
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #9AA0AC; margin-bottom: 12px;">03</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282; margin-bottom: 12px;">03</div>
               <h3 style="font-size: 18px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 10px;">Structure before surface</h3>
               <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;">The IA redesigns I've shipped moved usability more than any visual decision. Separate configuration from operations, then make it beautiful.</p>
             </div>
             <div>
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #9AA0AC; margin-bottom: 12px;">04</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282; margin-bottom: 12px;">04</div>
               <h3 style="font-size: 18px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 10px;">Accessible, accountable AI</h3>
               <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;">Accessibility and AI ethics share the same root: systems that affect real people carry real responsibility. I build for WCAG compliance from day one. When AI is involved, bias must be visible, outcomes explainable, and human override always possible.</p>
             </div>
@@ -466,7 +466,7 @@
         <div data-flab="contact" style="position: absolute; left: 320px; top: 1872px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">◇ 04 · Contact</div>
         <div data-frame="contact" data-fade="3" style="position: absolute; left: 320px; top: 1900px; width: 1240px; background: #15171C; border: 1px solid #15171C; border-radius: 14px; padding: 64px; box-sizing: border-box; color: #fff;">
           <h2 style="font-size: 46px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin: 0 0 18px; max-width: 18ch;">Let's build the next high-stakes thing.</h2>
-          <p style="font-size: 16px; line-height: 1.7; color: #AEB4C0; margin: 0 0 32px; max-width: 52ch;">If you're looking for a designer who's comfortable where compliance, complexity, and real money meet, let's talk.</p>
+          <p style="font-size: 16px; line-height: 1.7; color: #6A7282; margin: 0 0 32px; max-width: 52ch;">If you're looking for a designer who's comfortable where compliance, complexity, and real money meet, let's talk.</p>
           <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
             <a href="mailto:abhikant5540@gmail.com?subject=Hi%20there" style="background: #155DFC; color: #fff; font-size: 15px; font-weight: 800; padding: 14px 24px; border-radius: 8px; text-decoration: none;" style-hover="background: #2B70FF;">Email me</a>
             <a href="https://www.linkedin.com/in/abhikant" target="_blank" style="color: #E7E9EE; font-size: 14px; font-weight: 700; text-decoration: none; border: 1px solid #3A3F4B; padding: 13px 20px; border-radius: 8px;" style-hover="border-color: #7AA5FF; color: #7AA5FF;">LinkedIn ↗</a>
@@ -478,7 +478,7 @@
             <button type="button" data-copy-email style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #E7E9EE; background: #2A2E37; border: 1px solid #3A3F4B; border-radius: 6px; padding: 6px 11px; cursor: pointer;">Copy</button>
           </div>
         </div>
-        <div style="position: absolute; left: 320px; top: 2270px; width: 1240px; display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC;">
+        <div style="position: absolute; left: 320px; top: 2270px; width: 1240px; display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">
           <span>© 2026 Abhikant Nirbhavane</span>
           <span>designed as an open canvas · v2 final</span>
         </div>
@@ -531,12 +531,12 @@
     </div>
     <!-- work cards -->
     <div style="padding: 24px 16px 8px;">
-      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #9AA0AC; margin-bottom: 14px; padding: 0 4px;">SELECTED WORK</div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #6A7282; margin-bottom: 14px; padding: 0 4px;">SELECTED WORK</div>
       <a href="DWS.dc.html" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
-          <div style="background: #0B0B0B; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 3px 9px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 8px rgba(0,0,0,0.22);"><span style="width: 5px; height: 5px; border-radius: 50%; background: #009966;"></span>SHIPPED</div><img src="assets/dws-hero.png" alt="Disputes Workspace" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
+          <div style="background: #0B0B0B; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 3px 9px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 8px rgba(0,0,0,0.22);"><span style="width: 5px; height: 5px; border-radius: 50%; background: #009966;"></span>SHIPPED</div><img loading="lazy" src="assets/dws-hero.png" alt="Disputes Workspace" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
           <div style="padding: 16px 18px;">
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 5px;">01 · fiserv</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282; margin-bottom: 5px;">01 · fiserv</div>
             <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">Disputes Workspace</h3>
             <p style="font-size: 13px; color: #4A5565; margin: 0 0 10px; line-height: 1.5;">AI-assisted dispute management: call handling down 25–35%.</p>
             <div style="display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 10px;">
@@ -551,9 +551,9 @@
       </a>
       <a href="360 Control.dc.html" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
-          <div style="background: #14152B; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 3px 9px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 8px rgba(0,0,0,0.22);"><span style="width: 5px; height: 5px; border-radius: 50%; background: #009966;"></span>SHIPPED</div><img src="assets/c360-hero.png" alt="360 Control" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
+          <div style="background: #14152B; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 3px 9px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 8px rgba(0,0,0,0.22);"><span style="width: 5px; height: 5px; border-radius: 50%; background: #009966;"></span>SHIPPED</div><img loading="lazy" src="assets/c360-hero.png" alt="360 Control" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
           <div style="padding: 16px 18px;">
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 5px;">02 · fiserv × canadian bank</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282; margin-bottom: 5px;">02 · fiserv × canadian bank</div>
             <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">360 Control</h3>
             <p style="font-size: 13px; color: #4A5565; margin: 0 0 10px; line-height: 1.5;">Issuer admin console rebuilt from IA up, shipped on contractual deadline.</p>
             <div style="display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 10px;">
@@ -567,9 +567,9 @@
       </a>
       <a href="CPQ.dc.html" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
-          <div style="background: #E6E0D6; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 3px 9px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 8px rgba(0,0,0,0.22);"><span style="width: 5px; height: 5px; border-radius: 50%; background: #009966;"></span>SHIPPED</div><img src="assets/cpq-hero.png" alt="CPQ" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
+          <div style="background: #E6E0D6; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 3px 9px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 8px rgba(0,0,0,0.22);"><span style="width: 5px; height: 5px; border-radius: 50%; background: #009966;"></span>SHIPPED</div><img loading="lazy" src="assets/cpq-hero.png" alt="CPQ" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
           <div style="padding: 16px 18px;">
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 5px;">03 · zywave</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282; margin-bottom: 5px;">03 · zywave</div>
             <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">CPQ</h3>
             <p style="font-size: 13px; color: #4A5565; margin: 0 0 10px; line-height: 1.5;">Enterprise quoting redesign: quote time 18 → 10 min, pricing errors down from 28%.</p>
             <div style="display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 10px;">
@@ -583,9 +583,9 @@
       </a>
       <a href="DS.dc.html" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
-          <div style="background: #0D1B3E; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 3px 9px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 8px rgba(0,0,0,0.22);"><span style="width: 5px; height: 5px; border-radius: 50%; background: #009966;"></span>SHIPPED</div><img src="assets/ds-hero.png" alt="DWS Design System" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
+          <div style="background: #0D1B3E; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 3px 9px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 8px rgba(0,0,0,0.22);"><span style="width: 5px; height: 5px; border-radius: 50%; background: #009966;"></span>SHIPPED</div><img loading="lazy" src="assets/ds-hero.png" alt="DWS Design System" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
           <div style="padding: 16px 18px;">
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 5px;">04 · fiserv</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282; margin-bottom: 5px;">04 · fiserv</div>
             <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">DWS Design System</h3>
             <p style="font-size: 13px; color: #4A5565; margin: 0 0 10px; line-height: 1.5;">45+ components, WCAG 2.1 AA: design output 65% faster.</p>
             <div style="display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 10px;">
@@ -599,9 +599,9 @@
       </a>
       <a href="FoodSafety.dc.html" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
-          <div style="background: #EEF1F6; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 3px 9px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 8px rgba(0,0,0,0.22);"><span style="width: 5px; height: 5px; border-radius: 50%; background: #009966;"></span>SHIPPED</div><img src="assets/fs-hero.svg" alt="Food Safety" style="width: 100%; height: 100%; object-fit: cover; object-position: center;"></div>
+          <div style="background: #EEF1F6; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 3px 9px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 8px rgba(0,0,0,0.22);"><span style="width: 5px; height: 5px; border-radius: 50%; background: #009966;"></span>SHIPPED</div><img loading="lazy" src="assets/fs-hero.svg" alt="Food Safety" style="width: 100%; height: 100%; object-fit: cover; object-position: center;"></div>
           <div style="padding: 16px 18px;">
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 5px;">05 · logile</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282; margin-bottom: 5px;">05 · logile</div>
             <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">Food Safety</h3>
             <p style="font-size: 13px; color: #4A5565; margin: 0 0 10px; line-height: 1.5;">A guided, scored replacement for paper-based grocery compliance, built for desktop and mobile with scan and probe capture.</p>
             <div style="display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 10px;">
@@ -613,12 +613,12 @@
           </div>
         </div>
       </a>
-      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #9AA0AC; margin: 18px 0 14px; padding: 0 4px;">ADDITIONAL WORK</div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #6A7282; margin: 18px 0 14px; padding: 0 4px;">ADDITIONAL WORK</div>
       <a href="Engage.dc.html" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
-          <div style="background: #2A160A; height: 160px; overflow: hidden;"><img src="assets/engage-hero.svg" alt="Engage" style="width: 100%; height: 100%; object-fit: cover; object-position: center;"></div>
+          <div style="background: #2A160A; height: 160px; overflow: hidden;"><img loading="lazy" src="assets/engage-hero.svg" alt="Engage" style="width: 100%; height: 100%; object-fit: cover; object-position: center;"></div>
           <div style="padding: 16px 18px;">
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 5px;">06 · photon × follett</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282; margin-bottom: 5px;">06 · photon × follett</div>
             <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">Engage</h3>
             <p style="font-size: 13px; color: #4A5565; margin: 0 0 10px; line-height: 1.5;">An iPad reading experience that adds personalization, challenges, and rewards to a school-library catalog.</p>
             <div style="display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 10px;">
@@ -632,9 +632,9 @@
       </a>
       <a href="Banfield.dc.html" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
-          <div style="background: #2A1606; height: 160px; overflow: hidden;"><img src="assets/banfield-hero.svg" alt="Banfield" style="width: 100%; height: 100%; object-fit: cover; object-position: center;"></div>
+          <div style="background: #2A1606; height: 160px; overflow: hidden;"><img loading="lazy" src="assets/banfield-hero.svg" alt="Banfield" style="width: 100%; height: 100%; object-fit: cover; object-position: center;"></div>
           <div style="padding: 16px 18px;">
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 5px;">07 · photon</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282; margin-bottom: 5px;">07 · photon</div>
             <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">Banfield</h3>
             <p style="font-size: 13px; color: #4A5565; margin: 0 0 10px; line-height: 1.5;">Veterinary decision support for nutrition recommendations, medication, and ordering.</p>
             <div style="display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 10px;">
@@ -648,9 +648,9 @@
       </a>
       <a href="EcoCash.dc.html" style="text-decoration: none; color: inherit; display: block; margin-bottom: 28px;">
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
-          <div style="background: #0F1A0F; height: 160px; overflow: hidden;"><img src="assets/ecocash-hero.png" alt="Eco-Cash" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
+          <div style="background: #0F1A0F; height: 160px; overflow: hidden;"><img loading="lazy" src="assets/ecocash-hero.png" alt="Eco-Cash" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
           <div style="padding: 16px 18px;">
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 5px;">08 · student project</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282; margin-bottom: 5px;">08 · student project</div>
             <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">Eco-Cash</h3>
             <p style="font-size: 13px; color: #4A5565; margin: 0 0 10px; line-height: 1.5;">A gamified AR concept for forest conservation, created for the IU Grand Challenge.</p>
             <div style="display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 10px;">
@@ -666,7 +666,7 @@
     <!-- contact -->
     <div style="background: #15171C; padding: 40px 22px;">
       <h2 style="font-size: 24px; font-weight: 800; letter-spacing: -0.02em; color: #fff; margin: 0 0 12px; line-height: 1.2;">Let's build the next high-stakes thing.</h2>
-      <p style="font-size: 14px; line-height: 1.7; color: #AEB4C0; margin: 0 0 24px;">Looking for a designer for complex, high-stakes software? Let's talk.</p>
+      <p style="font-size: 14px; line-height: 1.7; color: #6A7282; margin: 0 0 24px;">Looking for a designer for complex, high-stakes software? Let's talk.</p>
       <div style="display: flex; flex-direction: column; gap: 10px;">
         <a href="mailto:abhikant5540@gmail.com?subject=Hi%20there" style="background: #155DFC; color: #fff; font-size: 14px; font-weight: 800; padding: 13px 20px; border-radius: 8px; text-decoration: none; text-align: center;">Email me</a>
         <div style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin: 2px 0 2px;">
@@ -680,7 +680,7 @@
       </div>
     </div>
     <!-- footer -->
-    <div style="background: #EDEEF0; padding: 16px 22px; display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">
+    <div style="background: #EDEEF0; padding: 16px 22px; display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282;">
       <span>© 2026 Abhikant Nirbhavane</span>
       <a href="index.html" onclick="document.getElementById('mobile-view').style.display='none';document.getElementById('viewport').style.display='block';" style="color: #155DFC; text-decoration: none; font-size: 10px;">desktop view →</a>
     </div>
