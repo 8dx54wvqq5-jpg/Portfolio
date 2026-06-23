@@ -1418,8 +1418,6 @@
     const tag = (icon) => icon ? `<path d="M19 18h12l4 5-4 5H19z" fill="#155DFC"/>${icons[icon] || icons.open}` : "";
     const cursorSvg = (icon) => `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">${arrow}${tag(icon)}</svg>`;
     const cursor = (icon) => `url("data:image/svg+xml,${encodeURIComponent(cursorSvg(icon))}") 4 2`;
-    const handSvg = (closed) => `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><path d="${closed ? "M9 17c0-1.8 2.2-2 3-.7V9.5a2 2 0 014 0V16V8.5a2 2 0 014 0V16V10a2 2 0 014 0v7V13a2 2 0 014 0v7.4c0 6-4.1 10-9.8 10h-2c-4 0-7.2-3.2-7.2-7.2V17z" : "M8.5 20V9.5a2 2 0 014 0V18V7.5a2 2 0 014 0V18V9a2 2 0 014 0v9V12a2 2 0 014 0v8.2c0 6-4 9.8-9.6 9.8h-2C12.8 30 9.5 26.7 9.5 22.6V20z"}" fill="#0B0F19" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-    const hand = (closed) => `url("data:image/svg+xml,${encodeURIComponent(handSvg(closed))}") 16 16`;
     const style = document.createElement("style");
     style.id = "portfolio-action-cursors";
     style.textContent = `
@@ -1441,88 +1439,24 @@
       html body a[href^="mailto:"] { cursor: ${cursor("email")}, pointer !important; }
       html body [data-copy-email] { cursor: ${cursor("copy")}, pointer !important; }
       html body [data-cursor-copied="true"] { cursor: ${cursor("check")}, pointer !important; }
-      html body #viewport { cursor: ${hand(false)}, grab !important; }
+      html body #viewport { cursor: grab !important; }
       html[data-cursor-panning="true"] body #viewport,
-      html[data-cursor-panning="true"] body #viewport * { cursor: ${hand(true)}, grabbing !important; }
-      #portfolio-motion-cursor { position: fixed; left: 0; top: 0; width: 36px; height: 36px; z-index: 2147483647; pointer-events: none; opacity: 0; transform: translate3d(-60px,-60px,0); transition: opacity 0.16s ease, filter 0.18s ease; filter: drop-shadow(0 8px 10px rgba(0,0,0,0.24)); }
-      #portfolio-motion-cursor svg { width: 36px; height: 36px; display: block; transition: transform 0.16s cubic-bezier(0.16,1,0.3,1); transform-origin: 4px 2px; }
-      html[data-cursor-action="true"] #portfolio-motion-cursor svg { transform: scale(1.06); }
-      html[data-cursor-panning="true"] #portfolio-motion-cursor svg { transform: scale(0.96); }
-      @media (pointer: fine) {
-        html body *,
-        html body a,
-        html body button,
-        html body [role="button"],
-        html body [data-nav],
-        html body [data-copy-email],
-        html body [onclick],
-        html body #viewport,
-        html body #viewport * { cursor: none !important; }
-      }
+      html[data-cursor-panning="true"] body #viewport * { cursor: grabbing !important; }
     `;
     document.head.appendChild(style);
-    const motion = document.createElement("div");
-    motion.id = "portfolio-motion-cursor";
-    document.body.appendChild(motion);
-    let cursorKind = "";
-    let targetX = -60;
-    let targetY = -60;
-    let currentX = targetX;
-    let currentY = targetY;
-    const render = (kind) => {
-      if (kind === cursorKind) return;
-      cursorKind = kind;
-      motion.innerHTML = kind === "hand" || kind === "grabbing" ? handSvg(kind === "grabbing") : cursorSvg(kind || "");
-      document.documentElement.toggleAttribute("data-cursor-action", !!kind && kind !== "hand" && kind !== "grabbing");
-    };
-    const kindFor = (target) => {
-      if (document.documentElement.hasAttribute("data-cursor-panning")) return "grabbing";
-      const el = target && target.closest && target.closest("a, button, [role='button'], [data-nav], [data-copy-email], [onclick], summary, label[for], [tabindex='0']");
-      if (el) {
-        const href = el.getAttribute("href") || "";
-        if (el.matches("[data-cursor-copied='true']")) return "check";
-        if (el.matches("[data-copy-email]")) return "copy";
-        if (/^mailto:/i.test(href)) return "email";
-        if (/resumego|\\.pdf$/i.test(href) || el.hasAttribute("download")) return "download";
-        if (/^https?:/i.test(href) || el.getAttribute("target") === "_blank") return "external";
-        return "open";
-      }
-      if (target && target.closest && target.closest("#viewport")) return "hand";
-      return "";
-    };
-    const tick = () => {
-      currentX += (targetX - currentX) * 0.32;
-      currentY += (targetY - currentY) * 0.32;
-      motion.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
-      requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-    document.addEventListener("pointermove", (event) => {
-      targetX = event.clientX - 4;
-      targetY = event.clientY - 2;
-      motion.style.opacity = "1";
-      render(kindFor(event.target));
-    }, true);
-    document.addEventListener("pointerover", (event) => render(kindFor(event.target)), true);
-    document.addEventListener("pointerleave", () => { motion.style.opacity = "0"; }, true);
     document.addEventListener("pointerdown", (event) => {
       const btn = event.target.closest("[data-copy-email]");
       if (!btn) return;
       btn.setAttribute("data-cursor-copied", "true");
-      render("check");
       setTimeout(() => btn.removeAttribute("data-cursor-copied"), 1400);
     }, true);
     document.addEventListener("pointerdown", (event) => {
       if (!event.target.closest("#viewport")) return;
       if (event.target.closest("a, button, [role='button'], [data-nav], [data-copy-email], [onclick], summary, label[for], [tabindex='0']")) return;
       document.documentElement.setAttribute("data-cursor-panning", "true");
-      render("grabbing");
     });
     ["pointerup", "pointercancel", "lostpointercapture"].forEach((type) => {
-      document.addEventListener(type, (event) => {
-        document.documentElement.removeAttribute("data-cursor-panning");
-        render(kindFor(event.target));
-      });
+      document.addEventListener(type, () => document.documentElement.removeAttribute("data-cursor-panning"));
     });
   }
   function init() {
