@@ -1413,9 +1413,11 @@
       download: `<path d="M33 21v8M29.5 25.5L33 29l3.5-3.5M28 31.5h10" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>`,
       email: `<text x="33" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="800" fill="#fff">@</text>`,
       copy: `<path d="M30 25h6v6h-6zM27 22h6v3h-3v3h-3z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/>`,
-      check: `<path d="M28.5 28.5l2.5 2.5 7-8" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>`
+      check: `<path d="M28.5 28.5l2.5 2.5 7-8" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>`,
+      play: `<text x="32" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="8.5" font-weight="800" fill="#fff">PLAY</text>`,
+      pause: `<text x="33" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.5" font-weight="800" fill="#fff">PAUSE</text>`
     };
-    const tag = (icon) => icon ? `<rect x="19" y="20" width="${icon === "open" ? 26 : 28}" height="14" rx="6" fill="#155DFC"/>${icons[icon] || icons.open}` : "";
+    const tag = (icon) => icon ? `<rect x="19" y="20" width="${icon === "open" || icon === "play" ? 26 : icon === "pause" ? 29 : 28}" height="14" rx="6" fill="#155DFC"/>${icons[icon] || icons.open}` : "";
     const cursorSvg = (icon) => `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="40" viewBox="0 0 48 40">${arrow}${tag(icon)}</svg>`;
     const cursor = (icon) => `url("data:image/svg+xml,${encodeURIComponent(cursorSvg(icon))}") 4 2`;
     const style = document.createElement("style");
@@ -1448,11 +1450,31 @@
       html body a[href^="mailto:"] { cursor: ${cursor("email")}, pointer !important; }
       html body [data-copy-email] { cursor: ${cursor("copy")}, pointer !important; }
       html body [data-cursor-copied="true"] { cursor: ${cursor("check")}, pointer !important; }
+      html body [data-ap-btn] { cursor: ${cursor("play")}, pointer !important; }
+      html body [data-ap-btn][data-ap-playing="true"] { cursor: ${cursor("pause")}, pointer !important; }
+      html body [data-ap-btn] * { cursor: inherit !important; }
       html body #viewport { cursor: grab !important; }
       html[data-cursor-panning="true"] body #viewport,
       html[data-cursor-panning="true"] body #viewport * { cursor: grabbing !important; }
     `;
     document.head.appendChild(style);
+    const syncAudioCursor = (svg) => {
+      const btn = svg && svg.closest && svg.closest("[data-ap-btn]");
+      if (!btn) return;
+      btn.setAttribute("data-ap-playing", svg.querySelector("rect") ? "true" : "false");
+    };
+    const watchedAudioIcons = new WeakSet();
+    const syncAudioCursors = () => {
+      document.querySelectorAll("[data-ap-icon]").forEach((svg) => {
+        syncAudioCursor(svg);
+        if (watchedAudioIcons.has(svg)) return;
+        watchedAudioIcons.add(svg);
+        new MutationObserver(() => syncAudioCursor(svg)).observe(svg, { childList: true, subtree: true });
+      });
+    };
+    syncAudioCursors();
+    setTimeout(syncAudioCursors, 0);
+    new MutationObserver(syncAudioCursors).observe(document.body, { childList: true, subtree: true });
     document.addEventListener("pointerdown", (event) => {
       const btn = event.target.closest("[data-copy-email]");
       if (!btn) return;
