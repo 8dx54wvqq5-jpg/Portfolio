@@ -771,6 +771,33 @@ class Component extends DCLogic {
     this.setActive(key);
   }
 
+  _zoomIntoAndOpen(key, href) {
+    const vp = document.getElementById("viewport");
+    const el = this.frames[key];
+    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!vp || !el || reduce) { location.assign(href); return; }
+    if (this._zoomingOpen) return;
+    this._zoomingOpen = true;
+    const plane = document.getElementById("plane");
+    const L = el.offsetLeft, T = el.offsetTop, W = el.offsetWidth, H = el.offsetHeight;
+    const s = Math.max(vp.clientWidth / W, vp.clientHeight / H) * 1.18; // overfill = "dive in"
+    const DUR = 430;
+    let done = false;
+    const go = () => { if (done) return; done = true; clearTimeout(this._zoomT); location.assign(href); };
+    if (plane) {
+      plane.style.transition = "transform " + DUR + "ms cubic-bezier(0.7,0,0.84,0)"; // ease-in, accelerate
+      this.view.s = s;
+      this.view.x = vp.clientWidth / 2 - (L + W / 2) * s;
+      this.view.y = vp.clientHeight / 2 - (T + H / 2) * s;
+      plane.style.transform = "translate(" + this.view.x + "px," + this.view.y + "px) scale(" + s + ")";
+    }
+    this.setActive(key);
+    this._zoomT = setTimeout(go, DUR);
+    // interruptible: click or Esc jumps straight to the page
+    vp.addEventListener("click", go, { once: true });
+    window.addEventListener("keydown", (e) => { if (e.key === "Escape") go(); }, { once: true });
+  }
+
   fitAll(durMs) {
     const vp = document.getElementById("viewport");
     if (!vp) return;
@@ -864,14 +891,14 @@ class Component extends DCLogic {
         this.centerOn((minX + maxX) / 2, (minY + maxY) / 2, s, 1100);
         this.setActive("dws");
       },
-      goDws: () => location.assign("/dispute-workspace"),
-      goC360: () => location.assign("/360-control"),
-      goCpq: () => location.assign("/cpq"),
-      goDs: () => location.assign("/design-system"),
-      goFs: () => location.assign("/food-safety"),
-      goEngage: () => location.assign("/engage"),
-      goBanfield: () => location.assign("/banfield"),
-      goEcoCash: () => location.assign("/ecocash"),
+      goDws: () => this._zoomIntoAndOpen("dws", "/dispute-workspace"),
+      goC360: () => this._zoomIntoAndOpen("c360", "/360-control"),
+      goCpq: () => this._zoomIntoAndOpen("cpq", "/cpq"),
+      goDs: () => this._zoomIntoAndOpen("ds", "/design-system"),
+      goFs: () => this._zoomIntoAndOpen("fs", "/food-safety"),
+      goEngage: () => this._zoomIntoAndOpen("engage", "/engage"),
+      goBanfield: () => this._zoomIntoAndOpen("banfield", "/banfield"),
+      goEcoCash: () => this._zoomIntoAndOpen("ecocash", "/ecocash"),
       goPrinciples: () => this.flyToKey("principles"),
       goContact: () => this.flyToKey("contact"),
       zoomIn: () => this.zoomBy(1.4, undefined, undefined, 350),
