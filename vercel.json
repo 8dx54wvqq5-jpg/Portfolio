@@ -9,6 +9,7 @@
     { "source": "/food-safety", "destination": "/FoodSafety.dc.html" },
     { "source": "/banfield", "destination": "/Banfield.dc.html" },
     { "source": "/gea", "destination": "/GEA.dc.html" },
+    { "source": "/studytable", "destination": "/Studytable.dc.html" },
     { "source": "/work", "destination": "/Work.dc.html" },
     { "source": "/about", "destination": "/About.dc.html" }
   ],
@@ -22,6 +23,7 @@
     { "source": "/FoodSafety.dc.html", "destination": "/food-safety", "permanent": true },
     { "source": "/Banfield.dc.html", "destination": "/banfield", "permanent": true },
     { "source": "/GEA.dc.html", "destination": "/gea", "permanent": true },
+    { "source": "/Studytable.dc.html", "destination": "/studytable", "permanent": true },
     { "source": "/Work.dc.html", "destination": "/work", "permanent": true },
     { "source": "/About.dc.html", "destination": "/about", "permanent": true }
   ]
