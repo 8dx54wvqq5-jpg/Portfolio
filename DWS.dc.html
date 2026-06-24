@@ -1147,8 +1147,8 @@ class Component extends DCLogic {
       const sync = () => { this._ttsElapsed = this._audio.currentTime || 0; this._ttsPlaying = !this._audio.paused && !this._audio.ended; this._apUpdateUI(); };
       this._audio.addEventListener("loadedmetadata", setDur);
       ["timeupdate", "play", "pause", "ended"].forEach((ev) => this._audio.addEventListener(ev, sync));
-      this._audio.addEventListener("play", () => window.va && window.va("event", { name: "audio_play", data: { study: "dws" } }), { once: true });
-      this._audio.addEventListener("ended", () => window.va && window.va("event", { name: "audio_complete", data: { study: "dws" } }), { once: true });
+      this._audio.addEventListener("play", () => window.va && window.va("event", { name: "DWS · audio played" }), { once: true });
+      this._audio.addEventListener("ended", () => window.va && window.va("event", { name: "DWS · audio finished" }), { once: true });
       if (this._audio.readyState >= 1) setDur();
     }
 
@@ -1212,7 +1212,7 @@ class Component extends DCLogic {
         const max = document.documentElement.scrollHeight - window.innerHeight;
         const pct = max > 0 ? window.scrollY / max : 0;
         progress.style.width = pct * 100 + "%";
-        if (pct >= 0.9 && !scrolledBottom) { scrolledBottom = true; window.va && window.va("event", { name: "scroll_to_bottom", data: { study: "dws" } }); }
+        if (pct >= 0.9 && !scrolledBottom) { scrolledBottom = true; window.va && window.va("event", { name: "DWS · scrolled to end" }); }
       }
     };
     let ticking = false, scrolledBottom = false;
@@ -1375,7 +1375,7 @@ class Component extends DCLogic {
     lbImg.src = src; lbImg.alt = alt || '';
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
-    if (!zoomTracked) { zoomTracked = true; window.va && window.va("event", { name: "image_zoom", data: { study: "dws" } }); }
+    if (!zoomTracked) { zoomTracked = true; window.va && window.va("event", { name: "DWS · image zoomed" }); }
   }
   function close() {
     lb.classList.remove('open');
