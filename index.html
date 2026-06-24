@@ -31,6 +31,7 @@
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
 <script src="./support.js"></script>
+<script defer src="/assets/connect.js"></script>
 
 </head>
 <body>
@@ -108,18 +109,7 @@
         <div class="presence-av" data-name="recruiter" style="width: 26px; height: 26px; border-radius: 50%; background: #E8590C; border: 2px solid #15171C; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 700; margin-left: -8px;">R</div>
       </div>
       <div style="display: flex; align-items: center; gap: 5px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #8A8F9C;"><span style="width: 6px; height: 6px; border-radius: 50%; background: #14C38E; animation: presencePulse 2s ease-out infinite;"></span>4 here now</div>
-      <style>
-        #connect-btn:hover { background: #2B70FF; }
-        #connect-menu a:hover { background: #2A2E37; }
-      </style>
-      <div id="connect-wrap" style="position: relative;">
-        <div id="connect-btn" style="background: #155DFC; color: #fff; font-size: 12.5px; font-weight: 700; padding: 7px 14px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 6px;">Connect <span style="font-size: 9px; opacity: 0.85;">▾</span></div>
-        <div id="connect-menu" style="position: absolute; top: 38px; right: 0; background: #15171C; border: 1px solid #2A2E37; border-radius: 8px; padding: 6px; min-width: 184px; box-shadow: 0 12px 32px rgba(0,0,0,0.45); display: none; flex-direction: column; gap: 2px; z-index: 200;">
-          <a href="mailto:abhikant5540@gmail.com?subject=Hi%20there" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 6px; color: #E7E9EE; text-decoration: none; font-size: 13px;"><span style="width: 16px; text-align: center;">✉</span>Email me</a>
-          <a href="https://www.linkedin.com/in/abhikant" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 6px; color: #E7E9EE; text-decoration: none; font-size: 13px;"><span style="width: 16px; text-align: center; font-weight: 800;">in</span>LinkedIn</a>
-          <a href="https://resumego.link/abhikant/designer" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 6px; color: #E7E9EE; text-decoration: none; font-size: 13px;"><span style="width: 16px; text-align: center;">⤓</span>Resume</a>
-        </div>
-      </div>
+      <span data-connect></span>
       <div id="zoom-label" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282; padding: 4px 6px; min-width: 44px; text-align: right;">100%</div>
     </div>
   </div>
@@ -1495,15 +1485,6 @@ setTimeout(function() {
   // restore on back/forward cache
   window.addEventListener('pageshow', function (ev) {
     if (ev.persisted) { clearInterval(window.__navInt); set(0); bar.style.opacity = '0'; }
-  });
-})();
-// connect dropdown toggle (delegated — survives x-dc re-render)
-(function () {
-  document.addEventListener('click', function (e) {
-    var menu = document.getElementById('connect-menu');
-    if (!menu || !e.target.closest) return;
-    if (e.target.closest('#connect-btn')) { e.stopPropagation(); menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex'; return; }
-    if (!e.target.closest('#connect-wrap')) menu.style.display = 'none';
   });
 })();
 // high-intent click tracking (once per visit per type)
