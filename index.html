@@ -1500,6 +1500,16 @@ setTimeout(function() {
     if (name && !fired[name]) { fired[name] = 1; window.va && window.va('event', { name: name }); }
   }, true);
 })();
+// referral attribution: ?utm_source=company -> custom event (free on Pro plan)
+(function () {
+  try {
+    var p = new URLSearchParams(location.search);
+    var c = (p.get('utm_source') || p.get('c') || '').trim();
+    if (!c) return;
+    var fire = function () { window.va && window.va('event', { name: 'Referral · ' + c, data: { page: location.pathname } }); };
+    if (window.va) fire(); else { var n = 0, t = setInterval(function () { if (window.va || ++n > 20) { clearInterval(t); if (window.va) fire(); } }, 300); }
+  } catch (e) {}
+})();
 </script>
 <div id="open-pill">Open<span style="font-size:12px;line-height:1;">↗</span></div>
 <script>

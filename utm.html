@@ -35,7 +35,7 @@
 <body>
 <div class="wrap">
   <h1>UTM link builder</h1>
-  <p class="sub">Tag a link per company. Vercel → Analytics → UTM Parameters shows who opened it.</p>
+  <p class="sub">Tag a link per company. Vercel → Analytics → Events shows a "Referral · company" row when they open it.</p>
 
   <label for="company">Company / recruiter</label>
   <input id="company" type="text" placeholder="e.g. Stripe" autocomplete="off" autofocus>
@@ -48,15 +48,15 @@
     <option value="/">Home</option>
     <option value="/dispute-workspace">Dispute Workspace (DWS)</option>
     <option value="/360-control">360 Control</option>
-    <option value="/about">About</option>
   </select>
 
   <div class="out" id="out"></div>
 
   <p class="hint">
-    <code>utm_source</code> = company (slugified) · <code>utm_medium</code> = referral ·
-    <code>utm_campaign</code> = jobsearch · <code>utm_content</code> = role note.<br>
-    Send the tagged link instead of the bare URL. Each company becomes its own row in the UTM tab.
+    The page reads <code>utm_source</code> on load and fires a custom event
+    <code>Referral · company</code> — visible in Vercel → Analytics → <strong>Events</strong>
+    (free on Pro; the paid UTM Parameters tab is not needed).<br>
+    Send the tagged link instead of the bare URL. Only Home, DWS, and 360 Control are tracked.
   </p>
 </div>
 
