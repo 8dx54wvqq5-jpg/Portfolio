@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>UTM link builder</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; background: #0b0d12; color: #e6e9ef;
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    display: flex; justify-content: center; padding: 48px 20px; }
+  .wrap { width: 100%; max-width: 560px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  p.sub { margin: 0 0 28px; color: #8b93a3; font-size: 13px; }
+  label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .04em;
+    color: #8b93a3; margin: 18px 0 6px; }
+  input, select { width: 100%; padding: 10px 12px; background: #14171f; color: #e6e9ef;
+    border: 1px solid #262b36; border-radius: 8px; font-size: 14px; }
+  input:focus, select:focus { outline: none; border-color: #155DFC; }
+  .out { margin-top: 28px; }
+  .row { display: flex; gap: 8px; align-items: stretch; margin-bottom: 10px; }
+  .row .url { flex: 1; padding: 10px 12px; background: #14171f; border: 1px solid #262b36;
+    border-radius: 8px; font-size: 13px; word-break: break-all; user-select: all; }
+  .row .lbl { font-size: 11px; color: #8b93a3; margin-bottom: 4px; }
+  button.copy { flex: 0 0 auto; padding: 0 14px; background: #155DFC; color: #fff; border: none;
+    border-radius: 8px; font-size: 13px; cursor: pointer; }
+  button.copy:hover { background: #2B70FF; }
+  button.copy.done { background: #1f9d55; }
+  .hint { margin-top: 24px; font-size: 12px; color: #6b7383; line-height: 1.6; }
+  code { background: #14171f; padding: 1px 5px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>UTM link builder</h1>
+  <p class="sub">Tag a link per company. Vercel → Analytics → UTM Parameters shows who opened it.</p>
+
+  <label for="company">Company / recruiter</label>
+  <input id="company" type="text" placeholder="e.g. Stripe" autocomplete="off" autofocus>
+
+  <label for="role">Role / note (optional)</label>
+  <input id="role" type="text" placeholder="e.g. product-designer" autocomplete="off">
+
+  <label for="page">Landing page</label>
+  <select id="page">
+    <option value="/">Home</option>
+    <option value="/dispute-workspace">Dispute Workspace (DWS)</option>
+    <option value="/360-control">360 Control</option>
+    <option value="/about">About</option>
+  </select>
+
+  <div class="out" id="out"></div>
+
+  <p class="hint">
+    <code>utm_source</code> = company (slugified) · <code>utm_medium</code> = referral ·
+    <code>utm_campaign</code> = jobsearch · <code>utm_content</code> = role note.<br>
+    Send the tagged link instead of the bare URL. Each company becomes its own row in the UTM tab.
+  </p>
+</div>
+
+<script>
+  var company = document.getElementById('company');
+  var role = document.getElementById('role');
+  var page = document.getElementById('page');
+  var out = document.getElementById('out');
+
+  function slug(s) {
+    return (s || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
+
+  function build() {
+    var src = slug(company.value);
+    out.innerHTML = '';
+    if (!src) { out.innerHTML = '<div class="row"><div class="url" style="color:#6b7383">Enter a company to generate a link.</div></div>'; return; }
+    var params = new URLSearchParams();
+    params.set('utm_source', src);
+    params.set('utm_medium', 'referral');
+    params.set('utm_campaign', 'jobsearch');
+    var note = slug(role.value);
+    if (note) params.set('utm_content', note);
+    var url = location.origin + page.value + '?' + params.toString();
+
+    var row = document.createElement('div');
+    var lbl = document.createElement('div'); lbl.className = 'lbl'; lbl.textContent = 'Tagged link';
+    var r = document.createElement('div'); r.className = 'row';
+    var u = document.createElement('div'); u.className = 'url'; u.textContent = url;
+    var b = document.createElement('button'); b.className = 'copy'; b.textContent = 'Copy';
+    b.onclick = function () {
+      navigator.clipboard.writeText(url).then(function () {
+        b.textContent = 'Copied'; b.classList.add('done');
+        setTimeout(function () { b.textContent = 'Copy'; b.classList.remove('done'); }, 1400);
+      });
+    };
+    r.appendChild(u); r.appendChild(b);
+    out.appendChild(lbl); out.appendChild(r);
+  }
+
+  [company, role, page].forEach(function (el) { el.addEventListener('input', build); });
+  page.addEventListener('change', build);
+  build();
+</script>
+</body>
+</html>

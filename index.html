@@ -1486,6 +1486,20 @@ setTimeout(function() {
     if (ev.persisted) { clearInterval(window.__navInt); set(0); bar.style.opacity = '0'; }
   });
 })();
+// high-intent click tracking (once per visit per type)
+(function () {
+  var fired = {};
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    var href = (a.getAttribute('href') || '').toLowerCase();
+    var name = null;
+    if (href.indexOf('mailto:') === 0) name = 'Contact · email clicked';
+    else if (href.indexOf('linkedin.com') !== -1) name = 'Contact · LinkedIn clicked';
+    else if (href.indexOf('resume') !== -1 || href.indexOf('.pdf') !== -1) name = 'Resume · opened';
+    if (name && !fired[name]) { fired[name] = 1; window.va && window.va('event', { name: name }); }
+  }, true);
+})();
 </script>
 <div id="open-pill">Open<span style="font-size:12px;line-height:1;">↗</span></div>
 <script>
