@@ -1147,6 +1147,7 @@ class Component extends DCLogic {
       const sync = () => { this._ttsElapsed = this._audio.currentTime || 0; this._ttsPlaying = !this._audio.paused && !this._audio.ended; this._apUpdateUI(); };
       this._audio.addEventListener("loadedmetadata", setDur);
       ["timeupdate", "play", "pause", "ended"].forEach((ev) => this._audio.addEventListener(ev, sync));
+      this._audio.addEventListener("play", () => window.va && window.va("event", { name: "audio_play", data: { study: "dws" } }), { once: true });
       if (this._audio.readyState >= 1) setDur();
     }
 
