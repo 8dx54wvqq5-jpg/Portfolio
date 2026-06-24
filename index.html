@@ -32,6 +32,7 @@
 <script defer src="/_vercel/insights/script.js"></script>
 <script src="./support.js"></script>
 <script defer src="/assets/connect.js"></script>
+<script defer src="/assets/open-pill.js"></script>
 
 </head>
 <body>
@@ -1510,24 +1511,6 @@ setTimeout(function() {
     var fire = function () { window.va && window.va('event', { name: 'Referral · ' + c, data: { page: location.pathname } }); };
     if (window.va) fire(); else { var n = 0, t = setInterval(function () { if (window.va || ++n > 20) { clearInterval(t); if (window.va) fire(); } }, 300); }
   } catch (e) {}
-})();
-</script>
-<div id="open-pill">Open<span style="font-size:12px;line-height:1;">↗</span></div>
-<script>
-(function(){
-  var pill = document.getElementById('open-pill');
-  if (!pill) return;
-  var on = false, raf = 0, x = 0, y = 0;
-  function apply(){ raf = 0; pill.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(' + (on ? 1 : 0.85) + ')'; }
-  document.addEventListener('mousemove', function(e){
-    var hit = e.target.closest ? e.target.closest('a[data-frame][href], [data-open]') : null;
-    if (hit) {
-      x = e.clientX + 16; y = e.clientY + 18;
-      if (!on) { on = true; pill.classList.add('on'); }
-      if (!raf) raf = requestAnimationFrame(apply);
-    } else if (on) { on = false; pill.classList.remove('on'); }
-  }, { passive: true });
-  document.addEventListener('mouseleave', function(){ on = false; pill.classList.remove('on'); });
 })();
 </script>
 </body>
