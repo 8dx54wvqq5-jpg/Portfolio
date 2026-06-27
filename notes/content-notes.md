@@ -10,17 +10,17 @@
 - Hero image: assets/memoji.png (600×450, opaque black bg memoji portrait — framed as dark card)
 
 ## DWS — Disputes Workspace (Fiserv)
-- Enterprise app: full credit-card dispute lifecycle (intake → investigation → resolution), thousands of disputes/month.
-- Sole UX designer on modernization; users: call center agents, fraud analysts, dispute processors, compliance officers (~10%).
-- Goal: redesign legacy system to cut operational costs, improve accuracy, keep regulatory compliance — introduce AI-assisted intelligence that preserves trust.
+- Enterprise app: full credit-card dispute lifecycle (intake → investigation → resolution), designed for 5+ card-issuing banks.
+- UX designer on modernization; users: call center agents, fraud analysts, dispute processors, compliance officers.
+- Goal: consolidate fragmented dispute tools into one lifecycle workspace while keeping regulatory compliance and introducing AI-assisted intelligence that preserves trust.
 - Research constraint: no direct end-user access → stakeholder/SME-driven (PMs, ops leaders, compliance), doc & workflow review.
 - Persona insight: "I just want the system to guide me so I don't mess up. I don't have time to look up rules while a customer is on the phone."
 - Insights: speed-vs-accuracy trade-off; AI trust requires transparency (no black box — show WHY).
 - Iteration story: ML confidence as % ("87% confident") confused users → High/Medium/Low labels + contextual guidance ("High confidence – review and accept").
 - Solutions: AI-assisted intake (plain-language description → ML classification + confidence badge); smart validation vs card-network rules (e.g. 60-day filing window); tiered processing + intelligent routing + bulk actions; AI transparency patterns (blue tints, lightbulb icons, always explainable); side-by-side investigation workspace for fraud analysts (collapsible panels, contextual data); role-based experiences w/ one design language.
 - Visual design: design system, 50+ components, 12+ core workflows, system font stacks.
-- Metrics: call handling time ↓25–35%; classification accuracy ↑15–25%; processing capacity ↑40–50%; training time ↓30–40%. (Note: ranges vary by institution.)
-- Quotes: analyst — "I can finally see WHY the system thinks something is fraud…"; processor — "bulk action tools let me clear routine cases in minutes"; compliance — "Every AI decision is traceable, explainable, and defensible."
+- Verified metrics: 4 legacy tools to 1 platform; task steps ↓33% (6 to 4); screens per case ↓37% (8 to 5); navigation depth ↓50% (4 to 2); 2 tool switches removed per dispute action; agents managed 30-50 active cases under FCBA and Reg E deadlines.
+- SME-reported needs: analysts needed reasoning before trusting recommendations; processors needed routine cases to move faster without losing accuracy; compliance needed every AI-assisted action to remain traceable and defensible.
 - Learnings: enterprise UX is strategic; users are smarter than we think; simple labels > technical accuracy; AI should augment, not replace judgment.
 - Would do differently: earlier AI-pattern prototyping; more DS usage docs; deeper competitive analysis of AI UX.
 
