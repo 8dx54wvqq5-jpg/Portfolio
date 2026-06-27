@@ -13,7 +13,9 @@
     { key: 'food-safety', label: 'Food Safety', short: 'Food Safety', href: '/food-safety', files: ['FoodSafety.dc.html', 'food-safety'] },
     { key: 'engage', label: 'Engage', short: 'Engage', href: '/engage', files: ['Engage.dc.html', 'engage'] },
     { key: 'banfield', label: 'Banfield', short: 'Banfield', href: '/banfield', files: ['Banfield.dc.html', 'banfield'] },
-    { key: 'ecocash', label: 'Academic Work', short: 'Academic Work', href: '/ecocash', files: ['EcoCash.dc.html', 'ecocash'] }
+    { key: 'ecocash', label: 'Eco-Cash', short: 'Eco-Cash', href: '/ecocash', files: ['EcoCash.dc.html', 'ecocash'] },
+    { key: 'gea', label: 'GEA-Spin', short: 'GEA-Spin', href: '/gea', files: ['GEA.dc.html', 'gea'] },
+    { key: 'studytable', label: 'Studytable', short: 'Studytable', href: '/studytable', files: ['Studytable.dc.html', 'studytable'] }
   ];
 
   var file = decodeURIComponent((window.location.pathname.split('/').pop() || 'index.html'));
