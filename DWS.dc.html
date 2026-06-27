@@ -367,7 +367,7 @@
         <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 06 · Design Process</span></div>
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
           <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">Design process</h2>
-          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 36px; max-width: 70ch;">Research set the priorities. I mapped the information architecture, built reusable patterns, tested high-fidelity flows, and refined them with product and engineering.</p>
+          <p data-reveal="1" style="font-size: 15.5px; line-height: 1.75; color: #364153; margin: 0 0 36px; max-width: 70ch;">Research set the priorities. I mapped the information architecture, built reusable patterns, and tested high-fidelity flows, then carried them through requirements reviews, sprint refinement, QA feedback, and release validation. The design did not stop at handoff. It kept moving as engineering and QA pushed back and edge cases surfaced.</p>
           <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 40px;">
             <div data-reveal="1" style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 16px;">
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #155DFC; margin-bottom: 8px;">STEP 1</div>
@@ -412,6 +412,17 @@
             <div style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 10px; padding: 24px 28px;">
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #15803D; margin-bottom: 10px;">✅ DECISION</div>
               <p style="font-size: 14.5px; line-height: 1.65; color: #364153; margin: 0;">AI does the slow, mechanical intake; the human keeps every decision, and the audit log records who decided what. Assistance, never automation.</p>
+            </div>
+          </div>
+          <h3 data-reveal="0" style="font-size: 18px; font-weight: 800; margin: 36px 0 16px;">Two constraints shaped every screen</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div data-reveal="1" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #6A7282; margin-bottom: 10px;">CONSTRAINT · BILINGUAL</div>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #364153; margin: 0;">Desjardins needed the whole workspace in Canadian French. French runs longer than English, so dense tables and forms that fit in one language broke in the other. Rather than patch screens one by one after translation, I externalized every UI string and built layouts that held their shape under text expansion.</p>
+            </div>
+            <div data-reveal="2" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #6A7282; margin-bottom: 10px;">CONSTRAINT · TWO LIVE CLIENTS</div>
+              <p style="font-size: 14.5px; line-height: 1.7; color: #364153; margin: 0;">Desjardins and Target were converting at the same time, each with their own reason-code coverage, permissions, and edge cases. I designed the patterns to absorb client-specific needs through configuration, so two large issuers could go live without forking the product into one-off screens.</p>
             </div>
           </div>
         </div>
@@ -526,6 +537,51 @@
                 <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #155DFC; margin-top: 12px;">admins</div>
               </div>
             </div>
+          </div>
+
+          <!-- Full scope: the shown screens are a slice -->
+          <div data-reveal="1" style="margin: 0 0 48px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; margin-bottom: 6px;">FULL SCOPE</div>
+            <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 20px; max-width: 70ch;">The screens further down are a slice. The redesign reached across the whole dispute lifecycle, from how a case arrives to how it closes and gets audited. I designed or restructured each of these surfaces so the same patterns held end to end.</p>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+              <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 20px;">
+                <div style="font-size: 14.5px; font-weight: 800; margin-bottom: 6px;">Omnichannel intake</div>
+                <div style="font-size: 12.5px; line-height: 1.6; color: #6A7282;">App, online banking, branch, mobile, and call center feed one case.</div>
+              </div>
+              <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 20px;">
+                <div style="font-size: 14.5px; font-weight: 800; margin-bottom: 6px;">Transaction &amp; auth matching</div>
+                <div style="font-size: 12.5px; line-height: 1.6; color: #6A7282;">Related charges and authorization context surfaced at the decision point.</div>
+              </div>
+              <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 20px;">
+                <div style="font-size: 14.5px; font-weight: 800; margin-bottom: 6px;">Case investigation</div>
+                <div style="font-size: 12.5px; line-height: 1.6; color: #6A7282;">Transactions, documents, communications, notes, and audit history in one view.</div>
+              </div>
+              <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 20px;">
+                <div style="font-size: 14.5px; font-weight: 800; margin-bottom: 6px;">Chargeback lifecycle</div>
+                <div style="font-size: 12.5px; line-height: 1.6; color: #6A7282;">Network reason codes, eligibility, timeframes, representment, and pre-arbitration.</div>
+              </div>
+              <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 20px;">
+                <div style="font-size: 14.5px; font-weight: 800; margin-bottom: 6px;">Configurable automation</div>
+                <div style="font-size: 12.5px; line-height: 1.6; color: #6A7282;">Validation, routing, provisional credits, auto-chargebacks, and letters.</div>
+              </div>
+              <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 20px;">
+                <div style="font-size: 14.5px; font-weight: 800; margin-bottom: 6px;">Queues &amp; bulk work</div>
+                <div style="font-size: 12.5px; line-height: 1.6; color: #6A7282;">Intelligent prioritization and bulk actions for high-volume processing.</div>
+              </div>
+              <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 20px;">
+                <div style="font-size: 14.5px; font-weight: 800; margin-bottom: 6px;">Dashboards &amp; reporting</div>
+                <div style="font-size: 12.5px; line-height: 1.6; color: #6A7282;">Agent worklists, supervisor views, aging cases, and workload trends.</div>
+              </div>
+              <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 20px;">
+                <div style="font-size: 14.5px; font-weight: 800; margin-bottom: 6px;">Audit &amp; compliance</div>
+                <div style="font-size: 12.5px; line-height: 1.6; color: #6A7282;">Traceable decisions, required communications, and deadline tracking.</div>
+              </div>
+              <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 20px;">
+                <div style="font-size: 14.5px; font-weight: 800; margin-bottom: 6px;">Bilingual &amp; design system</div>
+                <div style="font-size: 12.5px; line-height: 1.6; color: #6A7282;">Pixel patterns across every migrated screen, with Canadian French support.</div>
+              </div>
+            </div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 14px;">below: a few representative screens from this surface, not the whole system</div>
           </div>
 
           <!-- Solution 1 -->
