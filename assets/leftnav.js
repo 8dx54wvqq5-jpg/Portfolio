@@ -68,5 +68,16 @@
     mount.innerHTML = html;
   }
 
-  document.querySelectorAll('[data-leftnav]').forEach(render);
+  function renderAll() {
+    // only fill empty mounts so re-renders don't loop (innerHTML write = mutation)
+    document.querySelectorAll('[data-leftnav]').forEach(function (m) {
+      if (m.children.length === 0) render(m);
+    });
+  }
+
+  // x-dc (support.js) rebuilds the DOM after this script runs and wipes the
+  // injected nav — re-render on every mutation, same pattern as connect.js
+  renderAll();
+  new MutationObserver(renderAll).observe(document.documentElement, { childList: true, subtree: true });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', renderAll);
 })();
