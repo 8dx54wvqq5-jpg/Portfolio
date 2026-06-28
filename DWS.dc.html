@@ -598,7 +598,7 @@
                 </div>
                 <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">AI-assisted intake</h3>
                 <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px;">The agent or cardholder describes the dispute in plain language, "I was charged $47.50 twice for the same Uber ride on March 3rd", and instead of the agent typing fields in by hand, an LLM extracts each one, amount, date, merchant, dispute type, and populates the case, with a card-network rules engine checking the classification. Every captured field carries its own confidence, high, medium, or low, so the agent knows which values to trust and which to verify before accepting or overriding. Whatever the cardholder entered at intake stays on the case to review, so no one re-asks for what was already provided.</p>
-                <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;"><strong style="color: #009966;">Result:</strong> shorter calls. Agents focus on the customer while the system handles extraction and classification, no repetitive questioning, no manual lookup.</p>
+                <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0;"><strong style="color: #009966;">Result:</strong> agents focus on the customer instead of typing fields by hand. No repetitive questioning, no manual lookup.</p>
               </div>
               <div style="background: #F9FAFB; border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px;">
                 <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 14px;">HOW PER-FIELD CONFIDENCE BEHAVES</div>
@@ -662,7 +662,7 @@
             </div>
             <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">The audit log, and an early read on the AI</h3>
             <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 14px; max-width: 70ch;">Every intake records what the system captured, what it flagged low-confidence, and what the agent overrode or skipped. For compliance, that makes every AI decision traceable and defensible, exactly what a regulatory review asks for.</p>
-            <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 70ch;"><strong style="color: #009966;">Result:</strong> because the tool is new, that same log is the metric: capture accuracy, override rate, and skipped-field rate show, in production, how well the AI is actually performing and where to tune it next.</p>
+            <p style="font-size: 14px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 70ch;"><strong style="color: #009966;">Result:</strong> because the tool is new, that same log is the metric: capture accuracy, override rate, and skipped-field rate show how well the AI performs in production and where to tune it next.</p>
           </div>
 
           <!-- Solution 2 -->
