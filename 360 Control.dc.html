@@ -463,6 +463,11 @@
               <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0;">Other banking clients previewing the platform before full launch expressed interest, the redesign became a sales asset.</p>
             </div>
           </div>
+          <div data-reveal="1" style="margin-top: 24px; background: #EFF6FF; border: 1px solid #D6E4FF; border-radius: 10px; padding: 24px 28px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; margin-bottom: 10px;">A/B EXPERIMENT · ONBOARDING</div>
+            <h3 style="font-size: 18px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 10px;">Two ways to set a first password, tested head to head</h3>
+            <p style="font-size: 14.5px; line-height: 1.7; color: #364153; margin: 0; max-width: 72ch;">First-time card access could either hand the cardholder a system-generated password or let them set their own. I ran an A/B test on the two onboarding flows, measured on whether the cardholder completed first card access. The variant that let cardholders set their own password won, and it shipped to production.</p>
+          </div>
         </div>
       </section>
 
@@ -552,7 +557,7 @@
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   _ttsDuration = 120; _ttsElapsed = 0; _ttsPlaying = false; _tts = null; _apTimer = null;
-  _ttsScript = `Three-sixty Control is the issuer console I redesigned for Fiserv and a major Canadian bank. Banks use it to run commercial card programs, including card controls, spend limits, program hierarchies, and merchant restrictions. Seven years of additions had left the existing interface difficult to navigate. Configuration and daily operations shared the same structure, and new administrators needed extensive training. I worked as both UX designer and design system contributor, so I built shared patterns before expanding the flows. The main information architecture decision was to separate configuration from operations. Administrators setting up a program have different goals from people monitoring one, but the legacy navigation treated them the same. I separated those tasks, then rebuilt the card-control hierarchy around each role's work. I also chose not to use AI. This product operates in a compliance setting where every rule must be predictable and auditable. AI would have added variability the bank and its clients did not need. The platform launched on schedule against a contractual deadline. Design output time decreased by sixty-five percent, development time by forty percent, and the new platform supports bilingual content and mobile access.`;
+  _ttsScript = `Three-sixty Control is the issuer console I redesigned for Fiserv and a major Canadian bank. Banks use it to run commercial card programs, including card controls, spend limits, program hierarchies, and merchant restrictions. Seven years of additions had left the existing interface difficult to navigate. Configuration and daily operations shared the same structure, and new administrators needed extensive training. I worked as both UX designer and design system contributor, so I built shared patterns before expanding the flows. The main information architecture decision was to separate configuration from operations. Administrators setting up a program have different goals from people monitoring one, but the legacy navigation treated them the same. I separated those tasks, then rebuilt the card-control hierarchy around each role's work. I also chose not to use AI. This product operates in a compliance setting where every rule must be predictable and auditable. AI would have added variability the bank and its clients did not need. The platform launched on schedule against a contractual deadline, with bilingual content and mobile access built in from the start. To reduce friction at first sign-in, I ran an A/B test on the onboarding password flow, and the variant that let cardholders set their own password won and shipped.`;
 
   _apUpdateUI() {
     const pct = Math.min(100, ((this._ttsElapsed || 0) / this._ttsDuration) * 100);
