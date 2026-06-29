@@ -1,6 +1,7 @@
 {
   "rewrites": [
     { "source": "/dispute-workspace", "destination": "/DWS.dc.html" },
+    { "source": "/ai-dispute-intake", "destination": "/AI-Dispute-Intake.dc.html" },
     { "source": "/design-system", "destination": "/DS.dc.html" },
     { "source": "/360-control", "destination": "/360 Control.dc.html" },
     { "source": "/cpq", "destination": "/CPQ.dc.html" },
@@ -15,6 +16,7 @@
   ],
   "redirects": [
     { "source": "/DWS.dc.html", "destination": "/dispute-workspace", "permanent": true },
+    { "source": "/AI-Dispute-Intake.dc.html", "destination": "/ai-dispute-intake", "permanent": true },
     { "source": "/DS.dc.html", "destination": "/design-system", "permanent": true },
     { "source": "/360 Control.dc.html", "destination": "/360-control", "permanent": true },
     { "source": "/CPQ.dc.html", "destination": "/cpq", "permanent": true },
