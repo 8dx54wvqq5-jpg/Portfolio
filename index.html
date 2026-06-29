@@ -253,7 +253,7 @@
           <div style="position: relative; z-index: 2; display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 48px; align-items: center;">
             <div>
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #155DFC; margin-bottom: 22px;">ABHIKANT NIRBHAVANE · SENIOR UX DESIGNER</div>
-              <h1 style="font-size: 46px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 20px; text-wrap: pretty; color: #101828;">I design for environments where getting it wrong has <span id="hero-cycle-box" style="display: inline-block; text-align: left; vertical-align: bottom;"><span id="hero-cycle" aria-hidden="true" style="display: inline-block; color: #155DFC; border-bottom: 3px solid rgba(21,93,252,0.5); line-height: 1.05; will-change: opacity, filter, transform;">real consequences</span></span><span class="sr-only">real consequences, legal deadlines, people's money, or no second try</span>.</h1>
+              <h1 style="font-size: 46px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 20px; text-wrap: pretty; color: #101828;">I design for environments where getting it wrong has <span id="hero-cycle-box" style="display: inline-block; text-align: left; vertical-align: bottom;"><span id="hero-cycle" aria-hidden="true" style="display: inline-block; color: #155DFC; border-bottom: 3px solid rgba(21,93,252,0.5); line-height: 1.05;">real consequences.</span></span><span class="sr-only">real consequences, legal deadlines, people's money, or no second try.</span></h1>
               <p style="font-size: 16px; line-height: 1.7; color: #4A5565; margin: 0 0 26px; max-width: 54ch;">Dispute management, card controls, compliance workflows, complex quoting. Enterprise systems where clarity is a safety feature, not a nice-to-have. Most recently at Fiserv, where I shipped AI that explains itself: confidence indicators, reasoning you can actually see, and a human override that's always there. In these systems you can't afford a black box.</p>
               <div style="display: flex; flex-wrap: wrap; gap: 8px;">
                 <span class="pf-chip" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Enterprise UX</span>
@@ -1574,38 +1574,65 @@ class Component extends DCLogic {
       }
     }
 
-    // ---- hero eyebrow: cycling domain w/ scramble (Pradeep-inspired) ----
+    // ---- hero eyebrow: cycling domain w/ per-character typing reveal ----
     const cycleEl = document.getElementById('hero-cycle');
     const cycleBox = document.getElementById('hero-cycle-box');
     if (cycleEl && cycleBox) {
-      const words = ['real consequences', 'legal deadlines', "people's money", 'no second try'];
-      // animate-text skill · soft-blur swap (smoke dissipate/reform). Whole phrase
-      // animates so the underline rides along and fades with it (no lingering line).
+      const words = ['real consequences.', 'legal deadlines.', "people's money.", 'no second try.'];
+      // animate-text skill · typewriter-style per-character cascade. Period is
+      // part of each word's own text so it travels with the word, never floats.
       const start = () => {
         // pin box to widest phrase → headline never reflows / jumps lines
         let maxW = 0;
         words.forEach((w) => { cycleEl.textContent = w; maxW = Math.max(maxW, cycleEl.offsetWidth); });
         cycleBox.style.minWidth = maxW + 'px';
-        cycleEl.textContent = words[0];
+
+        const renderChars = (text) => {
+          cycleEl.innerHTML = '';
+          const frag = document.createDocumentFragment();
+          Array.from(text).forEach((ch) => {
+            const s = document.createElement('span');
+            s.textContent = ch;
+            s.style.display = 'inline-block';
+            frag.appendChild(s);
+          });
+          cycleEl.appendChild(frag);
+          return Array.from(cycleEl.children);
+        };
+
         let i = 0;
         if (this.reduce) {
-          setInterval(() => { i = (i + 1) % words.length; cycleEl.textContent = words[i]; }, 3600);
+          renderChars(words[0]);
+          setInterval(() => { i = (i + 1) % words.length; renderChars(words[i]); }, 3600);
           return;
         }
-        const swap = (next) => {
-          const out = cycleEl.animate(
-            [{ opacity: 1, filter: 'blur(0px)', transform: 'scale(1)' },
-             { opacity: 0, filter: 'blur(7px)', transform: 'scale(1.05)' }],
-            { duration: 440, easing: 'cubic-bezier(0.4,0,0.7,0.2)', fill: 'forwards' });
-          out.onfinish = () => {
-            cycleEl.textContent = next;
-            cycleEl.animate(
-              [{ opacity: 0, filter: 'blur(9px)', transform: 'scale(0.96)' },
-               { opacity: 1, filter: 'blur(0px)', transform: 'scale(1)' }],
-              { duration: 640, easing: 'cubic-bezier(0.16,1,0.3,1)', fill: 'forwards' });
-          };
+
+        const enter = (chars) => {
+          chars.forEach((ch, idx) => {
+            ch.style.opacity = '0';
+            ch.animate(
+              [{ opacity: 0, transform: 'translateX(8px)' },
+               { opacity: 1, transform: 'translateX(0)' }],
+              { duration: 280, delay: idx * 28, easing: 'cubic-bezier(0.16,1,0.3,1)', fill: 'forwards' });
+          });
         };
-        setInterval(() => { i = (i + 1) % words.length; swap(words[i]); }, 4200);
+
+        const exit = (chars, onDone) => {
+          let remaining = chars.length;
+          chars.forEach((ch, idx) => {
+            const anim = ch.animate(
+              [{ opacity: 1 }, { opacity: 0 }],
+              { duration: 140, delay: idx * 8, easing: 'ease-in', fill: 'forwards' });
+            anim.onfinish = () => { remaining -= 1; if (remaining === 0) onDone(); };
+          });
+        };
+
+        let chars = renderChars(words[0]);
+        enter(chars);
+        setInterval(() => {
+          i = (i + 1) % words.length;
+          exit(chars, () => { chars = renderChars(words[i]); enter(chars); });
+        }, 4200);
       };
       // measure after fonts settle so the pinned width matches the real glyphs
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(start);
