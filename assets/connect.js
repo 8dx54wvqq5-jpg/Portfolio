@@ -14,8 +14,13 @@
     var st = document.createElement('style');
     st.id = 'connect-css';
     st.textContent =
-      '.connect-btn:hover{background:#2B70FF}' +
-      '.connect-menu a:hover{background:#2A2E37}';
+      // interaction-design skill: spring hover-lift + tactile tap
+      '.connect-btn{transition:transform .15s cubic-bezier(0.34,1.56,0.64,1),background .15s ease;}' +
+      '.connect-btn:hover{background:#2B70FF;transform:translateY(-1px) scale(1.02)}' +
+      '.connect-btn:active{transform:scale(0.97)}' +
+      '.connect-menu a{transition:background .12s ease}' +
+      '.connect-menu a:hover{background:#2A2E37}' +
+      '@media (prefers-reduced-motion: reduce){.connect-btn{transition:background .15s ease}.connect-btn:hover,.connect-btn:active{transform:none}}';
     document.head.appendChild(st);
   }
 
