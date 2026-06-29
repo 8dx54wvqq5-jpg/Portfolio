@@ -136,12 +136,12 @@
             </a>
             <h1 data-reveal="1" style="font-size: 48px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 22px; max-width: 20ch; text-wrap: pretty;">AI-assisted dispute intake</h1>
             <p data-reveal="2" style="font-size: 18px; line-height: 1.65; color: #101828; font-weight: 600; margin: 0 0 18px; max-width: 60ch;">I redesigned a regulated workflow so AI could accelerate intake without weakening human accountability.</p>
-            <p data-reveal="2" style="font-size: 16px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 64ch;">AI-assisted dispute intake was an LLM-supported flow inside Fiserv's Disputes Workspace. The model pre-filled dispute attributes, each field carried a plain confidence cue, and the agent accepted, edited, or overrode the result. The audit log recorded both sides of the decision: what the AI suggested and what the human chose. That made the flow defensible under FCBA and Reg E, and gave the team a way to see where the model was trusted, corrected, or overconfident.</p>
+            <p data-reveal="2" style="font-size: 16px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 64ch;">AI-assisted dispute intake was an LLM-supported flow inside Fiserv's Disputes Workspace. The model pre-filled dispute attributes, each field carried a plain confidence cue, and the agent accepted or corrected the result. The audit log recorded both sides of the decision: what the AI suggested and what the human chose. That made the flow defensible under FCBA and Reg E, and gave the team a way to see where the model was trusted, corrected, or overconfident.</p>
           </div>
           <div data-reveal="2" style="padding: 4px 64px 0;">
             <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; border-top: 1px solid #ECEDF1; padding-top: 32px;">
               <div style="border-left: 2px solid #155DFC; padding-left: 18px;"><div style="font-size: clamp(22px, 3vw, 28px); font-weight: 800; letter-spacing: -0.02em; color: #101828; line-height: 1.1;">AI classifies</div><div style="font-size: 12px; font-weight: 500; color: #6A7282; margin-top: 9px; line-height: 1.45;">Pre-fills the dispute attributes per case</div></div>
-              <div style="border-left: 2px solid #155DFC; padding-left: 18px;"><div style="font-size: clamp(22px, 3vw, 28px); font-weight: 800; letter-spacing: -0.02em; color: #101828; line-height: 1.1;">Humans confirm</div><div style="font-size: 12px; font-weight: 500; color: #6A7282; margin-top: 9px; line-height: 1.45;">Accept, edit, or override every field</div></div>
+              <div style="border-left: 2px solid #155DFC; padding-left: 18px;"><div style="font-size: clamp(22px, 3vw, 28px); font-weight: 800; letter-spacing: -0.02em; color: #101828; line-height: 1.1;">Humans confirm</div><div style="font-size: 12px; font-weight: 500; color: #6A7282; margin-top: 9px; line-height: 1.45;">Accept or correct every field</div></div>
               <div style="border-left: 2px solid #155DFC; padding-left: 18px;"><div style="font-size: clamp(22px, 3vw, 28px); font-weight: 800; letter-spacing: -0.02em; color: #101828; line-height: 1.1;">Always auditable</div><div style="font-size: 12px; font-weight: 500; color: #6A7282; margin-top: 9px; line-height: 1.45;">Every decision recorded and traceable</div></div>
             </div>
           </div>
@@ -172,7 +172,7 @@
                 <!-- human decision -->
                 <rect x="434" y="74" width="160" height="92" rx="10" fill="#FFFFFF" stroke="#A7E8C6"/>
                 <text x="452" y="100" font-family="'JetBrains Mono', monospace" font-size="10" fill="#047857">HUMAN DECIDES</text>
-                <text x="452" y="122" font-family="Manrope, sans-serif" font-size="13" font-weight="800" fill="#101828">Accept · Edit</text>
+                <text x="452" y="122" font-family="Manrope, sans-serif" font-size="13" font-weight="800" fill="#101828">Accept · Correct</text>
                 <text x="452" y="139" font-family="Manrope, sans-serif" font-size="13" font-weight="800" fill="#101828">· Override</text>
                 <text x="452" y="156" font-family="Manrope, sans-serif" font-size="10.5" fill="#6A7282">the agent owns it</text>
                 <line x1="594" y1="120" x2="642" y2="120" stroke="#9AA8C0" stroke-width="1.4" marker-end="url(#heroArrow)"/>
@@ -262,7 +262,7 @@
           <!-- DEVICE A: 6-step closed loop, inline SVG -->
           <div data-reveal="1" style="border: 1px solid #E2E4E9; border-radius: 12px; background: linear-gradient(180deg, #FBFCFE 0%, #F5F8FC 100%); padding: 36px 32px;">
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; margin-bottom: 18px;">DEVICE A · THE CLOSED LOOP</div>
-            <svg viewBox="0 0 920 300" role="img" aria-label="The closed loop, six steps: AI suggests a value, the agent sees the confidence, the agent accepts, edits, or overrides, the audit log captures the interaction, the product team analyzes patterns, and prompts, rules, and UX improve, feeding back to a more trustworthy AI." style="display: block; width: 100%; height: auto; overflow: visible;">
+            <svg viewBox="0 0 920 300" role="img" aria-label="The closed loop, six steps: AI suggests a value, the agent sees the confidence, the agent accepts or corrects the suggestion, the audit log captures the interaction, the product team analyzes patterns, and prompts, rules, and UX improve, feeding back to a more trustworthy AI." style="display: block; width: 100%; height: auto; overflow: visible;">
               <defs>
                 <linearGradient id="aBlue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#EFF6FF"/><stop offset="1" stop-color="#DCEAFE"/></linearGradient>
                 <marker id="aArrow" markerWidth="10" markerHeight="10" refX="6.5" refY="5" orient="auto"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#9AA8C0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
@@ -290,7 +290,7 @@
                 <rect x="640" y="20" width="272" height="92" rx="12" fill="#FFFFFF" stroke="#A7E8C6"/>
                 <circle cx="666" cy="46" r="13" fill="#047857"/><text x="666" y="50" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#FFFFFF">3</text>
                 <text x="688" y="44" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#047857">HUMAN</text>
-                <text x="688" y="64" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#101828">Accept, edit, override</text>
+                <text x="688" y="64" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#101828">Accept or correct</text>
                 <text x="688" y="90" font-family="Manrope, sans-serif" font-size="12" fill="#4A5565">The agent decides per field.</text>
                 <text x="688" y="105" font-family="Manrope, sans-serif" font-size="12" fill="#4A5565">Overrides are documented.</text>
               </g>
@@ -530,7 +530,7 @@
                 <div style="font-size: 16px; font-weight: 800; color: #101828;">The human</div>
               </div>
               <div style="padding: 18px 20px;">
-                <p style="font-size: 13.5px; line-height: 1.65; color: #4A5565; margin: 0;">Owns every judgment. The agent accepts, edits, or overrides, and that decision is theirs on the record. The regulator holds a person accountable, so a person decides.</p>
+                <p style="font-size: 13.5px; line-height: 1.65; color: #4A5565; margin: 0;">Owns every judgment. The agent accepts or corrects the AI output, and that decision is theirs on the record. The regulator holds a person accountable, so a person decides.</p>
               </div>
             </div>
           </div>
@@ -635,7 +635,7 @@
                       <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; font-weight: 700; color: #364153;">Merchant</td>
                       <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; color: #101828;">Uber Technologies</td>
                       <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5;"><span style="background: #FFFAEB; color: #B54708; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600; padding: 2px 7px; border-radius: 999px;">MEDIUM</span></td>
-                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; color: #B54708; font-weight: 700;">Edited</td>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; color: #B54708; font-weight: 700;">Corrected</td>
                       <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; color: #101828;">Uber Trip</td>
                       <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; font-family: 'JetBrains Mono', monospace; color: #9AA0AC; font-size: 11px;">14:02:31</td>
                     </tr>
@@ -659,7 +659,7 @@
           <div data-reveal="2" style="border: 1px solid #C7DCFF; background: #EFF6FF; border-radius: 12px; padding: 28px 32px;">
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; margin-bottom: 10px;">A SECOND LAYER OF VALUE</div>
             <p style="font-size: 16px; line-height: 1.7; color: #101828; font-weight: 600; margin: 0 0 14px;">The log made every AI suggestion traceable, and it gave the team a practical way to learn from real decisions.</p>
-            <p style="font-size: 14.5px; line-height: 1.7; color: #364153; margin: 0; max-width: 74ch;">Read down the override column and the model tells on itself. If high-confidence fields are often overridden, the calibration is wrong. If low-confidence fields are often accepted, the model is under-confident. If one field is edited again and again, its extraction rule or prompt needs work. If one dispute type drives most of the overrides, it needs more domain support. The audit log turns each correction into a piece of evidence about what to fix next.</p>
+            <p style="font-size: 14.5px; line-height: 1.7; color: #364153; margin: 0; max-width: 74ch;">Read down the override column and the model tells on itself. If high-confidence fields are often overridden, the calibration is wrong. If low-confidence fields are often accepted, the model is under-confident. If one field is corrected again and again, its extraction rule or prompt needs work. If one dispute type drives most of the overrides, it needs more domain support. The audit log turns each correction into a piece of evidence about what to fix next.</p>
           </div>
         </div>
       </section>
@@ -681,53 +681,54 @@
             <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 22px;"><div style="font-size: 15px; font-weight: 800; color: #101828; margin-bottom: 4px;">AI acceptance rate</div><div style="font-size: 13px; line-height: 1.6; color: #6A7282;">How often agents accept a suggestion as-is.</div></div>
             <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 22px;"><div style="font-size: 15px; font-weight: 800; color: #101828; margin-bottom: 4px;">Override rate</div><div style="font-size: 13px; line-height: 1.6; color: #6A7282;">How often agents reject the AI value and supply their own.</div></div>
             <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 22px;"><div style="font-size: 15px; font-weight: 800; color: #101828; margin-bottom: 4px;">Acceptance &amp; override by confidence</div><div style="font-size: 13px; line-height: 1.6; color: #6A7282;">Whether High, Medium, and Low actually predict behavior.</div></div>
-            <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 22px;"><div style="font-size: 15px; font-weight: 800; color: #101828; margin-bottom: 4px;">Most-corrected fields</div><div style="font-size: 13px; line-height: 1.6; color: #6A7282;">Which attributes get edited most, pointing at weak extraction.</div></div>
+            <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 22px;"><div style="font-size: 15px; font-weight: 800; color: #101828; margin-bottom: 4px;">Most-corrected fields</div><div style="font-size: 13px; line-height: 1.6; color: #6A7282;">Which attributes get corrected most, pointing at weak extraction.</div></div>
             <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 22px;"><div style="font-size: 15px; font-weight: 800; color: #101828; margin-bottom: 4px;">Confidence calibration accuracy</div><div style="font-size: 13px; line-height: 1.6; color: #6A7282;">Whether a High really is more reliable than a Low.</div></div>
             <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 22px;"><div style="font-size: 15px; font-weight: 800; color: #101828; margin-bottom: 4px;">Override patterns by dispute type</div><div style="font-size: 13px; line-height: 1.6; color: #6A7282;">Which dispute categories drive the most corrections.</div></div>
           </div>
 
-          <!-- DEVICE D: illustrative override heatmap -->
-          <div data-reveal="1" style="border: 1px solid #E2E4E9; border-radius: 12px; background: #FBFCFE; padding: 28px 32px;">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; gap: 12px; flex-wrap: wrap;">
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC;">DEVICE D · OVERRIDE PATTERN VIEW</div>
-              <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; color: #B54708; background: #FFFAEB; border: 1px dashed #FEDF89; border-radius: 999px; padding: 3px 10px;">ILLUSTRATIVE · sample shape, not real data</span>
+          <!-- DEVICE D: illustrative override hotspots -->
+          <div class="hotspot-card" data-reveal="1">
+            <div class="hotspot-card-top">
+              <div class="hotspot-kicker">DEVICE D · OVERRIDE HOTSPOTS</div>
+              <span class="hotspot-sample-label">ILLUSTRATIVE · sample shape, not real data</span>
             </div>
-            <p style="font-size: 13.5px; line-height: 1.65; color: #4A5565; margin: 0 0 20px; max-width: 70ch;">A view like this is what the enabled metrics add up to: where is the AI corrected most, by field and by confidence band? The brighter the cell, the more often that combination gets overridden, and the louder the signal to go tune it. This is the shape of the read, drawn with placeholder values to show what the design makes visible.</p>
+            <h3 style="font-size: 19px; font-weight: 800; letter-spacing: -0.01em; color: #101828; margin: 0 0 8px;">Where the AI gets corrected most</h3>
+            <p style="font-size: 13.5px; line-height: 1.65; color: #4A5565; margin: 0 0 22px; max-width: 72ch;">Darker cells mean agents corrected the AI more often. A dark cell under High confidence means the model may be too sure. A dark cell under Low confidence means the field may need better extraction support.</p>
 
-            <!-- heatmap grid -->
-            <div style="overflow-x: auto;">
-              <div style="min-width: 540px;">
+            <!-- hotspot grid -->
+            <div class="hotspot-scroll">
+              <div class="hotspot-matrix" role="img" aria-label="Illustrative override hotspots by field and confidence level. Darker cells mean more human corrections; labeled cells show where the team should tune prompts, rules, or extraction support.">
                 <!-- column headers -->
-                <div style="display: grid; grid-template-columns: 160px repeat(3, 1fr); gap: 6px; margin-bottom: 6px;">
+                <div class="hotspot-row hotspot-head">
                   <div></div>
-                  <div style="text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #047857;">HIGH</div>
-                  <div style="text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #B54708;">MEDIUM</div>
-                  <div style="text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #D92D20;">LOW</div>
+                  <div>High confidence</div>
+                  <div>Medium confidence</div>
+                  <div>Low confidence</div>
                 </div>
                 <!-- rows -->
-                <div style="display: grid; grid-template-columns: 160px repeat(3, 1fr); gap: 6px; margin-bottom: 6px; align-items: center;">
-                  <div style="font-size: 12.5px; font-weight: 700; color: #364153;">Dispute type</div>
-                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.10);"></div>
-                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.30);"></div>
-                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.62);"></div>
+                <div class="hotspot-row">
+                  <div class="hotspot-label">Dispute type</div>
+                  <div class="hotspot-cell" style="--level:0.10; --delay:0ms;"></div>
+                  <div class="hotspot-cell" style="--level:0.30; --delay:50ms;"></div>
+                  <div class="hotspot-cell hotspot-strong" style="--level:0.62; --delay:100ms;"><span data-short="weak">weak extraction</span></div>
                 </div>
-                <div style="display: grid; grid-template-columns: 160px repeat(3, 1fr); gap: 6px; margin-bottom: 6px; align-items: center;">
-                  <div style="font-size: 12.5px; font-weight: 700; color: #364153;">Merchant</div>
-                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.16);"></div>
-                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.74);"></div>
-                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.46);"></div>
+                <div class="hotspot-row">
+                  <div class="hotspot-label">Merchant</div>
+                  <div class="hotspot-cell" style="--level:0.16; --delay:150ms;"></div>
+                  <div class="hotspot-cell hotspot-strong" style="--level:0.74; --delay:200ms;"><span data-short="tune">tune prompt</span></div>
+                  <div class="hotspot-cell" style="--level:0.46; --delay:250ms;"></div>
                 </div>
-                <div style="display: grid; grid-template-columns: 160px repeat(3, 1fr); gap: 6px; margin-bottom: 6px; align-items: center;">
-                  <div style="font-size: 12.5px; font-weight: 700; color: #364153;">Sub-reason code</div>
-                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.22);"></div>
-                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.52);"></div>
-                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.86);"></div>
+                <div class="hotspot-row">
+                  <div class="hotspot-label">Sub-reason code</div>
+                  <div class="hotspot-cell hotspot-strong hotspot-critical" style="--level:0.86; --delay:300ms;"><span data-short="over">overconfident</span></div>
+                  <div class="hotspot-cell" style="--level:0.52; --delay:350ms;"></div>
+                  <div class="hotspot-cell hotspot-strong" style="--level:0.70; --delay:400ms;"><span data-short="rules">needs rules</span></div>
                 </div>
-                <div style="display: grid; grid-template-columns: 160px repeat(3, 1fr); gap: 6px; align-items: center;">
-                  <div style="font-size: 12.5px; font-weight: 700; color: #364153;">Amount</div>
-                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.06);"></div>
-                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.14);"></div>
-                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.28);"></div>
+                <div class="hotspot-row">
+                  <div class="hotspot-label">Amount</div>
+                  <div class="hotspot-cell" style="--level:0.06; --delay:450ms;"></div>
+                  <div class="hotspot-cell" style="--level:0.14; --delay:500ms;"></div>
+                  <div class="hotspot-cell" style="--level:0.28; --delay:550ms;"></div>
                 </div>
                 <!-- legend -->
                 <div style="display: flex; align-items: center; gap: 10px; margin-top: 16px;">
@@ -737,6 +738,7 @@
                 </div>
               </div>
             </div>
+            <div class="hotspot-read"><strong>Read:</strong> High-confidence corrections point to calibration risk. Low-confidence corrections point to extraction gaps. The action changes based on where the dark cell lands.</div>
           </div>
         </div>
       </section>
@@ -796,7 +798,7 @@
           <div data-reveal="1" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 40px;">
             <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 22px;"><p style="font-size: 14px; line-height: 1.65; color: #364153; margin: 0;"><strong style="color: #101828;">High-confidence fields overridden a lot?</strong> The calibration is probably wrong. The model is too sure.</p></div>
             <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 22px;"><p style="font-size: 14px; line-height: 1.65; color: #364153; margin: 0;"><strong style="color: #101828;">Low-confidence fields accepted a lot?</strong> The model is under-confident, hiding good answers behind a cautious label.</p></div>
-            <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 22px;"><p style="font-size: 14px; line-height: 1.65; color: #364153; margin: 0;"><strong style="color: #101828;">One field edited again and again?</strong> Its extraction rule or prompt needs work.</p></div>
+            <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 22px;"><p style="font-size: 14px; line-height: 1.65; color: #364153; margin: 0;"><strong style="color: #101828;">One field corrected again and again?</strong> Its extraction rule or prompt needs work.</p></div>
             <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 22px;"><p style="font-size: 14px; line-height: 1.65; color: #364153; margin: 0;"><strong style="color: #101828;">One dispute type driving most overrides?</strong> That category needs more domain support.</p></div>
           </div>
 
@@ -1026,19 +1028,53 @@ class Component extends DCLogic {
 
 <!-- before/after consistent sizing + Trust Loop motion (reduced-motion safe) -->
 <style>
-  .dws-cmp { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
-  .dws-cmp > div { min-width: 0; }
-  .dws-cmp img { width: 100%; height: auto; display: block; }
-  @keyframes trustSpin { to { transform: rotate(360deg); } }
-  .trustloop .loop-arc {
-    transform-origin: 210px 210px;
-    animation: trustSpin 7s linear infinite;
-  }
-  .trustloop .loop-node circle { transition: stroke 0.5s ease, fill 0.5s ease, stroke-width 0.5s ease; }
-  @media (prefers-reduced-motion: reduce) {
-    .trustloop .loop-arc { animation: none; }
-  }
-</style>
+	  .dws-cmp { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
+	  .dws-cmp > div { min-width: 0; }
+	  .dws-cmp img { width: 100%; height: auto; display: block; }
+		  .hotspot-card { border: 1px solid #E2E4E9; border-radius: 12px; background: #FBFCFE; padding: 28px 32px; }
+		  .hotspot-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; gap: 12px; flex-wrap: wrap; }
+		  .hotspot-kicker { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; }
+		  .hotspot-sample-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; color: #B54708; background: #FFFAEB; border: 1px dashed #FEDF89; border-radius: 999px; padding: 3px 10px; }
+		  .hotspot-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+		  .hotspot-matrix { min-width: 640px; }
+		  .hotspot-row { display: grid; grid-template-columns: 160px repeat(3, minmax(120px, 1fr)); gap: 6px; margin-bottom: 6px; align-items: center; }
+		  .hotspot-head { margin-bottom: 8px; }
+		  .hotspot-head > div { text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282; letter-spacing: 0.04em; }
+		  .hotspot-head > div:first-child { text-align: left; }
+		  .hotspot-label { font-size: 12.5px; font-weight: 800; color: #364153; }
+		  .hotspot-cell { position: relative; min-height: 42px; border-radius: 7px; background: rgba(21,93,252,var(--level)); overflow: hidden; opacity: 0; transform: translateY(5px) scale(0.985); animation: hotspotReveal 420ms cubic-bezier(0.23,1,0.32,1) var(--delay) forwards; }
+		  .hotspot-cell span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 0 10px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 800; letter-spacing: 0.04em; color: #FFFFFF; text-align: center; text-transform: uppercase; text-shadow: 0 1px 10px rgba(3,7,18,0.25); }
+		  .hotspot-critical::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.72); animation: hotspotPulse 1.7s cubic-bezier(0.645,0.045,0.355,1) 1s 2; pointer-events: none; }
+		  .hotspot-read { margin-top: 16px; border: 1px solid #D7E4FF; border-radius: 10px; background: #F6F9FF; padding: 12px 14px; font-size: 12.5px; line-height: 1.6; color: #4A5565; }
+		  .hotspot-read strong { color: #101828; }
+		  @keyframes hotspotReveal { to { opacity: 1; transform: translateY(0) scale(1); } }
+		  @keyframes hotspotPulse { 0%, 100% { opacity: 0; transform: scale(1); } 45% { opacity: 1; transform: scale(0.96); } }
+	  @keyframes trustSpin { to { transform: rotate(360deg); } }
+	  .trustloop .loop-arc {
+	    transform-origin: 210px 210px;
+	    animation: trustSpin 7s linear infinite;
+	  }
+	  .trustloop .loop-node circle { transition: stroke 0.5s ease, fill 0.5s ease, stroke-width 0.5s ease; }
+		  @media (prefers-reduced-motion: reduce) {
+		    .trustloop .loop-arc { animation: none; }
+		    .hotspot-cell { opacity: 1; transform: none; animation: none; }
+		    .hotspot-critical::after { animation: none; }
+		  }
+		  @media (max-width: 700px) {
+		    .hotspot-card { padding: 22px 16px; }
+		    .hotspot-card-top { align-items: flex-start; margin-bottom: 16px; }
+		    .hotspot-sample-label { border-radius: 8px; line-height: 1.5; }
+		    .hotspot-scroll { overflow-x: visible; }
+		    .hotspot-matrix { min-width: 0; width: 100%; }
+		    .hotspot-row { grid-template-columns: minmax(76px, 0.78fr) repeat(3, minmax(48px, 1fr)); gap: 5px; margin-bottom: 5px; }
+		    .hotspot-head > div { font-size: 8.5px; letter-spacing: 0.02em; line-height: 1.3; }
+		    .hotspot-label { font-size: 11px; line-height: 1.25; overflow-wrap: anywhere; }
+		    .hotspot-cell { min-height: 52px; border-radius: 6px; }
+		    .hotspot-cell span { font-size: 0; }
+		    .hotspot-cell span::after { content: attr(data-short); font-size: 8.5px; line-height: 1.2; letter-spacing: 0.04em; }
+		    .hotspot-read { margin-top: 14px; padding: 12px; font-size: 12px; }
+		  }
+		</style>
 <div id="toast" style="position: fixed; bottom: 70px; left: 50%; transform: translate(-50%, 120px); background: #15171C; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 10px 18px; border-radius: 8px; z-index: 200; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); pointer-events: none; white-space: nowrap;"></div>
 <script>
 (function(){
