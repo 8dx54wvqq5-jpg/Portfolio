@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>AI-assisted dispute intake · Abhikant Nirbhavane</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#15171C">
+  <meta name="color-scheme" content="light">
+  <style>*{touch-action:manipulation;-webkit-tap-highlight-color:transparent}    [data-tip] { position: relative; }
+    [data-tip]::after { content: attr(data-tip); position: absolute; top: 38px; left: 50%; transform: translateX(-50%) translateY(-4px); background: #15171C; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.03em; white-space: nowrap; padding: 4px 8px; border-radius: 6px; opacity: 0; pointer-events: none; transition: opacity 0.15s ease, transform 0.15s ease; box-shadow: 0 6px 18px rgba(16,24,40,0.28); z-index: 120; }
+    [data-tip]:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+<meta name="description" content="AI-assisted dispute intake at Fiserv: an LLM pre-fills dispute attributes with High/Medium/Low confidence, the agent confirms or overrides, and the audit log doubles as a product-intelligence feedback loop. AI classifies, humans confirm, every decision is auditable.">
+<link rel="icon" type="image/png" href="/assets/favicon-memoji.png">
+<link rel="apple-touch-icon" href="/assets/favicon-memoji.png">
+<link rel="canonical" href="https://abhikant.com/ai-dispute-intake">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://abhikant.com/ai-dispute-intake">
+<meta property="og:title" content="AI-assisted dispute intake">
+<meta property="og:description" content="A regulated intake redesign where AI accelerates the work without weakening human accountability: calibrated confidence, an explicit AI-to-human boundary, and an audit log that doubles as a learning loop.">
+<meta property="og:image" content="https://abhikant.com/assets/dws-hero.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://abhikant.com/assets/dws-hero.png">
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/assets/track.js"></script>
+<script defer src="/assets/zoom.js"></script>
+<!-- lottie runtime (SVG renderer) for the Trust Loop; non-defer so window.lottie is ready before support.js mounts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie_light.min.js"></script>
+<script src="./support.js"></script>
+<script defer src="/assets/leftnav.js"></script>
+<script defer src="/assets/connect.js"></script>
+<script defer src="/assets/open-pill.js"></script>
+
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+  h1, h2 { font-family: 'Fraunces', serif !important; font-weight: 600 !important; letter-spacing: -0.015em; }
+    html, body { margin: 0; padding: 0; }
+    body { background: #EDEEF0; -webkit-font-smoothing: antialiased; }
+    @keyframes pageIn { from { opacity: 0; } to { opacity: 1; } }
+    ::selection { background: #CFE0FF; }
+    a:focus-visible, [tabindex]:focus-visible, button:focus-visible { outline: 2px solid #155DFC; outline-offset: 2px; }
+    * { cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2730%27%20height%3D%2730%27%20viewBox%3D%270%200%2030%2030%27%3E%3Cpath%20d%3D%27M4%203%20L4%2021%20L9%2016.3%20L12.4%2023%20L15.4%2021.5%20L12%2014.9%20L18.4%2014.9%20Z%27%20fill%3D%27%2315171C%27%20stroke%3D%27%23fff%27%20stroke-width%3D%271.4%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E") 4 3, auto; }
+    a, button, [role="button"], [data-nav], [onclick], summary, label[for], [data-toolmsg] { cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2730%27%20height%3D%2730%27%20viewBox%3D%270%200%2030%2030%27%3E%3Cpath%20d%3D%27M4%203%20L4%2021%20L9%2016.3%20L12.4%2023%20L15.4%2021.5%20L12%2014.9%20L18.4%2014.9%20Z%27%20fill%3D%27%2315171C%27%20stroke%3D%27%23fff%27%20stroke-width%3D%271.4%27%20stroke-linejoin%3D%27round%27%2F%3E%3Ccircle%20cx%3D%2721.5%27%20cy%3D%2721.5%27%20r%3D%275%27%20fill%3D%27%23155DFC%27%20stroke%3D%27%23fff%27%20stroke-width%3D%271.3%27%2F%3E%3C%2Fsvg%3E") 4 3, pointer !important; }
+  </style>
+</helmet>
+
+<div style="font-family: Manrope, sans-serif; color: #101828; animation: pageIn 0.5s ease both; min-height: 100vh;">
+
+  <!-- ====================== TOP TOOLBAR ====================== -->
+  <div style="position: fixed; top: 0; left: 0; right: 0; height: 48px; background: #15171C; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; z-index: 100; box-sizing: border-box;">
+    <div style="display: flex; align-items: center; gap: 4px;">
+      <a href="index.html" style="width: 30px; height: 30px; border-radius: 6px; background: #155DFC; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; margin-right: 6px; text-decoration: none;" data-tip="Home">A</a>
+      <div data-toolmsg="Select tool ✦ already active. Scroll to explore." data-tip="Move" style="width: 30px; height: 30px; border-radius: 6px; background: #2A2E37; display: flex; align-items: center; justify-content: center;">
+        <svg width="14" height="14" viewBox="0 0 18 18"><polygon points="3,1 15,9 9.5,10.5 7,16" fill="#E7E9EE"></polygon></svg>
+      </div>
+      <div data-toolmsg="Comment tool ✦ the pins are decorative. Say hi from the footer." data-tip="Comment" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px;">◯</div>
+    </div>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #AEB4C0; display: flex; align-items: center; gap: 8px;">
+      <a href="/work" style="color: #6A7282; text-decoration: none;" style-hover="color: #E7E9EE;">Work</a>
+      <span style="color: #444A56;">/</span>
+      <span style="color: #E7E9EE;">AI Dispute Intake</span>
+      <span style="background: #1E3A8A; color: #93C5FD; font-size: 10px; padding: 2px 8px; border-radius: 999px;">deep dive</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span data-connect></span>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #AEB4C0; padding: 4px 6px;">100% ▾</div>
+    </div>
+  </div>
+  <div id="progress" style="position: fixed; top: 48px; left: 0; height: 2px; width: 0%; background: #155DFC; z-index: 101;"></div>
+
+  <!-- ====================== LEFT PANEL: SECTIONS ====================== -->
+  <div id="panel-left" style="position: fixed; top: 48px; left: 0; bottom: 0; width: 248px; background: #FFFFFF; border-right: 1px solid #E2E4E9; z-index: 90; overflow-y: auto; padding: 14px 0; box-sizing: border-box;">
+    <div data-leftnav="case"></div>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; padding: 4px 16px 8px;">SECTIONS</div>
+    <div data-nav="s0" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 00 · Cover</div>
+    <div data-nav="s1" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 01 · The Problem</div>
+    <div data-nav="s2" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 02 · Why Not Automate</div>
+    <div data-nav="s3" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 03 · The Model & Its Boundary</div>
+    <div data-nav="s4" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 04 · Confidence, Done Right</div>
+    <div data-nav="s5" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 05 · The Trust Boundary</div>
+    <div data-nav="s6" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 06 · Audit Log as Intelligence</div>
+    <div data-nav="s7" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 07 · Metrics This Enables</div>
+    <div data-nav="s8" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 08 · The Trust Loop & Learnings</div>
+  </div>
+
+  <!-- ====================== RIGHT PANEL: PROJECT META ====================== -->
+  <div id="panel-right" style="position: fixed; top: 48px; right: 0; bottom: 0; width: 260px; background: #FFFFFF; border-left: 1px solid #E2E4E9; z-index: 90; overflow-y: auto; box-sizing: border-box;">
+    <div style="padding: 16px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 12px;">PROJECT</div>
+      <div style="font-size: 14px; font-weight: 800; margin-bottom: 16px;">AI-assisted dispute intake</div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4A5565; display: grid; gap: 8px;">
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 8px;"><span style="color: #9AA0AC;">client</span><span>Fiserv</span></div>
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 8px;"><span style="color: #9AA0AC;">role</span><span>UX Designer</span></div>
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 8px;"><span style="color: #9AA0AC;">domain</span><span>Card disputes</span></div>
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 8px;"><span style="color: #9AA0AC;">focus</span><span style="color: #155DFC;">AI &amp; trust</span></div>
+        <div style="display: flex; justify-content: space-between;"><span style="color: #9AA0AC;">part of</span><span style="color: #155DFC;">DWS</span></div>
+      </div>
+      <div style="height: 1px; background: #ECEDF1; margin: 16px 0;"></div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 12px;">THE PRINCIPLE</div>
+      <div style="border: 1px solid #ECEDF1; border-radius: 8px; padding: 14px;">
+        <div style="font-size: 13px; font-weight: 700; line-height: 1.5; color: #101828;">AI classifies. Humans confirm. Every decision is auditable.</div>
+      </div>
+      <div style="height: 1px; background: #ECEDF1; margin: 16px 0;"></div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 10px;">FULL CONTEXT</div>
+      <a href="/dispute-workspace" style="display: block; border: 1px solid #ECEDF1; border-radius: 8px; padding: 12px; text-decoration: none; color: #101828;" style-hover="border-color: #155DFC;">
+        <div style="font-size: 13px; font-weight: 800; margin-bottom: 2px;">Disputes Workspace →</div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">the full product redesign</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ====================== CANVAS ====================== -->
+  <div id="canvas" style="margin: 48px 260px 0 248px; padding: 56px 48px 80px; background-image: radial-gradient(#D9DBE0 1px, transparent 1px); background-size: 24px 24px; min-height: calc(100vh - 48px); box-sizing: border-box;">
+    <div style="max-width: 1080px; margin: 0 auto;">
+
+      <!-- 00 · COVER -->
+      <section id="s0" data-frame="s0" data-screen-label="AI Intake / Cover">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 00 · Cover</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
+          <div style="padding: 72px 64px 56px;">
+            <div data-reveal="0" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #155DFC;">DEEP DIVE · FISERV</span>
+              <span style="display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #155DFC; background: #EFF6FF; border: 1px solid #D6E4FF; border-radius: 999px; padding: 3px 10px;">AI &amp; HUMAN ACCOUNTABILITY</span>
+            </div>
+            <a data-reveal="0" href="/dispute-workspace" style="display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282; text-decoration: none; margin-bottom: 22px;" style-hover="color: #155DFC;">
+              <span style="color: #9AA0AC;">↖</span> Part of the Disputes Workspace redesign
+            </a>
+            <h1 data-reveal="1" style="font-size: 48px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 22px; max-width: 20ch; text-wrap: pretty;">AI-assisted dispute intake</h1>
+            <p data-reveal="2" style="font-size: 18px; line-height: 1.65; color: #101828; font-weight: 600; margin: 0 0 18px; max-width: 60ch;">I redesigned a regulated workflow so AI could accelerate intake without weakening human accountability.</p>
+            <p data-reveal="2" style="font-size: 16px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 64ch;">Disputes GPT is an LLM-assisted intake experience inside Fiserv's Disputes Workspace. The model pre-fills the attributes of a dispute, every field carries a plain confidence cue, and the agent accepts, edits, or overrides each one. Behind it, an audit log records every AI and human decision, which is what made the design defensible under FCBA and Reg E, and what turned a brand-new feature into something the team could learn from.</p>
+          </div>
+          <div data-reveal="2" style="padding: 4px 64px 0;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; border-top: 1px solid #ECEDF1; padding-top: 32px;">
+              <div style="border-left: 2px solid #155DFC; padding-left: 18px;"><div style="font-size: clamp(22px, 3vw, 28px); font-weight: 800; letter-spacing: -0.02em; color: #101828; line-height: 1.1;">AI classifies</div><div style="font-size: 12px; font-weight: 500; color: #6A7282; margin-top: 9px; line-height: 1.45;">Pre-fills the dispute attributes per case</div></div>
+              <div style="border-left: 2px solid #155DFC; padding-left: 18px;"><div style="font-size: clamp(22px, 3vw, 28px); font-weight: 800; letter-spacing: -0.02em; color: #101828; line-height: 1.1;">Humans confirm</div><div style="font-size: 12px; font-weight: 500; color: #6A7282; margin-top: 9px; line-height: 1.45;">Accept, edit, or override every field</div></div>
+              <div style="border-left: 2px solid #155DFC; padding-left: 18px;"><div style="font-size: clamp(22px, 3vw, 28px); font-weight: 800; letter-spacing: -0.02em; color: #101828; line-height: 1.1;">Always auditable</div><div style="font-size: 12px; font-weight: 500; color: #6A7282; margin-top: 9px; line-height: 1.45;">Every decision recorded and traceable</div></div>
+            </div>
+          </div>
+          <!-- Hero motif: calm system diagram, not a robot -->
+          <div data-reveal="2" style="padding: 36px 64px 64px;">
+            <div style="border: 1px solid #E2E4E9; border-radius: 12px; background: linear-gradient(180deg, #FBFCFE 0%, #F4F7FC 100%); padding: 40px; overflow: hidden;">
+              <svg viewBox="0 0 760 240" role="img" aria-label="A calm system diagram: plain-language dispute flows into an AI suggestion with a confidence cue, a human decision, and an audit record." style="display: block; width: 100%; height: auto; overflow: visible;">
+                <defs>
+                  <linearGradient id="heroAi" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#EFF6FF"/><stop offset="1" stop-color="#DCEAFE"/></linearGradient>
+                  <marker id="heroArrow" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto"><path d="M1 1 L7 4.5 L1 8" fill="none" stroke="#9AA8C0" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></marker>
+                </defs>
+                <!-- plain language input -->
+                <rect x="8" y="86" width="150" height="68" rx="10" fill="#FFFFFF" stroke="#E2E4E9"/>
+                <text x="24" y="112" font-family="'JetBrains Mono', monospace" font-size="10" fill="#9AA0AC">PLAIN LANGUAGE</text>
+                <text x="24" y="132" font-family="Manrope, sans-serif" font-size="12" font-weight="700" fill="#364153">"Charged twice</text>
+                <text x="24" y="147" font-family="Manrope, sans-serif" font-size="12" font-weight="700" fill="#364153">for one ride."</text>
+                <line x1="158" y1="120" x2="206" y2="120" stroke="#9AA8C0" stroke-width="1.4" marker-end="url(#heroArrow)"/>
+                <!-- AI suggestion -->
+                <rect x="208" y="74" width="176" height="92" rx="10" fill="url(#heroAi)" stroke="#C7DCFF"/>
+                <text x="226" y="100" font-family="'JetBrains Mono', monospace" font-size="10" fill="#155DFC">AI SUGGESTS</text>
+                <text x="226" y="122" font-family="Manrope, sans-serif" font-size="13" font-weight="800" fill="#101828">Duplicate charge</text>
+                <g transform="translate(226,134)">
+                  <rect x="0" y="0" width="58" height="18" rx="9" fill="#E7F5EF" stroke="#B6E3D0"/>
+                  <circle cx="11" cy="9" r="3" fill="#009966"/>
+                  <text x="20" y="13" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="600" fill="#047857">HIGH</text>
+                </g>
+                <line x1="384" y1="120" x2="432" y2="120" stroke="#9AA8C0" stroke-width="1.4" marker-end="url(#heroArrow)"/>
+                <!-- human decision -->
+                <rect x="434" y="74" width="160" height="92" rx="10" fill="#FFFFFF" stroke="#A7E8C6"/>
+                <text x="452" y="100" font-family="'JetBrains Mono', monospace" font-size="10" fill="#047857">HUMAN DECIDES</text>
+                <text x="452" y="122" font-family="Manrope, sans-serif" font-size="13" font-weight="800" fill="#101828">Accept · Edit</text>
+                <text x="452" y="139" font-family="Manrope, sans-serif" font-size="13" font-weight="800" fill="#101828">· Override</text>
+                <text x="452" y="156" font-family="Manrope, sans-serif" font-size="10.5" fill="#6A7282">the agent owns it</text>
+                <line x1="594" y1="120" x2="642" y2="120" stroke="#9AA8C0" stroke-width="1.4" marker-end="url(#heroArrow)"/>
+                <!-- audit record -->
+                <rect x="644" y="86" width="108" height="68" rx="10" fill="#15171C"/>
+                <text x="662" y="112" font-family="'JetBrains Mono', monospace" font-size="10" fill="#7AA5FF">AUDIT LOG</text>
+                <line x1="662" y1="124" x2="734" y2="124" stroke="#3A3F4A" stroke-width="1"/>
+                <line x1="662" y1="134" x2="724" y2="134" stroke="#3A3F4A" stroke-width="1"/>
+                <line x1="662" y1="144" x2="730" y2="144" stroke="#3A3F4A" stroke-width="1"/>
+                <!-- feedback arc back to AI -->
+                <path d="M698 86 C698 28, 296 28, 296 70" fill="none" stroke="#C7DCFF" stroke-width="1.4" stroke-dasharray="4 5" marker-end="url(#heroArrow)"/>
+                <text x="430" y="30" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#7AA5FF" text-anchor="middle">every override feeds the next improvement</text>
+              </svg>
+            </div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 12px;">the whole idea in one line: plain language in, an AI suggestion with a confidence cue, a human decision, an audit record, and a loop back to a better model</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 01 · THE PROBLEM -->
+      <section id="s1" data-frame="s1" data-screen-label="AI Intake / The Problem" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 01 · The Problem</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">Intake was manual, error-prone, and impossible to trace</h2>
+          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 16px; max-width: 70ch;">Every dispute starts with intake. An agent listens to a cardholder, decides what kind of dispute it is, and types in the details by hand. They do this while the customer waits on the line, against FCBA and Reg E clocks, holding 30 to 50 open cases at once. It is the highest-pressure, lowest-margin moment in the whole lifecycle, and it sets everything downstream.</p>
+          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 70ch;">A wrong turn here does not fail loudly. A misclassified dispute clears intake, sits in the wrong queue, and resurfaces weeks later as a missed regulatory deadline. By then the bank eats the loss, the cardholder is still out their money, and a reviewer is reconstructing what happened from notes that never quite agreed.</p>
+
+          <div data-reveal="1" style="margin: 0 0 32px; border: 1px solid #FECDCA; background: #FFFBFA; border-radius: 10px; padding: 24px 28px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #B42318; margin-bottom: 10px;">THE REAL DEBT</div>
+            <p style="font-size: 15.5px; line-height: 1.7; color: #364153; margin: 0; max-width: 72ch;">This was not a speed problem dressed up as a compliance problem. It was the reverse. The decisions made at intake were invisible: who decided what, on what basis, and where the judgment came from. In a regulated workflow, a decision you cannot reconstruct is a liability, no matter how fast you reached it.</p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+            <div data-reveal="1" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #D92D20; margin-bottom: 10px;">DEBT 01</div>
+              <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 8px;">Manual classification</h3>
+              <p style="font-size: 14px; line-height: 1.65; color: #4A5565; margin: 0;">Agents read the dispute and chose a type from memory, under time pressure, with no second pair of eyes.</p>
+            </div>
+            <div data-reveal="2" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #D92D20; margin-bottom: 10px;">DEBT 02</div>
+              <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 8px;">Errors surface late</h3>
+              <p style="font-size: 14px; line-height: 1.65; color: #4A5565; margin: 0;">A small mistake at intake compounds quietly downstream, where it is expensive to find and slow to correct.</p>
+            </div>
+            <div data-reveal="3" style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 24px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #D92D20; margin-bottom: 10px;">DEBT 03</div>
+              <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 8px;">No trace of the decision</h3>
+              <p style="font-size: 14px; line-height: 1.65; color: #4A5565; margin: 0;">When a reviewer asked why a case was handled a certain way, the answer lived in someone's head, not in the system.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 · WHY NOT JUST AUTOMATE -->
+      <section id="s2" data-frame="s2" data-screen-label="AI Intake / Why Not Automate" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 02 · Why Not Just Automate</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">A fast answer with no visible reason is an answer no one uses</h2>
+          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 16px; max-width: 70ch;">The obvious move was to automate intake outright. Let the model read the dispute, classify it, fill the fields, and move on. We rejected that, and the reason is the whole point of this case study.</p>
+          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 70ch;">Picture the trust-breaking moment. The model returns a classification in under a second. It is probably right. But the agent has no way to see what it read, why it landed there, or how sure it is. So the agent does the only safe thing under a regulatory clock: they ignore it and start over by hand. A suggestion you cannot inspect is a suggestion you cannot defend, and in this domain that means it gets thrown away.</p>
+
+          <div data-reveal="1" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 0 0 32px;">
+            <div style="background: #FFF7ED; border: 1px solid #FED7AA; border-radius: 10px; padding: 24px 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #C2410C; margin-bottom: 10px;">⚡ THE TENSION</div>
+              <p style="font-size: 14.5px; line-height: 1.65; color: #364153; margin: 0;">Automate the decision and agents stop trusting the system. Hold every case for full manual review and the speed gain disappears. Push the model harder and you take accountability away from the person the regulator holds responsible.</p>
+            </div>
+            <div style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 10px; padding: 24px 28px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #15803D; margin-bottom: 10px;">✅ THE BET</div>
+              <p style="font-size: 14.5px; line-height: 1.65; color: #364153; margin: 0;">Design for calibrated trust. Trust the AI when it is right, review when it is uncertain, override when it is wrong, and make the boundary between AI and human explicit at every step. The human in the loop is not a concession. It is the design.</p>
+            </div>
+          </div>
+
+          <div data-reveal="2" style="border-left: 3px solid #155DFC; padding: 4px 0 4px 24px;">
+            <p style="font-size: 19px; line-height: 1.55; font-weight: 600; color: #101828; margin: 0 0 8px;">Pure automation optimizes for the wrong thing. In regulated work, the goal is not to remove the human. It is to make the human faster and more sure, with a record of why.</p>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC;">the design bet that shaped everything after it</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 · THE AI MODEL & ITS BOUNDARY  (DEVICE A) -->
+      <section id="s3" data-frame="s3" data-screen-label="AI Intake / Model & Boundary" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 03 · The Model &amp; Its Boundary</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">What the AI does, and the line it never crosses</h2>
+          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 70ch;">The model reads the dispute in plain language and pre-fills the attributes of the case: the amount, the date, the merchant, the dispute type, and the rest. Each populated field carries its own confidence. From there the agent takes over. The closed loop below is the spine of the whole system, and the order matters.</p>
+
+          <!-- DEVICE A: 6-step closed loop, inline SVG -->
+          <div data-reveal="1" style="border: 1px solid #E2E4E9; border-radius: 12px; background: linear-gradient(180deg, #FBFCFE 0%, #F5F8FC 100%); padding: 36px 32px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; margin-bottom: 18px;">DEVICE A · THE CLOSED LOOP</div>
+            <svg viewBox="0 0 920 300" role="img" aria-label="The closed loop, six steps: AI suggests a value, the agent sees the confidence, the agent accepts, edits, or overrides, the audit log captures the interaction, the product team analyzes patterns, and prompts, rules, and UX improve, feeding back to a more trustworthy AI." style="display: block; width: 100%; height: auto; overflow: visible;">
+              <defs>
+                <linearGradient id="aBlue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#EFF6FF"/><stop offset="1" stop-color="#DCEAFE"/></linearGradient>
+                <marker id="aArrow" markerWidth="10" markerHeight="10" refX="6.5" refY="5" orient="auto"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#9AA8C0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+              </defs>
+              <!-- Row 1: steps 1,2,3 -->
+              <g>
+                <rect x="8" y="20" width="270" height="92" rx="12" fill="url(#aBlue)" stroke="#C7DCFF"/>
+                <circle cx="34" cy="46" r="13" fill="#155DFC"/><text x="34" y="50" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#FFFFFF">1</text>
+                <text x="56" y="44" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#155DFC">AI</text>
+                <text x="56" y="64" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#101828">AI suggests a value</text>
+                <text x="26" y="90" font-family="Manrope, sans-serif" font-size="12" fill="#4A5565">The model pre-fills each dispute attribute</text>
+                <text x="26" y="105" font-family="Manrope, sans-serif" font-size="12" fill="#4A5565">from the plain-language description.</text>
+              </g>
+              <line x1="278" y1="66" x2="322" y2="66" stroke="#9AA8C0" stroke-width="1.5" marker-end="url(#aArrow)"/>
+              <g>
+                <rect x="324" y="20" width="270" height="92" rx="12" fill="url(#aBlue)" stroke="#C7DCFF"/>
+                <circle cx="350" cy="46" r="13" fill="#155DFC"/><text x="350" y="50" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#FFFFFF">2</text>
+                <text x="372" y="44" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#155DFC">AI</text>
+                <text x="372" y="64" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#101828">Agent sees confidence</text>
+                <text x="342" y="90" font-family="Manrope, sans-serif" font-size="12" fill="#4A5565">Each field shows a High, Medium, or Low</text>
+                <text x="342" y="105" font-family="Manrope, sans-serif" font-size="12" fill="#4A5565">cue, paired with a next step.</text>
+              </g>
+              <line x1="594" y1="66" x2="638" y2="66" stroke="#9AA8C0" stroke-width="1.5" marker-end="url(#aArrow)"/>
+              <g>
+                <rect x="640" y="20" width="272" height="92" rx="12" fill="#FFFFFF" stroke="#A7E8C6"/>
+                <circle cx="666" cy="46" r="13" fill="#047857"/><text x="666" y="50" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#FFFFFF">3</text>
+                <text x="688" y="44" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#047857">HUMAN</text>
+                <text x="688" y="64" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#101828">Accept, edit, override</text>
+                <text x="658" y="90" font-family="Manrope, sans-serif" font-size="12" fill="#4A5565">The agent decides on each field. Overrides</text>
+                <text x="658" y="105" font-family="Manrope, sans-serif" font-size="12" fill="#4A5565">are documented, not silent.</text>
+              </g>
+              <!-- down connector on the right -->
+              <path d="M776 112 L776 150" fill="none" stroke="#9AA8C0" stroke-width="1.5" marker-end="url(#aArrow)"/>
+              <!-- Row 2: steps 4,5,6 (right to left) -->
+              <g>
+                <rect x="640" y="158" width="272" height="92" rx="12" fill="#15171C"/>
+                <circle cx="666" cy="184" r="13" fill="#7AA5FF"/><text x="666" y="188" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#15171C">4</text>
+                <text x="688" y="182" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#7AA5FF">AUDIT</text>
+                <text x="688" y="202" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#FFFFFF">Audit log captures it</text>
+                <text x="658" y="228" font-family="Manrope, sans-serif" font-size="12" fill="#AEB4C0">Suggestion, confidence, action, final value,</text>
+                <text x="658" y="243" font-family="Manrope, sans-serif" font-size="12" fill="#AEB4C0">timestamp, reason: all recorded.</text>
+              </g>
+              <line x1="640" y1="204" x2="596" y2="204" stroke="#9AA8C0" stroke-width="1.5" marker-end="url(#aArrow)"/>
+              <g>
+                <rect x="324" y="158" width="270" height="92" rx="12" fill="#FFFFFF" stroke="#E2E4E9"/>
+                <circle cx="350" cy="184" r="13" fill="#364153"/><text x="350" y="188" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#FFFFFF">5</text>
+                <text x="372" y="182" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#6A7282">PRODUCT</text>
+                <text x="372" y="202" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#101828">Patterns get analyzed</text>
+                <text x="342" y="228" font-family="Manrope, sans-serif" font-size="12" fill="#4A5565">The team reads the log for weak fields,</text>
+                <text x="342" y="243" font-family="Manrope, sans-serif" font-size="12" fill="#4A5565">dispute types, and confidence bands.</text>
+              </g>
+              <line x1="324" y1="204" x2="280" y2="204" stroke="#9AA8C0" stroke-width="1.5" marker-end="url(#aArrow)"/>
+              <g>
+                <rect x="8" y="158" width="270" height="92" rx="12" fill="#FFFFFF" stroke="#E2E4E9"/>
+                <circle cx="34" cy="184" r="13" fill="#364153"/><text x="34" y="188" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#FFFFFF">6</text>
+                <text x="56" y="182" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#6A7282">IMPROVE</text>
+                <text x="56" y="202" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#101828">Prompts &amp; UX improve</text>
+                <text x="26" y="228" font-family="Manrope, sans-serif" font-size="12" fill="#4A5565">Extraction logic, rules, and the interface</text>
+                <text x="26" y="243" font-family="Manrope, sans-serif" font-size="12" fill="#4A5565">are tuned. The product gets more trustworthy.</text>
+              </g>
+              <!-- loop back arrow from step 6 up to step 1 -->
+              <path d="M143 158 L143 112" fill="none" stroke="#155DFC" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#aArrow)"/>
+              <text x="152" y="138" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#155DFC">loops back</text>
+            </svg>
+          </div>
+
+          <div data-reveal="2" style="margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div style="border: 1px solid #C7DCFF; background: #EFF6FF; border-radius: 10px; padding: 20px 24px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; margin-bottom: 8px;">WHERE AI ACTS</div>
+              <p style="font-size: 14.5px; line-height: 1.65; color: #364153; margin: 0;">Reading, extracting, classifying, and showing how confident it is. Steps 1 and 2. The model proposes. It never disposes.</p>
+            </div>
+            <div style="border: 1px solid #A7E8C6; background: #F0FDF4; border-radius: 10px; padding: 20px 24px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #047857; margin-bottom: 8px;">WHERE THE HUMAN ACTS</div>
+              <p style="font-size: 14.5px; line-height: 1.65; color: #364153; margin: 0;">Deciding. Step 3 is the boundary. Every field is the agent's call, and the audit log records that it was theirs.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 · CONFIDENCE DONE RIGHT  (DEVICE B + recreated intake screen) -->
+      <section id="s4" data-frame="s4" data-screen-label="AI Intake / Confidence" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 04 · Confidence, Done Right</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">A number tells you nothing. A label tells you what to do.</h2>
+          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 16px; max-width: 70ch;">The first version showed raw percentages. "85% confident." It read precise, and it failed in practice. A probability gives an agent no instruction. Worse, a high-looking number invited automation bias: people accepted "85%" without checking, even when the underlying field was wrong.</p>
+          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 70ch;">I replaced the number with a plain confidence headline, and paired each level with a next step. The reader engages the reasoning before they ever reach a score. The raw value is still available for anyone who wants it, but it is de-emphasized on purpose.</p>
+
+          <!-- DEVICE B: confidence tiering progression -->
+          <div data-reveal="1" style="border: 1px solid #E2E4E9; border-radius: 12px; background: #FBFCFE; padding: 32px; margin-bottom: 40px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; margin-bottom: 20px;">DEVICE B · HEADLINE FIRST, EVIDENCE NEXT, RAW SCORE LAST</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+              <!-- HIGH -->
+              <div style="border: 1px solid #B6E3D0; border-radius: 10px; overflow: hidden; background: #FFFFFF;">
+                <div style="background: #E7F5EF; padding: 14px 18px; display: flex; align-items: center; gap: 8px;">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: #009966; display: block;"></span>
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: #047857; letter-spacing: 0.04em;">HIGH</span>
+                </div>
+                <div style="padding: 16px 18px;">
+                  <div style="font-size: 13.5px; font-weight: 800; color: #101828; margin-bottom: 8px;">Review and accept</div>
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 4px;">EVIDENCE</div>
+                  <div style="font-size: 12.5px; line-height: 1.6; color: #4A5565; margin-bottom: 12px;">Amount and date matched the cardholder's own words exactly.</div>
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #C9CDD6;">raw · 0.91</div>
+                </div>
+              </div>
+              <!-- MEDIUM -->
+              <div style="border: 1px solid #FEDF89; border-radius: 10px; overflow: hidden; background: #FFFFFF;">
+                <div style="background: #FFFAEB; padding: 14px 18px; display: flex; align-items: center; gap: 8px;">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: #B54708; display: block;"></span>
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: #B54708; letter-spacing: 0.04em;">MEDIUM</span>
+                </div>
+                <div style="padding: 16px 18px;">
+                  <div style="font-size: 13.5px; font-weight: 800; color: #101828; margin-bottom: 8px;">Verify before continuing</div>
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 4px;">EVIDENCE</div>
+                  <div style="font-size: 12.5px; line-height: 1.6; color: #4A5565; margin-bottom: 12px;">Merchant name is close but not an exact match to a known biller.</div>
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #C9CDD6;">raw · 0.64</div>
+                </div>
+              </div>
+              <!-- LOW -->
+              <div style="border: 1px solid #FECDCA; border-radius: 10px; overflow: hidden; background: #FFFFFF;">
+                <div style="background: #FEF3F2; padding: 14px 18px; display: flex; align-items: center; gap: 8px;">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: #D92D20; display: block;"></span>
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: #D92D20; letter-spacing: 0.04em;">LOW</span>
+                </div>
+                <div style="padding: 16px 18px;">
+                  <div style="font-size: 13.5px; font-weight: 800; color: #101828; margin-bottom: 8px;">Manual review recommended</div>
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC; margin-bottom: 4px;">EVIDENCE</div>
+                  <div style="font-size: 12.5px; line-height: 1.6; color: #4A5565; margin-bottom: 12px;">The description supports more than one dispute type.</div>
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #C9CDD6;">raw · 0.38</div>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top: 18px; padding-top: 16px; border-top: 1px dashed #E2E4E9; font-size: 13px; line-height: 1.6; color: #6A7282;">The progression is deliberate: <strong style="color: #364153;">the headline</strong> says what to do, <strong style="color: #364153;">the evidence</strong> says why, and <strong style="color: #364153;">the raw score</strong> sits last, for the rare reader who wants it. Action over precision.</div>
+          </div>
+
+          <!-- RECREATED SCREEN 1: AI intake form with per-field confidence chips -->
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding-top: 36px;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC;">RECREATED SCREEN</div>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; color: #6A7282; background: #F4F5F7; border: 1px solid #E2E4E9; border-radius: 999px; padding: 2px 8px;">illustrative rebuild</span>
+            </div>
+            <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">The intake screen: every AI field wears its confidence</h3>
+            <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 24px; max-width: 70ch;">The agent describes the dispute in plain language. The model pre-fills the attributes, and each one carries its own confidence chip, so the agent knows at a glance which values to accept and which to check. Nothing is committed until the agent decides.</p>
+
+            <!-- mockup frame -->
+            <div style="border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 12px 28px -16px rgba(16,24,40,0.22); background: #F7F8FA;">
+              <!-- window chrome -->
+              <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; background: #FFFFFF; border-bottom: 1px solid #ECEDF1;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC;">Cases / New dispute / Intake</span>
+                </div>
+                <span style="display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #155DFC; background: #EFF6FF; border: 1px solid #D6E4FF; border-radius: 999px; padding: 3px 9px;"><svg width="10" height="10" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="none" stroke="#155DFC" stroke-width="1.5"/><circle cx="8" cy="8" r="2" fill="#155DFC"/></svg> AI-assisted</span>
+              </div>
+              <div style="padding: 22px; display: grid; grid-template-columns: 1fr; gap: 16px;">
+                <!-- plain language box -->
+                <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 10px; padding: 16px 18px;">
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: #9AA0AC; margin-bottom: 8px;">CARDHOLDER'S DESCRIPTION</div>
+                  <div style="font-size: 14px; line-height: 1.6; color: #101828;">"I was charged $47.50 twice for the same Uber ride on March 3rd. I only took one trip."</div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: #155DFC;">AI PRE-FILLED 6 FIELDS</span>
+                  <span style="flex: 1; height: 1px; background: #ECEDF1; display: block;"></span>
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">accept all · review each</span>
+                </div>
+
+                <!-- field rows -->
+                <div style="display: grid; gap: 10px;">
+                  <!-- field: dispute type -->
+                  <div style="background: #FFFFFF; border: 1px solid #C7DCFF; border-radius: 10px; padding: 14px 16px; display: grid; grid-template-columns: 150px 1fr auto; gap: 14px; align-items: center;">
+                    <div style="font-size: 12.5px; font-weight: 700; color: #6A7282;">Dispute type</div>
+                    <div style="font-size: 14px; font-weight: 700; color: #101828;">Duplicate charge</div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <span style="background: #E7F5EF; color: #047857; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; padding: 4px 9px; border-radius: 999px;">HIGH</span>
+                      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC;">Accept</span>
+                    </div>
+                  </div>
+                  <!-- field: amount -->
+                  <div style="background: #FFFFFF; border: 1px solid #C7DCFF; border-radius: 10px; padding: 14px 16px; display: grid; grid-template-columns: 150px 1fr auto; gap: 14px; align-items: center;">
+                    <div style="font-size: 12.5px; font-weight: 700; color: #6A7282;">Disputed amount</div>
+                    <div style="font-size: 14px; font-weight: 700; color: #101828; font-variant-numeric: tabular-nums;">$47.50</div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <span style="background: #E7F5EF; color: #047857; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; padding: 4px 9px; border-radius: 999px;">HIGH</span>
+                      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC;">Accept</span>
+                    </div>
+                  </div>
+                  <!-- field: date -->
+                  <div style="background: #FFFFFF; border: 1px solid #C7DCFF; border-radius: 10px; padding: 14px 16px; display: grid; grid-template-columns: 150px 1fr auto; gap: 14px; align-items: center;">
+                    <div style="font-size: 12.5px; font-weight: 700; color: #6A7282;">Transaction date</div>
+                    <div style="font-size: 14px; font-weight: 700; color: #101828; font-variant-numeric: tabular-nums;">Mar 3, 2026</div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <span style="background: #E7F5EF; color: #047857; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; padding: 4px 9px; border-radius: 999px;">HIGH</span>
+                      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC;">Accept</span>
+                    </div>
+                  </div>
+                  <!-- field: merchant (medium, expanded) -->
+                  <div style="background: #FFFDF7; border: 1px solid #FEDF89; border-radius: 10px; padding: 14px 16px;">
+                    <div style="display: grid; grid-template-columns: 150px 1fr auto; gap: 14px; align-items: center;">
+                      <div style="font-size: 12.5px; font-weight: 700; color: #6A7282;">Merchant</div>
+                      <div style="font-size: 14px; font-weight: 700; color: #101828;">Uber Technologies</div>
+                      <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="background: #FFFAEB; color: #B54708; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; padding: 4px 9px; border-radius: 999px;">MEDIUM</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #B54708;">Verify</span>
+                      </div>
+                    </div>
+                    <!-- expanded reasoning (recreated confidence detail) -->
+                    <div style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed #FEDF89; display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start;">
+                      <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #B54708; background: #FFFAEB; border: 1px solid #FEDF89; border-radius: 6px; padding: 4px 7px;">WHY MEDIUM</span>
+                      <div style="font-size: 12.5px; line-height: 1.6; color: #4A5565;">The descriptor reads <strong style="color: #101828;">"UBER&nbsp;*TRIP&nbsp;HELP.UBER.CO"</strong>, which maps to Uber but is not an exact biller match. Confirm the merchant before the duplicate-charge rule applies. <span style="font-family: 'JetBrains Mono', monospace; color: #C9CDD6;">raw · 0.64</span></div>
+                    </div>
+                  </div>
+                  <!-- field: card network (low) -->
+                  <div style="background: #FFFCFC; border: 1px solid #FECDCA; border-radius: 10px; padding: 14px 16px; display: grid; grid-template-columns: 150px 1fr auto; gap: 14px; align-items: center;">
+                    <div style="font-size: 12.5px; font-weight: 700; color: #6A7282;">Sub-reason code</div>
+                    <div style="font-size: 14px; font-weight: 700; color: #101828;">10.4 vs 12.6.1 <span style="font-weight: 500; color: #9AA0AC; font-size: 12.5px;">(ambiguous)</span></div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <span style="background: #FEF3F2; color: #D92D20; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; padding: 4px 9px; border-radius: 999px;">LOW</span>
+                      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #D92D20;">Override</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- footer actions -->
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">3 high · 1 medium · 1 low · agent reviews each</div>
+                  <div style="display: flex; gap: 8px;">
+                    <span style="background: #FFFFFF; color: #4A5565; border: 1px solid #D5D8DF; border-radius: 6px; padding: 8px 14px; font-size: 12px; font-weight: 700;">Edit details</span>
+                    <span style="background: #155DFC; color: #FFFFFF; border-radius: 6px; padding: 8px 14px; font-size: 12px; font-weight: 700;">Confirm intake</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 12px;">recreated intake screen: per-field High / Medium / Low chips, one field expanded to show the evidence behind its level, and a confirm step the agent owns</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 · THE TRUST BOUNDARY -->
+      <section id="s5" data-frame="s5" data-screen-label="AI Intake / Trust Boundary" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 05 · The Trust Boundary</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">Three actors, one clear line of accountability</h2>
+          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 70ch;">"Human in the loop" is easy to say and easy to fudge. To hold up under a regulatory review, the boundary has to be explicit: who assists, who automates the already-approved, and who actually decides. Here is the split.</p>
+
+          <div data-reveal="1" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 32px;">
+            <div style="border: 1px solid #C7DCFF; border-radius: 10px; overflow: hidden;">
+              <div style="background: #EFF6FF; padding: 16px 20px; border-bottom: 1px solid #C7DCFF;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: #155DFC; margin-bottom: 4px;">ASSISTS</div>
+                <div style="font-size: 16px; font-weight: 800; color: #101828;">The AI</div>
+              </div>
+              <div style="padding: 18px 20px;">
+                <p style="font-size: 13.5px; line-height: 1.65; color: #4A5565; margin: 0;">Reads the dispute, extracts the attributes, classifies, and shows its confidence. It assists the judgment calls. It never closes one.</p>
+              </div>
+            </div>
+            <div style="border: 1px solid #E2E4E9; border-radius: 10px; overflow: hidden;">
+              <div style="background: #F7F8FA; padding: 16px 20px; border-bottom: 1px solid #E2E4E9;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: #6A7282; margin-bottom: 4px;">AUTOMATES</div>
+                <div style="font-size: 16px; font-weight: 800; color: #101828;">The rules</div>
+              </div>
+              <div style="padding: 18px 20px;">
+                <p style="font-size: 13.5px; line-height: 1.65; color: #4A5565; margin: 0;">Rule-bound automation handles the approved, repetitive actions a human already signed off on. Deterministic, bounded, and never a judgment call in disguise.</p>
+              </div>
+            </div>
+            <div style="border: 1px solid #A7E8C6; border-radius: 10px; overflow: hidden;">
+              <div style="background: #F0FDF4; padding: 16px 20px; border-bottom: 1px solid #A7E8C6;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: #047857; margin-bottom: 4px;">DECIDES</div>
+                <div style="font-size: 16px; font-weight: 800; color: #101828;">The human</div>
+              </div>
+              <div style="padding: 18px 20px;">
+                <p style="font-size: 13.5px; line-height: 1.65; color: #4A5565; margin: 0;">Owns every judgment. The agent accepts, edits, or overrides, and that decision is theirs on the record. The regulator holds a person accountable, so a person decides.</p>
+              </div>
+            </div>
+          </div>
+
+          <div data-reveal="2" style="background: #15171C; border-radius: 10px; padding: 24px 28px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #7AA5FF; margin-bottom: 10px;">THE BOUNDARY, IN ONE SENTENCE</div>
+            <p style="font-size: 15.5px; line-height: 1.7; color: #E7E9EE; margin: 0;">AI assists the judgment calls, rule-bound automation handles the approved repetitive actions, the human owns every judgment, and the audit log records who decided what. The boundary between the three is always explicit, never blurred to make a demo look smarter.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 · THE AUDIT LOG AS PRODUCT INTELLIGENCE  (DEVICE C + recreated audit table) -->
+      <section id="s6" data-frame="s6" data-screen-label="AI Intake / Audit as Intelligence" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 06 · The Audit Log as Product Intelligence</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <div data-reveal="0" style="display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; background: #EFF6FF; border: 1px solid #D6E4FF; border-radius: 999px; padding: 4px 12px; margin-bottom: 16px;">★ THE HERO IDEA</div>
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">The audit log was built to do two jobs at once</h2>
+          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 16px; max-width: 70ch;">Compliance needed a record: who decided what, on what basis, when. That much was a requirement. But because the AI intake was a brand-new feature, there was no historical baseline to measure it against. There were no past accuracy numbers, no prior override rates, nothing to compare to.</p>
+          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 70ch;">So I designed the audit log to be the measurement instrument itself. The same record that satisfies a regulator also tells the product team where the AI was trusted, corrected, or overconfident. Every override stops being just a correction and becomes a signal.</p>
+
+          <!-- DEVICE C: before/after audit visibility -->
+          <div data-reveal="1" class="dws-cmp" style="margin-bottom: 32px;">
+            <!-- BEFORE -->
+            <div style="border: 1px solid #FECDCA; border-radius: 12px; overflow: hidden; background: #FFFBFA;">
+              <div style="padding: 14px 18px; border-bottom: 1px solid #FECDCA; display: flex; align-items: center; gap: 8px;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: #B42318;">BEFORE · LEGACY NOTES</span>
+              </div>
+              <div style="padding: 20px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282; line-height: 1.9;">
+                <div style="color: #98A2B3;">// free-text note</div>
+                <div style="color: #4A5565;">"classified as dup, looked right"</div>
+                <div style="height: 10px;"></div>
+                <div style="color: #98A2B3;">// free-text note</div>
+                <div style="color: #4A5565;">"changed type, see email"</div>
+                <div style="height: 10px;"></div>
+                <div style="color: #98A2B3;">// no note</div>
+              </div>
+              <div style="padding: 14px 18px; border-top: 1px solid #FECDCA; background: #FFF5F4; font-size: 12.5px; line-height: 1.6; color: #B42318;">No way to reconstruct who decided what, or why. Not traceable. Not measurable.</div>
+            </div>
+            <!-- AFTER -->
+            <div style="border: 1px solid #A7E8C6; border-radius: 12px; overflow: hidden; background: #FFFFFF;">
+              <div style="padding: 14px 18px; border-bottom: 1px solid #A7E8C6; display: flex; align-items: center; gap: 8px;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: #047857;">AFTER · STRUCTURED LOG</span>
+              </div>
+              <div style="padding: 20px; display: grid; gap: 8px; font-size: 12px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                  <div><span style="color: #9AA0AC; font-family: 'JetBrains Mono', monospace; font-size: 10px;">AI SUGGESTION</span><div style="font-weight: 700; color: #101828;">Duplicate charge</div></div>
+                  <div><span style="color: #9AA0AC; font-family: 'JetBrains Mono', monospace; font-size: 10px;">CONFIDENCE</span><div><span style="background: #E7F5EF; color: #047857; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600; padding: 2px 7px; border-radius: 999px;">HIGH</span></div></div>
+                  <div><span style="color: #9AA0AC; font-family: 'JetBrains Mono', monospace; font-size: 10px;">HUMAN ACTION</span><div style="font-weight: 700; color: #047857;">Accepted</div></div>
+                  <div><span style="color: #9AA0AC; font-family: 'JetBrains Mono', monospace; font-size: 10px;">FINAL VALUE</span><div style="font-weight: 700; color: #101828;">Duplicate charge</div></div>
+                  <div><span style="color: #9AA0AC; font-family: 'JetBrains Mono', monospace; font-size: 10px;">TIMESTAMP</span><div style="font-family: 'JetBrains Mono', monospace; color: #4A5565; font-size: 11px;">14:02:11 UTC</div></div>
+                  <div><span style="color: #9AA0AC; font-family: 'JetBrains Mono', monospace; font-size: 10px;">REASON</span><div style="color: #4A5565; font-size: 11.5px;">matched on accept</div></div>
+                </div>
+              </div>
+              <div style="padding: 14px 18px; border-top: 1px solid #A7E8C6; background: #F0FDF4; font-size: 12.5px; line-height: 1.6; color: #047857;">Every decision reconstructable. Traceable for compliance, and countable for the product team.</div>
+            </div>
+          </div>
+
+          <!-- RECREATED SCREEN 2: audit-log table -->
+          <div data-reveal="1" style="border-top: 1px solid #ECEDF1; padding-top: 36px; margin-bottom: 32px;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC;">RECREATED SCREEN</div>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; color: #6A7282; background: #F4F5F7; border: 1px solid #E2E4E9; border-radius: 999px; padding: 2px 8px;">illustrative rebuild</span>
+            </div>
+            <h3 style="font-size: 21px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 12px;">The audit-log table: one row per decision</h3>
+            <p style="font-size: 15px; line-height: 1.75; color: #364153; margin: 0 0 24px; max-width: 70ch;">Each row captures the full interaction: what the AI suggested, how confident it was, what the human did, the value that was committed, and when. A compliance reviewer reads it top to bottom. A product analyst reads it down the columns.</p>
+
+            <div style="border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 12px 28px -16px rgba(16,24,40,0.22); background: #FFFFFF;">
+              <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; background: #FAFBFC; border-bottom: 1px solid #ECEDF1;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC;">Reports / Audit log / Case 8842-013</span>
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282;">6 fields · 1 override</span>
+              </div>
+              <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 640px;">
+                  <thead>
+                    <tr style="background: #F7F8FA; text-align: left;">
+                      <th style="padding: 11px 16px; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.04em; color: #9AA0AC; font-weight: 600; border-bottom: 1px solid #ECEDF1;">FIELD</th>
+                      <th style="padding: 11px 16px; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.04em; color: #9AA0AC; font-weight: 600; border-bottom: 1px solid #ECEDF1;">AI SUGGESTED</th>
+                      <th style="padding: 11px 16px; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.04em; color: #9AA0AC; font-weight: 600; border-bottom: 1px solid #ECEDF1;">CONF.</th>
+                      <th style="padding: 11px 16px; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.04em; color: #9AA0AC; font-weight: 600; border-bottom: 1px solid #ECEDF1;">HUMAN ACTION</th>
+                      <th style="padding: 11px 16px; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.04em; color: #9AA0AC; font-weight: 600; border-bottom: 1px solid #ECEDF1;">FINAL VALUE</th>
+                      <th style="padding: 11px 16px; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.04em; color: #9AA0AC; font-weight: 600; border-bottom: 1px solid #ECEDF1;">TIME</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; font-weight: 700; color: #364153;">Dispute type</td>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; color: #101828;">Duplicate charge</td>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5;"><span style="background: #E7F5EF; color: #047857; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600; padding: 2px 7px; border-radius: 999px;">HIGH</span></td>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; color: #047857; font-weight: 700;">Accepted</td>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; color: #101828;">Duplicate charge</td>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; font-family: 'JetBrains Mono', monospace; color: #9AA0AC; font-size: 11px;">14:02:11</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; font-weight: 700; color: #364153;">Amount</td>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; color: #101828; font-variant-numeric: tabular-nums;">$47.50</td>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5;"><span style="background: #E7F5EF; color: #047857; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600; padding: 2px 7px; border-radius: 999px;">HIGH</span></td>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; color: #047857; font-weight: 700;">Accepted</td>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; color: #101828; font-variant-numeric: tabular-nums;">$47.50</td>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; font-family: 'JetBrains Mono', monospace; color: #9AA0AC; font-size: 11px;">14:02:14</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; font-weight: 700; color: #364153;">Merchant</td>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; color: #101828;">Uber Technologies</td>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5;"><span style="background: #FFFAEB; color: #B54708; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600; padding: 2px 7px; border-radius: 999px;">MEDIUM</span></td>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; color: #B54708; font-weight: 700;">Edited</td>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; color: #101828;">Uber Trip</td>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; font-family: 'JetBrains Mono', monospace; color: #9AA0AC; font-size: 11px;">14:02:31</td>
+                    </tr>
+                    <tr style="background: #FFFCFC;">
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; font-weight: 700; color: #364153;">Sub-reason code</td>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; color: #101828;">10.4</td>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5;"><span style="background: #FEF3F2; color: #D92D20; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600; padding: 2px 7px; border-radius: 999px;">LOW</span></td>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; color: #D92D20; font-weight: 700;">Overridden</td>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; color: #101828;">12.6.1 <span style="font-family: 'JetBrains Mono', monospace; color: #9AA0AC; font-size: 11px;">(reason logged)</span></td>
+                      <td style="padding: 12px 16px; border-bottom: 1px solid #F1F2F5; font-family: 'JetBrains Mono', monospace; color: #9AA0AC; font-size: 11px;">14:03:02</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div style="padding: 12px 18px; background: #FAFBFC; border-top: 1px solid #ECEDF1; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #6A7282;">every row is reconstructable end to end · the override on row 4 carries a logged reason</div>
+            </div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 12px;">recreated audit-log table: AI suggestion, confidence, human action, final value, and timestamp, one row per field decision</div>
+          </div>
+
+          <!-- callout: second layer of value -->
+          <div data-reveal="2" style="border: 1px solid #C7DCFF; background: #EFF6FF; border-radius: 12px; padding: 28px 32px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; margin-bottom: 10px;">A SECOND LAYER OF VALUE</div>
+            <p style="font-size: 16px; line-height: 1.7; color: #101828; font-weight: 600; margin: 0 0 14px;">The same log is two products in one: traceability for compliance, and a way to learn where the AI was trusted, corrected, or overconfident.</p>
+            <p style="font-size: 14.5px; line-height: 1.7; color: #364153; margin: 0; max-width: 74ch;">Read down the override column and the model tells on itself. If high-confidence fields are often overridden, the calibration is wrong. If low-confidence fields are often accepted, the model is under-confident. If one field is edited again and again, its extraction rule or prompt needs work. If one dispute type drives most of the overrides, it needs more domain support. The audit log turns each correction into a piece of evidence about what to fix next.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 · METRICS THIS DESIGN ENABLES -->
+      <section id="s7" data-frame="s7" data-screen-label="AI Intake / Metrics Enabled" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 07 · Metrics This Design Enables</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">What the log makes measurable</h2>
+          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 24px; max-width: 70ch;">Because every decision is structured, a whole class of measurements becomes possible. These are the questions the design lets the team ask once enough cases flow through. They are framed as what the instrument can read, not as numbers I am claiming.</p>
+
+          <!-- THE LABEL -->
+          <div data-reveal="1" style="display: inline-flex; align-items: center; gap: 8px; border: 1px dashed #B54708; background: #FFFAEB; border-radius: 8px; padding: 10px 16px; margin-bottom: 28px;">
+            <svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 1 L15 14 L1 14 Z" fill="none" stroke="#B54708" stroke-width="1.4" stroke-linejoin="round"/><rect x="7.2" y="6" width="1.6" height="4" rx="0.8" fill="#B54708"/><circle cx="8" cy="11.6" r="0.9" fill="#B54708"/></svg>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: #B54708; letter-spacing: 0.02em;">These are metrics this design <u>enables</u>, not measured results.</span>
+          </div>
+
+          <div data-reveal="1" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 36px;">
+            <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 22px;"><div style="font-size: 15px; font-weight: 800; color: #101828; margin-bottom: 4px;">AI acceptance rate</div><div style="font-size: 13px; line-height: 1.6; color: #6A7282;">How often agents accept a suggestion as-is.</div></div>
+            <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 22px;"><div style="font-size: 15px; font-weight: 800; color: #101828; margin-bottom: 4px;">Override rate</div><div style="font-size: 13px; line-height: 1.6; color: #6A7282;">How often agents reject the AI value and supply their own.</div></div>
+            <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 22px;"><div style="font-size: 15px; font-weight: 800; color: #101828; margin-bottom: 4px;">Acceptance &amp; override by confidence</div><div style="font-size: 13px; line-height: 1.6; color: #6A7282;">Whether High, Medium, and Low actually predict behavior.</div></div>
+            <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 22px;"><div style="font-size: 15px; font-weight: 800; color: #101828; margin-bottom: 4px;">Most-corrected fields</div><div style="font-size: 13px; line-height: 1.6; color: #6A7282;">Which attributes get edited most, pointing at weak extraction.</div></div>
+            <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 22px;"><div style="font-size: 15px; font-weight: 800; color: #101828; margin-bottom: 4px;">Confidence calibration accuracy</div><div style="font-size: 13px; line-height: 1.6; color: #6A7282;">Whether a High really is more reliable than a Low.</div></div>
+            <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 22px;"><div style="font-size: 15px; font-weight: 800; color: #101828; margin-bottom: 4px;">Override patterns by dispute type</div><div style="font-size: 13px; line-height: 1.6; color: #6A7282;">Which dispute categories drive the most corrections.</div></div>
+          </div>
+
+          <!-- DEVICE D: illustrative override heatmap -->
+          <div data-reveal="1" style="border: 1px solid #E2E4E9; border-radius: 12px; background: #FBFCFE; padding: 28px 32px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; gap: 12px; flex-wrap: wrap;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC;">DEVICE D · OVERRIDE PATTERN VIEW</div>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; color: #B54708; background: #FFFAEB; border: 1px dashed #FEDF89; border-radius: 999px; padding: 3px 10px;">ILLUSTRATIVE · sample shape, not real data</span>
+            </div>
+            <p style="font-size: 13.5px; line-height: 1.65; color: #4A5565; margin: 0 0 20px; max-width: 70ch;">A view like this is what the enabled metrics add up to: where is the AI corrected most, by field and by confidence band? The brighter the cell, the more often that combination gets overridden, and the louder the signal to go tune it. This is the shape of the read, drawn with placeholder values to show what the design makes visible.</p>
+
+            <!-- heatmap grid -->
+            <div style="overflow-x: auto;">
+              <div style="min-width: 540px;">
+                <!-- column headers -->
+                <div style="display: grid; grid-template-columns: 160px repeat(3, 1fr); gap: 6px; margin-bottom: 6px;">
+                  <div></div>
+                  <div style="text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #047857;">HIGH</div>
+                  <div style="text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #B54708;">MEDIUM</div>
+                  <div style="text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #D92D20;">LOW</div>
+                </div>
+                <!-- rows -->
+                <div style="display: grid; grid-template-columns: 160px repeat(3, 1fr); gap: 6px; margin-bottom: 6px; align-items: center;">
+                  <div style="font-size: 12.5px; font-weight: 700; color: #364153;">Dispute type</div>
+                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.10);"></div>
+                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.30);"></div>
+                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.62);"></div>
+                </div>
+                <div style="display: grid; grid-template-columns: 160px repeat(3, 1fr); gap: 6px; margin-bottom: 6px; align-items: center;">
+                  <div style="font-size: 12.5px; font-weight: 700; color: #364153;">Merchant</div>
+                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.16);"></div>
+                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.74);"></div>
+                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.46);"></div>
+                </div>
+                <div style="display: grid; grid-template-columns: 160px repeat(3, 1fr); gap: 6px; margin-bottom: 6px; align-items: center;">
+                  <div style="font-size: 12.5px; font-weight: 700; color: #364153;">Sub-reason code</div>
+                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.22);"></div>
+                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.52);"></div>
+                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.86);"></div>
+                </div>
+                <div style="display: grid; grid-template-columns: 160px repeat(3, 1fr); gap: 6px; align-items: center;">
+                  <div style="font-size: 12.5px; font-weight: 700; color: #364153;">Amount</div>
+                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.06);"></div>
+                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.14);"></div>
+                  <div style="height: 38px; border-radius: 6px; background: rgba(21,93,252,0.28);"></div>
+                </div>
+                <!-- legend -->
+                <div style="display: flex; align-items: center; gap: 10px; margin-top: 16px;">
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">less corrected</span>
+                  <span style="flex: 1; max-width: 200px; height: 8px; border-radius: 999px; background: linear-gradient(90deg, rgba(21,93,252,0.06), rgba(21,93,252,0.86)); display: block;"></span>
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9AA0AC;">more corrected</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 08 · THE AI TRUST LOOP & LEARNINGS  (DEVICE D motion + close) -->
+      <section id="s8" data-frame="s8" data-screen-label="AI Intake / Trust Loop & Learnings" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 08 · The Trust Loop &amp; Learnings</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">The Trust Loop: auditability that doubles as a feedback loop</h2>
+          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 70ch;">Put the pieces together and a cycle appears. The AI suggests, the agent decides, the log records, the team learns, the model improves, and the next suggestion is a little more trustworthy. The same record that keeps the work compliant is what makes the AI better over time. That is the idea I most want this case study to carry.</p>
+
+          <!-- DEVICE D motion: the Trust Loop cycling, real Lottie animation -->
+          <div data-reveal="1" style="border: 1px solid #E2E4E9; border-radius: 12px; background: linear-gradient(180deg, #15171C 0%, #1B1E25 100%); padding: 40px 32px; margin-bottom: 40px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #7AA5FF; margin-bottom: 8px;">THE AI TRUST LOOP</div>
+            <div style="font-size: 13px; color: #AEB4C0; margin-bottom: 24px;">the cycle runs continuously: a pulse travels the loop and lights each stage in turn</div>
+            <div style="display: flex; justify-content: center;">
+              <!-- Lottie stage: square container holds the animated loop; labels overlay the node positions -->
+              <div class="trustloop-stage" role="img" aria-label="The AI Trust Loop, a continuous five-stage cycle: AI suggests, confidence shown, human decides, audit records, product tunes, then back to AI suggests." style="position: relative; width: 100%; max-width: 420px; aspect-ratio: 1 / 1;">
+                <div id="trust-loop-lottie" style="position: absolute; inset: 0; width: 100%; height: 100%;"></div>
+                <!-- center label -->
+                <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; pointer-events: none;">
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #7AA5FF; line-height: 1.45;">CALIBRATED</div>
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #7AA5FF; line-height: 1.45;">TRUST</div>
+                </div>
+                <!-- node labels, positioned over the Lottie nodes (top, then clockwise) -->
+                <!-- node 1: top (AI suggests) -->
+                <div style="position: absolute; left: 50%; top: 17.14%; transform: translate(-50%, -50%); text-align: center; pointer-events: none;">
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #7AA5FF;">AI</div>
+                  <div style="font-family: Manrope, sans-serif; font-size: 11px; font-weight: 800; color: #E7E9EE;">suggests</div>
+                </div>
+                <!-- node 2: upper-right (confidence shown) -->
+                <div style="position: absolute; left: 81.25%; top: 39.85%; transform: translate(-50%, -50%); text-align: center; pointer-events: none;">
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #7AA5FF;">CONFIDENCE</div>
+                  <div style="font-family: Manrope, sans-serif; font-size: 11px; font-weight: 800; color: #E7E9EE;">shown</div>
+                </div>
+                <!-- node 3: lower-right (human decides) -->
+                <div style="position: absolute; left: 69.31%; top: 76.58%; transform: translate(-50%, -50%); text-align: center; pointer-events: none;">
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #6CE9A6;">HUMAN</div>
+                  <div style="font-family: Manrope, sans-serif; font-size: 11px; font-weight: 800; color: #E7E9EE;">decides</div>
+                </div>
+                <!-- node 4: lower-left (audit records) -->
+                <div style="position: absolute; left: 30.69%; top: 76.58%; transform: translate(-50%, -50%); text-align: center; pointer-events: none;">
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #9AA8C0;">AUDIT</div>
+                  <div style="font-family: Manrope, sans-serif; font-size: 11px; font-weight: 800; color: #E7E9EE;">records</div>
+                </div>
+                <!-- node 5: upper-left (product tunes) -->
+                <div style="position: absolute; left: 18.75%; top: 39.85%; transform: translate(-50%, -50%); text-align: center; pointer-events: none;">
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #7AA5FF;">PRODUCT</div>
+                  <div style="font-family: Manrope, sans-serif; font-size: 11px; font-weight: 800; color: #E7E9EE;">tunes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- model-improvement signals -->
+          <h3 data-reveal="0" style="font-size: 18px; font-weight: 800; margin: 0 0 16px;">What the loop tells the team to fix</h3>
+          <div data-reveal="1" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 40px;">
+            <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 22px;"><p style="font-size: 14px; line-height: 1.65; color: #364153; margin: 0;"><strong style="color: #101828;">High-confidence fields overridden a lot?</strong> The calibration is probably wrong. The model is too sure.</p></div>
+            <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 22px;"><p style="font-size: 14px; line-height: 1.65; color: #364153; margin: 0;"><strong style="color: #101828;">Low-confidence fields accepted a lot?</strong> The model is under-confident, hiding good answers behind a cautious label.</p></div>
+            <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 22px;"><p style="font-size: 14px; line-height: 1.65; color: #364153; margin: 0;"><strong style="color: #101828;">One field edited again and again?</strong> Its extraction rule or prompt needs work.</p></div>
+            <div style="border: 1px solid #ECEDF1; border-radius: 10px; padding: 18px 22px;"><p style="font-size: 14px; line-height: 1.65; color: #364153; margin: 0;"><strong style="color: #101828;">One dispute type driving most overrides?</strong> That category needs more domain support.</p></div>
+          </div>
+
+          <!-- learnings / close -->
+          <h3 data-reveal="0" style="font-size: 18px; font-weight: 800; margin: 0 0 20px;">What this taught me about designing AI</h3>
+          <div data-reveal="1" style="display: grid; gap: 14px; margin-bottom: 40px;">
+            <div style="display: grid; grid-template-columns: 28px 1fr; gap: 16px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #9AA0AC;">01</div>
+              <p style="font-size: 15px; line-height: 1.7; color: #364153; margin: 0;"><strong>In regulated AI, auditability is not overhead. It is the feedback loop.</strong> The record you build to satisfy a regulator is the same record that tells you how to make the model better. Design it as one thing, not two.</p>
+            </div>
+            <div style="display: grid; grid-template-columns: 28px 1fr; gap: 16px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #9AA0AC;">02</div>
+              <p style="font-size: 15px; line-height: 1.7; color: #364153; margin: 0;"><strong>Confidence has to tell you what to do.</strong> A probability is not guidance. Pairing a plain label with a next step beat a precise number, because it changed behavior instead of just reporting it.</p>
+            </div>
+            <div style="display: grid; grid-template-columns: 28px 1fr; gap: 16px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #9AA0AC;">03</div>
+              <p style="font-size: 15px; line-height: 1.7; color: #364153; margin: 0;"><strong>The boundary is the product.</strong> AI that proposes and a human who disposes is not a weaker design than full automation. In high-stakes work, it is the stronger one, and the explicit line is what makes people trust the assist.</p>
+            </div>
+          </div>
+
+          <!-- throughline close -->
+          <div data-reveal="2" style="background: #15171C; border-radius: 12px; padding: 32px 36px; margin-bottom: 40px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #7AA5FF; margin-bottom: 12px;">THE THROUGHLINE</div>
+            <p style="font-size: 19px; line-height: 1.55; font-weight: 600; color: #E7E9EE; margin: 0;">I redesigned a regulated workflow so AI could accelerate intake without weakening human accountability. The AI classifies, the human confirms, and every decision stays auditable, which is exactly what let the same log that keeps the work compliant make the model better over time.</p>
+          </div>
+
+          <!-- cross-link back to DWS -->
+          <a data-reveal="3" href="/dispute-workspace" style="display: flex; justify-content: space-between; align-items: center; border: 1px solid #E2E4E9; border-radius: 12px; padding: 28px 32px; text-decoration: none; color: #101828;" style-hover="border-color: #155DFC; background: #F8FAFF;">
+            <div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9AA0AC; margin-bottom: 6px;">SEE THE FULL PRODUCT</div>
+              <div style="font-size: 22px; font-weight: 800; letter-spacing: -0.01em;">Disputes Workspace: the redesign this AI lives inside</div>
+            </div>
+            <div style="font-size: 28px; color: #155DFC;">→</div>
+          </a>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC;">
+          <span>© 2026 Abhikant Nirbhavane</span>
+          <span>case study · ai-assisted dispute intake</span>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    // ---- email links assembled at runtime (avoids static-HTML email rewriting) ----
+    const addr = ["abhikant5540", "gmail.com"].join("@");
+    document.querySelectorAll("[data-email]").forEach((el) => {
+      el.setAttribute("href", "mailto:" + addr + "?subject=Hi there");
+      if (el.getAttribute("data-email") === "show") el.textContent = addr;
+    });
+
+    // ---- scroll reveals ----
+    const reveals = Array.from(document.querySelectorAll("[data-reveal]"));
+    reveals.forEach((el) => {
+      const i = parseInt(el.getAttribute("data-reveal") || "0", 10);
+      el.style.opacity = "0";
+      el.style.transform = "translateY(26px)";
+      el.style.transition = "opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)";
+      el.style.transitionDelay = (i * 80) + "ms";
+    });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          en.target.style.opacity = "1";
+          en.target.style.transform = "translateY(0)";
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach((el) => io.observe(el));
+
+    // ---- section nav (click) ----
+    document.querySelectorAll("[data-nav]").forEach((row) => {
+      row.addEventListener("click", () => {
+        const el = document.getElementById(row.getAttribute("data-nav"));
+        if (el) window.scrollTo({ top: el.offsetTop + 48 - 60, behavior: "smooth" });
+      });
+    });
+
+    // ---- scroll spy + reading progress ----
+    const sections = Array.from(document.querySelectorAll("section[data-frame]"));
+    const rows = {};
+    document.querySelectorAll("[data-nav]").forEach((r) => { rows[r.getAttribute("data-nav")] = r; });
+    const progress = document.getElementById("progress");
+    let current = "";
+    const update = () => {
+      const y = window.scrollY + 220;
+      let active = sections[0];
+      sections.forEach((s) => { if (s.offsetTop + 48 < y) active = s; });
+      const key = active.getAttribute("data-frame");
+      if (key !== current) {
+        current = key;
+        Object.keys(rows).forEach((k) => {
+          rows[k].style.background = k === key ? "#EFF6FF" : "transparent";
+          rows[k].style.color = k === key ? "#155DFC" : "#364153";
+        });
+        const row = rows[key];
+        if (row && row.scrollIntoView !== undefined) {
+          const panel = document.getElementById("panel-left");
+          if (panel) {
+            const rTop = row.offsetTop;
+            if (rTop < panel.scrollTop + 60 || rTop > panel.scrollTop + panel.clientHeight - 60) {
+              panel.scrollTo({ top: rTop - panel.clientHeight / 2, behavior: "smooth" });
+            }
+          }
+        }
+      }
+      if (progress) {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = max > 0 ? window.scrollY / max : 0;
+        progress.style.width = pct * 100 + "%";
+        if (pct >= 0.9 && !scrolledBottom) { scrolledBottom = true; window.va && window.va("event", { name: "AI Intake · scrolled to end" }); }
+      }
+    };
+    let ticking = false, scrolledBottom = false;
+    this._onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => { update(); ticking = false; });
+      }
+    };
+    window.addEventListener("scroll", this._onScroll, { passive: true });
+    update();
+
+    // ---- Trust Loop motion: real Lottie animation (reduced-motion safe) ----
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const loopHost = document.getElementById("trust-loop-lottie");
+    if (loopHost && window.lottie) {
+      this._loopAnim = window.lottie.loadAnimation({
+        container: loopHost,
+        renderer: "svg",
+        loop: !reduceMotion,
+        autoplay: !reduceMotion,
+        path: "assets/trust-loop.json"
+      });
+      if (reduceMotion) {
+        // do not autoplay: render a single static frame so the loop is still legible
+        this._loopAnim.addEventListener("DOMLoaded", () => this._loopAnim.goToAndStop(0, true));
+      }
+    }
+
+    // ---- responsive: collapse panels under 1180px ----
+    const left = document.getElementById("panel-left");
+    const right = document.getElementById("panel-right");
+    const canvas = document.getElementById("canvas");
+    const mq = window.matchMedia("(max-width: 1180px)");
+    const applyMq = () => {
+      const narrow = mq.matches;
+      if (left) left.style.display = narrow ? "none" : "block";
+      if (right) right.style.display = narrow ? "none" : "block";
+      if (canvas) canvas.style.margin = narrow ? "48px 0 0 0" : "48px 260px 0 248px";
+    };
+    mq.addEventListener("change", applyMq);
+    this._mq = mq; this._applyMq = applyMq;
+    applyMq();
+
+    // ---- mobile linearization (dynamic responsive pass) ----
+    const gridEls = Array.from(document.querySelectorAll("[style]")).filter((el) => el.style.gridTemplateColumns);
+    gridEls.forEach((el) => { if (!el.getAttribute("data-gtc")) el.setAttribute("data-gtc", el.style.gridTemplateColumns); });
+    const padEls = Array.from(document.querySelectorAll("[style]")).filter((el) => parseInt(el.style.padding) >= 48);
+    padEls.forEach((el) => { if (!el.getAttribute("data-pad")) el.setAttribute("data-pad", el.style.padding); });
+    const headEls = Array.from(document.querySelectorAll("h1, h2")).filter((el) => parseFloat(el.style.fontSize) >= 30);
+    headEls.forEach((el) => { if (!el.getAttribute("data-fs")) el.setAttribute("data-fs", el.style.fontSize); });
+    const applyNarrow = () => {
+      const narrow = window.innerWidth < 880;
+      gridEls.forEach((el) => {
+        const orig = el.getAttribute("data-gtc");
+        const small = /^(\d+)px 1fr$/.exec(orig);
+        el.style.gridTemplateColumns = (narrow && !(small && parseInt(small[1]) <= 160)) ? "1fr" : orig;
+      });
+      padEls.forEach((el) => { el.style.padding = narrow ? "36px 22px" : el.getAttribute("data-pad"); });
+      headEls.forEach((el) => {
+        const orig = parseFloat(el.getAttribute("data-fs"));
+        el.style.fontSize = narrow ? Math.round(orig * 0.65) + "px" : el.getAttribute("data-fs");
+      });
+    };
+    window.addEventListener("resize", applyNarrow);
+    applyNarrow();
+  }
+
+  componentWillUnmount() {
+    if (this._onScroll) window.removeEventListener("scroll", this._onScroll);
+    if (this._mq && this._applyMq) this._mq.removeEventListener("change", this._applyMq);
+    clearInterval(this._loopTimer);
+  }
+}
+
+</script>
+<div id="nav-loader" style="position: fixed; top: 0; left: 0; height: 2px; width: 0; background: #155DFC; z-index: 102; opacity: 0; box-shadow: 0 0 8px rgba(21,93,252,0.7); transition: width 0.2s ease, opacity 0.3s ease; pointer-events: none;"></div>
+<script>
+(function () {
+  var bar = document.getElementById('nav-loader');
+  if (!bar) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) bar.style.transition = 'opacity 0.2s ease';
+  function set(w) { bar.style.width = w + '%'; }
+  function show() { bar.style.opacity = '1'; }
+  function done() {
+    set(100);
+    setTimeout(function () { bar.style.opacity = '0'; setTimeout(function () { set(0); }, 300); }, 150);
+  }
+  show(); set(reduce ? 100 : 35);
+  if (document.readyState === 'complete') { done(); }
+  else { window.addEventListener('load', done); }
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.charAt(0) === '#' || a.target === '_blank') return;
+    if (/^(https?:|mailto:|tel:)/i.test(href)) return;
+    show(); set(12);
+    if (reduce) return;
+    var p = 12;
+    clearInterval(window.__navInt);
+    window.__navInt = setInterval(function () { p += (90 - p) * 0.18; set(p > 90 ? 90 : p); }, 120);
+  }, true);
+  window.addEventListener('pageshow', function (ev) {
+    if (ev.persisted) { clearInterval(window.__navInt); set(0); bar.style.opacity = '0'; }
+  });
+})();
+</script>
+
+<!-- before/after consistent sizing + Trust Loop motion (reduced-motion safe) -->
+<style>
+  .dws-cmp { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
+  .dws-cmp > div { min-width: 0; }
+  .dws-cmp img { width: 100%; height: auto; display: block; }
+  @keyframes trustSpin { to { transform: rotate(360deg); } }
+  .trustloop .loop-arc {
+    transform-origin: 210px 210px;
+    animation: trustSpin 7s linear infinite;
+  }
+  .trustloop .loop-node circle { transition: stroke 0.5s ease, fill 0.5s ease, stroke-width 0.5s ease; }
+  @media (prefers-reduced-motion: reduce) {
+    .trustloop .loop-arc { animation: none; }
+  }
+</style>
+<div id="toast" style="position: fixed; bottom: 70px; left: 50%; transform: translate(-50%, 120px); background: #15171C; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 10px 18px; border-radius: 8px; z-index: 200; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); pointer-events: none; white-space: nowrap;"></div>
+<script>
+(function(){
+  var hideT;
+  function show(msg){var t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.style.transform='translate(-50%, 0)';clearTimeout(hideT);hideT=setTimeout(function(){t.style.transform='translate(-50%, 120px)';},2800);}
+  document.addEventListener('click',function(e){var el=e.target.closest&&e.target.closest('[data-toolmsg]');if(el)show(el.getAttribute('data-toolmsg'));});
+})();
+// referral attribution moved to /assets/track.js (shared across all pages)
+</script>
+</body>
+</html>
