@@ -136,7 +136,7 @@
             </a>
             <h1 data-reveal="1" style="font-size: 48px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 22px; max-width: 20ch; text-wrap: pretty;">AI-assisted dispute intake</h1>
             <p data-reveal="2" style="font-size: 18px; line-height: 1.65; color: #101828; font-weight: 600; margin: 0 0 18px; max-width: 60ch;">I redesigned a regulated workflow so AI could accelerate intake without weakening human accountability.</p>
-            <p data-reveal="2" style="font-size: 16px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 64ch;">Disputes GPT is an LLM-assisted intake experience inside Fiserv's Disputes Workspace. The model pre-fills the attributes of a dispute, every field carries a plain confidence cue, and the agent accepts, edits, or overrides each one. Behind it, an audit log records every AI and human decision, which is what made the design defensible under FCBA and Reg E, and what turned a brand-new feature into something the team could learn from.</p>
+            <p data-reveal="2" style="font-size: 16px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 64ch;">AI-assisted dispute intake was an LLM-supported flow inside Fiserv's Disputes Workspace. The model pre-filled dispute attributes, each field carried a plain confidence cue, and the agent accepted, edited, or overrode the result. The audit log recorded both sides of the decision: what the AI suggested and what the human chose. That made the flow defensible under FCBA and Reg E, and gave the team a way to see where the model was trusted, corrected, or overconfident.</p>
           </div>
           <div data-reveal="2" style="padding: 4px 64px 0;">
             <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; border-top: 1px solid #ECEDF1; padding-top: 32px;">
@@ -231,6 +231,7 @@
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
           <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">A fast answer with no visible reason is an answer no one uses</h2>
           <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 16px; max-width: 70ch;">The obvious move was to automate intake outright. Let the model read the dispute, classify it, fill the fields, and move on. We rejected that, and the reason is the whole point of this case study.</p>
+          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 16px; max-width: 70ch;">That is the trap in a lot of agentic UX: the system can act, but the person cannot tell whether it should have. Speed helps only if the user can inspect the reasoning, correct the output, and explain the final decision later.</p>
           <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 70ch;">Picture the trust-breaking moment. The model returns a classification in under a second. It is probably right. But the agent has no way to see what it read, why it landed there, or how sure it is. So the agent does the only safe thing under a regulatory clock: they ignore it and start over by hand. A suggestion you cannot inspect is a suggestion you cannot defend, and in this domain that means it gets thrown away.</p>
 
           <div data-reveal="1" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 0 0 32px;">
@@ -546,9 +547,9 @@
         <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 06 · The Audit Log as Product Intelligence</span></div>
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
           <div data-reveal="0" style="display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; background: #EFF6FF; border: 1px solid #D6E4FF; border-radius: 999px; padding: 4px 12px; margin-bottom: 16px;">★ THE HERO IDEA</div>
-          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">The audit log was built to do two jobs at once</h2>
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">The audit log became the product's memory</h2>
           <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 16px; max-width: 70ch;">Compliance needed a record: who decided what, on what basis, when. That much was a requirement. But because the AI intake was a brand-new feature, there was no historical baseline to measure it against. There were no past accuracy numbers, no prior override rates, nothing to compare to.</p>
-          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 70ch;">So I designed the audit log to be the measurement instrument itself. The same record that satisfies a regulator also tells the product team where the AI was trusted, corrected, or overconfident. Every override stops being just a correction and becomes a signal.</p>
+          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 70ch;">So I designed the audit log as the place where the product could learn. The record still satisfied the regulator, but it also showed the team where the AI was trusted, corrected, or overconfident. An override was no longer only a correction. It was a signal about what to fix next.</p>
 
           <!-- DEVICE C: before/after audit visibility -->
           <div data-reveal="1" class="dws-cmp" style="margin-bottom: 32px;">
@@ -657,7 +658,7 @@
           <!-- callout: second layer of value -->
           <div data-reveal="2" style="border: 1px solid #C7DCFF; background: #EFF6FF; border-radius: 12px; padding: 28px 32px;">
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; margin-bottom: 10px;">A SECOND LAYER OF VALUE</div>
-            <p style="font-size: 16px; line-height: 1.7; color: #101828; font-weight: 600; margin: 0 0 14px;">The same log is two products in one: traceability for compliance, and a way to learn where the AI was trusted, corrected, or overconfident.</p>
+            <p style="font-size: 16px; line-height: 1.7; color: #101828; font-weight: 600; margin: 0 0 14px;">The log made every AI suggestion traceable, and it gave the team a practical way to learn from real decisions.</p>
             <p style="font-size: 14.5px; line-height: 1.7; color: #364153; margin: 0; max-width: 74ch;">Read down the override column and the model tells on itself. If high-confidence fields are often overridden, the calibration is wrong. If low-confidence fields are often accepted, the model is under-confident. If one field is edited again and again, its extraction rule or prompt needs work. If one dispute type drives most of the overrides, it needs more domain support. The audit log turns each correction into a piece of evidence about what to fix next.</p>
           </div>
         </div>
@@ -744,8 +745,8 @@
       <section id="s8" data-frame="s8" data-screen-label="AI Intake / Trust Loop & Learnings" style="margin-top: 64px;">
         <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282;">◇ 08 · The Trust Loop &amp; Learnings</span></div>
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
-          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">The Trust Loop: auditability that doubles as a feedback loop</h2>
-          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 70ch;">Put the pieces together and a cycle appears. The AI suggests, the agent decides, the log records, the team learns, the model improves, and the next suggestion is a little more trustworthy. The same record that keeps the work compliant is what makes the AI better over time. That is the idea I most want this case study to carry.</p>
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">The Trust Loop: auditability as a learning system</h2>
+          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 70ch;">Put the pieces together and a cycle appears. The AI suggests, the agent decides, the log records, the team learns, and the next suggestion can be tuned with real behavior behind it. The record that keeps the work compliant also shows where the AI needs to get better. That is the idea I most want this case study to carry.</p>
 
           <!-- DEVICE D motion: the Trust Loop cycling, real Lottie animation -->
           <div data-reveal="1" style="border: 1px solid #E2E4E9; border-radius: 12px; background: linear-gradient(180deg, #15171C 0%, #1B1E25 100%); padding: 40px 32px; margin-bottom: 40px;">
@@ -804,7 +805,7 @@
           <div data-reveal="1" style="display: grid; gap: 14px; margin-bottom: 40px;">
             <div style="display: grid; grid-template-columns: 28px 1fr; gap: 16px;">
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #9AA0AC;">01</div>
-              <p style="font-size: 15px; line-height: 1.7; color: #364153; margin: 0;"><strong>In regulated AI, auditability is not overhead. It is the feedback loop.</strong> The record you build to satisfy a regulator is the same record that tells you how to make the model better. Design it as one thing, not two.</p>
+              <p style="font-size: 15px; line-height: 1.7; color: #364153; margin: 0;"><strong>In regulated AI, auditability is not overhead. It is how the product learns.</strong> The record you build for review is also the record that shows where the model needs work. Design those needs together.</p>
             </div>
             <div style="display: grid; grid-template-columns: 28px 1fr; gap: 16px;">
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #9AA0AC;">02</div>
@@ -812,14 +813,14 @@
             </div>
             <div style="display: grid; grid-template-columns: 28px 1fr; gap: 16px;">
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #9AA0AC;">03</div>
-              <p style="font-size: 15px; line-height: 1.7; color: #364153; margin: 0;"><strong>The boundary is the product.</strong> AI that proposes and a human who disposes is not a weaker design than full automation. In high-stakes work, it is the stronger one, and the explicit line is what makes people trust the assist.</p>
+              <p style="font-size: 15px; line-height: 1.7; color: #364153; margin: 0;"><strong>The boundary is the product.</strong> The problem with agentic UX is not autonomy by itself. It is unclear accountability. In high-stakes work, people need to know what the AI did, what they decided, and what gets recorded.</p>
             </div>
           </div>
 
           <!-- throughline close -->
           <div data-reveal="2" style="background: #15171C; border-radius: 12px; padding: 32px 36px; margin-bottom: 40px;">
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #7AA5FF; margin-bottom: 12px;">THE THROUGHLINE</div>
-            <p style="font-size: 19px; line-height: 1.55; font-weight: 600; color: #E7E9EE; margin: 0;">I redesigned a regulated workflow so AI could accelerate intake without weakening human accountability. The AI classifies, the human confirms, and every decision stays auditable, which is exactly what let the same log that keeps the work compliant make the model better over time.</p>
+            <p style="font-size: 19px; line-height: 1.55; font-weight: 600; color: #E7E9EE; margin: 0;">I redesigned a regulated workflow so AI could accelerate intake without weakening human accountability. The AI classifies, the human confirms, and every decision stays auditable. That record is what let the team learn from real corrections instead of guessing where the model needed work.</p>
           </div>
 
           <!-- cross-link back to DWS -->
