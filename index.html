@@ -52,6 +52,54 @@
     @keyframes heroDrift2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-50px,30px) scale(1.1); } }
     @keyframes heroDrift3 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(30px,-40px) scale(1.2); } }
     @keyframes heroBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    @keyframes stickerFloatA { 0%,100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-10px) rotate(-4deg); } }
+    @keyframes stickerFloatB { 0%,100% { transform: translateY(0) rotate(3deg); } 50% { transform: translateY(-13px) rotate(3deg); } }
+    @keyframes stickerFloatC { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-8px) rotate(-2deg); } }
+    .pf-sticker { position: absolute; z-index: 3; perspective: 700px; }
+    .pf-sticker:hover { animation-play-state: paused; }
+    /* interaction-design skill: 150ms hover lift, ease-out, transform+shadow only */
+    .pf-card { transition: transform .15s cubic-bezier(0.16,1,0.3,1), box-shadow .15s cubic-bezier(0.16,1,0.3,1); cursor: default; }
+    .pf-sticker:hover .pf-card { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(16,24,40,0.16); }
+    .pf-sticker:hover .pf-zoom { transform: scale(1.06); }
+    .pf-real-sticker, .pf-word-sticker { position: relative; z-index: var(--z); display: inline-flex; align-items: center; gap: 8px; min-height: 42px; border: 1px solid rgba(16,24,40,0.13); background: radial-gradient(circle at 25% 8%,rgba(255,255,255,0.98),rgba(255,255,255,0) 28%), linear-gradient(145deg,#FFFFFF 0%,#F8FAFD 68%,#E9EEF7 100%); box-shadow: 0 0 0 3px #fff, 0 0 0 3.5px rgba(16,24,40,0.08), 0 12px 20px rgba(16,24,40,0.16), 0 2px 0 rgba(16,24,40,0.06), inset 0 1px 0 rgba(255,255,255,0.94); transform: rotate(var(--r)); transform-origin: 50% 52%; transition: transform .22s cubic-bezier(0.34,1.56,0.64,1), box-shadow .22s ease, filter .22s ease; will-change: transform; }
+    .pf-real-sticker { min-width: 152px; padding: 8px 13px 8px 9px; border-radius: 20px 15px 19px 14px; }
+    .pf-word-sticker { min-width: 132px; padding: 9px 14px; border-radius: 18px 13px 18px 14px; border-color: var(--accent,#155DFC); background: radial-gradient(circle at 22% 10%,rgba(255,255,255,0.54),rgba(255,255,255,0) 30%), linear-gradient(145deg,var(--paper,#EEF3FF) 0%,#FFFFFF 92%); box-shadow: 0 0 0 3px #fff, 0 0 0 3.5px rgba(16,24,40,0.08), 0 12px 20px rgba(16,24,40,0.16), inset 0 1px 0 rgba(255,255,255,0.74); font-family: 'JetBrains Mono', monospace; color: #101828; }
+    .pf-real-sticker::before, .pf-word-sticker::before { content: ""; position: absolute; width: 34px; height: 12px; left: 18px; top: -8px; border-radius: 2px; background: rgba(255,236,168,0.76); border: 1px solid rgba(220,170,80,0.22); transform: rotate(-5deg); box-shadow: 0 2px 4px rgba(16,24,40,0.08); }
+    .pf-real-sticker::after, .pf-word-sticker::after { content: ""; position: absolute; right: -1px; bottom: -1px; width: 17px; height: 17px; border-radius: 13px 0 14px 0; background: linear-gradient(135deg,rgba(255,255,255,0),#DFE6F2 60%,#C8D2E3); box-shadow: -2px -2px 4px rgba(16,24,40,0.08); }
+    .pf-real-sticker:active, .pf-word-sticker:active { transform: rotate(var(--r)) translateY(-1px) scale(.99); }
+    .pf-sheen { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transform: translateX(-14%); background: linear-gradient(120deg, transparent 32%, rgba(255,255,255,0.55) 50%, transparent 68%); mix-blend-mode: screen; transition: opacity .22s ease, transform .5s ease; }
+    .pf-real-sticker:hover .pf-sheen, .pf-word-sticker:hover .pf-sheen { opacity: .85; transform: translateX(14%); }
+    @keyframes stickerWiggle {
+      0%,100% { transform: rotate(var(--r)); }
+      15% { transform: rotate(var(--r)) translateX(-3px) rotate(-3deg); }
+      30% { transform: rotate(var(--r)) translateX(3px) rotate(3deg); }
+      45% { transform: rotate(var(--r)) translateX(-2px) rotate(-2deg); }
+      60% { transform: rotate(var(--r)) translateX(2px) rotate(1.5deg); }
+      75% { transform: rotate(var(--r)) translateX(-1px) rotate(-1deg); }
+    }
+    .pf-sticker.is-wiggling .pf-real-sticker, .pf-sticker.is-wiggling .pf-word-sticker { animation: stickerWiggle 600ms cubic-bezier(.36,.07,.19,.97); }
+    .pf-logo-disc { display: grid; place-items: center; width: 30px; height: 30px; flex: 0 0 30px; border-radius: 10px; background: rgba(255,255,255,0.86); box-shadow: inset 0 0 0 1px rgba(16,24,40,0.08), 0 2px 5px rgba(16,24,40,0.10); transition: transform .32s cubic-bezier(0.2,0.9,0.2,1.2); transform-style: preserve-3d; }
+    .pf-logo-mark { max-width: 24px; max-height: 24px; object-fit: contain; }
+    .pf-logo-copy { display: grid; gap: 1px; white-space: nowrap; }
+    .pf-logo-copy strong { font-size: 11px; line-height: 1.1; font-weight: 800; color: #101828; }
+    .pf-logo-copy em { font-size: 8.5px; line-height: 1.1; font-style: normal; color: #6A7282; }
+    .pf-word-sticker strong { display: block; font-size: 11px; line-height: 1.15; font-weight: 800; }
+    .pf-word-sticker span { display: block; margin-top: 2px; font-size: 8.5px; line-height: 1.15; color: #4A5565; }
+    .pf-sticker-more { position: absolute; left: 12px; top: calc(100% + 7px); padding: 5px 8px; border-radius: 999px; background: #101828; color: #FFFFFF; box-shadow: 0 8px 18px rgba(16,24,40,0.22); font-family: 'JetBrains Mono', monospace; font-size: 8.5px; line-height: 1; white-space: nowrap; opacity: 0; transform: translateY(-4px) scale(.96); pointer-events: none; transition: opacity .18s ease, transform .18s ease; }
+    @media (hover: hover) and (pointer: fine) {
+      .pf-real-sticker:hover, .pf-word-sticker:hover { z-index: 8; transform: rotate(var(--r)) translateY(-5px) scale(1.06); box-shadow: 0 0 0 3px #fff, 0 0 0 3.5px rgba(16,24,40,0.10), 0 20px 30px rgba(16,24,40,0.22), 0 3px 0 rgba(16,24,40,0.08), inset 0 1px 0 rgba(255,255,255,0.98); filter: saturate(1.06); }
+      .pf-real-sticker:hover .pf-logo-disc { transform: rotateY(360deg) scale(1.12); }
+      .pf-real-sticker:hover .pf-sticker-more, .pf-word-sticker:hover .pf-sticker-more { opacity: .96; transform: translateY(0) scale(1); }
+    }
+    /* interaction-design skill: CTA spring hover-lift + tactile tap */
+    .pf-cta { transition: transform .15s cubic-bezier(0.34,1.56,0.64,1), border-color .15s ease, color .15s ease; }
+    .pf-cta:hover { transform: translateY(-1px); }
+    .pf-cta:active { transform: scale(0.98); }
+    @media (prefers-reduced-motion: reduce) { .pf-cta { transition: border-color .15s ease, color .15s ease; } .pf-cta:hover, .pf-cta:active { transform: none; } }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .pf-chip { transition: background .15s cubic-bezier(0.16,1,0.3,1), border-color .15s cubic-bezier(0.16,1,0.3,1), color .15s cubic-bezier(0.16,1,0.3,1), transform .15s cubic-bezier(0.16,1,0.3,1); cursor: default; }
+    .pf-chip:hover { background: #EEF3FF; border-color: #155DFC !important; color: #155DFC !important; transform: translateY(-1px); }
+    @media (prefers-reduced-motion: reduce) { .pf-sticker { animation: none !important; } .pf-card, .pf-chip, .pf-real-sticker, .pf-word-sticker, .pf-logo-disc, .pf-sticker-more { transition: none; } .pf-chip:hover { transform: none; } .pf-real-sticker:hover, .pf-word-sticker:hover { transform: rotate(var(--r)); } .pf-real-sticker:hover .pf-logo-disc { transform: none; } .pf-sticker-more { display: none; } .pf-sheen { display: none; } .pf-sticker.is-wiggling .pf-real-sticker, .pf-sticker.is-wiggling .pf-word-sticker { animation: none !important; } }
     @keyframes heroRing { 0%,100% { opacity: .18; transform: scale(1); } 50% { opacity: .06; transform: scale(1.08); } }
     @keyframes presencePulse { 0% { box-shadow: 0 0 0 0 rgba(20,195,142,0.5); } 70% { box-shadow: 0 0 0 6px rgba(20,195,142,0); } 100% { box-shadow: 0 0 0 0 rgba(20,195,142,0); } }
     .presence-av { position: relative; }
@@ -91,10 +139,10 @@
   <div data-comment-anchor="toolbar" style="position: fixed; top: 0; left: 0; right: 0; height: 48px; background: #15171C; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; z-index: 100; box-sizing: border-box;">
     <div style="display: flex; align-items: center; gap: 4px;">
       <div data-toolfit data-tip="Reset view" style="width: 30px; height: 30px; border-radius: 6px; background: #155DFC; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; margin-right: 6px;">A</div>
-      <div data-toolmsg="Select tool ✦ already on. Drag the canvas to look around." data-tip="Move" style="width: 30px; height: 30px; border-radius: 6px; background: #2A2E37; display: flex; align-items: center; justify-content: center;">
+      <div data-tool="select" data-toolmsg="Select tool ✦ on. Drag a card or sticker to move it · V" data-tip="Move (V)" role="button" tabindex="0" aria-pressed="true" style="width: 30px; height: 30px; border-radius: 6px; background: #2A2E37; display: flex; align-items: center; justify-content: center;">
         <svg width="14" height="14" viewBox="0 0 18 18"><polygon points="3,1 15,9 9.5,10.5 7,16" fill="#E7E9EE"></polygon></svg>
       </div>
-      <div data-toolmsg="Hand tool ✦ just drag anywhere to pan around." data-tip="Hand · drag to pan" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px;">✥</div>
+      <div data-tool="hand" data-toolmsg="Hand tool ✦ drag anywhere to pan · H" data-tip="Hand · pan (H)" role="button" tabindex="0" aria-pressed="false" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px;">✥</div>
       <div data-toolmsg="No typing needed ✦ my work does the talking. Scroll right →" data-tip="Text" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;">T</div>
       <div data-toolmsg="Comment tool ✦ the real notes are pinned out on the canvas." data-tip="Comment" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px;">◯</div>
     </div>
@@ -124,6 +172,7 @@
     <div data-layer="hero" onClick="{{ goHero }}" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; cursor: pointer; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 01 · Intro</div>
     <div data-layer="work" onClick="{{ goWork }}" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; cursor: pointer; color: #364153; font-size: 13px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 02 · Selected Work</div>
     <div data-layer="dws" onClick="{{ goDws }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; display: inline-flex; width: 12px;"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 1v10M9 1v10M1 3h10M1 9h10"/></svg></span> Disputes Workspace</div>
+    <a data-layer="aiintake" href="/ai-dispute-intake" style="display: flex; align-items: center; gap: 8px; padding: 4px 16px 4px 48px; cursor: pointer; color: #4A5565; font-size: 12px; font-weight: 500; text-decoration: none;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; font-size: 10px;">&#8627;</span> AI-assisted dispute intake</a>
     <div data-layer="c360" onClick="{{ goC360 }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; display: inline-flex; width: 12px;"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 1v10M9 1v10M1 3h10M1 9h10"/></svg></span> 360 Control</div>
     <div data-layer="ds" onClick="{{ goDs }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; display: inline-flex; width: 12px;"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 1v10M9 1v10M1 3h10M1 9h10"/></svg></span> Design System</div>
     <div data-layer="cpq" onClick="{{ goCpq }}" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 34px; cursor: pointer; color: #4A5565; font-size: 12.5px; font-weight: 500;" style-hover="background: #F4F5F7;"><span style="color: #C9CDD6; display: inline-flex; width: 12px;"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 1v10M9 1v10M1 3h10M1 9h10"/></svg></span> CPQ</div>
@@ -178,8 +227,8 @@
       </div>
       <div style="height: 1px; background: #ECEDF1; margin: 16px 0;"></div>
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #6A7282; margin-bottom: 10px;">EXPORT</div>
-      <a href="https://resumego.link/abhikant/designer" target="_blank" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid #ECEDF1; border-radius: 8px; padding: 9px 12px; text-decoration: none; color: #101828; font-size: 12.5px; font-weight: 700; margin-bottom: 8px;" style-hover="border-color: #155DFC; color: #155DFC;"><span>Resume.pdf</span><span style="font-family: 'JetBrains Mono', monospace; color: #6A7282;">↓</span></a>
-      <a href="https://www.linkedin.com/in/abhikant" target="_blank" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid #ECEDF1; border-radius: 8px; padding: 9px 12px; text-decoration: none; color: #101828; font-size: 12.5px; font-weight: 700;" style-hover="border-color: #155DFC; color: #155DFC;"><span>LinkedIn</span><span style="font-family: 'JetBrains Mono', monospace; color: #6A7282;">→</span></a>
+      <a class="pf-cta" href="https://resumego.link/abhikant/designer" target="_blank" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid #ECEDF1; border-radius: 8px; padding: 9px 12px; text-decoration: none; color: #101828; font-size: 12.5px; font-weight: 700; margin-bottom: 8px;" style-hover="border-color: #155DFC; color: #155DFC;"><span>Resume.pdf</span><span style="font-family: 'JetBrains Mono', monospace; color: #6A7282;">↓</span></a>
+      <a class="pf-cta" href="https://www.linkedin.com/in/abhikant" target="_blank" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid #ECEDF1; border-radius: 8px; padding: 9px 12px; text-decoration: none; color: #101828; font-size: 12.5px; font-weight: 700;" style-hover="border-color: #155DFC; color: #155DFC;"><span>LinkedIn</span><span style="font-family: 'JetBrains Mono', monospace; color: #6A7282;">→</span></a>
     </div>
   </div>
 
@@ -198,13 +247,13 @@
           <div style="position: relative; z-index: 2; display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 48px; align-items: center;">
             <div>
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #155DFC; margin-bottom: 22px;">ABHIKANT NIRBHAVANE · SENIOR UX DESIGNER</div>
-              <h1 style="font-size: 46px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 20px; text-wrap: pretty; color: #101828;">I design for environments where getting it wrong has real consequences.</h1>
+              <h1 style="font-size: 46px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 20px; text-wrap: pretty; color: #101828;">I design for environments where getting it wrong has <span id="hero-cycle-box" style="display: inline-block; text-align: left; vertical-align: bottom;"><span id="hero-cycle" aria-hidden="true" style="display: inline-block; color: #155DFC; border-bottom: 3px solid rgba(21,93,252,0.5); line-height: 1.05; will-change: opacity, filter, transform;">real consequences</span></span><span class="sr-only">real consequences, legal deadlines, people's money, or no second try</span>.</h1>
               <p style="font-size: 16px; line-height: 1.7; color: #4A5565; margin: 0 0 26px; max-width: 54ch;">Dispute management, card controls, compliance workflows, complex quoting. Enterprise systems where clarity is a safety feature, not a nice-to-have. Most recently at Fiserv, where I shipped AI that explains itself: confidence indicators, reasoning you can actually see, and a human override that's always there. In these systems you can't afford a black box.</p>
               <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Enterprise UX</span>
-                <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Design systems</span>
-                <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">AI workflows</span>
-                <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Fintech</span>
+                <span class="pf-chip" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Enterprise UX</span>
+                <span class="pf-chip" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Design systems</span>
+                <span class="pf-chip" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">AI workflows</span>
+                <span class="pf-chip" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Fintech</span>
               </div>
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282; margin-top: 28px;">this portfolio is a canvas: drag to pan, the work lives to the right ↗</div>
             </div>
@@ -221,6 +270,32 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- ============ FLOATING STICKERS (tactile logo proof, cred badge, metric) ============ -->
+      <div class="pf-sticker" style="left: 1210px; top: 360px; animation: stickerFloatA 6.5s ease-in-out infinite;">
+        <div class="pf-word-sticker" style="--r: -6deg; --z: 6; --accent: #155DFC; --paper: #EEF3FF;"><span class="pf-sticker-more">Reasoning visible, not hidden</span><strong>No black box AI</strong><span>explainable by design</span></div>
+      </div>
+      <!-- logo stickers: taped to the intro frame edges, clear of core copy -->
+      <div class="pf-sticker" style="left: 1056px; top: 318px; animation: stickerFloatB 7s ease-in-out infinite;">
+        <div class="pf-real-sticker" style="--r: 5deg; --z: 4;"><span class="pf-logo-disc"><img class="pf-logo-mark" src="assets/Fiserv_Logo.webp" alt=""></span><span class="pf-logo-copy"><strong>Fiserv</strong><em>AI you can audit</em></span><span class="pf-sticker-more">confidence, reasoning, override</span></div>
+      </div>
+      <div class="pf-sticker" style="left: 1456px; top: 514px; animation: stickerFloatC 6.4s ease-in-out infinite;">
+        <div class="pf-real-sticker" style="--r: -8deg; --z: 5;"><span class="pf-logo-disc"><img class="pf-logo-mark" src="assets/Target_logo.png" alt=""></span><span class="pf-logo-copy"><strong>Target</strong><em>retail rollout</em></span><span class="pf-sticker-more">legacy flow, modernized</span></div>
+      </div>
+      <div class="pf-sticker" style="left: 940px; top: 878px; animation: stickerFloatA 7.2s ease-in-out infinite;">
+        <div class="pf-real-sticker" style="--r: 4deg; --z: 3;"><span class="pf-logo-disc"><img class="pf-logo-mark" src="assets/BanfieldPetLogo.png" alt=""></span><span class="pf-logo-copy"><strong>Banfield</strong><em>clinical workflows</em></span><span class="pf-sticker-more">less friction for care teams</span></div>
+      </div>
+      <div class="pf-sticker" style="left: 290px; top: 808px; animation: stickerFloatC 6.8s ease-in-out infinite;">
+        <div class="pf-real-sticker" style="--r: -5deg; --z: 2;"><span class="pf-logo-disc"><img class="pf-logo-mark" src="assets/IU_Logo.svg" alt=""></span><span class="pf-logo-copy"><strong>Indiana University</strong><em>research roots</em></span><span class="pf-sticker-more">HCI, prototypes, fieldwork</span></div>
+      </div>
+      <!-- cred badge: SVG shield (accessibility, principle #4) -->
+      <div class="pf-sticker" style="left: 472px; top: 928px; animation: stickerFloatC 6s ease-in-out infinite;">
+        <div class="pf-word-sticker" style="--r: 7deg; --z: 3; --accent: #009966; --paper: #E9FFF4;"><span class="pf-sticker-more">Readable, reachable, usable</span><strong>WCAG AA</strong><span>accessible by default</span></div>
+      </div>
+      <!-- metric chip (on card, bottom-right) -->
+      <div class="pf-sticker" style="left: 1250px; top: 812px; animation: stickerFloatB 6.5s ease-in-out infinite;">
+        <div class="pf-word-sticker" style="--r: -4deg; --z: 4; --accent: #FF7A1A; --paper: #FFF3E7;"><span class="pf-sticker-more">Less friction, lower risk</span><strong>&minus;33% task steps</strong><span>DWS shipped</span></div>
       </div>
 
       <!-- ============ STICKY NOTE ============ -->
@@ -253,6 +328,29 @@
               <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #6A7282;">role</span><span>UX Designer</span></div>
               <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F1F2F5; padding-bottom: 7px;"><span style="color: #6A7282;">legacy tools</span><span style="color: #00825A;">4 → 1</span></div>
               <div style="display: flex; justify-content: space-between;"><span style="color: #6A7282;">task steps</span><span style="color: #00825A;">−33%</span></div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- ============ FRAME · AI DISPUTE INTAKE (deep dive, companion to DWS) ============ -->
+      <div data-screen-label="Home / AI dispute intake">
+        <div data-flab="aiintake" style="position: absolute; left: 1760px; top: 972px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;">&#8627; work / ai-dispute-intake · the AI deep dive</div>
+        <a data-frame="aiintake" data-fade="1" href="/ai-dispute-intake" style="position: absolute; left: 1760px; top: 1000px; width: 880px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
+          <div style="display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 24px; padding: 28px 32px; align-items: center;">
+            <div style="border-radius: 10px; overflow: hidden; border: 1px solid #ECEDF1; background: #0B0B0B;">
+              <img data-zoomimg="1" loading="lazy" src="assets/dws-ai-components.png" alt="AI-assisted dispute intake, Fiserv" style="display: block; width: 100%; height: 150px; object-fit: cover; object-position: top;">
+            </div>
+            <div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: #155DFC; margin-bottom: 8px;">DEEP DIVE · COMPANION TO DWS</div>
+              <h3 style="font-size: 20px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 8px;">AI-assisted dispute intake</h3>
+              <p style="font-size: 14px; line-height: 1.65; color: #4A5565; margin: 0 0 14px;">Why AI was chosen, how confidence and override keep humans in control, and the audit log designed as a feedback loop where every override teaches the model.</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 16px;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 4px 10px;">Agentic UX</span>
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 4px 10px;">AI Trust</span>
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 4px 10px;">Human-in-the-loop</span>
+              </div>
+              <span style="font-size: 13.5px; font-weight: 800; color: #155DFC;">Open case study <span data-arr="1" style="display: inline-block; transition: transform 0.3s;">&rarr;</span></span>
             </div>
           </div>
         </a>
@@ -479,7 +577,7 @@
           <h2 style="font-size: 46px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin: 0 0 18px; max-width: 18ch;">Let's build the next high-stakes thing.</h2>
           <p style="font-size: 16px; line-height: 1.7; color: #6A7282; margin: 0 0 32px; max-width: 52ch;">If you're looking for a designer who's comfortable where compliance, complexity, and real money meet, let's talk.</p>
           <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
-            <a href="mailto:abhikant5540@gmail.com?subject=Hi%20there" style="background: #155DFC; color: #fff; font-size: 15px; font-weight: 800; padding: 14px 24px; border-radius: 8px; text-decoration: none;" style-hover="background: #2B70FF;">Email me</a>
+            <a class="pf-cta" href="mailto:abhikant5540@gmail.com?subject=Hi%20there" style="background: #155DFC; color: #fff; font-size: 15px; font-weight: 800; padding: 14px 24px; border-radius: 8px; text-decoration: none;" style-hover="background: #2B70FF;">Email me</a>
             <a href="https://www.linkedin.com/in/abhikant" target="_blank" style="color: #E7E9EE; font-size: 14px; font-weight: 700; text-decoration: none; border: 1px solid #3A3F4B; padding: 13px 20px; border-radius: 8px;" style-hover="border-color: #7AA5FF; color: #7AA5FF;">LinkedIn ↗</a>
             <a href="https://resumego.link/abhikant/designer" target="_blank" style="color: #E7E9EE; font-size: 14px; font-weight: 700; text-decoration: none; border: 1px solid #3A3F4B; padding: 13px 20px; border-radius: 8px;" style-hover="border-color: #7AA5FF; color: #7AA5FF;">Resume ↓</a>
           </div>
@@ -557,6 +655,22 @@
               <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 3px 8px;">AI</span>
             </div>
             <span style="font-size: 12.5px; font-weight: 700; color: #155DFC;">Open case study →</span>
+          </div>
+        </div>
+      </a>
+      <a href="/ai-dispute-intake" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
+          <div style="background: #0B0B0B; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 3px 9px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; color: #155DFC; box-shadow: 0 2px 8px rgba(0,0,0,0.22);"><span style="width: 5px; height: 5px; border-radius: 50%; background: #155DFC;"></span>DEEP DIVE</div><img loading="lazy" src="assets/dws-ai-components.png" alt="AI-assisted dispute intake" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
+          <div style="padding: 16px 18px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282; margin-bottom: 5px;">&#8627; the AI deep dive behind DWS · fiserv</div>
+            <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">AI-assisted dispute intake</h3>
+            <p style="font-size: 13px; color: #4A5565; margin: 0 0 10px; line-height: 1.5;">The audit log as a feedback loop: every override teaches the model where to improve.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 10px;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 3px 8px;">Agentic UX</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 3px 8px;">AI Trust</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 3px 8px;">Human-in-the-loop</span>
+            </div>
+            <span style="font-size: 12.5px; font-weight: 700; color: #155DFC;">Open case study &rarr;</span>
           </div>
         </div>
       </a>
@@ -716,6 +830,7 @@ class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.view = { x: 0, y: 0, s: 0.5 };
+    this.tool = "select"; // "select" = drag cards/stickers, pan on empty; "hand" = always pan
     this.frames = {};
     this.meta = {
       hero: { name: "01 · Intro", fill: "#FFFFFF" },
@@ -1082,6 +1197,34 @@ class Component extends DCLogic {
       el.addEventListener("click", () => this._showToast(el.getAttribute("data-toolmsg")));
     });
 
+    // ---- real Select/Hand tools: select = drag cards/stickers, hand = always pan ----
+    const setTool = (t) => {
+      this.tool = t;
+      const vp = document.getElementById("viewport");
+      if (vp) vp.style.cursor = t === "hand" ? "grab" : "default";
+      document.querySelectorAll("[data-tool]").forEach((b) => {
+        const on = b.getAttribute("data-tool") === t;
+        b.style.background = on ? "#2A2E37" : "transparent";
+        b.style.color = on ? "#E7E9EE" : "#8A8F9C";
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+    };
+    document.querySelectorAll("[data-tool]").forEach((b) => {
+      const act = () => setTool(b.getAttribute("data-tool"));
+      b.addEventListener("click", act);
+      b.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); act(); }
+      });
+    });
+    document.addEventListener("keydown", (e) => {
+      const tag = (e.target && e.target.tagName) || "";
+      if (e.metaKey || e.ctrlKey || e.altKey || /^(INPUT|TEXTAREA|SELECT)$/.test(tag)) return;
+      const k = e.key.toLowerCase();
+      if (k === "v") setTool("select");
+      else if (k === "h") setTool("hand");
+    });
+    setTool("select");
+
     // ---- email links assembled at runtime ----
     const addr = ["abhikant5540", "gmail.com"].join("@");
     document.querySelectorAll("[data-email]").forEach((el) => {
@@ -1176,6 +1319,22 @@ class Component extends DCLogic {
       });
     });
 
+    // ---- hybrid stickers: inject sheen overlay + pop-in entrance ----
+    document.querySelectorAll(".pf-real-sticker, .pf-word-sticker").forEach((s) => {
+      const sheen = document.createElement("span");
+      sheen.className = "pf-sheen";
+      sheen.setAttribute("aria-hidden", "true");
+      s.insertBefore(sheen, s.firstChild); // first child → paints behind text
+    });
+    if (!this.reduce) {
+      document.querySelectorAll(".pf-sticker").forEach((s, i) => {
+        s.animate(
+          [{ transform: "scale(0.4)", opacity: 0 }, { transform: "scale(1)", opacity: 1 }],
+          { duration: 520, easing: "cubic-bezier(.2,.9,.3,1.25)", delay: 200 + i * 70 }
+        );
+      });
+    }
+
     // ---- entrance: overview, then settle on hero at a calm pace ----
     if (this.reduce) {
       this.flyToKey("hero", 0);
@@ -1195,6 +1354,12 @@ class Component extends DCLogic {
       // record the link target BEFORE pointer capture (target is still correct here)
       clickTarget = e.target ? e.target.closest("a[href]") : null;
       sx = e.clientX; sy = e.clientY; ox = this.view.x; oy = this.view.y;
+      // select tool: if the press lands on a card or sticker, drag that object instead of panning
+      this._dragEl = null;
+      if (this.tool === "select" && pointers.size === 1 && e.target && e.target.closest) {
+        const t = e.target.closest("[data-frame], .pf-sticker");
+        if (t) { this._dragEl = t; this._dragL = t.offsetLeft; this._dragT = t.offsetTop; t.style.zIndex = "60"; }
+      }
       if (pointers.size === 2) {
         const p = Array.from(pointers.values());
         pinchD = Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y);
@@ -1215,6 +1380,13 @@ class Component extends DCLogic {
         moved = 99;
         return;
       }
+      if (this._dragEl) {
+        // move the grabbed card/sticker: screen delta → plane delta (÷ zoom scale)
+        moved = Math.max(moved, Math.abs(e.clientX - sx) + Math.abs(e.clientY - sy));
+        this._dragEl.style.left = (this._dragL + (e.clientX - sx) / this.view.s) + "px";
+        this._dragEl.style.top  = (this._dragT + (e.clientY - sy) / this.view.s) + "px";
+        return;
+      }
       const dx = e.clientX - sx, dy = e.clientY - sy;
       moved = Math.max(moved, Math.abs(dx) + Math.abs(dy));
       this._vx = (this._vx || 0) * 0.6 + (e.movementX || 0) * 0.4;
@@ -1227,7 +1399,18 @@ class Component extends DCLogic {
       pointers.delete(e.pointerId);
       pinchD = 0;
       if (pointers.size === 0) {
-        vp.style.cursor = "grab";
+        vp.style.cursor = this.tool === "hand" ? "grab" : "default";
+        if (this._dragEl) {
+          const el = this._dragEl; this._dragEl = null;
+          el.style.zIndex = "";
+          if (moved > 12) { moved = 0; clickTarget = null; this.scheduleSpy(); return; } // it was a move, don't navigate
+          if (el.classList.contains("pf-sticker")) { // tap on a sticker → wiggle, no nav
+            el.classList.add("is-wiggling");
+            setTimeout(() => el.classList.remove("is-wiggling"), 600);
+            moved = 0; clickTarget = null; this.scheduleSpy(); return;
+          }
+          // tap on a card (no move) → fall through so clickTarget navigates
+        }
         const wasDrag = moved > 12;
         moved = 0;
         // Pointer capture swallows the click event on the <a>, so navigate manually.
@@ -1353,6 +1536,44 @@ class Component extends DCLogic {
           if (heroGlow) heroGlow.style.opacity = "0";
         });
       }
+    }
+
+    // ---- hero eyebrow: cycling domain w/ scramble (Pradeep-inspired) ----
+    const cycleEl = document.getElementById('hero-cycle');
+    const cycleBox = document.getElementById('hero-cycle-box');
+    if (cycleEl && cycleBox) {
+      const words = ['real consequences', 'legal deadlines', "people's money", 'no second try'];
+      // animate-text skill · soft-blur swap (smoke dissipate/reform). Whole phrase
+      // animates so the underline rides along and fades with it (no lingering line).
+      const start = () => {
+        // pin box to widest phrase → headline never reflows / jumps lines
+        let maxW = 0;
+        words.forEach((w) => { cycleEl.textContent = w; maxW = Math.max(maxW, cycleEl.offsetWidth); });
+        cycleBox.style.minWidth = maxW + 'px';
+        cycleEl.textContent = words[0];
+        let i = 0;
+        if (this.reduce) {
+          setInterval(() => { i = (i + 1) % words.length; cycleEl.textContent = words[i]; }, 3600);
+          return;
+        }
+        const swap = (next) => {
+          const out = cycleEl.animate(
+            [{ opacity: 1, filter: 'blur(0px)', transform: 'scale(1)' },
+             { opacity: 0, filter: 'blur(7px)', transform: 'scale(1.05)' }],
+            { duration: 440, easing: 'cubic-bezier(0.4,0,0.7,0.2)', fill: 'forwards' });
+          out.onfinish = () => {
+            cycleEl.textContent = next;
+            cycleEl.animate(
+              [{ opacity: 0, filter: 'blur(9px)', transform: 'scale(0.96)' },
+               { opacity: 1, filter: 'blur(0px)', transform: 'scale(1)' }],
+              { duration: 640, easing: 'cubic-bezier(0.16,1,0.3,1)', fill: 'forwards' });
+          };
+        };
+        setInterval(() => { i = (i + 1) % words.length; swap(words[i]); }, 4200);
+      };
+      // measure after fonts settle so the pinned width matches the real glyphs
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(start);
+      else start();
     }
 
     // ---- responsive: collapse panels under 1180px ----
