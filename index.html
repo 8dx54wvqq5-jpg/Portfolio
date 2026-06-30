@@ -1752,37 +1752,41 @@ class Component extends DCLogic {
 </script>
 <script>
   {
-    // ---- macOS Writing Folder: keyboard access (click handled by drag pointerup) ----
-    const pfFolder = document.getElementById('pf-writing-folder');
-    if (pfFolder) {
-      pfFolder.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
+    // x-dc (support.js) re-renders the canvas, replacing the folder node — so
+    // always re-query #pf-writing-folder inside handlers, never cache a stale ref.
+    const getFolder = () => document.getElementById('pf-writing-folder');
+    const closeFolder = () => {
+      const f = getFolder();
+      if (f) { f.classList.remove('pf-folder-open'); f.setAttribute('aria-expanded', 'false'); }
+    };
+    const closeConnect = () => {
+      document.querySelectorAll('.connect-menu').forEach((m) => { m.style.display = 'none'; });
+    };
+
+    // ---- macOS Writing Folder: keyboard toggle (delegated, survives re-render) ----
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        const f = e.target && e.target.closest ? e.target.closest('#pf-writing-folder') : null;
+        if (f && !e.target.closest('.pf-folder-card')) {
           e.preventDefault();
-          const open = pfFolder.classList.toggle('pf-folder-open');
-          pfFolder.setAttribute('aria-expanded', open ? 'true' : 'false');
+          const open = f.classList.toggle('pf-folder-open');
+          f.setAttribute('aria-expanded', open ? 'true' : 'false');
         }
-      });
-    }
+      }
+      if (e.key === 'Escape') { closeFolder(); closeConnect(); }
+    });
 
     // ---- outside-click closes folder + Connect menu ----
-    // Canvas pointer-capture swallows the document `click`, so listen on pointerdown.
+    // Canvas pointer-capture swallows the document `click`, so listen on pointerdown (capture).
     document.addEventListener('pointerdown', (e) => {
       const t = e.target && e.target.closest ? e.target : null;
-      if (pfFolder && pfFolder.classList.contains('pf-folder-open') &&
+      const f = getFolder();
+      if (f && f.classList.contains('pf-folder-open') &&
           (!t || !t.closest('#pf-writing-folder'))) {
-        pfFolder.classList.remove('pf-folder-open');
-        pfFolder.setAttribute('aria-expanded', 'false');
+        closeFolder();
       }
-      if (!t || !t.closest('[data-connect]')) {
-        document.querySelectorAll('.connect-menu').forEach((m) => { m.style.display = 'none'; });
-      }
+      if (!t || !t.closest('[data-connect]')) closeConnect();
     }, true);
-    // Esc closes both
-    document.addEventListener('keydown', (e) => {
-      if (e.key !== 'Escape') return;
-      if (pfFolder) { pfFolder.classList.remove('pf-folder-open'); pfFolder.setAttribute('aria-expanded', 'false'); }
-      document.querySelectorAll('.connect-menu').forEach((m) => { m.style.display = 'none'; });
-    });
   }
 </script>
 
