@@ -202,6 +202,34 @@
 	      border-radius: 18px 22px 17px 20px;
 	      color: #101828;
 	    }
+	    .pf-sticker--hci .pf-word-sticker {
+	      background: linear-gradient(145deg,#FFFFFF 0%,#FFF8F8 56%,#F4E6E6 100%);
+	      border-radius: 20px 18px 17px 22px;
+	      color: #101828;
+	    }
+	    .pf-hci-logo {
+	      display: inline-grid;
+	      place-items: center;
+	      width: 38px;
+	      height: 38px;
+	      flex: 0 0 38px;
+	      border-radius: 999px;
+	      background: rgba(255,255,255,0.92);
+	      border: 1px solid rgba(153,0,0,0.16);
+	      box-shadow: 0 3px 10px rgba(16,24,40,0.10), inset 0 1px 0 rgba(255,255,255,0.95);
+	      transition: transform .28s cubic-bezier(0.34,1.56,0.64,1), box-shadow .28s ease;
+	    }
+	    .pf-hci-logo img {
+	      display: block;
+	      width: 22px;
+	      height: 28px;
+	      object-fit: contain;
+	    }
+	    .pf-sticker--hci .pf-word-sticker:hover .pf-hci-logo,
+	    .pf-sticker--hci:focus-within .pf-hci-logo {
+	      transform: translateY(-2px) rotate(-8deg) scale(1.08);
+	      box-shadow: 0 8px 18px rgba(153,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.98);
+	    }
 	    .pf-sticker--fiserv .pf-word-sticker {
 	      background: linear-gradient(145deg,#FF7A2F 0%,#F05C16 100%);
 	      border-radius: 18px 20px 16px 22px;
@@ -544,8 +572,8 @@
 	      <div class="pf-sticker pf-sticker--parked" role="button" tabindex="0" aria-label="Sticker: Banfield. Clinical workflows, less friction for care teams." style="left: 910px; top: 848px; animation: stickerFloatA 7.2s ease-in-out infinite;">
 	        <div class="pf-real-sticker" style="--r: 4deg; --z: 3;"><span class="pf-logo-disc"><img class="pf-logo-mark" src="assets/BanfieldPetLogo.png" alt=""></span><span class="pf-logo-copy"><strong>Banfield</strong><em>clinical workflows</em></span><span class="pf-sticker-more">less friction for care teams</span></div>
 	      </div>
-	      <div class="pf-sticker pf-sticker--parked" role="button" tabindex="0" aria-label="Sticker: MS in HCI, Indiana University. Research, prototypes, fieldwork." style="left: 282px; top: 832px; animation: stickerFloatC 6.8s ease-in-out infinite;">
-	        <div class="pf-real-sticker" style="--r: -5deg; --z: 2;"><span class="pf-logo-disc"><img class="pf-logo-mark" src="assets/IU_Logo.svg" alt=""></span><span class="pf-logo-copy"><strong>MS in HCI</strong><em>Indiana University</em></span><span class="pf-sticker-more">research, prototypes, fieldwork</span></div>
+	      <div class="pf-sticker pf-sticker--quiet pf-sticker--hci" role="button" tabindex="0" aria-label="Sticker: MS in HCI, Indiana University. Research, prototypes, fieldwork." style="left: 720px; top: 246px; animation: stickerFloatC 7s ease-in-out infinite;">
+	        <div class="pf-word-sticker" style="--r: -4deg; --z: 4;"><span class="pf-sticker-more">research, prototypes, fieldwork</span><span class="pf-hci-logo" aria-hidden="true"><img src="assets/IU_Logo.svg" alt=""></span><span><strong>MS in HCI</strong><span>Indiana University</span></span></div>
 	      </div>
 	      <!-- ============ macOS WRITING FOLDER ============ -->
 	      <div class="pf-folder-sticker pf-writing-paper pf-sticker" id="pf-writing-folder"
