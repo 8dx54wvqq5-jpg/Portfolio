@@ -211,22 +211,23 @@
   trigger.addEventListener('click', function () { isOpen ? close() : open(); });
   backdrop.addEventListener('click', close);
   panel.querySelector('.ab-chat-close').addEventListener('click', close);
-  panel.querySelector('.ab-chat-reset').addEventListener('click', function () {
-    messages = [];
-    busy = false;
-    sendBtn.disabled = false;
-    renderMessages();
-  });
 
   sendBtn.addEventListener('click', function () { send(inputEl.value); });
   inputEl.addEventListener('keydown', function (e) {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(inputEl.value); }
   });
 
-  // starter buttons (delegated — re-rendered each time)
+  // starter buttons + reset (delegated — re-rendered each time)
   msgsEl.addEventListener('click', function (e) {
     var btn = e.target.closest('.ab-starter');
-    if (btn) send(btn.textContent);
+    if (btn) { send(btn.textContent); return; }
+    var reset = e.target.closest('.ab-chat-reset');
+    if (reset) {
+      messages = [];
+      busy = false;
+      sendBtn.disabled = false;
+      renderMessages();
+    }
   });
 
   // ⌘K / Ctrl+K
