@@ -1598,8 +1598,9 @@ class Component extends DCLogic {
 
 <!-- before/after consistent sizing + Trust Loop motion (reduced-motion safe) -->
 <style>
-	  .dws-cmp { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
-	  .dws-cmp > div { min-width: 0; }
+	  .dws-cmp { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: stretch; }
+	  .dws-cmp > div { min-width: 0; display: flex; flex-direction: column; }
+	  .dws-cmp > div > div:last-child { margin-top: auto; }
 	  .dws-cmp img { width: 100%; height: auto; display: block; }
 		  .hotspot-card { border: 1px solid #E2E4E9; border-radius: 12px; background: #FBFCFE; padding: 28px 32px; }
 		  .hotspot-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; gap: 12px; flex-wrap: wrap; }
