@@ -7,7 +7,7 @@
 
   var caseLinks = [
     { key: 'dispute-workspace', label: 'Disputes Workspace', short: 'DWS', href: '/dispute-workspace', files: ['DWS.dc.html', 'dispute-workspace'] },
-    { key: 'ai-dispute-intake', label: 'AI-assisted dispute intake', short: 'AI Intake', href: '/ai-dispute-intake', files: ['AI-Dispute-Intake.dc.html', 'ai-dispute-intake'], nested: true },
+    { key: 'ai-dispute-intake', label: 'AI-Assisted Dispute Intake', short: 'AI Intake', href: '/ai-dispute-intake', files: ['AI-Dispute-Intake.dc.html', 'ai-dispute-intake'], nested: true },
     { key: '360-control', label: '360 Control', short: '360 Control', href: '/360-control', files: ['360 Control.dc.html', '360-control'] },
     { key: 'design-system', label: 'Design System', short: 'DS', href: '/design-system', files: ['DS.dc.html', 'design-system'] },
     { key: 'cpq', label: 'CPQ', short: 'CPQ', href: '/cpq', files: ['CPQ.dc.html', 'cpq'] },

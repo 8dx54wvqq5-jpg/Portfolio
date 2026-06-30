@@ -1,5 +1,5 @@
-<svg viewBox="0 0 1280 960" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AI-assisted dispute intake: AI fills fields with High, Medium and Low confidence, every decision is logged, and overrides feed a learning loop">
-  <title>AI-assisted dispute intake</title>
+<svg viewBox="0 0 1280 960" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AI-Assisted Dispute Intake: AI fills fields with High, Medium and Low confidence, every decision is logged, and overrides feed a learning loop">
+  <title>AI-Assisted Dispute Intake</title>
   <desc>An intake card with AI-filled fields carrying confidence levels, an audit log strip, and a feedback loop that improves the model over time.</desc>
   <defs>
     <linearGradient id="aiHeroPaper" x1="0" y1="0" x2="0" y2="1">
