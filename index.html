@@ -1576,65 +1576,54 @@ class Component extends DCLogic {
       }
     }
 
-    // ---- hero eyebrow: cycling domain w/ per-character typing reveal ----
+    // ---- hero cycling text: typewriter type-in + backspace (Elora Dutta style) ----
     const cycleEl = document.getElementById('hero-cycle');
     const cycleBox = document.getElementById('hero-cycle-box');
     if (cycleEl && cycleBox) {
       const words = ['enterprise products', 'AI interfaces', 'workflow tools', 'design systems'];
-      // animate-text skill · typewriter-style per-character cascade. Spaces are
-      // rendered as non-breaking spans so multi-word phrases never collapse.
-      const start = () => {
-        // pin box to widest phrase → headline never reflows / jumps lines
-        let maxW = 0;
-        words.forEach((w) => { cycleEl.textContent = w; maxW = Math.max(maxW, cycleEl.offsetWidth); });
-        cycleBox.style.minWidth = maxW + 'px';
+      const CURSOR = '<span style="animation:pfCaretBlink 1s step-end infinite">|</span>';
+      // inject cursor blink keyframes once
+      const ks = document.createElement('style');
+      ks.textContent = '@keyframes pfCaretBlink{0%,100%{opacity:1}50%{opacity:0}}';
+      document.head.appendChild(ks);
 
-        const renderChars = (text) => {
-          cycleEl.innerHTML = '';
-          const frag = document.createDocumentFragment();
-          Array.from(text).forEach((ch) => {
-            const s = document.createElement('span');
-            s.textContent = ch === ' ' ? '\u00A0' : ch;
-            s.style.display = 'inline-block';
-            frag.appendChild(s);
-          });
-          cycleEl.appendChild(frag);
-          return Array.from(cycleEl.children);
-        };
+      const start = () => {
+        // pin box to widest phrase + cursor so headline never reflows
+        let maxW = 0;
+        words.forEach((w) => { cycleEl.textContent = w + '|'; maxW = Math.max(maxW, cycleEl.offsetWidth); });
+        cycleBox.style.minWidth = maxW + 'px';
+        cycleEl.innerHTML = '';
 
         let i = 0;
-        if (this.reduce) {
-          renderChars(words[0]);
-          setInterval(() => { i = (i + 1) % words.length; renderChars(words[i]); }, 3600);
-          return;
-        }
+        if (this.reduce) { cycleEl.textContent = words[0]; return; }
 
-        const enter = (chars) => {
-          chars.forEach((ch, idx) => {
-            ch.style.opacity = '0';
-            ch.animate(
-              [{ opacity: 0, transform: 'translateX(8px)' },
-               { opacity: 1, transform: 'translateX(0)' }],
-              { duration: 280, delay: idx * 28, easing: 'cubic-bezier(0.16,1,0.3,1)', fill: 'forwards' });
-          });
+        const type = (text, done) => {
+          let pos = 0;
+          cycleEl.innerHTML = CURSOR;
+          const tick = () => {
+            pos++;
+            cycleEl.innerHTML = text.slice(0, pos) + CURSOR;
+            if (pos < text.length) setTimeout(tick, 90);
+            else setTimeout(done, 1800); // pause at full word before erasing
+          };
+          setTimeout(tick, 120);
         };
 
-        const exit = (chars, onDone) => {
-          let remaining = chars.length;
-          chars.forEach((ch, idx) => {
-            const anim = ch.animate(
-              [{ opacity: 1 }, { opacity: 0 }],
-              { duration: 140, delay: idx * 8, easing: 'ease-in', fill: 'forwards' });
-            anim.onfinish = () => { remaining -= 1; if (remaining === 0) onDone(); };
-          });
+        const erase = (text, done) => {
+          let pos = text.length;
+          const tick = () => {
+            pos--;
+            cycleEl.innerHTML = pos > 0 ? text.slice(0, pos) + CURSOR : CURSOR;
+            if (pos > 0) setTimeout(tick, 45);
+            else { cycleEl.innerHTML = ''; setTimeout(done, 350); }
+          };
+          setTimeout(tick, 45);
         };
 
-        let chars = renderChars(words[0]);
-        enter(chars);
-        setInterval(() => {
-          i = (i + 1) % words.length;
-          exit(chars, () => { chars = renderChars(words[i]); enter(chars); });
-        }, 4200);
+        const cycle = () => {
+          type(words[i], () => { erase(words[i], () => { i = (i + 1) % words.length; cycle(); }); });
+        };
+        cycle();
       };
       // measure after fonts settle so the pinned width matches the real glyphs
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(start);
