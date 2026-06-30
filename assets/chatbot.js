@@ -168,13 +168,16 @@
       .then(function (r) { return r.json(); })
       .then(function (data) {
         removeTyping();
-        var reply = data.reply || 'Sorry, something went wrong.';
-        messages.push({ role: 'assistant', content: reply });
+        if (data.error) {
+          messages.push({ role: 'assistant', content: 'Error: ' + data.error + (data.detail ? ' — ' + data.detail.slice(0, 120) : '') });
+        } else {
+          messages.push({ role: 'assistant', content: data.reply || '(empty response)' });
+        }
         renderMessages();
       })
-      .catch(function () {
+      .catch(function (err) {
         removeTyping();
-        messages.push({ role: 'assistant', content: 'Something went wrong — try again?' });
+        messages.push({ role: 'assistant', content: 'Network error — ' + (err.message || 'try again?') });
         renderMessages();
       })
       .finally(function () {

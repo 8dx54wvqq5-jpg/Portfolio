@@ -74,13 +74,23 @@ module.exports = async function handler(req, res) {
       }),
     });
 
+    const rawText = await response.text();
     if (!response.ok) {
-      const err = await response.text();
-      return res.status(502).json({ error: 'Upstream error', detail: err });
+      console.error('Gemini error', response.status, rawText);
+      return res.status(502).json({ error: 'Upstream error', status: response.status, detail: rawText });
     }
 
-    const data = await response.json();
-    const reply = data.choices?.[0]?.message?.content || '';
+    let data;
+    try { data = JSON.parse(rawText); } catch(e) {
+      console.error('JSON parse error', rawText.slice(0, 500));
+      return res.status(502).json({ error: 'Bad JSON from Gemini', raw: rawText.slice(0, 200) });
+    }
+
+    const reply = data.choices?.[0]?.message?.content;
+    if (!reply) {
+      console.error('No reply in response', JSON.stringify(data).slice(0, 500));
+      return res.status(502).json({ error: 'Empty reply', data: JSON.stringify(data).slice(0, 300) });
+    }
     res.status(200).json({ reply });
   } catch (e) {
     res.status(500).json({ error: e.message });
