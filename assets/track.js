@@ -41,7 +41,10 @@
     '[data-connect]+div{display:none!important}',                      // zoom % indicator (both pages)
     '#toolbar-center{display:none!important}',                         // homepage "Drafts / … Portfolio" title
     '#toolbar-center+div>div:nth-child(2){display:none!important}',    // homepage "N here now"
-    '}'
+    '}',
+    // Touch devices fire :hover on tap → hover tooltips stick and leak off the
+    // edge ("Reset view" under the logo). Useless on touch; suppress them.
+    '@media (hover:none){[data-tip]::after,.presence-av::after{display:none!important}}'
   ].join('');
   document.head.appendChild(s);
 })();
