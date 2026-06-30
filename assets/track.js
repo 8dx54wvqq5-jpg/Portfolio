@@ -31,7 +31,17 @@
     '@view-transition{navigation:auto}',
     '[data-leftnav]{view-transition-name:ln-panel}',
     '#ab-chat-trigger{view-transition-name:chat-pill}',
-    '@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}'
+    '@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}',
+    // Mobile top-bar declutter: the dark toolbar crams desktop-canvas chrome
+    // that overflows ~400px screens and clips Connect/nav off the right edge.
+    // Hide the decorative bits; keep logo (Home), breadcrumb, Connect, 2 avatars.
+    '@media (max-width:880px){',
+    '[data-toolmsg]{display:none!important}',                          // Move/Hand/T/Comment tools
+    '.presence-av:nth-child(n+3){display:none!important}',             // keep first 2 avatars (you + Abhikant)
+    '[data-connect]+div{display:none!important}',                      // zoom % indicator (both pages)
+    '#toolbar-center{display:none!important}',                         // homepage "Drafts / … Portfolio" title
+    '#toolbar-center+div>div:nth-child(2){display:none!important}',    // homepage "N here now"
+    '}'
   ].join('');
   document.head.appendChild(s);
 })();
