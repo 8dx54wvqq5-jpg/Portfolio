@@ -1040,9 +1040,9 @@
           <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 70ch;">Put the pieces together and a cycle appears. The AI suggests, the agent decides, the log records, the team learns, and the next suggestion can be tuned with real behavior behind it. The record that keeps the work compliant also shows where the AI needs to get better. That is the idea I most want this case study to carry.</p>
 
           <!-- DEVICE D motion: the Trust Loop cycling, inline SVG animation -->
-          <div data-reveal="1" style="border: 1px solid #E2E4E9; border-radius: 12px; background: linear-gradient(180deg, #15171C 0%, #1B1E25 100%); padding: 40px 32px; margin-bottom: 40px;">
+          <div class="tl-card" data-reveal="1" style="border: 1px solid #E2E4E9; border-radius: 12px; background: linear-gradient(180deg, #15171C 0%, #1B1E25 100%); padding: 40px 32px; margin-bottom: 40px;">
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #7AA5FF; margin-bottom: 8px;">THE AI TRUST LOOP</div>
-            <div style="font-size: 13px; color: #AEB4C0; margin-bottom: 24px;">the cycle runs continuously: a pulse travels the loop and lights each stage in turn. <span style="color: #7AA5FF;">Hover or tap a node to read the decision it captures.</span></div>
+            <div class="tl-intro" style="font-size: 13px; color: #AEB4C0; margin-bottom: 24px;">The cycle runs continuously: a pulse travels the loop and lights each stage in turn. <span style="color: #7AA5FF;">Hover or tap a node to read what gets recorded.</span></div>
             <div style="display: flex; justify-content: center;">
               <!-- SVG stage: square container holds the animated loop; labels overlay the node positions -->
               <div class="trustloop-stage" role="img" aria-label="The AI Trust Loop, a continuous five-stage cycle: AI suggests, confidence shown, human decides, audit records, product tunes, then back to AI suggests." style="position: relative; width: 100%; max-width: 420px; aspect-ratio: 1 / 1;">
@@ -1714,14 +1714,31 @@ class Component extends DCLogic {
 			  }
 			  .tl-hotspot {
 			    min-width: 44px;
-			    min-height: 32px;
+			    min-height: 40px;
+			    background: rgba(12,18,30,0.54);
+			    box-shadow: inset 0 0 0 1px rgba(122,165,255,0.16), 0 8px 22px rgba(3,7,18,0.16);
+			    backdrop-filter: blur(6px);
+			    -webkit-backdrop-filter: blur(6px);
 			    transition: transform 180ms cubic-bezier(0.2,0,0,1), background 150ms ease, box-shadow 150ms ease, opacity 150ms ease !important;
+			  }
+			  .tl-hotspot > div:first-child {
+			    font-size: 10px !important;
+			    line-height: 1.15;
+			    letter-spacing: 0.08em;
+			    font-weight: 700;
+			    text-shadow: 0 1px 8px rgba(0,0,0,0.7);
+			  }
+			  .tl-hotspot > div:last-child {
+			    font-size: 13px !important;
+			    line-height: 1.2;
+			    color: #F6F8FC !important;
+			    text-shadow: 0 1px 10px rgba(0,0,0,0.82);
 			  }
 			  .tl-hotspot:hover,
 			  .tl-hotspot:focus-visible,
 			  .tl-hotspot.tl-on {
-			    background: rgba(122,165,255,0.09);
-			    box-shadow: inset 0 0 0 1px rgba(122,165,255,0.42), 0 8px 24px rgba(3,7,18,0.18);
+			    background: rgba(122,165,255,0.14);
+			    box-shadow: inset 0 0 0 1px rgba(122,165,255,0.58), 0 10px 28px rgba(3,7,18,0.24);
 			    outline: none;
 			  }
 			  .tl-hotspot.tl-on { transform: translate(-50%, -50%) scale(1.025) !important; }
@@ -1730,6 +1747,29 @@ class Component extends DCLogic {
 			    animation: tlPanelIn 220ms cubic-bezier(0.16,1,0.3,1);
 			  }
 			  #tl-ex-num { white-space: nowrap; }
+			  .tl-intro {
+			    color: #C8CEDA !important;
+			    font-size: 14px !important;
+			    line-height: 1.6;
+			    max-width: 70ch;
+			  }
+			  .tl-intro span { color: #A9C2FF !important; }
+			  #tl-ex-num {
+			    color: #A9C2FF !important;
+			    font-size: 11px !important;
+			    letter-spacing: 0.1em !important;
+			    font-variant-numeric: tabular-nums;
+			  }
+			  #tl-ex-title {
+			    color: #F2F5FA !important;
+			    font-size: 17px !important;
+			    line-height: 1.32;
+			  }
+			  #tl-ex-body {
+			    color: #D3D8E2 !important;
+			    font-size: 15px !important;
+			    line-height: 1.65 !important;
+			  }
 			  @keyframes tlPanelIn {
 			    from { opacity: 0.72; transform: translateY(5px); }
 			    to { opacity: 1; transform: translateY(0); }
@@ -1742,6 +1782,7 @@ class Component extends DCLogic {
 			    #tl-explain.tl-panel-in { animation: none; }
 			  }
 		  @media (max-width: 700px) {
+		    .tl-card { padding: 28px 16px !important; }
 		    .hotspot-card { padding: 22px 16px; }
 		    .hotspot-card-top { align-items: flex-start; margin-bottom: 16px; }
 		    .hotspot-sample-label { border-radius: 8px; line-height: 1.5; }
