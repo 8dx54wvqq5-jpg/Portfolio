@@ -23,6 +23,9 @@
       '#ab-chat-trigger .ab-avatar{width:26px;height:26px;border-radius:50%;background:#155DFC;color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;flex-shrink:0;}',
       '#ab-chat-trigger .ab-trigger-label{display:inline-flex;align-items:center;gap:8px;max-width:0;opacity:0;overflow:hidden;white-space:nowrap;transition:max-width .25s cubic-bezier(0.22,1,0.36,1),opacity .2s ease;}',
       '#ab-chat-trigger:hover .ab-trigger-label,#ab-chat-trigger:focus-visible .ab-trigger-label{max-width:220px;opacity:1;}',
+      /* full pill (homepage): label always shown */
+      '#ab-chat-trigger.ab-full{padding:9px 16px 9px 9px;}',
+      '#ab-chat-trigger.ab-full .ab-trigger-label{max-width:220px;opacity:1;}',
       '#ab-chat-trigger kbd{background:#1E2128;border:1px solid #2A2E37;border-radius:4px;padding:1px 5px;font-size:10px;color:#6B7280;font-family:"JetBrains Mono",monospace;}',
       /* panel */
       '#ab-chat-panel{position:fixed;bottom:80px;right:24px;z-index:400;width:min(400px,calc(100vw - 3rem));height:min(520px,calc(100dvh - 7rem));background:#15171C;border:1px solid #2A2E37;border-radius:16px;box-shadow:0 24px 64px rgba(0,0,0,0.6);display:flex;flex-direction:column;overflow:hidden;transform:translateY(12px) scale(0.97);opacity:0;pointer-events:none;transition:transform .2s cubic-bezier(0.22,1,0.36,1),opacity .18s ease;}',
@@ -128,6 +131,8 @@
   trigger.id = 'ab-chat-trigger';
   trigger.setAttribute('aria-label', 'Open portfolio assistant');
   trigger.innerHTML = '<div class="ab-avatar">AN</div><span class="ab-trigger-label">Talk to Abhikant <kbd>⌘K</kbd></span>';
+  // homepage shows the full label; case studies keep the quiet icon-only pill
+  if (/(^\/$|\/index\.html$)/.test(location.pathname)) trigger.classList.add('ab-full');
   document.body.appendChild(trigger);
 
   var msgsEl = document.getElementById('ab-chat-msgs');
