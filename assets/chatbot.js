@@ -94,7 +94,7 @@
         '</div>',
       '</div>',
       '<div style="display:flex;gap:4px;">',
-        '<button class="ab-chat-reset" aria-label="New conversation" title="New conversation">↩</button>',
+        '<button class="ab-chat-reset" aria-label="New conversation" title="New conversation"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg></button>',
         '<button class="ab-chat-close" aria-label="Close chat">&times;</button>',
       '</div>',
     '</div>',

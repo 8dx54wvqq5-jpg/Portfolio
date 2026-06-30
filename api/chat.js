@@ -57,18 +57,18 @@ module.exports = async function handler(req, res) {
   const { messages } = req.body || {};
   if (!messages || !Array.isArray(messages)) return res.status(400).json({ error: 'messages required' });
 
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) return res.status(500).json({ error: 'API key not configured' });
 
   try {
-    const response = await fetch('https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', {
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + apiKey,
       },
       body: JSON.stringify({
-        model: 'gemini-2.0-flash',
+        model: 'llama-3.3-70b-versatile',
         max_tokens: 400,
         messages: [{ role: 'system', content: SYSTEM }, ...messages.slice(-10)],
       }),
