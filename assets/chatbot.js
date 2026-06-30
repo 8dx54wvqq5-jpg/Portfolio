@@ -33,8 +33,8 @@
       '.ab-chat-header .ab-avatar{width:28px;height:28px;border-radius:50%;background:#155DFC;color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;}',
       '.ab-chat-header-name{color:#E7E9EE;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;}',
       '.ab-chat-header-role{color:#6B7280;font-family:"JetBrains Mono",monospace;font-size:10px;margin-top:1px;}',
-      '.ab-chat-close{background:none;border:none;color:#6B7280;cursor:pointer;padding:4px;border-radius:6px;line-height:1;font-size:16px;transition:color .12s ease,background .12s ease;}',
-      '.ab-chat-close:hover{color:#E7E9EE;background:#1E2128;}',
+      '.ab-chat-close,.ab-chat-reset{background:none;border:none;color:#6B7280;cursor:pointer;padding:4px;border-radius:6px;line-height:1;font-size:16px;transition:color .12s ease,background .12s ease;}',
+      '.ab-chat-close:hover,.ab-chat-reset:hover{color:#E7E9EE;background:#1E2128;}',
       /* messages */
       '.ab-chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;}',
       '.ab-chat-messages::-webkit-scrollbar{width:3px;}',
@@ -93,7 +93,10 @@
           '<div class="ab-chat-header-role">Senior Product Designer · Fiserv</div>',
         '</div>',
       '</div>',
-      '<button class="ab-chat-close" aria-label="Close chat">&times;</button>',
+      '<div style="display:flex;gap:4px;">',
+        '<button class="ab-chat-reset" aria-label="New conversation" title="New conversation">↩</button>',
+        '<button class="ab-chat-close" aria-label="Close chat">&times;</button>',
+      '</div>',
     '</div>',
     '<div class="ab-chat-messages" id="ab-chat-msgs"></div>',
     '<div class="ab-chat-input-row">',
@@ -208,6 +211,12 @@
   trigger.addEventListener('click', function () { isOpen ? close() : open(); });
   backdrop.addEventListener('click', close);
   panel.querySelector('.ab-chat-close').addEventListener('click', close);
+  panel.querySelector('.ab-chat-reset').addEventListener('click', function () {
+    messages = [];
+    busy = false;
+    sendBtn.disabled = false;
+    renderMessages();
+  });
 
   sendBtn.addEventListener('click', function () { send(inputEl.value); });
   inputEl.addEventListener('keydown', function (e) {
