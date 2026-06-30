@@ -45,6 +45,21 @@
     @keyframes pageIn { from { opacity: 0; } to { opacity: 1; } }
     ::selection { background: #CFE0FF; }
     a:focus-visible, [tabindex]:focus-visible, button:focus-visible { outline: 2px solid #155DFC; outline-offset: 2px; }
+    [data-text-focus] { position: relative; transition: transform 150ms ease, color 150ms ease; }
+    [data-text-focus]::before { content: ""; position: absolute; left: -14px; top: 0.45em; width: 3px; height: 0; border-radius: 999px; background: #155DFC; opacity: 0; transition: height 150ms ease, opacity 150ms ease; }
+    [data-about-photo] { outline: 1px solid rgba(0,0,0,0.10); transition: transform 180ms cubic-bezier(0.2,0,0,1), box-shadow 180ms cubic-bezier(0.2,0,0,1); will-change: transform; }
+    [data-about-photo] img { transition: transform 240ms cubic-bezier(0.2,0,0,1); }
+    [data-motion-pill] { transition: transform 140ms ease, background-color 140ms ease, border-color 140ms ease, color 140ms ease; }
+    @media (hover: hover) and (pointer: fine) {
+      [data-text-focus]:hover { transform: translateX(2px); color: #202938 !important; }
+      [data-text-focus]:hover::before { height: 1.2em; opacity: 1; }
+      [data-about-photo]:hover { transform: perspective(900px) rotateX(1.4deg) rotateY(-2.2deg) translateY(-3px); box-shadow: 0 12px 34px rgba(16,24,40,0.15) !important; }
+      [data-about-photo]:hover img { transform: scale(1.025); }
+      [data-motion-pill]:hover { transform: translateY(-2px); background: #EFF6FF !important; border-color: #BCD2FF !important; color: #155DFC !important; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      [data-text-focus], [data-text-focus]::before, [data-about-photo], [data-about-photo] img, [data-motion-pill] { transition: none; transform: none; }
+    }
     * { cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2730%27%20height%3D%2730%27%20viewBox%3D%270%200%2030%2030%27%3E%3Cpath%20d%3D%27M4%203%20L4%2021%20L9%2016.3%20L12.4%2023%20L15.4%2021.5%20L12%2014.9%20L18.4%2014.9%20Z%27%20fill%3D%27%2315171C%27%20stroke%3D%27%23fff%27%20stroke-width%3D%271.4%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E") 4 3, auto; }
     a, button, [role="button"], [data-nav], [onclick], summary, label[for], [data-toolmsg] { cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2730%27%20height%3D%2730%27%20viewBox%3D%270%200%2030%2030%27%3E%3Cpath%20d%3D%27M4%203%20L4%2021%20L9%2016.3%20L12.4%2023%20L15.4%2021.5%20L12%2014.9%20L18.4%2014.9%20Z%27%20fill%3D%27%2315171C%27%20stroke%3D%27%23fff%27%20stroke-width%3D%271.4%27%20stroke-linejoin%3D%27round%27%2F%3E%3Ccircle%20cx%3D%2721.5%27%20cy%3D%2721.5%27%20r%3D%275%27%20fill%3D%27%23155DFC%27%20stroke%3D%27%23fff%27%20stroke-width%3D%271.3%27%2F%3E%3C%2Fsvg%3E") 4 3, pointer !important; }
     a[target="_blank"]:not([href*="resumego"]) { cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2730%27%20height%3D%2730%27%20viewBox%3D%270%200%2030%2030%27%3E%3Cpath%20d%3D%27M4%203%20L4%2021%20L9%2016.3%20L12.4%2023%20L15.4%2021.5%20L12%2014.9%20L18.4%2014.9%20Z%27%20fill%3D%27%2315171C%27%20stroke%3D%27%23fff%27%20stroke-width%3D%271.4%27%20stroke-linejoin%3D%27round%27%2F%3E%3Ccircle%20cx%3D%2721.5%27%20cy%3D%2721.5%27%20r%3D%276.6%27%20fill%3D%27%23155DFC%27%20stroke%3D%27%23fff%27%20stroke-width%3D%271.3%27%2F%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23fff%27%20stroke-width%3D%271.5%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M19%2024%20L24%2019%27%2F%3E%3Cpath%20d%3D%27M20.4%2019%20H24%20V22.6%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") 4 3, pointer !important; }
@@ -98,13 +113,13 @@
             <div>
               <div data-reveal="0" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #155DFC; margin-bottom: 20px;">ABOUT</div>
               <h1 data-reveal="1" style="font-size: 42px; line-height: 1.1; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 24px; text-wrap: pretty;">Senior UX designer for systems that can't afford to fail.</h1>
-              <p data-reveal="2" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 16px; max-width: 58ch;">I'm Abhikant Nirbhavane. I design enterprise software for environments where getting it wrong has real consequences: dispute management, card controls, compliance workflows, complex quoting.</p>
-              <p data-reveal="2" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 16px; max-width: 58ch;">I came to UX from engineering. Computer Science first, then a master's in HCI, and honestly that order shaped how I work. I think about systems before screens. Where the data breaks, what happens at the edges, what the thing does when it fails. In the work I do, that's usually where the real risk is hiding.</p>
-              <p data-reveal="2" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 16px; max-width: 58ch;">My work tends to follow a pattern: a system that grew complicated faster than it grew thoughtful, users quietly working around it, and a business that needs it fixed without breaking what people rely on. I bring structure first (information architecture, design systems, predictable patterns), then make it feel effortless.</p>
-              <p data-reveal="2" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0; max-width: 58ch;">I've shipped AI that explains itself, and I've deliberately kept AI out of systems where deterministic rules are more trustworthy. Knowing which answer fits which domain is, I think, the actual senior skill.</p>
+              <p data-reveal="2" data-text-focus style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 16px; max-width: 58ch;">I'm Abhikant Nirbhavane. I design enterprise software for environments where getting it wrong has real consequences: dispute management, card controls, compliance workflows, complex quoting.</p>
+              <p data-reveal="2" data-text-focus style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 16px; max-width: 58ch;">I came to UX from engineering. Computer Science first, then a master's in HCI, and honestly that order shaped how I work. I think about systems before screens. Where the data breaks, what happens at the edges, what the thing does when it fails. In the work I do, that's usually where the real risk is hiding.</p>
+              <p data-reveal="2" data-text-focus style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 16px; max-width: 58ch;">My work tends to follow a pattern: a system that grew complicated faster than it grew thoughtful, users quietly working around it, and a business that needs it fixed without breaking what people rely on. I bring structure first (information architecture, design systems, predictable patterns), then make it feel effortless.</p>
+              <p data-reveal="2" data-text-focus style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0; max-width: 58ch;">I've shipped AI that explains itself, and I've deliberately kept AI out of systems where deterministic rules are more trustworthy. Knowing which answer fits which domain is, I think, the actual senior skill.</p>
             </div>
             <div data-reveal="2">
-              <div style="width: 100%; aspect-ratio: 2 / 3; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 24px rgba(16,24,40,0.10);">
+              <div data-about-photo style="width: 100%; aspect-ratio: 2 / 3; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 24px rgba(16,24,40,0.10);">
                 <img src="assets/profile.jpg" alt="Abhikant Nirbhavane" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center;">
               </div>
             </div>
@@ -125,9 +140,9 @@
                 <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 60ch;">UX Designer on two flagship fintech platforms: Disputes Workspace (AI-assisted dispute management) and 360 Control (issuer administration console, shipped for a major Canadian bank). Embedded product owner on 360 Control.</p>
               </div>
               <div style="display: flex; gap: 8px;">
-                <a href="/dispute-workspace" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; border: 1px solid #D6E4FF; border-radius: 999px; padding: 5px 12px; text-decoration: none;" style-hover="background: #EFF6FF;">DWS →</a>
-                <a href="/ai-dispute-intake" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; border: 1px solid #D6E4FF; border-radius: 999px; padding: 5px 12px; text-decoration: none;" style-hover="background: #EFF6FF;">AI deep dive →</a>
-                <a href="/360-control" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; border: 1px solid #D6E4FF; border-radius: 999px; padding: 5px 12px; text-decoration: none;" style-hover="background: #EFF6FF;">360 →</a>
+                <a href="/dispute-workspace" data-motion-pill style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; border: 1px solid #D6E4FF; border-radius: 999px; padding: 5px 12px; text-decoration: none;" style-hover="background: #EFF6FF;">DWS →</a>
+                <a href="/ai-dispute-intake" data-motion-pill style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; border: 1px solid #D6E4FF; border-radius: 999px; padding: 5px 12px; text-decoration: none;" style-hover="background: #EFF6FF;">AI deep dive →</a>
+                <a href="/360-control" data-motion-pill style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; border: 1px solid #D6E4FF; border-radius: 999px; padding: 5px 12px; text-decoration: none;" style-hover="background: #EFF6FF;">360 →</a>
               </div>
             </div>
             <div data-reveal="2" style="display: grid; grid-template-columns: 200px 1fr auto; gap: 24px; padding: 28px 0; border-top: 1px solid #ECEDF1; border-bottom: 1px solid #ECEDF1; align-items: start;">
@@ -137,7 +152,7 @@
                 <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 60ch;">Only designer on the CPQ enterprise quoting platform: research-led redesign, design system from scratch, quote time cut from 18 to 10 minutes.</p>
               </div>
               <div style="display: flex; gap: 8px;">
-                <a href="/cpq" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; border: 1px solid #D6E4FF; border-radius: 999px; padding: 5px 12px; text-decoration: none;" style-hover="background: #EFF6FF;">CPQ →</a>
+                <a href="/cpq" data-motion-pill style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC; border: 1px solid #D6E4FF; border-radius: 999px; padding: 5px 12px; text-decoration: none;" style-hover="background: #EFF6FF;">CPQ →</a>
               </div>
             </div>
           </div>
@@ -254,24 +269,27 @@ class Component extends DCLogic {
       });
     });
 
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const reveals = Array.from(document.querySelectorAll("[data-reveal]"));
     reveals.forEach((el) => {
       const i = parseInt(el.getAttribute("data-reveal") || "0", 10);
-      el.style.opacity = "0";
-      el.style.transform = "translateY(26px)";
-      el.style.transition = "opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)";
-      el.style.transitionDelay = (i * 90) + "ms";
+      el.style.opacity = reduceMotion ? "1" : "0";
+      el.style.transform = reduceMotion ? "none" : "translateY(14px)";
+      el.style.transition = reduceMotion ? "none" : "opacity 0.62s cubic-bezier(0.16,1,0.3,1), transform 0.62s cubic-bezier(0.16,1,0.3,1)";
+      el.style.transitionDelay = reduceMotion ? "0ms" : (i * 90) + "ms";
     });
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((en) => {
-        if (en.isIntersecting) {
-          en.target.style.opacity = "1";
-          en.target.style.transform = "translateY(0)";
-          io.unobserve(en.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    reveals.forEach((el) => io.observe(el));
+    if (!reduceMotion) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((en) => {
+          if (en.isIntersecting) {
+            en.target.style.opacity = "1";
+            en.target.style.transform = "translateY(0)";
+            io.unobserve(en.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      reveals.forEach((el) => io.observe(el));
+    }
 
     document.querySelectorAll("[data-nav]").forEach((row) => {
       row.addEventListener("click", () => {
