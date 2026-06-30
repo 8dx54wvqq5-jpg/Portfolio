@@ -1544,10 +1544,16 @@ class Component extends DCLogic {
           const el = this._dragEl; this._dragEl = null;
           el.style.zIndex = "";
           if (moved > 12) { moved = 0; clickTarget = null; this.scheduleSpy(); return; } // it was a move, don't navigate
-          if (el.id === 'pf-writing-folder') { // folder sticker → toggle open/closed
+          if (el.id === 'pf-writing-folder') {
+            if (clickTarget) { // card link inside folder → open Medium article
+              const href = clickTarget.getAttribute("href");
+              if (href) window.open(href, "_blank", "noopener");
+              moved = 0; clickTarget = null; this.scheduleSpy(); return;
+            }
+            // folder body → toggle open/closed
             const open = el.classList.toggle('pf-folder-open');
             el.setAttribute('aria-expanded', open ? 'true' : 'false');
-            moved = 0; clickTarget = null; this.scheduleSpy(); return;
+            moved = 0; this.scheduleSpy(); return;
           }
           if (el.classList.contains("pf-sticker")) { // tap on a sticker → wiggle, no nav
             el.classList.add("is-wiggling");
