@@ -1750,6 +1750,8 @@ class Component extends DCLogic {
   }
 }
 </script>
+<script>
+  {
     // ---- macOS Writing Folder: keyboard access (click handled by drag pointerup) ----
     const pfFolder = document.getElementById('pf-writing-folder');
     if (pfFolder) {
@@ -1781,6 +1783,8 @@ class Component extends DCLogic {
       if (pfFolder) { pfFolder.classList.remove('pf-folder-open'); pfFolder.setAttribute('aria-expanded', 'false'); }
       document.querySelectorAll('.connect-menu').forEach((m) => { m.style.display = 'none'; });
     });
+  }
+</script>
 
 <script>
 const _themes = [
