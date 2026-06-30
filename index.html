@@ -107,6 +107,8 @@
 	      color: #101828;
 	      box-shadow: 0 0 0 5px #fff, 0 0 0 5.5px rgba(16,24,40,0.07), 0 18px 34px rgba(16,24,40,0.14), inset 0 1px 0 rgba(255,255,255,0.9);
 	      font-family: Manrope, sans-serif;
+	      transform-origin: 54% 58%;
+	      transition: transform .24s cubic-bezier(0.23,1,0.32,1), box-shadow .24s ease, filter .24s ease;
 	    }
 	    .pf-sticker--quiet .pf-word-sticker::before {
 	      width: 56px;
@@ -116,16 +118,8 @@
 	      background: linear-gradient(90deg,rgba(216,207,184,0.78),rgba(245,238,218,0.84),rgba(213,203,179,0.7));
 	      border-color: rgba(143,126,93,0.2);
 	      transform: translateX(-50%) rotate(-3deg);
-	    }
-	    .pf-sticker--quiet .pf-word-sticker::after {
-	      display: block;
-	      width: 24px;
-	      height: 24px;
-	      right: -1px;
-	      bottom: -1px;
-	      border-radius: 20px 0 17px 0;
-	      background: linear-gradient(135deg,rgba(255,255,255,0),#ECEFF4 56%,#D6DDE7);
-	      box-shadow: -3px -3px 6px rgba(16,24,40,0.08);
+	      transform-origin: center;
+	      transition: transform .24s cubic-bezier(0.23,1,0.32,1), opacity .24s ease, box-shadow .24s ease;
 	    }
 	    .pf-sticker-icon {
 	      display: inline-grid;
@@ -134,6 +128,8 @@
 	      height: 34px;
 	      flex: 0 0 34px;
 	      color: #101828;
+	      transition: transform .24s cubic-bezier(0.23,1,0.32,1), opacity .2s ease;
+	      transform-origin: center;
 	    }
 	    .pf-sticker-icon svg { width: 100%; height: 100%; display: block; stroke: currentColor; }
 	    .pf-sticker--quiet .pf-word-sticker strong {
@@ -240,13 +236,37 @@
 	      top: -13px;
 	      transform: translateX(-50%) rotate(-5deg);
 	    }
-	    .pf-sticker--fiserv .pf-word-sticker::after { display: none; }
 	    .pf-sticker--human .pf-word-sticker {
 	      background: linear-gradient(145deg,#F7FAFC 0%,#EAF0F7 100%);
 	      border-radius: 20px 18px 22px 16px;
 	      color: #101828;
 	    }
 	    .pf-sticker--human .pf-word-sticker strong { font-size: 22px; }
+	    .pf-sticker--quiet .pf-word-sticker:active {
+	      transform: rotate(var(--r)) translateY(-2px) scale(.96);
+	    }
+	    @media (hover: hover) and (pointer: fine) {
+	      .pf-sticker--quiet:hover { z-index: 9; }
+	      .pf-sticker--quiet .pf-word-sticker:hover,
+	      .pf-sticker--quiet:focus-within .pf-word-sticker {
+	        transform: rotate(var(--r)) translateY(-8px) scale(1.045);
+	        box-shadow: 0 0 0 5px #fff, 0 0 0 6px rgba(16,24,40,0.08), 0 26px 42px rgba(16,24,40,0.20), inset 0 1px 0 rgba(255,255,255,0.98);
+	        filter: saturate(1.04);
+	      }
+	      .pf-sticker--quiet .pf-word-sticker:hover::before,
+	      .pf-sticker--quiet:focus-within .pf-word-sticker::before {
+	        opacity: .92;
+	        transform: translateX(-50%) translateY(-3px) rotate(-1deg);
+	        box-shadow: 0 5px 10px rgba(16,24,40,0.12);
+	      }
+	      .pf-sticker--quiet .pf-word-sticker:hover .pf-sticker-icon,
+	      .pf-sticker--quiet:focus-within .pf-sticker-icon {
+	        transform: translateY(-2px) rotate(-6deg) scale(1.08);
+	      }
+	      .pf-sticker.is-wiggling .pf-word-sticker::before {
+	        transform: translateX(-50%) translateY(-2px) rotate(2deg);
+	      }
+	    }
 	    .pf-sketch-note {
 	      position: absolute;
 	      right: 234px;
@@ -288,7 +308,7 @@
     .pf-canvas-hint { display: inline-flex; align-items: center; gap: 8px; border: 1px solid #C9D6F0; background: #F7FAFF; border-radius: 999px; padding: 8px 12px; color: #243044; box-shadow: 0 1px 2px rgba(16,24,40,0.04); }
     .pf-canvas-hint::before { content: ""; width: 7px; height: 7px; border-radius: 999px; background: #155DFC; box-shadow: 0 0 0 4px rgba(21,93,252,0.10); animation: hintPulse 1.8s ease-out infinite; }
     @keyframes hintPulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(21,93,252,0.28); } 70% { transform: scale(1.08); box-shadow: 0 0 0 8px rgba(21,93,252,0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(21,93,252,0); } }
-    @media (prefers-reduced-motion: reduce) { .pf-sticker { animation: none !important; } .pf-card, .pf-chip, .pf-real-sticker, .pf-word-sticker, .pf-logo-disc, .pf-sticker-more { transition: none; } .pf-chip:hover { transform: none; } .pf-real-sticker:hover, .pf-word-sticker:hover { transform: rotate(var(--r)); } .pf-real-sticker:hover .pf-logo-disc { transform: none; } .pf-sheen { display: none; } .pf-canvas-hint::before { animation: none; } .pf-sticker.is-wiggling .pf-real-sticker, .pf-sticker.is-wiggling .pf-word-sticker { animation: none !important; } }
+    @media (prefers-reduced-motion: reduce) { .pf-sticker { animation: none !important; } .pf-card, .pf-chip, .pf-real-sticker, .pf-word-sticker, .pf-logo-disc, .pf-sticker-more, .pf-sticker-icon, .pf-hci-logo, .pf-folder-wrap, .pf-folder-wrap::before, .pf-sticker--quiet .pf-word-sticker::before { transition: none; } .pf-chip:hover { transform: none; } .pf-real-sticker:hover, .pf-word-sticker:hover, .pf-sticker--quiet .pf-word-sticker:hover, .pf-sticker--quiet:focus-within .pf-word-sticker, .pf-writing-paper:hover .pf-folder-wrap, .pf-writing-paper:focus-within .pf-folder-wrap { transform: rotate(var(--r)); } .pf-real-sticker:hover .pf-logo-disc, .pf-sticker--quiet .pf-word-sticker:hover .pf-sticker-icon, .pf-sticker--quiet:focus-within .pf-sticker-icon, .pf-sticker--hci .pf-word-sticker:hover .pf-hci-logo, .pf-sticker--hci:focus-within .pf-hci-logo { transform: none; } .pf-sheen { display: none; } .pf-canvas-hint::before { animation: none; } .pf-sticker.is-wiggling .pf-real-sticker, .pf-sticker.is-wiggling .pf-word-sticker { animation: none !important; } }
     @keyframes heroRing { 0%,100% { opacity: .18; transform: scale(1); } 50% { opacity: .06; transform: scale(1.08); } }
     @keyframes presencePulse { 0% { box-shadow: 0 0 0 0 rgba(20,195,142,0.5); } 70% { box-shadow: 0 0 0 6px rgba(20,195,142,0); } 100% { box-shadow: 0 0 0 0 rgba(20,195,142,0); } }
     .presence-av { position: relative; }
@@ -346,7 +366,7 @@
 	      background: linear-gradient(145deg,#FFFFFF 0%,#FBFAF4 62%,#F0EEE5 100%);
 	      box-shadow: 0 0 0 5px #fff, 0 0 0 5.5px rgba(16,24,40,0.07), 0 18px 34px rgba(16,24,40,0.14), inset 0 1px 0 rgba(255,255,255,0.9);
 	      transform: rotate(var(--r));
-	      transition: transform .22s cubic-bezier(0.34,1.56,0.64,1), box-shadow .22s ease, filter .22s ease;
+	      transition: transform .24s cubic-bezier(0.23,1,0.32,1), box-shadow .24s ease, filter .24s ease;
 	    }
 	    .pf-writing-paper .pf-folder-wrap::before {
 	      content: "";
@@ -360,22 +380,20 @@
 	      border: 1px solid rgba(143,126,93,0.2);
 	      box-shadow: 0 2px 4px rgba(16,24,40,0.08);
 	      transform: translateX(-50%) rotate(2deg);
+	      transform-origin: center;
+	      transition: transform .24s cubic-bezier(0.23,1,0.32,1), opacity .24s ease, box-shadow .24s ease;
 	    }
-	    .pf-writing-paper .pf-folder-wrap::after {
-	      content: "";
-	      position: absolute;
-	      right: -1px;
-	      bottom: -1px;
-	      width: 24px;
-	      height: 24px;
-	      border-radius: 20px 0 17px 0;
-	      background: linear-gradient(135deg,rgba(255,255,255,0),#ECE9DF 56%,#D7D0C2);
-	      box-shadow: -3px -3px 6px rgba(16,24,40,0.08);
-	    }
-	    .pf-writing-paper:hover .pf-folder-wrap {
-	      transform: rotate(var(--r)) translateY(-5px) scale(1.04);
+	    .pf-writing-paper:hover .pf-folder-wrap,
+	    .pf-writing-paper:focus-within .pf-folder-wrap {
+	      transform: rotate(var(--r)) translateY(-8px) scale(1.045);
 	      box-shadow: 0 0 0 5px #fff, 0 0 0 6px rgba(16,24,40,0.08), 0 24px 42px rgba(16,24,40,0.18);
 	    }
+	    .pf-writing-paper:hover .pf-folder-wrap::before,
+	    .pf-writing-paper:focus-within .pf-folder-wrap::before {
+	      transform: translateX(-50%) translateY(-3px) rotate(4deg);
+	      box-shadow: 0 5px 10px rgba(16,24,40,0.12);
+	    }
+	    .pf-writing-paper .pf-folder-wrap:active { transform: rotate(var(--r)) translateY(-2px) scale(.96); }
 	    .pf-writing-paper .pf-folder-art { width: 44px; flex: 0 0 44px; }
 	    .pf-writing-paper .pf-folder-img {
 	      filter: drop-shadow(0 2px 4px rgba(16,24,40,0.14));
