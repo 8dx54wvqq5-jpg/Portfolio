@@ -11,6 +11,9 @@
     "Are you open to new roles?"
   ];
 
+  var RESUME_URL = 'https://resumego.link/abhikant/designer';
+  var LINKEDIN_URL = 'https://www.linkedin.com/in/abhikant';
+
   // ── Styles ──────────────────────────────────────────────────────────────
   if (!document.getElementById('chatbot-css')) {
     var st = document.createElement('style');
@@ -63,6 +66,14 @@
       '.ab-bubble{padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.55;}',
       '.ab-msg.user .ab-bubble{background:#155DFC;color:#fff;border-bottom-right-radius:4px;font-family:Manrope,sans-serif;}',
       '.ab-msg.assistant .ab-bubble{background:#1E2128;color:#D1D5DB;border-bottom-left-radius:4px;font-family:Manrope,sans-serif;}',
+      '.ab-bubble .ab-link{color:#7AB8FF;text-decoration:underline;text-underline-offset:2px;}',
+      '.ab-bubble .ab-link:hover{color:#A8D0FF;}',
+      '.ab-cta-row{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;}',
+      '.ab-cta-row--intro{margin-top:10px;}',
+      '.ab-cta-row--intro .ab-cta{flex:1;justify-content:center;}',
+      '.ab-cta{display:inline-flex;align-items:center;gap:6px;background:#155DFC;color:#fff;font-family:"JetBrains Mono",monospace;font-size:11.5px;font-weight:700;text-decoration:none;padding:8px 12px;border-radius:8px;transition:background .12s ease,transform .12s ease;}',
+      '.ab-cta:hover{background:#1246C4;transform:translateY(-1px);}',
+      '.ab-cta span{opacity:.85;}',
       /* typing dots */
       '.ab-dots{display:flex;gap:4px;padding:4px 0;}',
       '.ab-dots span{width:6px;height:6px;border-radius:50%;background:#6B7280;animation:ab-bounce 1s ease-in-out infinite;}',
@@ -148,11 +159,26 @@
       msgsEl.innerHTML = '<div class="ab-starters"><p class="ab-starter-intro">Hey! Ask me anything about my work, process, or background.</p>' +
         STARTERS.map(function (q) {
           return '<button class="ab-starter">' + q + '</button>';
-        }).join('') + '</div>';
+        }).join('') +
+        '<div class="ab-cta-row ab-cta-row--intro">' +
+          '<a class="ab-cta" href="' + RESUME_URL + '" target="_blank" rel="noopener noreferrer">Resume <span>↓</span></a>' +
+          '<a class="ab-cta" href="' + LINKEDIN_URL + '" target="_blank" rel="noopener noreferrer">LinkedIn <span>↗</span></a>' +
+        '</div>' +
+        '</div>';
     } else {
       msgsEl.innerHTML = '<button class="ab-chat-reset">← Back</button>' +
         messages.map(function (m) {
-          return '<div class="ab-msg ' + m.role + '"><div class="ab-bubble">' + escHtml(m.content) + '</div></div>';
+          var html = escHtml(m.content);
+          var ctas = [];
+          if (m.role === 'assistant') {
+            var extracted = extractCtas(html);
+            html = linkify(extracted.text);
+            ctas = extracted.ctas;
+          }
+          var ctaRow = ctas.length ? '<div class="ab-cta-row">' + ctas.map(function (c) {
+            return '<a class="ab-cta" href="' + c.url + '" target="_blank" rel="noopener noreferrer">' + c.label + ' <span>' + c.icon + '</span></a>';
+          }).join('') + '</div>' : '';
+          return '<div class="ab-msg ' + m.role + '"><div class="ab-bubble">' + html + '</div>' + ctaRow + '</div>';
         }).join('');
     }
     msgsEl.scrollTop = msgsEl.scrollHeight;
@@ -174,6 +200,31 @@
 
   function escHtml(s) {
     return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  }
+
+  // turns escaped "[label](https://…)" into a real link — input is already HTML-escaped, so this only matches plain text
+  function linkify(s) {
+    return s.replace(/\[([^\]]+)\]\((https:\/\/[a-zA-Z0-9.\-\/_?=&%#:]+)\)/g, function (_, label, url) {
+      return '<a href="' + url + '" target="_blank" rel="noopener noreferrer" class="ab-link">' + label + '</a>';
+    });
+  }
+
+  // Resume/LinkedIn mentions become CTA buttons instead of inline links, so they
+  // read as a different kind of thing than the rest of the answer.
+  var CTA_RULES = [
+    { test: /resumego\.link/, label: 'Resume', icon: '↓' },
+    { test: /linkedin\.com/, label: 'LinkedIn', icon: '↗' }
+  ];
+  function extractCtas(html) {
+    var ctas = [];
+    var seen = {};
+    var text = html.replace(/\[([^\]]+)\]\((https:\/\/[a-zA-Z0-9.\-\/_?=&%#:]+)\)/g, function (whole, label, url) {
+      var rule = CTA_RULES.filter(function (r) { return r.test.test(url); })[0];
+      if (!rule) return whole; // not a CTA link — leave as markdown, linkify() handles it next
+      if (!seen[url]) { seen[url] = true; ctas.push({ url: url, label: rule.label, icon: rule.icon }); }
+      return label; // drop the link syntax from the sentence, keep the plain word
+    });
+    return { text: text, ctas: ctas };
   }
 
   // ── Send ─────────────────────────────────────────────────────────────────
