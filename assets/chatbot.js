@@ -84,6 +84,12 @@
     document.head.appendChild(st);
   }
 
+  // ── Analytics ────────────────────────────────────────────────────────────
+  // Vercel Web Analytics custom events (free Hobby tier). No-op if va absent.
+  function track(name, data) {
+    try { if (window.va) window.va('event', data ? { name: name, data: data } : { name: name }); } catch (e) {}
+  }
+
   // ── State ────────────────────────────────────────────────────────────────
   var messages = []; // { role, content }
   var busy = false;
@@ -171,6 +177,7 @@
     inputEl.value = '';
 
     messages.push({ role: 'user', content: text });
+    track('Chat Message Sent', { page: document.title });
     renderMessages();
     appendTyping();
 
@@ -212,6 +219,7 @@
 
   function open() {
     isOpen = true;
+    track('Chat Opened', { page: document.title });
     panel.classList.add('open');
     backdrop.classList.add('open');
     renderMessages();
