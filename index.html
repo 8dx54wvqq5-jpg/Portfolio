@@ -1802,6 +1802,26 @@ class Component extends DCLogic {
       });
     }
 
+    // ---- outside-click closes folder + Connect menu ----
+    // Canvas pointer-capture swallows the document `click`, so listen on pointerdown.
+    document.addEventListener('pointerdown', (e) => {
+      const t = e.target && e.target.closest ? e.target : null;
+      if (pfFolder && pfFolder.classList.contains('pf-folder-open') &&
+          (!t || !t.closest('#pf-writing-folder'))) {
+        pfFolder.classList.remove('pf-folder-open');
+        pfFolder.setAttribute('aria-expanded', 'false');
+      }
+      if (!t || !t.closest('[data-connect]')) {
+        document.querySelectorAll('.connect-menu').forEach((m) => { m.style.display = 'none'; });
+      }
+    }, true);
+    // Esc closes both
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (pfFolder) { pfFolder.classList.remove('pf-folder-open'); pfFolder.setAttribute('aria-expanded', 'false'); }
+      document.querySelectorAll('.connect-menu').forEach((m) => { m.style.display = 'none'; });
+    });
+
 <script>
 const _themes = [
   { bg: '#EDEEF0', dot: '#D9DBE0', label: '#EDEEF0' },
