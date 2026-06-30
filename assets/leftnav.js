@@ -39,7 +39,7 @@
 
   function pageRow(link) {
     var active = link.key === pageKey();
-    return '<a href="' + link.href + '" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; text-decoration: none; color: ' + (active ? '#155DFC' : '#364153') + '; font-size: 13px; font-weight: ' + (active ? '700; background: #EFF6FF;' : '600;') + '"' + (active ? '' : ' style-hover="background: #F4F5F7;"') + '><span style="font-size: 9px;' + (active ? '' : ' color: #C9CDD6;') + '">' + (active ? '●' : '○') + '</span> ' + pageLabel(link) + '</a>';
+    return '<a href="' + link.href + '" class="' + (active ? '' : 'ln-hover') + '" style="display: flex; align-items: center; gap: 8px; padding: 6px 16px; text-decoration: none; color: ' + (active ? '#155DFC' : '#364153') + '; font-size: 13px; font-weight: ' + (active ? '700; background: #EFF6FF;' : '600;') + '"><span style="font-size: 9px;' + (active ? '' : ' color: #C9CDD6;') + '">' + (active ? '●' : '○') + '</span> ' + pageLabel(link) + '</a>';
   }
 
   function caseIcon(active) {
@@ -49,9 +49,9 @@
   function caseRow(link) {
     var active = isActive(link);
     if (link.nested) {
-      return '<a href="' + link.href + '" style="display: flex; align-items: center; gap: 6px; padding: 4px 16px 4px 34px; text-decoration: none; color: ' + (active ? '#155DFC' : '#6A7282') + '; font-size: 11.5px; font-weight: ' + (active ? '700; background: #EFF6FF;' : '500;') + '"' + (active ? '' : ' style-hover="background: #F4F5F7;"') + '><span style="color: ' + (active ? '#155DFC' : '#C9CDD6') + '; font-size: 10px;">&#8627;</span> ' + link.label + '</a>';
+      return '<a href="' + link.href + '" class="' + (active ? '' : 'ln-hover') + '" style="display: flex; align-items: center; gap: 6px; padding: 4px 16px 4px 34px; text-decoration: none; color: ' + (active ? '#155DFC' : '#6A7282') + '; font-size: 11.5px; font-weight: ' + (active ? '700; background: #EFF6FF;' : '500;') + '"><span style="color: ' + (active ? '#155DFC' : '#C9CDD6') + '; font-size: 10px;">&#8627;</span> ' + link.label + '</a>';
     }
-    return '<a href="' + link.href + '" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: ' + (active ? '#155DFC' : '#4A5565') + '; font-size: 12.5px; font-weight: ' + (active ? '700; background: #EFF6FF;' : '500;') + '"' + (active ? '' : ' style-hover="background: #F4F5F7;"') + '>' + caseIcon(active) + ' ' + link.label + '</a>';
+    return '<a href="' + link.href + '" class="' + (active ? '' : 'ln-hover') + '" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: ' + (active ? '#155DFC' : '#4A5565') + '; font-size: 12.5px; font-weight: ' + (active ? '700; background: #EFF6FF;' : '500;') + '">' + caseIcon(active) + ' ' + link.label + '</a>';
   }
 
   function label(text, color) {
@@ -60,6 +60,13 @@
 
   function divider() {
     return '<div style="height: 1px; background: #ECEDF1; margin: 14px 16px;"></div>';
+  }
+
+  if (!document.getElementById('ln-hover-css')) {
+    var s = document.createElement('style');
+    s.id = 'ln-hover-css';
+    s.textContent = '.ln-hover:hover{background:#F4F5F7 !important;}';
+    document.head.appendChild(s);
   }
 
   function render(mount) {
