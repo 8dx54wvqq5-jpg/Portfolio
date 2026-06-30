@@ -17,9 +17,12 @@
     st.id = 'chatbot-css';
     st.textContent = [
       /* trigger pill */
-      '#ab-chat-trigger{position:fixed;bottom:24px;right:24px;z-index:400;display:flex;align-items:center;gap:8px;background:#15171C;color:#E7E9EE;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;padding:10px 16px;border-radius:999px;border:1px solid #2A2E37;box-shadow:0 8px 24px rgba(0,0,0,0.4);cursor:pointer;transition:border-color .15s ease,box-shadow .15s ease;letter-spacing:0.02em;}',
-      '#ab-chat-trigger:hover{border-color:#155DFC;box-shadow:0 8px 32px rgba(21,93,252,0.25);}',
-      '#ab-chat-trigger .ab-avatar{width:24px;height:24px;border-radius:50%;background:#155DFC;color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;flex-shrink:0;}',
+      /* quiet pill: icon-only, expands label on hover/focus */
+      '#ab-chat-trigger{position:fixed;bottom:24px;right:24px;z-index:400;display:flex;align-items:center;gap:8px;background:#15171C;color:#E7E9EE;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;padding:9px;border-radius:999px;border:1px solid #2A2E37;box-shadow:0 8px 24px rgba(0,0,0,0.4);cursor:pointer;transition:border-color .15s ease,box-shadow .15s ease,padding .2s cubic-bezier(0.22,1,0.36,1);letter-spacing:0.02em;}',
+      '#ab-chat-trigger:hover,#ab-chat-trigger:focus-visible{border-color:#155DFC;box-shadow:0 8px 32px rgba(21,93,252,0.25);padding:9px 16px 9px 9px;outline:none;}',
+      '#ab-chat-trigger .ab-avatar{width:26px;height:26px;border-radius:50%;background:#155DFC;color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;flex-shrink:0;}',
+      '#ab-chat-trigger .ab-trigger-label{display:inline-flex;align-items:center;gap:8px;max-width:0;opacity:0;overflow:hidden;white-space:nowrap;transition:max-width .25s cubic-bezier(0.22,1,0.36,1),opacity .2s ease;}',
+      '#ab-chat-trigger:hover .ab-trigger-label,#ab-chat-trigger:focus-visible .ab-trigger-label{max-width:220px;opacity:1;}',
       '#ab-chat-trigger kbd{background:#1E2128;border:1px solid #2A2E37;border-radius:4px;padding:1px 5px;font-size:10px;color:#6B7280;font-family:"JetBrains Mono",monospace;}',
       /* panel */
       '#ab-chat-panel{position:fixed;bottom:80px;right:24px;z-index:400;width:min(400px,calc(100vw - 3rem));height:min(520px,calc(100dvh - 7rem));background:#15171C;border:1px solid #2A2E37;border-radius:16px;box-shadow:0 24px 64px rgba(0,0,0,0.6);display:flex;flex-direction:column;overflow:hidden;transform:translateY(12px) scale(0.97);opacity:0;pointer-events:none;transition:transform .2s cubic-bezier(0.22,1,0.36,1),opacity .18s ease;}',
@@ -118,7 +121,7 @@
   var trigger = document.createElement('button');
   trigger.id = 'ab-chat-trigger';
   trigger.setAttribute('aria-label', 'Open portfolio assistant');
-  trigger.innerHTML = '<div class="ab-avatar">AN</div> Talk to Abhikant <kbd>⌘K</kbd>';
+  trigger.innerHTML = '<div class="ab-avatar">AN</div><span class="ab-trigger-label">Talk to Abhikant <kbd>⌘K</kbd></span>';
   document.body.appendChild(trigger);
 
   var msgsEl = document.getElementById('ab-chat-msgs');
@@ -174,7 +177,13 @@
     fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: messages })
+      body: JSON.stringify({
+        messages: messages,
+        pageContext: {
+          title: document.title,
+          text: (document.body.innerText || '').replace(/\s+/g, ' ').trim().slice(0, 2000)
+        }
+      })
     })
       .then(function (r) { return r.json(); })
       .then(function (data) {

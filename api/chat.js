@@ -54,8 +54,13 @@ Open to senior product design roles at companies building complex tools — fint
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
-  const { messages } = req.body || {};
+  const { messages, pageContext } = req.body || {};
   if (!messages || !Array.isArray(messages)) return res.status(400).json({ error: 'messages required' });
+
+  let system = SYSTEM;
+  if (pageContext && pageContext.text) {
+    system += `\n\n## Page the visitor is reading right now\nTitle: ${pageContext.title || 'Portfolio'}\nContent: ${String(pageContext.text).slice(0, 2000)}\n\nWhen the question relates to this page, answer about THIS project specifically using the content above, even if it isn't in the case studies listed earlier.`;
+  }
 
   const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) return res.status(500).json({ error: 'API key not configured' });
@@ -70,7 +75,7 @@ module.exports = async function handler(req, res) {
       body: JSON.stringify({
         model: 'llama-3.3-70b-versatile',
         max_tokens: 400,
-        messages: [{ role: 'system', content: SYSTEM }, ...messages.slice(-10)],
+        messages: [{ role: 'system', content: system }, ...messages.slice(-10)],
       }),
     });
 
