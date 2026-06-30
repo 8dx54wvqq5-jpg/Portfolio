@@ -18,6 +18,24 @@
   }, true);
 })();
 
+// Cross-document View Transitions: cross-fade between same-origin pages, and
+// keep the left-nav panel + chat pill pinned (named elements morph in place
+// instead of redrawing — Figma "layers panel stays, content swaps" feel).
+// Native, no dep. No-ops in browsers without support (normal nav). a11y: off
+// under prefers-reduced-motion.
+(function () {
+  if (document.getElementById('vt-css')) return;
+  var s = document.createElement('style');
+  s.id = 'vt-css';
+  s.textContent = [
+    '@view-transition{navigation:auto}',
+    '[data-leftnav]{view-transition-name:ln-panel}',
+    '#ab-chat-trigger{view-transition-name:chat-pill}',
+    '@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}'
+  ].join('');
+  document.head.appendChild(s);
+})();
+
 // referral attribution: ?utm_source=company -> custom event (free on Pro plan)
 (function () {
   try {
