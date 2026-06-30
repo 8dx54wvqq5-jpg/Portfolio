@@ -91,12 +91,164 @@
     .pf-word-sticker span:not(.pf-sticker-more) { display: block; margin-top: 2px; font-size: 8.5px; line-height: 1.15; color: var(--ink,#fff); opacity: 0.9; }
     .pf-sticker-more { position: absolute; left: 12px; top: calc(100% + 7px); padding: 5px 8px; border-radius: 999px; background: #101828; color: #FFFFFF; box-shadow: 0 8px 18px rgba(16,24,40,0.22); font-family: 'JetBrains Mono', monospace; font-size: 8.5px; line-height: 1; white-space: nowrap; opacity: 0; transform: translateY(-4px) scale(.96); pointer-events: none; transition: opacity .18s ease, transform .18s ease; }
     .pf-sticker:focus-within .pf-sticker-more { opacity: .96; transform: translateY(0) scale(1); }
-    @media (hover: hover) and (pointer: fine) {
-      .pf-real-sticker:hover, .pf-word-sticker:hover { z-index: 8; transform: rotate(var(--r)) translateY(-5px) scale(1.06); box-shadow: 0 0 0 4px #fff, 0 0 0 4.5px rgba(16,24,40,0.10), 0 20px 30px rgba(16,24,40,0.22), 0 3px 0 rgba(16,24,40,0.08), inset 0 1px 0 rgba(255,255,255,0.98); filter: saturate(1.06); }
-      .pf-real-sticker:hover .pf-logo-disc { transform: rotateY(360deg) scale(1.12); }
-      .pf-real-sticker:hover .pf-sticker-more, .pf-word-sticker:hover .pf-sticker-more { opacity: .96; transform: translateY(0) scale(1); }
-    }
-    /* interaction-design skill: CTA spring hover-lift + tactile tap */
+	    @media (hover: hover) and (pointer: fine) {
+	      .pf-real-sticker:hover, .pf-word-sticker:hover { z-index: 8; transform: rotate(var(--r)) translateY(-5px) scale(1.06); box-shadow: 0 0 0 4px #fff, 0 0 0 4.5px rgba(16,24,40,0.10), 0 20px 30px rgba(16,24,40,0.22), 0 3px 0 rgba(16,24,40,0.08), inset 0 1px 0 rgba(255,255,255,0.98); filter: saturate(1.06); }
+	      .pf-real-sticker:hover .pf-logo-disc { transform: rotateY(360deg) scale(1.12); }
+	      .pf-real-sticker:hover .pf-sticker-more, .pf-word-sticker:hover .pf-sticker-more { opacity: .96; transform: translateY(0) scale(1); }
+	    }
+	    .pf-sticker--parked { display: none; }
+	    .pf-sticker--quiet .pf-word-sticker {
+	      min-width: 182px;
+	      min-height: 70px;
+	      padding: 12px 18px;
+	      gap: 12px;
+	      border-color: rgba(16,24,40,0.11);
+	      background: linear-gradient(145deg,#FFFFFF 0%,#F9FAFC 62%,#EEF2F7 100%);
+	      color: #101828;
+	      box-shadow: 0 0 0 5px #fff, 0 0 0 5.5px rgba(16,24,40,0.07), 0 18px 34px rgba(16,24,40,0.14), inset 0 1px 0 rgba(255,255,255,0.9);
+	      font-family: Manrope, sans-serif;
+	    }
+	    .pf-sticker--quiet .pf-word-sticker::before {
+	      width: 56px;
+	      height: 15px;
+	      left: 50%;
+	      top: -11px;
+	      background: linear-gradient(90deg,rgba(216,207,184,0.78),rgba(245,238,218,0.84),rgba(213,203,179,0.7));
+	      border-color: rgba(143,126,93,0.2);
+	      transform: translateX(-50%) rotate(-3deg);
+	    }
+	    .pf-sticker--quiet .pf-word-sticker::after {
+	      display: block;
+	      width: 24px;
+	      height: 24px;
+	      right: -1px;
+	      bottom: -1px;
+	      border-radius: 20px 0 17px 0;
+	      background: linear-gradient(135deg,rgba(255,255,255,0),#ECEFF4 56%,#D6DDE7);
+	      box-shadow: -3px -3px 6px rgba(16,24,40,0.08);
+	    }
+	    .pf-sticker-icon {
+	      display: inline-grid;
+	      place-items: center;
+	      width: 34px;
+	      height: 34px;
+	      flex: 0 0 34px;
+	      color: #101828;
+	    }
+	    .pf-sticker-icon svg { width: 100%; height: 100%; display: block; stroke: currentColor; }
+	    .pf-sticker--quiet .pf-word-sticker strong {
+	      font-family: Manrope, sans-serif;
+	      font-size: 25px;
+	      line-height: 1;
+	      font-weight: 800;
+	      letter-spacing: 0;
+	      color: inherit;
+	    }
+	    .pf-sticker--quiet .pf-word-sticker span:not(.pf-sticker-more):not(.pf-sticker-icon) {
+	      margin-top: 5px;
+	      font-family: "Bradley Hand", "Segoe Print", cursive;
+	      font-size: 18px;
+	      line-height: 1.1;
+	      font-weight: 700;
+	      color: inherit;
+	      opacity: 1;
+	    }
+	    .pf-sticker--round .pf-word-sticker {
+	      justify-content: center;
+	      flex-direction: column;
+	      width: 150px;
+	      height: 150px;
+	      min-width: 150px;
+	      min-height: 150px;
+	      padding: 16px;
+	      border-radius: 999px;
+	      background: radial-gradient(circle at 36% 28%,#FFFFFF 0%,#F7F3EA 64%,#E9E0D1 100%);
+	      color: #111827;
+	      text-align: center;
+	    }
+	    .pf-sticker--round .pf-word-sticker::after { display: none; }
+	    .pf-sticker--round .pf-word-sticker strong {
+	      font-family: Manrope, sans-serif;
+	      font-size: 68px;
+	      line-height: .78;
+	      color: #101828;
+	    }
+	    .pf-sticker--round .pf-word-sticker span:not(.pf-sticker-more) {
+	      margin-top: 7px;
+	      font-size: 25px;
+	      color: #101828;
+	    }
+	    .pf-sticker--round .pf-spark {
+	      position: absolute;
+	      inset: 0;
+	      pointer-events: none;
+	    }
+	    .pf-sticker--round .pf-spark::before,
+	    .pf-sticker--round .pf-spark::after {
+	      content: "";
+	      position: absolute;
+	      top: 58px;
+	      width: 23px;
+	      height: 18px;
+	      background: none;
+	      border-top: 3px solid #155DFC;
+	      border-bottom: 3px solid #155DFC;
+	      transform: rotate(18deg);
+	    }
+	    .pf-sticker--round .pf-spark::before { left: 18px; }
+	    .pf-sticker--round .pf-spark::after { right: 18px; transform: rotate(-18deg); }
+	    .pf-sticker--enterprise .pf-word-sticker {
+	      background: linear-gradient(145deg,#EFF5E7 0%,#DCE8CF 100%);
+	      border-radius: 18px 22px 17px 20px;
+	      color: #101828;
+	    }
+	    .pf-sticker--fiserv .pf-word-sticker {
+	      background: linear-gradient(145deg,#FF7A2F 0%,#F05C16 100%);
+	      border-radius: 18px 20px 16px 22px;
+	      color: #FFFFFF;
+	    }
+	    .pf-sticker--fiserv .pf-word-sticker::before {
+	      left: -4px;
+	      top: 50%;
+	      transform: translateY(-50%) rotate(-8deg);
+	    }
+	    .pf-sticker--fiserv .pf-word-sticker::after { display: none; }
+	    .pf-sticker--human .pf-word-sticker {
+	      background: linear-gradient(145deg,#F7FAFC 0%,#EAF0F7 100%);
+	      border-radius: 20px 18px 22px 16px;
+	      color: #101828;
+	    }
+	    .pf-sticker--human .pf-word-sticker strong { font-size: 22px; }
+	    .pf-sketch-note {
+	      position: absolute;
+	      right: 234px;
+	      top: 292px;
+	      z-index: 4;
+	      color: #111827;
+	      font-family: "Bradley Hand", "Segoe Print", cursive;
+	      font-size: 19px;
+	      font-weight: 700;
+	      line-height: 1.05;
+	      transform: rotate(-7deg);
+	      pointer-events: none;
+	    }
+	    .pf-sketch-note svg {
+	      display: block;
+	      width: 112px;
+	      height: 60px;
+	      margin-left: 34px;
+	      margin-top: -2px;
+	      overflow: visible;
+	    }
+	    .pf-sketch-note path,
+	    .pf-sketch-note polyline {
+	      fill: none;
+	      stroke: #111827;
+	      stroke-width: 3;
+	      stroke-linecap: round;
+	      stroke-linejoin: round;
+	    }
+	    /* interaction-design skill: CTA spring hover-lift + tactile tap */
     .pf-cta { transition: transform .15s cubic-bezier(0.34,1.56,0.64,1), border-color .15s ease, color .15s ease; }
     .pf-cta:hover { transform: translateY(-1px); }
     .pf-cta:active { transform: scale(0.98); }
@@ -153,9 +305,74 @@
     .pf-folder-card { display: flex; align-items: center; gap: 8px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 8px; padding: 8px 10px; text-decoration: none; color: #101828; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif; font-size: 10px; line-height: 1.3; transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease; box-shadow: 0 1px 4px rgba(16,24,40,0.08); }
     .pf-folder-card:hover { background: #EFF6FF; transform: translateX(3px); box-shadow: 0 4px 12px rgba(16,24,40,0.12); }
     .pf-folder-m { width: 20px; height: 20px; background: #000; color: #fff; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; font-family: Georgia, serif; flex-shrink: 0; }
-    .pf-folder-card-title { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #364153; }
-    .pf-folder-card-arrow { color: #9AA0AC; font-size: 13px; flex-shrink: 0; }
-    @media (prefers-reduced-motion: reduce) { .pf-folder-img, .pf-folder-cards, .pf-folder-card { transition: none !important; } }
+	    .pf-folder-card-title { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #364153; }
+	    .pf-folder-card-arrow { color: #9AA0AC; font-size: 13px; flex-shrink: 0; }
+	    .pf-writing-paper .pf-folder-wrap {
+	      flex-direction: row;
+	      gap: 11px;
+	      min-width: 185px;
+	      min-height: 70px;
+	      padding: 11px 18px 11px 14px;
+	      border: 1px solid rgba(16,24,40,0.11);
+	      border-radius: 20px 17px 22px 16px;
+	      background: linear-gradient(145deg,#FFFFFF 0%,#FBFAF4 62%,#F0EEE5 100%);
+	      box-shadow: 0 0 0 5px #fff, 0 0 0 5.5px rgba(16,24,40,0.07), 0 18px 34px rgba(16,24,40,0.14), inset 0 1px 0 rgba(255,255,255,0.9);
+	      transform: rotate(var(--r));
+	      transition: transform .22s cubic-bezier(0.34,1.56,0.64,1), box-shadow .22s ease, filter .22s ease;
+	    }
+	    .pf-writing-paper .pf-folder-wrap::before {
+	      content: "";
+	      position: absolute;
+	      width: 66px;
+	      height: 17px;
+	      left: 50%;
+	      top: -13px;
+	      border-radius: 2px;
+	      background: linear-gradient(90deg,rgba(216,207,184,0.78),rgba(245,238,218,0.84),rgba(213,203,179,0.7));
+	      border: 1px solid rgba(143,126,93,0.2);
+	      box-shadow: 0 2px 4px rgba(16,24,40,0.08);
+	      transform: translateX(-50%) rotate(2deg);
+	    }
+	    .pf-writing-paper .pf-folder-wrap::after {
+	      content: "";
+	      position: absolute;
+	      right: -1px;
+	      bottom: -1px;
+	      width: 24px;
+	      height: 24px;
+	      border-radius: 20px 0 17px 0;
+	      background: linear-gradient(135deg,rgba(255,255,255,0),#ECE9DF 56%,#D7D0C2);
+	      box-shadow: -3px -3px 6px rgba(16,24,40,0.08);
+	    }
+	    .pf-writing-paper:hover .pf-folder-wrap {
+	      transform: rotate(var(--r)) translateY(-5px) scale(1.04);
+	      box-shadow: 0 0 0 5px #fff, 0 0 0 6px rgba(16,24,40,0.08), 0 24px 42px rgba(16,24,40,0.18);
+	    }
+	    .pf-writing-paper .pf-folder-art { width: 44px; flex: 0 0 44px; }
+	    .pf-writing-paper .pf-folder-img {
+	      filter: drop-shadow(0 2px 4px rgba(16,24,40,0.14));
+	      transform: none !important;
+	    }
+	    .pf-writing-paper .pf-folder-badge { display: none; }
+	    .pf-writing-paper .pf-folder-label {
+	      margin-top: 0;
+	      color: #101828;
+	      font-family: "Bradley Hand", "Segoe Print", cursive;
+	      font-size: 26px;
+	      line-height: 1;
+	      font-weight: 800;
+	      letter-spacing: 0;
+	      transform: rotate(-3deg);
+	    }
+	    .pf-writing-paper .pf-folder-cards {
+	      left: auto;
+	      right: 0;
+	      top: calc(100% + 16px);
+	      width: 232px;
+	      transform: translateY(-8px);
+	    }
+	    .pf-writing-paper.pf-folder-open .pf-folder-cards { transform: translateY(0); }
+	    @media (prefers-reduced-motion: reduce) { .pf-folder-img, .pf-folder-cards, .pf-folder-card { transition: none !important; } }
   </style>
 </helmet>
 
@@ -268,9 +485,16 @@
         <div data-frame="hero" data-fade="0" style="position: absolute; left: 320px; top: 320px; width: 1240px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); padding: 64px; box-sizing: border-box; overflow: hidden;">
           <!-- soft cover accent -->
           <div style="position: absolute; right: -6%; top: -12%; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(21,93,252,0.10), rgba(21,93,252,0) 70%); pointer-events: none; z-index: 0;"></div>
-          <!-- cursor-follow glow -->
-          <div id="hero-glow" style="position: absolute; width: 460px; height: 460px; border-radius: 50%; background: radial-gradient(circle, rgba(21,93,252,0.18), rgba(124,58,237,0.10) 45%, rgba(21,93,252,0) 72%); left: 0; top: 0; opacity: 0; pointer-events: none; z-index: 1; will-change: transform; transition: opacity 0.45s ease;"></div>
-          <div style="position: relative; z-index: 2; display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 48px; align-items: center;">
+	          <!-- cursor-follow glow -->
+	          <div id="hero-glow" style="position: absolute; width: 460px; height: 460px; border-radius: 50%; background: radial-gradient(circle, rgba(21,93,252,0.18), rgba(124,58,237,0.10) 45%, rgba(21,93,252,0) 72%); left: 0; top: 0; opacity: 0; pointer-events: none; z-index: 1; will-change: transform; transition: opacity 0.45s ease;"></div>
+	          <div class="pf-sketch-note" aria-hidden="true">
+	            <span>explain<br>the why</span>
+	            <svg viewBox="0 0 128 70">
+	              <path d="M8 14 C34 56, 78 58, 106 30"/>
+	              <polyline points="98,29 108,28 104,39"/>
+	            </svg>
+	          </div>
+	          <div style="position: relative; z-index: 2; display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 48px; align-items: center;">
             <div>
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #155DFC; margin-bottom: 22px;">ABHIKANT NIRBHAVANE · SENIOR UX DESIGNER</div>
               <h1 aria-label="I design for complicated work in enterprise products, AI interfaces, workflow tools, and design systems." style="font-size: 46px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 20px; text-wrap: pretty; color: #101828;">I design for<br>complicated work in<br><span id="hero-cycle-box" style="display: inline-block; text-align: left; vertical-align: bottom;"><span id="hero-cycle" aria-hidden="true" style="display: inline-block; color: #155DFC; border-bottom: 3px solid rgba(21,93,252,0.5); line-height: 1.05;">enterprise products</span></span></h1>
@@ -298,38 +522,36 @@
         </div>
       </div>
 
-      <!-- ============ FLOATING STICKERS (die-cut vinyl: credential word tokens + brand logo proof) ============ -->
-      <!-- solid die-cut word stickers -->
-      <div class="pf-sticker" role="button" tabindex="0" aria-label="Sticker: 8 years shipping enterprise UX. Disputes, card controls, and quoting." style="left: 948px; top: 626px; animation: stickerFloatA 6.5s ease-in-out infinite;">
-        <div class="pf-word-sticker" style="--r: -6deg; --z: 6; --accent: #155DFC; --ink: #fff;"><span class="pf-sticker-more">disputes, card controls, quoting</span><strong>8 years</strong><span>shipping enterprise UX</span></div>
-      </div>
-      <div class="pf-sticker" role="button" tabindex="0" aria-label="Sticker: Fintech. Disputes, cards, and quoting in regulated workflows." style="left: 1356px; top: 790px; animation: stickerFloatB 7s ease-in-out infinite;">
-        <div class="pf-word-sticker" style="--r: 5deg; --z: 4; --accent: #0F766E; --ink: #fff;"><span class="pf-sticker-more">regulated financial workflows</span><strong>Fintech</strong><span>disputes, cards, quoting</span></div>
-      </div>
-      <div class="pf-sticker" role="button" tabindex="0" aria-label="Sticker: Enterprise. Scale, roles, and compliance." style="left: 356px; top: 274px; animation: stickerFloatC 6.4s ease-in-out infinite;">
-        <div class="pf-word-sticker" style="--r: -7deg; --z: 3; --accent: #5B3DF5; --ink: #fff;"><span class="pf-sticker-more">multi-role, audit-ready systems</span><strong>Enterprise</strong><span>scale, roles, compliance</span></div>
-      </div>
-      <div class="pf-sticker" role="button" tabindex="0" aria-label="Sticker: Human in the loop. AI that explains itself." style="left: 1348px; top: 384px; animation: stickerFloatA 7.2s ease-in-out infinite;">
-        <div class="pf-word-sticker" style="--r: 6deg; --z: 4; --accent: #C2410C; --ink: #fff;"><span class="pf-sticker-more">trust when right, override when wrong</span><strong>Human in the loop</strong><span>AI that explains itself</span></div>
-      </div>
-      <!-- white die-cut brand logo stickers: taped to the intro frame edges, clear of core copy -->
-      <div class="pf-sticker" role="button" tabindex="0" aria-label="Sticker: Fiserv. AI you can audit. Confidence, reasoning, override." style="left: 930px; top: 306px; animation: stickerFloatB 7s ease-in-out infinite;">
-        <div class="pf-real-sticker" style="--r: 5deg; --z: 4;"><span class="pf-logo-disc"><img class="pf-logo-mark" src="assets/Fiserv_Logo.webp" alt=""></span><span class="pf-logo-copy"><strong>Fiserv</strong><em>AI you can audit</em></span><span class="pf-sticker-more">confidence, reasoning, override</span></div>
-      </div>
-      <div class="pf-sticker" role="button" tabindex="0" aria-label="Sticker: Target. A Disputes Workspace client, converted onto DWS in 2025." style="left: 1056px; top: 382px; animation: stickerFloatC 6.4s ease-in-out infinite;">
-        <div class="pf-real-sticker" style="--r: -8deg; --z: 5;"><span class="pf-logo-disc"><img class="pf-logo-mark" src="assets/Target_logo.png" alt=""></span><span class="pf-logo-copy"><strong>Target</strong><em>DWS client</em></span><span class="pf-sticker-more">converted onto Disputes Workspace</span></div>
-      </div>
-      <div class="pf-sticker" role="button" tabindex="0" aria-label="Sticker: Banfield. Clinical workflows, less friction for care teams." style="left: 910px; top: 848px; animation: stickerFloatA 7.2s ease-in-out infinite;">
-        <div class="pf-real-sticker" style="--r: 4deg; --z: 3;"><span class="pf-logo-disc"><img class="pf-logo-mark" src="assets/BanfieldPetLogo.png" alt=""></span><span class="pf-logo-copy"><strong>Banfield</strong><em>clinical workflows</em></span><span class="pf-sticker-more">less friction for care teams</span></div>
-      </div>
-      <div class="pf-sticker" role="button" tabindex="0" aria-label="Sticker: MS in HCI, Indiana University. Research, prototypes, fieldwork." style="left: 282px; top: 832px; animation: stickerFloatC 6.8s ease-in-out infinite;">
-        <div class="pf-real-sticker" style="--r: -5deg; --z: 2;"><span class="pf-logo-disc"><img class="pf-logo-mark" src="assets/IU_Logo.svg" alt=""></span><span class="pf-logo-copy"><strong>MS in HCI</strong><em>Indiana University</em></span><span class="pf-sticker-more">research, prototypes, fieldwork</span></div>
-      </div>
-      <!-- ============ macOS WRITING FOLDER ============ -->
-      <div class="pf-folder-sticker pf-sticker" id="pf-writing-folder"
-           role="button" tabindex="0" aria-expanded="false"
-           aria-label="Writing folder — click to browse Medium articles"
-           style="left: 920px; top: 168px; animation: stickerFloatB 7.5s ease-in-out infinite;">
+	      <!-- ============ FLOATING STICKERS (quiet paper proof layer) ============ -->
+	      <div class="pf-sticker pf-sticker--quiet pf-sticker--round" role="button" tabindex="0" aria-label="Sticker: 8 years shipping enterprise UX. Disputes, card controls, and quoting." style="left: 238px; top: 222px; animation: stickerFloatA 7.5s ease-in-out infinite;">
+	        <div class="pf-word-sticker" style="--r: -5deg; --z: 6;"><span class="pf-sticker-more">disputes, card controls, quoting</span><span class="pf-spark" aria-hidden="true"></span><strong>8</strong><span>years</span></div>
+	      </div>
+	      <div class="pf-sticker pf-sticker--parked" role="button" tabindex="0" aria-label="Sticker: Fintech. Disputes, cards, and quoting in regulated workflows." style="left: 1356px; top: 790px; animation: stickerFloatB 7s ease-in-out infinite;">
+	        <div class="pf-word-sticker" style="--r: 5deg; --z: 4; --accent: #0F766E; --ink: #fff;"><span class="pf-sticker-more">regulated financial workflows</span><strong>Fintech</strong><span>disputes, cards, quoting</span></div>
+	      </div>
+	      <div class="pf-sticker pf-sticker--quiet pf-sticker--enterprise" role="button" tabindex="0" aria-label="Sticker: Enterprise. Scale, roles, and compliance." style="left: 1320px; top: 232px; animation: stickerFloatC 7.2s ease-in-out infinite;">
+	        <div class="pf-word-sticker" style="--r: 5deg; --z: 5;"><span class="pf-sticker-more">multi-role, audit-ready systems</span><span class="pf-sticker-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M6 27V11l8-4v20M14 27V5l12 5v17M4 27h24M10 14h1.5M10 18h1.5M10 22h1.5M18 13h2M18 17h2M18 21h2M23 15h1.5M23 19h1.5" stroke-width="2.1"/></svg></span><span><strong>Enterprise</strong><span>scale, roles, compliance</span></span></div>
+	      </div>
+	      <div class="pf-sticker pf-sticker--quiet pf-sticker--human" role="button" tabindex="0" aria-label="Sticker: Human in the loop. AI that explains itself." style="left: 242px; top: 818px; animation: stickerFloatA 7.8s ease-in-out infinite;">
+	        <div class="pf-word-sticker" style="--r: -2deg; --z: 4;"><span class="pf-sticker-more">trust when right, override when wrong</span><span class="pf-sticker-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M16 16a5 5 0 1 0 0-10 5 5 0 0 0 0 10ZM6 27c1.8-5 5.2-7.5 10-7.5s8.2 2.5 10 7.5M6 27h20" stroke-width="2.1"/></svg></span><span><strong>Human<br>in the loop</strong><span>AI that explains itself</span></span></div>
+	      </div>
+	      <div class="pf-sticker pf-sticker--quiet pf-sticker--fiserv" role="button" tabindex="0" aria-label="Sticker: Fiserv. AI you can audit. Confidence, reasoning, override." style="left: 410px; top: 250px; animation: stickerFloatB 7s ease-in-out infinite;">
+	        <div class="pf-word-sticker" style="--r: -7deg; --z: 5;"><span class="pf-sticker-more">confidence, reasoning, override</span><span><strong>Fiserv</strong><span>AI you can audit</span></span></div>
+	      </div>
+	      <div class="pf-sticker pf-sticker--parked" role="button" tabindex="0" aria-label="Sticker: Target. A Disputes Workspace client, converted onto DWS in 2025." style="left: 1056px; top: 382px; animation: stickerFloatC 6.4s ease-in-out infinite;">
+	        <div class="pf-real-sticker" style="--r: -8deg; --z: 5;"><span class="pf-logo-disc"><img class="pf-logo-mark" src="assets/Target_logo.png" alt=""></span><span class="pf-logo-copy"><strong>Target</strong><em>DWS client</em></span><span class="pf-sticker-more">converted onto Disputes Workspace</span></div>
+	      </div>
+	      <div class="pf-sticker pf-sticker--parked" role="button" tabindex="0" aria-label="Sticker: Banfield. Clinical workflows, less friction for care teams." style="left: 910px; top: 848px; animation: stickerFloatA 7.2s ease-in-out infinite;">
+	        <div class="pf-real-sticker" style="--r: 4deg; --z: 3;"><span class="pf-logo-disc"><img class="pf-logo-mark" src="assets/BanfieldPetLogo.png" alt=""></span><span class="pf-logo-copy"><strong>Banfield</strong><em>clinical workflows</em></span><span class="pf-sticker-more">less friction for care teams</span></div>
+	      </div>
+	      <div class="pf-sticker pf-sticker--parked" role="button" tabindex="0" aria-label="Sticker: MS in HCI, Indiana University. Research, prototypes, fieldwork." style="left: 282px; top: 832px; animation: stickerFloatC 6.8s ease-in-out infinite;">
+	        <div class="pf-real-sticker" style="--r: -5deg; --z: 2;"><span class="pf-logo-disc"><img class="pf-logo-mark" src="assets/IU_Logo.svg" alt=""></span><span class="pf-logo-copy"><strong>MS in HCI</strong><em>Indiana University</em></span><span class="pf-sticker-more">research, prototypes, fieldwork</span></div>
+	      </div>
+	      <!-- ============ macOS WRITING FOLDER ============ -->
+	      <div class="pf-folder-sticker pf-writing-paper pf-sticker" id="pf-writing-folder"
+	           role="button" tabindex="0" aria-expanded="false"
+	           aria-label="Writing folder — click to browse Medium articles"
+	           style="left: 1332px; top: 808px; --r: -3deg; animation: stickerFloatB 7.5s ease-in-out infinite;">
         <div class="pf-folder-wrap">
           <!-- macOS folder (real icon) with Medium badge over the center -->
           <div class="pf-folder-art">
