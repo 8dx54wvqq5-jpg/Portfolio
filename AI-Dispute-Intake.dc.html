@@ -1039,12 +1039,12 @@
           <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">The Trust Loop: auditability as a learning system</h2>
           <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 70ch;">Put the pieces together and a cycle appears. The AI suggests, the agent decides, the log records, the team learns, and the next suggestion can be tuned with real behavior behind it. The record that keeps the work compliant also shows where the AI needs to get better. That is the idea I most want this case study to carry.</p>
 
-          <!-- DEVICE D motion: the Trust Loop cycling, real Lottie animation -->
+          <!-- DEVICE D motion: the Trust Loop cycling, inline SVG animation -->
           <div data-reveal="1" style="border: 1px solid #E2E4E9; border-radius: 12px; background: linear-gradient(180deg, #15171C 0%, #1B1E25 100%); padding: 40px 32px; margin-bottom: 40px;">
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #7AA5FF; margin-bottom: 8px;">THE AI TRUST LOOP</div>
-            <div style="font-size: 13px; color: #AEB4C0; margin-bottom: 24px;">the cycle runs continuously: a pulse travels the loop and lights each stage in turn. <span style="color: #7AA5FF;">Tap any stage to see what happens there.</span></div>
+            <div style="font-size: 13px; color: #AEB4C0; margin-bottom: 24px;">the cycle runs continuously: a pulse travels the loop and lights each stage in turn. <span style="color: #7AA5FF;">Hover or tap a node to read the decision it captures.</span></div>
             <div style="display: flex; justify-content: center;">
-              <!-- Lottie stage: square container holds the animated loop; labels overlay the node positions -->
+              <!-- SVG stage: square container holds the animated loop; labels overlay the node positions -->
               <div class="trustloop-stage" role="img" aria-label="The AI Trust Loop, a continuous five-stage cycle: AI suggests, confidence shown, human decides, audit records, product tunes, then back to AI suggests." style="position: relative; width: 100%; max-width: 420px; aspect-ratio: 1 / 1;">
                 <svg id="trust-loop-svg" viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;" aria-hidden="true">
                   <defs>
@@ -1061,6 +1061,12 @@
                   <!-- track -->
                   <polygon points="210,72 341,167 291,321 129,321 79,167"
                     fill="none" stroke="rgba(122,165,255,0.2)" stroke-width="1.5" stroke-linejoin="round"/>
+                  <!-- active segment, set by hover/tap -->
+                  <path class="tl-edge" data-edge="0" d="M210,72 L341,167" fill="none" stroke="#7AA5FF" stroke-width="2" stroke-linecap="round" pathLength="1"/>
+                  <path class="tl-edge" data-edge="1" d="M341,167 L291,321" fill="none" stroke="#7AA5FF" stroke-width="2" stroke-linecap="round" pathLength="1"/>
+                  <path class="tl-edge" data-edge="2" d="M291,321 L129,321" fill="none" stroke="#6CE9A6" stroke-width="2" stroke-linecap="round" pathLength="1"/>
+                  <path class="tl-edge" data-edge="3" d="M129,321 L79,167" fill="none" stroke="#9AA8C0" stroke-width="2" stroke-linecap="round" pathLength="1"/>
+                  <path class="tl-edge" data-edge="4" d="M79,167 L210,72" fill="none" stroke="#7AA5FF" stroke-width="2" stroke-linecap="round" pathLength="1"/>
                   <!-- direction arrows at segment midpoints -->
                   <!-- 0→1: mid(275.5,119.5) bearing 126° -->
                   <polygon points="0,-5 4.5,3 -4.5,3" fill="rgba(122,165,255,0.55)" transform="translate(275.5,119.5) rotate(126)"/>
@@ -1147,7 +1153,7 @@
             </div>
             <div id="tl-explain" style="margin-top: 28px; border-top: 1px solid rgba(122,165,255,0.18); padding-top: 20px;">
               <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-                <span id="tl-ex-num" style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #7AA5FF;">STAGE 1 / 5</span>
+                <span id="tl-ex-num" style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #7AA5FF;">SUGGEST</span>
                 <span id="tl-ex-dot" style="width: 7px; height: 7px; border-radius: 50%; background: #7AA5FF;"></span>
                 <span id="tl-ex-title" style="font-family: Manrope, sans-serif; font-size: 15px; font-weight: 800; color: #E7E9EE;">AI suggests a value</span>
               </div>
@@ -1572,23 +1578,31 @@ class Component extends DCLogic {
     const dot = document.getElementById("tl-ex-dot");
     const title = document.getElementById("tl-ex-title");
     const body = document.getElementById("tl-ex-body");
+    const panel = document.getElementById("tl-explain");
+    const edges = Array.from(root.querySelectorAll(".tl-edge"));
     if (!num || !dot || !title || !body) return;
     const stages = [
-      { n: "STAGE 1 / 5", c: "#7AA5FF", t: "AI suggests a value", b: "The model reads the agent's plain-language description of the dispute and pre-fills each field with its best guess. Nothing is committed yet. It's a starting point, not a decision." },
-      { n: "STAGE 2 / 5", c: "#7AA5FF", t: "Confidence is shown", b: "Every suggested field carries a confidence chip (high, medium, or low), so the agent can tell at a glance which values to trust and which to double-check before accepting." },
-      { n: "STAGE 3 / 5", c: "#6CE9A6", t: "A human decides", b: "The agent accepts, corrects, or overrides each field. The judgment is theirs and on the record. A regulator holds a person accountable, so a person decides." },
-      { n: "STAGE 4 / 5", c: "#9AA8C0", t: "The audit log records", b: "Every interaction writes one row: what the AI suggested, how confident it was, what the human did, the final value, and when. Fully reconstructable for compliance." },
-      { n: "STAGE 5 / 5", c: "#7AA5FF", t: "The product tunes", b: "Those rows become signal. Override patterns reveal where the model is miscalibrated, so prompts, rules, and UX get tuned, feeding a more trustworthy AI on the next pass." }
+      { n: "SUGGEST", c: "#7AA5FF", t: "AI suggests a value", b: "The model reads the agent's description and proposes field values. Nothing is committed. The suggestion only enters the workflow as a draft." },
+      { n: "CALIBRATE", c: "#7AA5FF", t: "Confidence changes the review", b: "Each value carries a confidence cue. High can move quickly. Medium asks for evidence. Low slows the agent down before the case advances." },
+      { n: "DECIDE", c: "#6CE9A6", t: "A human owns the decision", b: "The agent accepts, corrects, or overrides each field. The final call stays with the person the regulator can hold accountable." },
+      { n: "RECORD", c: "#9AA8C0", t: "The audit log keeps both sides", b: "The system records the AI suggestion, confidence, human action, final value, and timestamp. The decision can be reconstructed later." },
+      { n: "TUNE", c: "#7AA5FF", t: "Overrides become product signal", b: "Correction patterns show where extraction, prompts, rules, or UX need work. The next pass starts with better evidence." }
     ];
     const show = (i) => {
       const s = stages[i];
       if (!s) return;
       spots.forEach((el) => el.classList.toggle("tl-on", Number(el.dataset.stage) === i));
+      edges.forEach((el) => el.classList.toggle("tl-on", Number(el.dataset.edge) === i));
+      if (panel && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        panel.classList.remove("tl-panel-in");
+        void panel.offsetWidth;
+        panel.classList.add("tl-panel-in");
+      }
       num.textContent = s.n;
       dot.style.background = s.c;
       title.textContent = s.t;
-      body.textContent = s.b;
-    };
+	      body.textContent = s.b;
+	    };
     this._trustLoopRoot = root;
     this._trustLoopShow = show;
     this._trustLoopPointer = (e) => {
@@ -1688,19 +1702,44 @@ class Component extends DCLogic {
 		    animation: trustSpin 7s linear infinite;
 		  }
 		  .trustloop .loop-node circle { transition: stroke 0.5s ease, fill 0.5s ease, stroke-width 0.5s ease; }
+			  .tl-edge {
+			    opacity: 0;
+			    stroke-dasharray: 1;
+			    stroke-dashoffset: 1;
+			    transition: stroke-dashoffset 280ms cubic-bezier(0.16,1,0.3,1), opacity 160ms ease;
+			  }
+			  .tl-edge.tl-on {
+			    opacity: 0.9;
+			    stroke-dashoffset: 0;
+			  }
+			  .tl-hotspot {
+			    min-width: 44px;
+			    min-height: 32px;
+			    transition: transform 180ms cubic-bezier(0.2,0,0,1), background 150ms ease, box-shadow 150ms ease, opacity 150ms ease !important;
+			  }
 			  .tl-hotspot:hover,
 			  .tl-hotspot:focus-visible,
 			  .tl-hotspot.tl-on {
-			    background: rgba(122,165,255,0.12);
-			    box-shadow: 0 0 0 1px rgba(122,165,255,0.38), 0 0 24px rgba(122,165,255,0.24);
+			    background: rgba(122,165,255,0.09);
+			    box-shadow: inset 0 0 0 1px rgba(122,165,255,0.42), 0 8px 24px rgba(3,7,18,0.18);
 			    outline: none;
 			  }
-			  .tl-hotspot.tl-on { transform: translate(-50%, -50%) scale(1.03) !important; }
+			  .tl-hotspot.tl-on { transform: translate(-50%, -50%) scale(1.025) !important; }
+			  #tl-explain { transform: translateY(0); }
+			  #tl-explain.tl-panel-in {
+			    animation: tlPanelIn 220ms cubic-bezier(0.16,1,0.3,1);
+			  }
 			  #tl-ex-num { white-space: nowrap; }
+			  @keyframes tlPanelIn {
+			    from { opacity: 0.72; transform: translateY(5px); }
+			    to { opacity: 1; transform: translateY(0); }
+			  }
 			  @media (prefers-reduced-motion: reduce) {
 			    .trustloop .loop-arc { animation: none; }
 			    .hotspot-cell { opacity: 1; transform: none; animation: none; }
 			    .hotspot-critical::after { animation: none; }
+			    .tl-edge, .tl-hotspot { transition: none !important; }
+			    #tl-explain.tl-panel-in { animation: none; }
 			  }
 		  @media (max-width: 700px) {
 		    .hotspot-card { padding: 22px 16px; }
