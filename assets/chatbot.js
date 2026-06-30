@@ -35,8 +35,7 @@
       '.ab-chat-header-role{color:#6B7280;font-family:"JetBrains Mono",monospace;font-size:10px;margin-top:1px;}',
       '.ab-chat-close{background:none;border:none;color:#6B7280;cursor:pointer;padding:4px;border-radius:6px;line-height:1;font-size:16px;transition:color .12s ease,background .12s ease;}',
       '.ab-chat-close:hover{color:#E7E9EE;background:#1E2128;}',
-      '.ab-chat-input-top{padding:6px 12px 0;display:flex;align-items:center;}',
-      '.ab-chat-reset{background:none;border:none;color:#4B5563;cursor:pointer;font-family:"JetBrains Mono",monospace;font-size:10px;padding:0;transition:color .12s ease;}',
+      '.ab-chat-reset{background:none;border:none;color:#4B5563;cursor:pointer;font-family:"JetBrains Mono",monospace;font-size:10px;padding:0 0 8px;align-self:flex-start;transition:color .12s ease;}',
       '.ab-chat-reset:hover{color:#9CA3AF;}',
       /* messages */
       '.ab-chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;}',
@@ -99,7 +98,6 @@
       '<button class="ab-chat-close" aria-label="Close chat">&times;</button>',
     '</div>',
     '<div class="ab-chat-messages" id="ab-chat-msgs"></div>',
-    '<div class="ab-chat-input-top"><button class="ab-chat-reset" aria-label="New conversation">↺ New conversation</button></div>',
     '<div class="ab-chat-input-row">',
       '<input class="ab-chat-input" id="ab-chat-input" placeholder="Ask me anything…" autocomplete="off" />',
       '<button class="ab-chat-send" id="ab-chat-send" aria-label="Send">',
@@ -127,9 +125,10 @@
           return '<button class="ab-starter">' + q + '</button>';
         }).join('') + '</div>';
     } else {
-      msgsEl.innerHTML = messages.map(function (m) {
-        return '<div class="ab-msg ' + m.role + '"><div class="ab-bubble">' + escHtml(m.content) + '</div></div>';
-      }).join('');
+      msgsEl.innerHTML = '<button class="ab-chat-reset">↺ New conversation</button>' +
+        messages.map(function (m) {
+          return '<div class="ab-msg ' + m.role + '"><div class="ab-bubble">' + escHtml(m.content) + '</div></div>';
+        }).join('');
     }
     msgsEl.scrollTop = msgsEl.scrollHeight;
   }
