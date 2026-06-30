@@ -1042,7 +1042,7 @@
           <!-- DEVICE D motion: the Trust Loop cycling, real Lottie animation -->
           <div data-reveal="1" style="border: 1px solid #E2E4E9; border-radius: 12px; background: linear-gradient(180deg, #15171C 0%, #1B1E25 100%); padding: 40px 32px; margin-bottom: 40px;">
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #7AA5FF; margin-bottom: 8px;">THE AI TRUST LOOP</div>
-            <div style="font-size: 13px; color: #AEB4C0; margin-bottom: 24px;">the cycle runs continuously: a pulse travels the loop and lights each stage in turn</div>
+            <div style="font-size: 13px; color: #AEB4C0; margin-bottom: 24px;">the cycle runs continuously: a pulse travels the loop and lights each stage in turn. <span style="color: #7AA5FF;">Tap any stage to see what happens there.</span></div>
             <div style="display: flex; justify-content: center;">
               <!-- Lottie stage: square container holds the animated loop; labels overlay the node positions -->
               <div class="trustloop-stage" role="img" aria-label="The AI Trust Loop, a continuous five-stage cycle: AI suggests, confidence shown, human decides, audit records, product tunes, then back to AI suggests." style="position: relative; width: 100%; max-width: 420px; aspect-ratio: 1 / 1;">
@@ -1119,31 +1119,39 @@
                 </div>
                 <!-- node labels, positioned over the Lottie nodes (top, then clockwise) -->
                 <!-- node 1: top (AI suggests) -->
-                <div style="position: absolute; left: 50%; top: 17.14%; transform: translate(-50%, -50%); text-align: center; pointer-events: none;">
+                <div class="tl-hotspot" data-stage="0" role="button" tabindex="0" aria-label="Stage 1: AI suggests" style="position: absolute; left: 50%; top: 17.14%; transform: translate(-50%, -50%); text-align: center; cursor: pointer; pointer-events: auto; padding: 8px 12px; border-radius: 10px; transition: background .2s ease, box-shadow .2s ease;">
                   <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #7AA5FF;">AI</div>
                   <div style="font-family: Manrope, sans-serif; font-size: 11px; font-weight: 800; color: #E7E9EE;">suggests</div>
                 </div>
                 <!-- node 2: upper-right (confidence shown) -->
-                <div style="position: absolute; left: 81.25%; top: 39.85%; transform: translate(-50%, -50%); text-align: center; pointer-events: none;">
+                <div class="tl-hotspot" data-stage="1" role="button" tabindex="0" aria-label="Stage 2: Confidence shown" style="position: absolute; left: 81.25%; top: 39.85%; transform: translate(-50%, -50%); text-align: center; cursor: pointer; pointer-events: auto; padding: 8px 12px; border-radius: 10px; transition: background .2s ease, box-shadow .2s ease;">
                   <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #7AA5FF;">CONFIDENCE</div>
                   <div style="font-family: Manrope, sans-serif; font-size: 11px; font-weight: 800; color: #E7E9EE;">shown</div>
                 </div>
                 <!-- node 3: lower-right (human decides) -->
-                <div style="position: absolute; left: 69.31%; top: 76.58%; transform: translate(-50%, -50%); text-align: center; pointer-events: none;">
+                <div class="tl-hotspot" data-stage="2" role="button" tabindex="0" aria-label="Stage 3: Human decides" style="position: absolute; left: 69.31%; top: 76.58%; transform: translate(-50%, -50%); text-align: center; cursor: pointer; pointer-events: auto; padding: 8px 12px; border-radius: 10px; transition: background .2s ease, box-shadow .2s ease;">
                   <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #6CE9A6;">HUMAN</div>
                   <div style="font-family: Manrope, sans-serif; font-size: 11px; font-weight: 800; color: #E7E9EE;">decides</div>
                 </div>
                 <!-- node 4: lower-left (audit records) -->
-                <div style="position: absolute; left: 30.69%; top: 76.58%; transform: translate(-50%, -50%); text-align: center; pointer-events: none;">
+                <div class="tl-hotspot" data-stage="3" role="button" tabindex="0" aria-label="Stage 4: Audit records" style="position: absolute; left: 30.69%; top: 76.58%; transform: translate(-50%, -50%); text-align: center; cursor: pointer; pointer-events: auto; padding: 8px 12px; border-radius: 10px; transition: background .2s ease, box-shadow .2s ease;">
                   <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #9AA8C0;">AUDIT</div>
                   <div style="font-family: Manrope, sans-serif; font-size: 11px; font-weight: 800; color: #E7E9EE;">records</div>
                 </div>
                 <!-- node 5: upper-left (product tunes) -->
-                <div style="position: absolute; left: 18.75%; top: 39.85%; transform: translate(-50%, -50%); text-align: center; pointer-events: none;">
+                <div class="tl-hotspot" data-stage="4" role="button" tabindex="0" aria-label="Stage 5: Product tunes" style="position: absolute; left: 18.75%; top: 39.85%; transform: translate(-50%, -50%); text-align: center; cursor: pointer; pointer-events: auto; padding: 8px 12px; border-radius: 10px; transition: background .2s ease, box-shadow .2s ease;">
                   <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #7AA5FF;">PRODUCT</div>
                   <div style="font-family: Manrope, sans-serif; font-size: 11px; font-weight: 800; color: #E7E9EE;">tunes</div>
                 </div>
               </div>
+            </div>
+            <div id="tl-explain" style="margin-top: 28px; border-top: 1px solid rgba(122,165,255,0.18); padding-top: 20px;">
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                <span id="tl-ex-num" style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #7AA5FF;">STAGE 1 / 5</span>
+                <span id="tl-ex-dot" style="width: 7px; height: 7px; border-radius: 50%; background: #7AA5FF;"></span>
+                <span id="tl-ex-title" style="font-family: Manrope, sans-serif; font-size: 15px; font-weight: 800; color: #E7E9EE;">AI suggests a value</span>
+              </div>
+              <div id="tl-ex-body" style="font-size: 14px; line-height: 1.7; color: #AEB4C0; max-width: 64ch;">The model reads the agent’s plain-language description of the dispute and pre-fills each field with its best guess. Nothing is committed yet. It’s a starting point, not a decision.</div>
             </div>
           </div>
 
@@ -1284,6 +1292,7 @@ class Component extends DCLogic {
 
     // ---- interactive try-it prototype (section 04.5) ----
     this.initTryIt();
+    this.initTrustLoop();
 
     // ---- responsive: collapse panels under 1180px ----
     const left = document.getElementById("panel-left");
@@ -1553,8 +1562,61 @@ class Component extends DCLogic {
     root.addEventListener("click", this._tryitClick);
   }
 
+  // ---- interactive Trust Loop explainer ----
+  initTrustLoop() {
+    const root = document.querySelector(".trustloop-stage");
+    const spots = Array.from(document.querySelectorAll(".tl-hotspot"));
+    if (!root || root.__trustLoopInit || !spots.length) return;
+    root.__trustLoopInit = true;
+    const num = document.getElementById("tl-ex-num");
+    const dot = document.getElementById("tl-ex-dot");
+    const title = document.getElementById("tl-ex-title");
+    const body = document.getElementById("tl-ex-body");
+    if (!num || !dot || !title || !body) return;
+    const stages = [
+      { n: "STAGE 1 / 5", c: "#7AA5FF", t: "AI suggests a value", b: "The model reads the agent's plain-language description of the dispute and pre-fills each field with its best guess. Nothing is committed yet. It's a starting point, not a decision." },
+      { n: "STAGE 2 / 5", c: "#7AA5FF", t: "Confidence is shown", b: "Every suggested field carries a confidence chip (high, medium, or low), so the agent can tell at a glance which values to trust and which to double-check before accepting." },
+      { n: "STAGE 3 / 5", c: "#6CE9A6", t: "A human decides", b: "The agent accepts, corrects, or overrides each field. The judgment is theirs and on the record. A regulator holds a person accountable, so a person decides." },
+      { n: "STAGE 4 / 5", c: "#9AA8C0", t: "The audit log records", b: "Every interaction writes one row: what the AI suggested, how confident it was, what the human did, the final value, and when. Fully reconstructable for compliance." },
+      { n: "STAGE 5 / 5", c: "#7AA5FF", t: "The product tunes", b: "Those rows become signal. Override patterns reveal where the model is miscalibrated, so prompts, rules, and UX get tuned, feeding a more trustworthy AI on the next pass." }
+    ];
+    const show = (i) => {
+      const s = stages[i];
+      if (!s) return;
+      spots.forEach((el) => el.classList.toggle("tl-on", Number(el.dataset.stage) === i));
+      num.textContent = s.n;
+      dot.style.background = s.c;
+      title.textContent = s.t;
+      body.textContent = s.b;
+    };
+    this._trustLoopRoot = root;
+    this._trustLoopShow = show;
+    this._trustLoopPointer = (e) => {
+      const el = e.target.closest(".tl-hotspot");
+      if (el && root.contains(el)) show(Number(el.dataset.stage));
+    };
+    this._trustLoopKey = (e) => {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      const el = e.target.closest(".tl-hotspot");
+      if (!el || !root.contains(el)) return;
+      e.preventDefault();
+      show(Number(el.dataset.stage));
+    };
+    root.addEventListener("click", this._trustLoopPointer);
+    root.addEventListener("mouseover", this._trustLoopPointer);
+    root.addEventListener("focusin", this._trustLoopPointer);
+    root.addEventListener("keydown", this._trustLoopKey);
+    show(0);
+  }
+
   componentWillUnmount() {
     if (this._tryitRoot && this._tryitClick) this._tryitRoot.removeEventListener("click", this._tryitClick);
+    if (this._trustLoopRoot && this._trustLoopPointer) {
+      this._trustLoopRoot.removeEventListener("click", this._trustLoopPointer);
+      this._trustLoopRoot.removeEventListener("mouseover", this._trustLoopPointer);
+      this._trustLoopRoot.removeEventListener("focusin", this._trustLoopPointer);
+    }
+    if (this._trustLoopRoot && this._trustLoopKey) this._trustLoopRoot.removeEventListener("keydown", this._trustLoopKey);
     if (this._onScroll) window.removeEventListener("scroll", this._onScroll);
     if (this._mq && this._applyMq) this._mq.removeEventListener("change", this._applyMq);
     clearInterval(this._loopTimer);
@@ -1620,17 +1682,26 @@ class Component extends DCLogic {
 		  .hotspot-read strong { color: #101828; }
 		  @keyframes hotspotReveal { to { opacity: 1; transform: translateY(0) scale(1); } }
 		  @keyframes hotspotPulse { 0%, 100% { opacity: 0; transform: scale(1); } 45% { opacity: 1; transform: scale(0.96); } }
-	  @keyframes trustSpin { to { transform: rotate(360deg); } }
-	  .trustloop .loop-arc {
-	    transform-origin: 210px 210px;
-	    animation: trustSpin 7s linear infinite;
-	  }
-	  .trustloop .loop-node circle { transition: stroke 0.5s ease, fill 0.5s ease, stroke-width 0.5s ease; }
-		  @media (prefers-reduced-motion: reduce) {
-		    .trustloop .loop-arc { animation: none; }
-		    .hotspot-cell { opacity: 1; transform: none; animation: none; }
-		    .hotspot-critical::after { animation: none; }
+		  @keyframes trustSpin { to { transform: rotate(360deg); } }
+		  .trustloop .loop-arc {
+		    transform-origin: 210px 210px;
+		    animation: trustSpin 7s linear infinite;
 		  }
+		  .trustloop .loop-node circle { transition: stroke 0.5s ease, fill 0.5s ease, stroke-width 0.5s ease; }
+			  .tl-hotspot:hover,
+			  .tl-hotspot:focus-visible,
+			  .tl-hotspot.tl-on {
+			    background: rgba(122,165,255,0.12);
+			    box-shadow: 0 0 0 1px rgba(122,165,255,0.38), 0 0 24px rgba(122,165,255,0.24);
+			    outline: none;
+			  }
+			  .tl-hotspot.tl-on { transform: translate(-50%, -50%) scale(1.03) !important; }
+			  #tl-ex-num { white-space: nowrap; }
+			  @media (prefers-reduced-motion: reduce) {
+			    .trustloop .loop-arc { animation: none; }
+			    .hotspot-cell { opacity: 1; transform: none; animation: none; }
+			    .hotspot-critical::after { animation: none; }
+			  }
 		  @media (max-width: 700px) {
 		    .hotspot-card { padding: 22px 16px; }
 		    .hotspot-card-top { align-items: flex-start; margin-bottom: 16px; }
