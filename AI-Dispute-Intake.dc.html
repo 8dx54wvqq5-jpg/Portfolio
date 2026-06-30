@@ -86,6 +86,7 @@
     <div data-nav="s2" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 02 · Why Not Automate</div>
     <div data-nav="s3" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 03 · The Model & Its Boundary</div>
     <div data-nav="s4" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 04 · Confidence, Done Right</div>
+    <div data-nav="s4-5" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 30px; cursor: pointer; color: #155DFC; font-size: 12px; font-weight: 700;" style-hover="background: #F4F5F7;"><span style="color: #155DFC; font-size: 11px;">▸</span> 04.5 · Try it yourself</div>
     <div data-nav="s5" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 05 · The Trust Boundary</div>
     <div data-nav="s6" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 06 · Audit Log as Intelligence</div>
     <div data-nav="s7" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; cursor: pointer; color: #364153; font-size: 12.5px; font-weight: 600;" style-hover="background: #F4F5F7;"><span style="color: #B7BCC7; font-size: 11px;">◇</span> 07 · Metrics This Enables</div>
@@ -494,6 +495,292 @@
               </div>
             </div>
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; margin-top: 12px;">recreated intake screen: per-field High / Medium / Low chips, one field expanded to show the evidence behind its level, and a confirm step the agent owns</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04.5 · TRY IT YOURSELF (interactive prototype) -->
+      <style>
+        #s4-5 .tryit-mono { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; }
+        #s4-5 .tryit-stage { position: relative; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 12px 28px -16px rgba(16,24,40,0.22); background: #F7F8FA; }
+        #s4-5 .tryit-stage.is-sealed { box-shadow: 0 0 0 2px #A7E8C6, 0 12px 28px -16px rgba(16,24,40,0.22); }
+        #s4-5 .tryit-rail { position: absolute; top: 0; left: 0; right: 0; height: 3px; z-index: 6; background: rgba(21,93,252,0.10); }
+        #s4-5 .tryit-rail i { display: block; height: 100%; width: 0; background: #155DFC; transition: width 0.35s cubic-bezier(0.16,1,0.3,1); }
+        #s4-5 .tryit-chrome { display: flex; align-items: center; justify-content: space-between; padding: 13px 18px; background: #FFFFFF; border-bottom: 1px solid #ECEDF1; }
+        #s4-5 .tryit-pill { display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #155DFC; background: #EFF6FF; border: 1px solid #D6E4FF; border-radius: 999px; padding: 3px 9px; }
+        #s4-5 .tryit-split { display: grid; grid-template-columns: 1.32fr 1fr; }
+        #s4-5 .tryit-left { position: relative; padding: 20px; border-right: 1px solid #ECEDF1; }
+        #s4-5 .tryit-right { padding: 18px; background: #FBFCFE; }
+        #s4-5 .tryit-quote { background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; }
+        #s4-5 .tryit-quote .tryit-mono { color: #9AA0AC; display: block; margin-bottom: 7px; }
+        #s4-5 .tryit-quote-text { font-size: 14px; line-height: 1.6; color: #101828; }
+        #s4-5 .tryit-fields { position: relative; }
+        #s4-5 .tryit-scrim { position: absolute; inset: -4px; display: flex; align-items: center; justify-content: center; background: rgba(247,248,250,0.66); -webkit-backdrop-filter: blur(1.5px); backdrop-filter: blur(1.5px); z-index: 4; border-radius: 10px; transition: opacity 0.4s ease; }
+        #s4-5 .tryit-scrim.gone { opacity: 0; pointer-events: none; }
+        #s4-5 .tryit-row { position: relative; background: #FFFFFF; border: 1px solid #E2E4E9; border-left: 3px solid #D5D8DF; border-radius: 10px; padding: 13px 16px; margin-bottom: 10px; opacity: 0.5; transition: opacity 0.3s ease, border-color 0.35s ease, box-shadow 0.25s ease, transform 0.25s ease; }
+        #s4-5 .tryit-fields.armed .tryit-row { opacity: 1; }
+        #s4-5 .tryit-row.is-active { border-left-color: #155DFC; box-shadow: 0 0 0 3px rgba(21,93,252,0.12); }
+        #s4-5 .tryit-row.res-green { border-left-color: #047857; }
+        #s4-5 .tryit-row.res-amber { border-left-color: #B54708; }
+        #s4-5 .tryit-row.res-blue { border-left-color: #155DFC; }
+        #s4-5 .tryit-row-top { display: grid; grid-template-columns: 132px 1fr auto; gap: 12px; align-items: center; }
+        #s4-5 .tryit-row-label { font-size: 12.5px; font-weight: 700; color: #6A7282; }
+        #s4-5 .tryit-row-value { font-size: 14px; font-weight: 700; color: #101828; }
+        #s4-5 .tryit-amb { font-weight: 500; color: #9AA0AC; font-size: 12.5px; }
+        #s4-5 .tryit-val.swap s { color: #C0392B; opacity: 0.7; }
+        #s4-5 .tryit-val.swap strong { color: #155DFC; }
+        #s4-5 .tryit-stamp { display: inline-block; margin-left: 8px; font-weight: 800; opacity: 0; transform: scale(0.6); transition: opacity 0.15s ease, transform 0.18s cubic-bezier(0.34,1.56,0.64,1); }
+        #s4-5 .is-done .tryit-stamp { opacity: 1; transform: scale(1); }
+        #s4-5 .res-green .tryit-stamp::after { content: '✓'; color: #047857; }
+        #s4-5 .res-amber .tryit-stamp::after { content: '✓'; color: #B54708; }
+        #s4-5 .res-blue .tryit-stamp::after { content: '✓'; color: #155DFC; }
+        #s4-5 .tryit-row-ctl { display: flex; align-items: center; gap: 10px; justify-content: flex-end; }
+        #s4-5 .tryit-chip { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 999px; letter-spacing: 0.04em; white-space: nowrap; }
+        #s4-5 .ch-high { background: #E7F5EF; color: #047857; }
+        #s4-5 .ch-medium { background: #FFFAEB; color: #B54708; }
+        #s4-5 .ch-low { background: #FEF3F2; color: #D92D20; }
+        #s4-5 .tryit-pending { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #B7BCC7; }
+        #s4-5 .tryit-act { display: none; align-items: center; gap: 8px; }
+        #s4-5 .tryit-row.is-active .tryit-act { display: flex; }
+        #s4-5 .tryit-row.is-active .tryit-pending { display: none; }
+        #s4-5 .tryit-row.is-done .tryit-pending, #s4-5 .tryit-row.is-done .tryit-act { display: none; }
+        #s4-5 .tryit-done-pill { display: none; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 600; padding: 6px 11px; border-radius: 999px; }
+        #s4-5 .tryit-row.is-done .tryit-done-pill { display: inline-flex; }
+        #s4-5 .dp-green { background: #E7F5EF; color: #047857; }
+        #s4-5 .dp-amber { background: #FFFAEB; color: #B54708; }
+        #s4-5 .dp-blue { background: #EFF6FF; color: #155DFC; }
+        #s4-5 .tryit-btn { font-family: Manrope, sans-serif; font-size: 12px; font-weight: 700; border-radius: 7px; padding: 9px 15px; border: 1px solid transparent; cursor: pointer; min-height: 40px; transition: transform 0.12s ease, filter 0.15s ease, background 0.15s ease; }
+        #s4-5 .tryit-btn:active { transform: scale(0.97); }
+        #s4-5 .tryit-btn-primary { background: #155DFC; color: #FFFFFF; }
+        #s4-5 .tryit-btn-primary:hover { filter: brightness(1.06); }
+        #s4-5 .tryit-btn-ghost { background: #FFFFFF; color: #4A5565; border-color: #D5D8DF; }
+        #s4-5 .tryit-btn-amber { background: #B54708; color: #FFFFFF; }
+        #s4-5 .tryit-btn-red { background: #D92D20; color: #FFFFFF; }
+        #s4-5 .tryit-btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+        #s4-5 .tryit-btn.is-ready { animation: tiReady 1.6s ease 2; }
+        #s4-5 .tryit-btn.is-sealed { background: #E7F5EF; color: #047857; border-color: #A7E8C6; }
+        @keyframes tiReady { 0%,100% { box-shadow: 0 0 0 0 rgba(21,93,252,0); } 50% { box-shadow: 0 0 0 5px rgba(21,93,252,0.18); } }
+        #s4-5 .tryit-row-help { font-size: 12px; line-height: 1.5; color: #9AA0AC; margin-top: 8px; }
+        #s4-5 .tryit-row.is-active .tryit-row-help { color: #6A7282; }
+        #s4-5 .tryit-why { margin-top: 11px; padding-top: 11px; border-top: 1px dashed #FEDF89; display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; font-size: 12.5px; line-height: 1.6; color: #4A5565; }
+        #s4-5 .tryit-why-tag { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #B54708; background: #FFFAEB; border: 1px solid #FEDF89; border-radius: 6px; padding: 4px 7px; white-space: nowrap; }
+        #s4-5 .tryit-raw { font-family: 'JetBrains Mono', monospace; color: #C9CDD6; }
+        #s4-5 .tryit-picker { margin-top: 11px; padding-top: 11px; border-top: 1px dashed #FECDCA; display: grid; gap: 8px; }
+        #s4-5 .tryit-picker-opt { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 12.5px; padding: 9px 12px; border: 1px solid #ECEDF1; border-radius: 8px; background: #FFFFFF; color: #6A7282; }
+        #s4-5 .tryit-picker-opt.sel { border-color: #155DFC; background: #EFF6FF; color: #101828; }
+        #s4-5 .tryit-picker-opt .tryit-mono { font-size: 9px; }
+        #s4-5 .tryit-pick-x { color: #D92D20; }
+        #s4-5 .tryit-pick-ok { color: #155DFC; }
+        #s4-5 .tryit-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 6px; padding-top: 16px; border-top: 1px solid #ECEDF1; }
+        #s4-5 .tryit-foot-sum { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282; line-height: 1.5; }
+        #s4-5 .tryit-audit-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+        #s4-5 .tryit-audit-sub { font-size: 11.5px; color: #9AA0AC; margin-top: 3px; }
+        #s4-5 .tryit-counter { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; color: #6A7282; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 999px; padding: 4px 10px; white-space: nowrap; }
+        #s4-5 .tryit-arows { display: flex; flex-direction: column; gap: 8px; min-height: 132px; }
+        #s4-5 .tryit-ghost { border: 1px dashed #E2E4E9; border-radius: 8px; padding: 22px 14px; text-align: center; font-size: 12px; color: #B7BCC7; line-height: 1.5; }
+        #s4-5 .tryit-arow { border: 1px solid #ECEDF1; border-radius: 8px; padding: 11px 13px; background: #FFFFFF; }
+        #s4-5 .tryit-arow.flash-green { animation: tiFlashG 0.7s ease forwards; }
+        #s4-5 .tryit-arow.flash-amber { animation: tiFlashA 0.7s ease forwards; }
+        #s4-5 .tryit-arow.flash-red { animation: tiFlashR 0.7s ease forwards; }
+        @keyframes tiFlashG { from { background: #E7F5EF; } to { background: #FFFFFF; } }
+        @keyframes tiFlashA { from { background: #FFFAEB; } to { background: #FFFFFF; } }
+        @keyframes tiFlashR { from { background: #FEF3F2; } to { background: #FFFFFF; } }
+        #s4-5 .tryit-arow-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+        #s4-5 .tryit-arow-field { font-size: 12.5px; font-weight: 800; color: #101828; }
+        #s4-5 .tryit-arow-grid { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; font-size: 12px; }
+        #s4-5 .tryit-arow-k { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.04em; color: #9AA0AC; align-self: center; }
+        #s4-5 .tryit-arow-v { color: #364153; }
+        #s4-5 .tryit-mono2 { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; }
+        #s4-5 .tryit-arow-reason { margin-top: 8px; padding-top: 7px; border-top: 1px solid #F1F2F5; font-size: 11px; line-height: 1.5; color: #6A7282; }
+        #s4-5 .tryit-insight { margin-top: 16px; border: 1px solid #C7DCFF; border-radius: 10px; background: #F6F9FF; padding: 16px; opacity: 0; transform: translateY(8px); transition: opacity 0.35s ease, transform 0.35s ease; }
+        #s4-5 .tryit-insight.is-lit { opacity: 1; transform: none; animation: tiPulse 0.55s ease 1; }
+        @keyframes tiPulse { 0% { box-shadow: 0 0 0 0 rgba(21,93,252,0); } 45% { box-shadow: 0 0 0 6px rgba(21,93,252,0.18); } 100% { box-shadow: 0 0 0 0 rgba(21,93,252,0); } }
+        #s4-5 .tryit-insight-h { font-size: 14px; font-weight: 800; color: #101828; margin: 8px 0 7px; line-height: 1.4; }
+        #s4-5 .tryit-insight p { font-size: 12.5px; line-height: 1.6; color: #4A5565; margin: 0; }
+        #s4-5 .tryit-narr { display: flex; align-items: center; gap: 14px; margin-top: 14px; border-radius: 10px; background: #15171C; padding: 13px 16px; }
+        #s4-5 .tryit-step { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #7AA5FF; background: rgba(122,165,255,0.12); border: 1px solid rgba(122,165,255,0.25); border-radius: 999px; padding: 6px 11px; white-space: nowrap; }
+        #s4-5 .tryit-narr-text { font-size: 13.5px; line-height: 1.55; color: #E7E9EE; }
+        #s4-5 .tryit-payoff { margin-top: 20px; border: 1px solid #E2E4E9; border-radius: 12px; background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFF 100%); padding: 28px 30px; }
+        #s4-5 .tryit-payoff h3 { font-size: 20px; font-weight: 800; letter-spacing: -0.01em; margin: 8px 0 14px; color: #101828; }
+        #s4-5 .tryit-payoff ul { margin: 0 0 16px; padding: 0; list-style: none; display: grid; gap: 9px; }
+        #s4-5 .tryit-payoff li { position: relative; padding-left: 22px; font-size: 14px; line-height: 1.6; color: #364153; }
+        #s4-5 .tryit-payoff li::before { content: '→'; position: absolute; left: 0; color: #155DFC; font-weight: 700; }
+        #s4-5 .tryit-payoff p { font-size: 14.5px; line-height: 1.7; color: #364153; margin: 0 0 18px; max-width: 70ch; }
+        #s4-5 .tryit-payoff-act { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+        #s4-5 .tryit-jump { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: #155DFC; text-decoration: none; }
+        #s4-5 .tryit-jump:hover { text-decoration: underline; }
+        #s4-5 .tryit-fly { position: fixed; z-index: 9998; pointer-events: none; border-radius: 8px; border: 1px solid #C7DCFF; background: #EFF6FF; padding: 8px 12px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: #101828; box-shadow: 0 14px 30px -10px rgba(16,24,40,0.4); transition: transform 0.42s cubic-bezier(0.16,1,0.3,1), opacity 0.42s ease; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        @media (max-width: 880px) {
+          #s4-5 .tryit-split { grid-template-columns: 1fr; }
+          #s4-5 .tryit-left { border-right: none; border-bottom: 1px solid #ECEDF1; }
+          #s4-5 .tryit-row-top { grid-template-columns: 1fr; gap: 8px; }
+          #s4-5 .tryit-row-ctl { justify-content: flex-start; flex-wrap: wrap; }
+          #s4-5 .tryit-narr { flex-direction: column; align-items: flex-start; gap: 8px; }
+          #s4-5 .tryit-footer { flex-direction: column; align-items: stretch; }
+          #s4-5 .tryit-footer .tryit-btn { width: 100%; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          #s4-5 .tryit-rail i, #s4-5 .tryit-row, #s4-5 .tryit-stamp, #s4-5 .tryit-scrim, #s4-5 .tryit-insight, #s4-5 .tryit-btn { transition: none !important; }
+          #s4-5 .tryit-arow { animation: none !important; }
+          #s4-5 .tryit-insight.is-lit { animation: none !important; }
+          #s4-5 .tryit-btn.is-ready { animation: none !important; }
+        }
+      </style>
+      <section id="s4-5" data-frame="s4-5" data-screen-label="AI Intake / Try It" style="margin-top: 64px;">
+        <div style="margin-bottom: 8px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #155DFC;">▸ 04.5 · Try it yourself</span></div>
+        <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
+          <div data-reveal="0" style="display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; background: #EFF6FF; border: 1px solid #D6E4FF; border-radius: 999px; padding: 4px 12px; margin-bottom: 16px;">▶ INTERACTIVE · DRIVE IT YOURSELF</div>
+          <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">Try the AI intake yourself</h2>
+          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 72ch;">This is the same screen a Fiserv agent saw. The AI already read the cardholder's complaint and pre-filled five fields, each tagged with how sure it is. Your job is the agent's job: accept the ones it nailed, verify the one it is only guessing at, and catch the one it got wrong. Every decision you make writes itself into the audit log on the right, in real time. Drive it once and you understand the whole product: the AI suggests, a human confirms, and the record is how the system learns. Nothing is ever submitted for you.</p>
+
+          <div data-reveal="1" class="tryit-stage">
+            <div class="tryit-rail" role="progressbar" aria-label="Walkthrough progress" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0" aria-valuetext="0 of 5 fields reviewed"><i></i></div>
+            <div class="tryit-chrome">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC;">Cases / New dispute / Intake</span>
+              <span class="tryit-pill"><svg width="10" height="10" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="none" stroke="#155DFC" stroke-width="1.5"/><circle cx="8" cy="8" r="2" fill="#155DFC"/></svg> AI-assisted</span>
+            </div>
+            <div class="tryit-split">
+              <!-- LEFT: the intake the visitor drives -->
+              <div class="tryit-left">
+                <div class="tryit-quote">
+                  <span class="tryit-mono">CARDHOLDER'S DESCRIPTION</span>
+                  <div class="tryit-quote-text">"I was charged $47.50 twice for the same Uber ride on March 3rd. I only took one trip."</div>
+                </div>
+                <div class="tryit-fields">
+                  <!-- HIGH · dispute type -->
+                  <div class="tryit-row" data-field="type" data-conf="HIGH">
+                    <div class="tryit-row-top">
+                      <div class="tryit-row-label">Dispute type</div>
+                      <div class="tryit-row-value"><span class="tryit-val">Duplicate charge</span><span class="tryit-stamp" aria-hidden="true"></span></div>
+                      <div class="tryit-row-ctl">
+                        <span class="tryit-chip ch-high">HIGH</span>
+                        <span class="tryit-pending">your call</span>
+                        <span class="tryit-act"><button type="button" class="tryit-btn tryit-btn-primary" data-act="accept" aria-label="Accept Dispute type, high confidence">Accept</button></span>
+                        <span class="tryit-done-pill dp-green">Accepted ✓</span>
+                      </div>
+                    </div>
+                    <div class="tryit-row-help">High confidence. Review and accept after a light check.</div>
+                  </div>
+                  <!-- HIGH · amount -->
+                  <div class="tryit-row" data-field="amount" data-conf="HIGH">
+                    <div class="tryit-row-top">
+                      <div class="tryit-row-label">Disputed amount</div>
+                      <div class="tryit-row-value"><span class="tryit-val" style="font-variant-numeric: tabular-nums;">$47.50</span><span class="tryit-stamp" aria-hidden="true"></span></div>
+                      <div class="tryit-row-ctl">
+                        <span class="tryit-chip ch-high">HIGH</span>
+                        <span class="tryit-pending">your call</span>
+                        <span class="tryit-act"><button type="button" class="tryit-btn tryit-btn-primary" data-act="accept" aria-label="Accept Disputed amount, high confidence">Accept</button></span>
+                        <span class="tryit-done-pill dp-green">Accepted ✓</span>
+                      </div>
+                    </div>
+                    <div class="tryit-row-help">High confidence. The amount matched the cardholder's own words.</div>
+                  </div>
+                  <!-- HIGH · date -->
+                  <div class="tryit-row" data-field="date" data-conf="HIGH">
+                    <div class="tryit-row-top">
+                      <div class="tryit-row-label">Transaction date</div>
+                      <div class="tryit-row-value"><span class="tryit-val" style="font-variant-numeric: tabular-nums;">Mar 3, 2026</span><span class="tryit-stamp" aria-hidden="true"></span></div>
+                      <div class="tryit-row-ctl">
+                        <span class="tryit-chip ch-high">HIGH</span>
+                        <span class="tryit-pending">your call</span>
+                        <span class="tryit-act"><button type="button" class="tryit-btn tryit-btn-primary" data-act="accept" aria-label="Accept Transaction date, high confidence">Accept</button></span>
+                        <span class="tryit-done-pill dp-green">Accepted ✓</span>
+                      </div>
+                    </div>
+                    <div class="tryit-row-help">High confidence. The date was stated directly in the complaint.</div>
+                  </div>
+                  <!-- MEDIUM · merchant -->
+                  <div class="tryit-row" data-field="merchant" data-conf="MEDIUM">
+                    <div class="tryit-row-top">
+                      <div class="tryit-row-label">Merchant</div>
+                      <div class="tryit-row-value"><span class="tryit-val">Uber Technologies</span><span class="tryit-stamp" aria-hidden="true"></span></div>
+                      <div class="tryit-row-ctl">
+                        <span class="tryit-chip ch-medium">MEDIUM</span>
+                        <span class="tryit-pending">your call</span>
+                        <span class="tryit-act">
+                          <button type="button" class="tryit-btn tryit-btn-ghost" data-act="why" aria-expanded="false">Why MEDIUM?</button>
+                          <button type="button" class="tryit-btn tryit-btn-amber" data-act="verify" aria-label="Verify Merchant, medium confidence">Verify</button>
+                        </span>
+                        <span class="tryit-done-pill dp-amber">Verified ✓</span>
+                      </div>
+                    </div>
+                    <div class="tryit-row-help">Medium confidence. Check the evidence before you trust it.</div>
+                    <div class="tryit-why" hidden>
+                      <span class="tryit-why-tag">WHY MEDIUM</span>
+                      <div>The descriptor reads <strong style="color: #101828;">UBER&nbsp;*TRIP&nbsp;HELP.UBER.CO</strong>, which maps to Uber but is not an exact biller match. Confirm the merchant before the duplicate-charge rule applies. <span class="tryit-raw">raw · 0.64</span></div>
+                    </div>
+                  </div>
+                  <!-- LOW · sub-reason code (the climax) -->
+                  <div class="tryit-row" data-field="code" data-conf="LOW">
+                    <div class="tryit-row-top">
+                      <div class="tryit-row-label">Sub-reason code</div>
+                      <div class="tryit-row-value"><span class="tryit-val">10.4 <span class="tryit-amb">(ambiguous)</span></span><span class="tryit-stamp" aria-hidden="true"></span></div>
+                      <div class="tryit-row-ctl">
+                        <span class="tryit-chip ch-low">LOW</span>
+                        <span class="tryit-pending">your call</span>
+                        <span class="tryit-act"><button type="button" class="tryit-btn tryit-btn-red" data-act="override-open" aria-label="Override Sub-reason code, low confidence">Override</button></span>
+                        <span class="tryit-done-pill dp-blue">Overridden ✓</span>
+                      </div>
+                    </div>
+                    <div class="tryit-row-help">Low confidence. The AI is guessing here, and it guessed wrong.</div>
+                    <div class="tryit-picker" hidden>
+                      <div class="tryit-picker-opt"><span><s>10.4</s> &nbsp;Cardholder dispute (generic)</span><span class="tryit-pick-x tryit-mono">AI GUESS</span></div>
+                      <div class="tryit-picker-opt sel"><span><strong>12.6.1</strong> &nbsp;Duplicate processing</span><span class="tryit-pick-ok tryit-mono">CORRECT</span></div>
+                      <button type="button" class="tryit-btn tryit-btn-primary" data-act="save" style="justify-self: start;">Save correction</button>
+                    </div>
+                  </div>
+
+                  <!-- scrim with start button -->
+                  <div class="tryit-scrim">
+                    <button type="button" class="tryit-btn tryit-btn-primary" data-act="start" style="font-size: 13px; padding: 12px 22px;">▶ Start the walkthrough</button>
+                  </div>
+                </div>
+                <div class="tryit-footer">
+                  <span class="tryit-foot-sum">Review each field. Nothing is submitted until you confirm.</span>
+                  <button type="button" class="tryit-btn tryit-btn-primary" data-act="confirm" disabled>Confirm intake</button>
+                </div>
+              </div>
+              <!-- RIGHT: the audit log builds from the visitor's actions -->
+              <div class="tryit-right">
+                <div class="tryit-audit-head">
+                  <div>
+                    <div class="tryit-mono" style="color: #155DFC;">AUDIT LOG · LIVE</div>
+                    <div class="tryit-audit-sub">every decision, the moment you make it</div>
+                  </div>
+                  <span class="tryit-counter">0 of 5 logged</span>
+                </div>
+                <div class="tryit-arows">
+                  <div class="tryit-ghost">Your decisions appear here.<br>One row per field.</div>
+                </div>
+                <div class="tryit-insight" hidden>
+                  <div class="tryit-mono" style="color: #155DFC;">★ CALIBRATION INSIGHT</div>
+                  <div class="tryit-insight-h">This override is exactly the signal the team learns from.</div>
+                  <p>A low-confidence field that humans keep correcting the same way (10.4 → 12.6.1) tells the team the extraction rule is wrong. Your one correction is one data point. A thousand like it retrains the model.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- narration bar: the always-on teaching line -->
+          <div class="tryit-narr">
+            <span class="tryit-step">START</span>
+            <span class="tryit-narr-text" role="status" aria-live="polite" aria-atomic="true">Here is a real dispute in the cardholder's own words. The AI read it and filled five fields, each rated by how sure it is: green is sure, amber is a maybe, red is shaky. Press Start and you decide on each one.</span>
+          </div>
+
+          <!-- payoff: read the visitor's own session back to them -->
+          <div class="tryit-payoff" hidden>
+            <div class="tryit-mono" style="color: #155DFC;">WHAT THE AI LEARNS FROM YOU</div>
+            <h3>Your session, read back</h3>
+            <ul>
+              <li>3 HIGH fields accepted as-is. The AI earned trust on the easy calls.</li>
+              <li>1 MEDIUM field verified, after you opened the evidence and agreed.</li>
+              <li>1 LOW field overridden, 10.4 corrected to 12.6.1. The strongest signal of all.</li>
+            </ul>
+            <p>That trail is the product's memory. Multiply it by thousands of cases and it shows the team exactly where the AI earns trust and where it still needs work. The record you built for the regulator is the same record that makes the AI better.</p>
+            <div class="tryit-payoff-act">
+              <button type="button" class="tryit-btn tryit-btn-ghost" data-act="replay">↻ Replay walkthrough</button>
+              <a href="#s6" class="tryit-jump">See the real audit log ↓</a>
+            </div>
           </div>
         </div>
       </section>
@@ -945,6 +1232,9 @@ class Component extends DCLogic {
       }
     }
 
+    // ---- interactive try-it prototype (section 04.5) ----
+    this.initTryIt();
+
     // ---- responsive: collapse panels under 1180px ----
     const left = document.getElementById("panel-left");
     const right = document.getElementById("panel-right");
@@ -984,7 +1274,237 @@ class Component extends DCLogic {
     applyNarrow();
   }
 
+  // ---- interactive "Try it" prototype: guided AI-intake walkthrough ----
+  initTryIt() {
+    const root = document.getElementById("s4-5");
+    if (!root || root.__tryitInit) return;
+    root.__tryitInit = true;
+    const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const q = (s) => root.querySelector(s);
+
+    const order = ["type", "amount", "date", "merchant", "code"];
+    const META = {
+      type:     { conf: "HIGH",   res: "res-green", flash: "flash-green", act: "Accepted",   col: "#047857", ai: "Duplicate charge",  final: "Duplicate charge",  time: "10:42:01" },
+      amount:   { conf: "HIGH",   res: "res-green", flash: "flash-green", act: "Accepted",   col: "#047857", ai: "$47.50",            final: "$47.50",            time: "10:42:09" },
+      date:     { conf: "HIGH",   res: "res-green", flash: "flash-green", act: "Accepted",   col: "#047857", ai: "Mar 3, 2026",       final: "Mar 3, 2026",       time: "10:42:15" },
+      merchant: { conf: "MEDIUM", res: "res-amber", flash: "flash-amber", act: "Verified",   col: "#B54708", ai: "Uber Technologies", final: "Uber Technologies", time: "10:42:31", reason: "descriptor matched on review" },
+      code:     { conf: "LOW",    res: "res-blue",  flash: "flash-red",   act: "Overridden", col: "#155DFC", ai: "10.4",              final: "12.6.1",            time: "10:42:52", reason: "ambiguous code, corrected to 12.6.1 (duplicate processing)" }
+    };
+    const NARR = [
+      ["START", "Here is a real dispute in the cardholder's own words. The AI read it and filled five fields, each rated by how sure it is: green is sure, amber is a maybe, red is shaky. Press Start and you decide on each one."],
+      ["STEP 1 OF 5", "Accepted. The AI was confident and you agreed, so the log records it as your decision, with the AI's value and yours side by side. Three green ones to clear, then it gets interesting."],
+      ["STEP 2 OF 5", "Two down. When the AI is confident and right, your job is fast: a glance and a tap. You are not filling a form, you are leaving a trail."],
+      ["STEP 3 OF 5", "Three accepted. Now the AI gets less sure. Amber means probably right, but check the evidence first."],
+      ["STEP 4 OF 5", "Verified, not rubber-stamped. The log remembers this was a medium-confidence call you confirmed after reading the reason. One field left, and the AI got this one wrong."],
+      ["STEP 5 OF 5", "That was the whole point. The AI guessed 10.4 and was wrong. You overrode it to 12.6.1, and the system recorded what the AI said, what you changed it to, and why. The AI never decided. You did. Confirm to seal the record."]
+    ];
+
+    const railWrap = q(".tryit-rail");
+    const railFill = q(".tryit-rail i");
+    const counter = q(".tryit-counter");
+    const arows = q(".tryit-arows");
+    const stepEl = q(".tryit-step");
+    const narrEl = q(".tryit-narr-text");
+    const insight = q(".tryit-insight");
+    const payoff = q(".tryit-payoff");
+    const footSum = q(".tryit-foot-sum");
+    const confirmBtn = q('[data-act="confirm"]');
+    const rows = {};
+    order.forEach((id) => { rows[id] = q('.tryit-row[data-field="' + id + '"]'); });
+
+    let logged = 0;
+    let activeIdx = -1;
+
+    const setNarr = (i) => { stepEl.textContent = NARR[i][0]; narrEl.textContent = NARR[i][1]; };
+    const activate = (i) => {
+      activeIdx = i;
+      order.forEach((id, k) => {
+        rows[id].classList.toggle("is-active", k === i && !rows[id].classList.contains("is-done"));
+      });
+      const row = rows[order[i]];
+      if (row && !rm) {
+        const btn = row.querySelector(".tryit-act button");
+        if (btn) { try { btn.focus({ preventScroll: true }); } catch (e) {} }
+      }
+    };
+
+    const buildARow = (id) => {
+      const m = META[id];
+      const label = rows[id].querySelector(".tryit-row-label").textContent;
+      const el = document.createElement("div");
+      el.className = "tryit-arow " + m.flash;
+      el.innerHTML =
+        '<div class="tryit-arow-top"><span class="tryit-arow-field">' + label + '</span>' +
+        '<span class="tryit-chip ch-' + m.conf.toLowerCase() + '">' + m.conf + "</span></div>" +
+        '<div class="tryit-arow-grid">' +
+        '<span class="tryit-arow-k">AI SAID</span><span class="tryit-arow-v">' + m.ai + "</span>" +
+        '<span class="tryit-arow-k">YOU</span><span class="tryit-arow-v" style="color:' + m.col + ';font-weight:700;">' + m.act + "</span>" +
+        '<span class="tryit-arow-k">FINAL</span><span class="tryit-arow-v">' + m.final + "</span>" +
+        '<span class="tryit-arow-k">TIME</span><span class="tryit-arow-v tryit-mono2">' + m.time + "</span>" +
+        "</div>" +
+        (m.reason ? '<div class="tryit-arow-reason">reason: ' + m.reason + "</div>" : "");
+      return el;
+    };
+
+    const flyClone = (srcRow, targetEl, cb) => {
+      const valEl = srcRow.querySelector(".tryit-val");
+      const s = valEl.getBoundingClientRect();
+      const t = targetEl.getBoundingClientRect();
+      const clone = document.createElement("div");
+      clone.className = "tryit-fly";
+      clone.textContent = srcRow.querySelector(".tryit-row-label").textContent + " logged";
+      clone.style.left = s.left + "px";
+      clone.style.top = s.top + "px";
+      document.body.appendChild(clone);
+      clone.getBoundingClientRect(); // force reflow
+      const dx = t.left - s.left;
+      const dy = t.top - s.top;
+      requestAnimationFrame(() => {
+        clone.style.transform = "translate(" + dx + "px," + dy + "px) scale(0.96)";
+        clone.style.opacity = "0.15";
+      });
+      let done = false;
+      const finish = () => { if (done) return; done = true; clone.remove(); cb(); };
+      clone.addEventListener("transitionend", finish, { once: true });
+      setTimeout(finish, 650);
+    };
+
+    const afterLog = (id) => {
+      logged += 1;
+      counter.textContent = logged + " of 5 logged";
+      railFill.style.width = logged * 20 + "%";
+      railWrap.setAttribute("aria-valuenow", logged);
+      railWrap.setAttribute("aria-valuetext", logged + " of 5 fields reviewed");
+      setNarr(logged);
+      if (id === "code" && insight) {
+        insight.hidden = false;
+        void insight.offsetWidth;
+        insight.classList.add("is-lit");
+      }
+      if (logged >= 5) {
+        confirmBtn.disabled = false;
+        confirmBtn.classList.add("is-ready");
+        footSum.textContent = "3 accepted · 1 verified · 1 corrected. You reviewed each one.";
+      } else {
+        activate(activeIdx + 1);
+      }
+    };
+
+    const log = (id) => {
+      const ghost = arows.querySelector(".tryit-ghost");
+      if (ghost) ghost.remove();
+      const el = buildARow(id);
+      if (rm) {
+        arows.appendChild(el);
+        afterLog(id);
+      } else {
+        el.style.opacity = "0";
+        arows.appendChild(el);
+        flyClone(rows[id], el, () => { el.style.opacity = "1"; afterLog(id); });
+      }
+    };
+
+    const resolve = (id) => {
+      const row = rows[id];
+      const m = META[id];
+      row.classList.remove("is-active");
+      row.classList.add("is-done", m.res);
+      if (id === "code") {
+        const v = row.querySelector(".tryit-val");
+        v.innerHTML = '<s>10.4</s> <strong>12.6.1</strong>';
+        if (!rm) v.classList.add("swap");
+      }
+      log(id);
+    };
+
+    const start = () => {
+      const scrim = q(".tryit-scrim");
+      if (scrim) scrim.classList.add("gone");
+      q(".tryit-fields").classList.add("armed");
+      activate(0);
+      window.va && window.va("event", { name: "AI Intake · prototype started" });
+    };
+
+    const confirmIntake = () => {
+      if (confirmBtn.disabled) return;
+      confirmBtn.disabled = true;
+      confirmBtn.textContent = "✓ Case opened · #DSP-4471";
+      confirmBtn.classList.remove("is-ready");
+      confirmBtn.classList.add("is-sealed");
+      const sub = q(".tryit-audit-sub");
+      if (sub) sub.textContent = "sealed · 5 decisions · 0 auto-submitted";
+      const stage = q(".tryit-stage");
+      if (stage) stage.classList.add("is-sealed");
+      if (payoff) payoff.hidden = false;
+      window.va && window.va("event", { name: "AI Intake · prototype completed" });
+    };
+
+    const replay = () => {
+      logged = 0;
+      activeIdx = -1;
+      arows.innerHTML = '<div class="tryit-ghost">Your decisions appear here.<br>One row per field.</div>';
+      counter.textContent = "0 of 5 logged";
+      railFill.style.width = "0%";
+      railWrap.setAttribute("aria-valuenow", 0);
+      railWrap.setAttribute("aria-valuetext", "0 of 5 fields reviewed");
+      if (insight) { insight.classList.remove("is-lit"); insight.hidden = true; }
+      if (payoff) payoff.hidden = true;
+      confirmBtn.disabled = true;
+      confirmBtn.classList.remove("is-ready", "is-sealed");
+      confirmBtn.textContent = "Confirm intake";
+      const stage = q(".tryit-stage");
+      if (stage) stage.classList.remove("is-sealed");
+      footSum.textContent = "Review each field. Nothing is submitted until you confirm.";
+      order.forEach((id) => {
+        const row = rows[id];
+        row.classList.remove("is-done", "is-active", "res-green", "res-amber", "res-blue");
+        const v = row.querySelector(".tryit-val");
+        v.classList.remove("swap");
+        if (id === "code") v.innerHTML = '10.4 <span class="tryit-amb">(ambiguous)</span>';
+        const why = row.querySelector(".tryit-why");
+        if (why) why.hidden = true;
+        const pick = row.querySelector(".tryit-picker");
+        if (pick) pick.hidden = true;
+        const wb = row.querySelector('[data-act="why"]');
+        if (wb) wb.setAttribute("aria-expanded", "false");
+      });
+      activate(0);
+      setNarr(0);
+    };
+
+    this._tryitRoot = root;
+    this._tryitClick = (e) => {
+      const btn = e.target.closest("[data-act]");
+      if (!btn || !root.contains(btn)) return;
+      const act = btn.getAttribute("data-act");
+      if (act === "start") return start();
+      if (act === "confirm") return confirmIntake();
+      if (act === "replay") return replay();
+      const row = btn.closest(".tryit-row");
+      if (!row) return;
+      const id = row.getAttribute("data-field");
+      if (id !== order[activeIdx]) return; // only the active row is live
+      if (act === "why") {
+        const why = row.querySelector(".tryit-why");
+        const open = !why.hidden;
+        why.hidden = open;
+        btn.setAttribute("aria-expanded", String(!open));
+      } else if (act === "accept" || act === "verify") {
+        resolve(id);
+      } else if (act === "override-open") {
+        const pick = row.querySelector(".tryit-picker");
+        pick.hidden = false;
+        if (!rm) { const sv = pick.querySelector('[data-act="save"]'); if (sv) try { sv.focus({ preventScroll: true }); } catch (e2) {} }
+      } else if (act === "save") {
+        row.querySelector(".tryit-picker").hidden = true;
+        resolve(id);
+      }
+    };
+    root.addEventListener("click", this._tryitClick);
+  }
+
   componentWillUnmount() {
+    if (this._tryitRoot && this._tryitClick) this._tryitRoot.removeEventListener("click", this._tryitClick);
     if (this._onScroll) window.removeEventListener("scroll", this._onScroll);
     if (this._mq && this._applyMq) this._mq.removeEventListener("change", this._applyMq);
     clearInterval(this._loopTimer);
