@@ -68,7 +68,7 @@ module.exports = async function handler(req, res) {
         'Authorization': 'Bearer ' + apiKey,
       },
       body: JSON.stringify({
-        model: 'gemini-1.5-flash',
+        model: 'gemini-2.0-flash',
         max_tokens: 400,
         messages: [{ role: 'system', content: SYSTEM }, ...messages.slice(-10)],
       }),
