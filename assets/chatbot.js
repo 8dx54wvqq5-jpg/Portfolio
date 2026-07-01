@@ -273,8 +273,10 @@
 
   // turns escaped "[label](https://…)" into a real link — input is already HTML-escaped, so this only matches plain text
   function linkify(s) {
-    return s.replace(/\[([^\]]+)\]\((https:\/\/[a-zA-Z0-9.\-\/_?=&%#:]+)\)/g, function (_, label, url) {
-      return '<a href="' + url + '" target="_blank" rel="noopener noreferrer" class="ab-link">' + label + '</a>';
+    return s.replace(/\[([^\]]+)\]\((https:\/\/[a-zA-Z0-9.\-\/_?=&%#:]+|\/[a-zA-Z0-9.\-\/_]*)\)/g, function (_, label, url) {
+      // site-relative case-study links open in the same tab; external stays new-tab
+      var ext = url.indexOf('https://') === 0;
+      return '<a href="' + url + '"' + (ext ? ' target="_blank" rel="noopener noreferrer"' : '') + ' class="ab-link">' + label + '</a>';
     });
   }
 
