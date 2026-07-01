@@ -88,7 +88,7 @@
     .pf-logo-copy strong { font-size: 11px; line-height: 1.1; font-weight: 800; color: #101828; }
     .pf-logo-copy em { font-size: 8.5px; line-height: 1.1; font-style: normal; color: #364153; }
     .pf-word-sticker strong { display: block; font-size: 11px; line-height: 1.15; font-weight: 800; }
-    .pf-word-sticker span:not(.pf-sticker-more):not(.pf-sticker-icon) { display: block; margin-top: 2px; font-size: 8.5px; line-height: 1.15; color: var(--ink,#fff); opacity: 0.9; }
+    .pf-word-sticker span:not(.pf-sticker-more):not(.pf-sticker-icon):not(.pf-logo-disc) { display: block; margin-top: 2px; font-size: 8.5px; line-height: 1.15; color: var(--ink,#fff); opacity: 0.9; }
     .pf-sticker-more { position: absolute; left: 12px; top: calc(100% + 7px); padding: 5px 8px; border-radius: 999px; background: #101828; color: #FFFFFF; box-shadow: 0 8px 18px rgba(16,24,40,0.22); font-family: 'JetBrains Mono', monospace; font-size: 8.5px; line-height: 1; white-space: nowrap; opacity: 0; transform: translateY(-4px) scale(.96); pointer-events: none; transition: opacity .18s ease, transform .18s ease; }
     .pf-sticker:focus-within .pf-sticker-more { opacity: .96; transform: translateY(0) scale(1); }
 	    @media (hover: hover) and (pointer: fine) {
@@ -140,7 +140,7 @@
 	      letter-spacing: 0;
 	      color: inherit;
 	    }
-	    .pf-sticker--quiet .pf-word-sticker span:not(.pf-sticker-more):not(.pf-sticker-icon) {
+	    .pf-sticker--quiet .pf-word-sticker span:not(.pf-sticker-more):not(.pf-sticker-icon):not(.pf-logo-disc) {
 	      margin-top: 5px;
 	      font-family: "Bradley Hand", "Segoe Print", cursive;
 	      font-size: 18px;
