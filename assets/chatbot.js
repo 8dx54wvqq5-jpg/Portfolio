@@ -171,7 +171,7 @@
       setTimeout(function () { if (callout.remove) callout.remove(); }, 320);
     };
     setTimeout(function () { callout.classList.add('show'); }, 2200);
-    setTimeout(hideCallout, 7500);
+    setTimeout(hideCallout, 16000);
     trigger.addEventListener('click', hideCallout, { once: true });
     trigger.addEventListener('mouseenter', hideCallout, { once: true });
   }
