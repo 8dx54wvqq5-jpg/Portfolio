@@ -236,7 +236,7 @@
         '</div>';
     } else {
       msgsEl.innerHTML = '<button class="ab-chat-reset">← Back</button>' +
-        messages.map(function (m) {
+        messages.map(function (m, i) {
           var html = escHtml(m.content);
           var ctas = [];
           if (m.role === 'assistant') {
@@ -247,7 +247,13 @@
           var ctaRow = ctas.length ? '<div class="ab-cta-row">' + ctas.map(function (c) {
             return '<a class="ab-cta" href="' + c.url + '" target="_blank" rel="noopener noreferrer">' + c.label + ' <span>' + c.icon + '</span></a>';
           }).join('') + '</div>' : '';
-          return '<div class="ab-msg ' + m.role + '"><div class="ab-bubble">' + html + '</div>' + ctaRow + '</div>';
+          // follow-up chips only on the latest assistant message
+          var fuRow = (i === messages.length - 1 && m.followups && m.followups.length)
+            ? '<div class="ab-starters ab-followups">' + m.followups.map(function (q) {
+                return '<button class="ab-starter">' + escHtml(q) + '</button>';
+              }).join('') + '</div>'
+            : '';
+          return '<div class="ab-msg ' + m.role + '"><div class="ab-bubble">' + html + '</div>' + ctaRow + '</div>' + fuRow;
         }).join('');
     }
     msgsEl.scrollTop = msgsEl.scrollHeight;
@@ -284,12 +290,13 @@
   // read as a different kind of thing than the rest of the answer.
   var CTA_RULES = [
     { test: /resumego\.link/, label: 'Resume', icon: '↓' },
-    { test: /linkedin\.com/, label: 'LinkedIn', icon: '↗' }
+    { test: /linkedin\.com/, label: 'LinkedIn', icon: '↗' },
+    { test: /^mailto:/, label: 'Email', icon: '✉' }
   ];
   function extractCtas(html) {
     var ctas = [];
     var seen = {};
-    var text = html.replace(/\[([^\]]+)\]\((https:\/\/[a-zA-Z0-9.\-\/_?=&%#:]+)\)/g, function (whole, label, url) {
+    var text = html.replace(/\[([^\]]+)\]\((https:\/\/[a-zA-Z0-9.\-\/_?=&%#:]+|mailto:[a-zA-Z0-9.@_+\-]+)\)/g, function (whole, label, url) {
       var rule = CTA_RULES.filter(function (r) { return r.test.test(url); })[0];
       if (!rule) return whole; // not a CTA link — leave as markdown, linkify() handles it next
       if (!seen[url]) { seen[url] = true; ctas.push({ url: url, label: rule.label, icon: rule.icon }); }
@@ -307,7 +314,7 @@
     inputEl.value = '';
 
     messages.push({ role: 'user', content: text });
-    track('Chat Message Sent', { page: document.title });
+    track('Chat Message Sent', { page: document.title, question: text.slice(0, 120) });
     renderMessages();
     appendTyping();
 
@@ -315,8 +322,9 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        messages: messages,
+        messages: messages.map(function (m) { return { role: m.role, content: m.content }; }),
         pageContext: {
+          path: location.pathname,
           title: document.title,
           text: (document.body.innerText || '').replace(/\s+/g, ' ').trim().slice(0, 2000)
         }
@@ -326,15 +334,22 @@
       .then(function (data) {
         removeTyping();
         if (data.error) {
-          messages.push({ role: 'assistant', content: 'Error: ' + data.error + (data.detail ? ' — ' + data.detail.slice(0, 120) : '') });
+          messages.push({ role: 'assistant', content: 'Error: ' + data.error + (data.detail ? ', ' + data.detail.slice(0, 120) : '') });
         } else {
-          messages.push({ role: 'assistant', content: data.reply || '(empty response)' });
+          // peel the FOLLOWUPS line off the reply into tappable chips
+          var reply = data.reply || '(empty response)';
+          var followups = [];
+          reply = reply.replace(/\n?\s*FOLLOWUPS:\s*([^\n]+)\s*$/i, function (_, list) {
+            followups = list.split('|').map(function (s) { return s.trim(); }).filter(Boolean).slice(0, 2);
+            return '';
+          }).trim();
+          messages.push({ role: 'assistant', content: reply, followups: followups });
         }
         renderMessages();
       })
       .catch(function (err) {
         removeTyping();
-        messages.push({ role: 'assistant', content: 'Network error — ' + (err.message || 'try again?') });
+        messages.push({ role: 'assistant', content: 'Network error, ' + (err.message || 'try again?') });
         renderMessages();
       })
       .finally(function () {

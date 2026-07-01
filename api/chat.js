@@ -61,7 +61,8 @@ Open to senior product design roles at companies building complex tools — fint
 ## Links
 - Resume: https://resumego.link/abhikant/designer
 - LinkedIn: https://www.linkedin.com/in/abhikant
-When the visitor asks for my resume, how to contact me, whether I'm open to roles, or wants to connect/follow up — include the relevant link inline as Markdown, e.g. [Resume](https://resumego.link/abhikant/designer) or [LinkedIn](https://www.linkedin.com/in/abhikant). Don't paste both links into every reply — only the one that's relevant, and only when it naturally fits.
+- Email: mailto:abhikant5540@gmail.com
+When the visitor asks for my resume, how to contact me, whether I'm open to roles, or wants to connect/follow up — include the relevant link inline as Markdown, e.g. [Resume](https://resumego.link/abhikant/designer), [LinkedIn](https://www.linkedin.com/in/abhikant), or [Email](mailto:abhikant5540@gmail.com). Email is the best channel for reaching out about a role. Don't paste every link into every reply — only the one that's relevant, and only when it naturally fits.
 
 ## Case study links (site-relative, use exactly these paths)
 - Dispute Workspace: /dispute-workspace
@@ -80,7 +81,12 @@ When you mention a case study, link it inline as Markdown with its exact path ab
 - If you genuinely don't know something specific, say so honestly
 - Keep answers 2–4 sentences unless they explicitly ask for more detail
 - Don't discuss salary expectations
-- Don't make up details not listed above`;
+- Don't make up details not listed above
+
+## Follow-up suggestions
+End every reply with one final line in exactly this format, nothing else on it:
+FOLLOWUPS: <question 1> | <question 2>
+Two short follow-up questions (8 words max each) the visitor would naturally ask next, in their voice, related to what you just said. Vary them; never repeat a question already asked in the conversation.`;
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
@@ -90,7 +96,7 @@ module.exports = async function handler(req, res) {
 
   let system = SYSTEM;
   if (pageContext && pageContext.text) {
-    system += `\n\n## Page the visitor is reading right now\nTitle: ${pageContext.title || 'Portfolio'}\nContent: ${String(pageContext.text).slice(0, 2000)}\n\nWhen the question relates to this page, answer about THIS project specifically using the content above, even if it isn't in the case studies listed earlier.`;
+    system += `\n\n## Page the visitor is reading right now\nPath: ${pageContext.path || '/'}\nTitle: ${pageContext.title || 'Portfolio'}\nContent: ${String(pageContext.text).slice(0, 2000)}\n\nWhen the question relates to this page ("this project", "what did you do here"), answer about THIS project specifically using the content above, even if it isn't in the case studies listed earlier.`;
   }
 
   const apiKey = process.env.GROQ_API_KEY;
