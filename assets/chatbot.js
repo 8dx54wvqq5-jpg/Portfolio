@@ -29,8 +29,8 @@
       '@keyframes abTriggerBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}',
       '@media (prefers-reduced-motion:reduce){#ab-chat-trigger{transition:border-color .15s ease,box-shadow .15s ease,padding .2s ease;}#ab-chat-trigger:hover,#ab-chat-trigger:focus-visible,#ab-chat-trigger:active{transform:none;}#ab-chat-trigger.ab-bounce-in{animation:none;}}',
       /* wayfinding callout, same blue->purple language as the canvas "more work" cue */
-      '#ab-chat-callout{position:fixed;bottom:32px;right:76px;z-index:399;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;letter-spacing:0.02em;color:#fff;background:linear-gradient(135deg,#155DFC,#7C3AED);border-radius:8px;padding:7px 13px;box-shadow:0 6px 18px rgba(21,93,252,0.34);pointer-events:none;opacity:0;transform:translateX(8px);transition:opacity .3s ease,transform .3s ease;white-space:nowrap;}',
-      '#ab-chat-callout.show{opacity:1;transform:translateX(0);}',
+      '#ab-chat-callout{position:fixed;bottom:82px;right:24px;z-index:401;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;letter-spacing:0.02em;color:#fff;background:linear-gradient(135deg,#155DFC,#7C3AED);border-radius:8px;padding:7px 13px;box-shadow:0 6px 18px rgba(21,93,252,0.34);pointer-events:none;opacity:0;transform:translateY(8px);transition:opacity .3s ease,transform .3s ease;white-space:nowrap;}',
+      '#ab-chat-callout.show{opacity:1;transform:translateY(0);}',
       '@media (max-width:640px){#ab-chat-callout{display:none;}}',
       '@media (prefers-reduced-motion:reduce){#ab-chat-callout{transition:opacity .3s ease;}#ab-chat-callout.show{transform:none;}}',
       '#ab-chat-trigger .ab-avatar{width:26px;height:26px;border-radius:50%;background:#155DFC;color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;flex-shrink:0;}',
