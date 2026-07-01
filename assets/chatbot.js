@@ -31,6 +31,8 @@
       /* wayfinding callout, same blue->purple language as the canvas "more work" cue */
       '#ab-chat-callout{position:fixed;bottom:82px;right:24px;z-index:401;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;letter-spacing:0.02em;color:#fff;background:linear-gradient(135deg,#155DFC,#7C3AED);border-radius:8px;padding:7px 13px;box-shadow:0 6px 18px rgba(21,93,252,0.34);pointer-events:none;opacity:0;transform:translateY(8px);transition:opacity .3s ease,transform .3s ease;white-space:nowrap;}',
       '#ab-chat-callout.show{opacity:1;transform:translateY(0);}',
+      /* speech-bubble tail pointing down at the trigger */
+      '#ab-chat-callout::after{content:"";position:absolute;top:100%;right:26px;border:6px solid transparent;border-top-color:#7C3AED;}',
       '@media (max-width:640px){#ab-chat-callout{display:none;}}',
       '@media (prefers-reduced-motion:reduce){#ab-chat-callout{transition:opacity .3s ease;}#ab-chat-callout.show{transform:none;}}',
       '#ab-chat-trigger .ab-avatar{width:26px;height:26px;border-radius:50%;background:#155DFC;color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;flex-shrink:0;}',
@@ -164,7 +166,7 @@
     var callout = document.createElement('div');
     callout.id = 'ab-chat-callout';
     callout.setAttribute('aria-hidden', 'true');
-    callout.textContent = 'Ask me anything →';
+    callout.textContent = 'Ask me anything ↓';
     document.body.appendChild(callout);
     var hideCallout = function () {
       callout.classList.remove('show');
