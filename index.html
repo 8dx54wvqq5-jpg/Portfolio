@@ -319,13 +319,13 @@
     .pf-chip { transition: background .15s cubic-bezier(0.16,1,0.3,1), border-color .15s cubic-bezier(0.16,1,0.3,1), color .15s cubic-bezier(0.16,1,0.3,1), transform .15s cubic-bezier(0.16,1,0.3,1); cursor: default; }
     .pf-chip, span[style*="border: 1px solid #D5D8DF"][style*="border-radius: 999px"] { background: #FFFFFF !important; border-color: #B8C0CC !important; color: #243044 !important; font-weight: 650; }
     /* chips are decorative topic labels, not buttons — no hover state (was reading as clickable) */
-    .pf-canvas-hint { display: inline-flex; align-items: center; gap: 8px; border: 1px solid #C9D6F0; background: #F7FAFF; border-radius: 999px; padding: 8px 12px; color: #243044; box-shadow: 0 1px 2px rgba(16,24,40,0.04); opacity: 0; transform: scale(0.96); animation: pfHintEnter 600ms cubic-bezier(0.32,0.72,0,1) 2.2s both, pfHintGrow 800ms ease-in-out 2.8s 3; transform-origin: center; }
-    .pf-canvas-hint::before { content: ""; width: 7px; height: 7px; border-radius: 999px; background: #155DFC; box-shadow: 0 0 0 4px rgba(21,93,252,0.10); animation: hintPulse 1.8s ease-out 3; }
-    @keyframes hintPulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(21,93,252,0.28); } 70% { transform: scale(1.08); box-shadow: 0 0 0 8px rgba(21,93,252,0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(21,93,252,0); } }
-    @keyframes pfHintEnter { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
-    @keyframes pfHintGrow { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.07); } }
+    /* hint is now a canvas sticker (pf-sticker--hint), not a pill — poppy blue->purple so it grabs the eye among the neutral proof stickers */
+    .pf-sticker--hint .pf-word-sticker { max-width: 322px; background: linear-gradient(140deg,#2A6BFF 0%,#155DFC 55%,#6D3BF5 100%); color: #fff; border-color: rgba(255,255,255,0.35); box-shadow: 0 0 0 5px #fff, 0 0 0 5.5px rgba(16,24,40,0.10), 0 20px 38px rgba(21,93,252,0.30), inset 0 1px 0 rgba(255,255,255,0.35); }
+    .pf-sticker--hint .pf-word-sticker strong { font-size: 19px; color: #fff; }
+    .pf-sticker--hint .pf-sticker-icon { color: #fff; }
+    .pf-sticker--hint .pf-word-sticker span:not(.pf-sticker-more):not(.pf-sticker-icon):not(.pf-logo-disc) { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; line-height: 1.45; letter-spacing: 0; color: rgba(255,255,255,0.92); }
     @keyframes edgeMoreBob { 0%, 100% { transform: translateY(-50%) translateX(0); } 50% { transform: translateY(-50%) translateX(5px); } }
-    @media (prefers-reduced-motion: reduce) { #edge-more { animation: none !important; } .pf-canvas-hint { animation: none !important; opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { #edge-more { animation: none !important; } }
     @media (prefers-reduced-motion: reduce) { .pf-sticker { animation: none !important; } .pf-card, .pf-chip, .pf-real-sticker, .pf-word-sticker, .pf-logo-disc, .pf-sticker-more, .pf-sticker-icon, .pf-hci-logo, .pf-folder-wrap, .pf-folder-wrap::before, .pf-sticker--quiet .pf-word-sticker::before { transition: none; } .pf-chip:hover { transform: none; } .pf-real-sticker:hover, .pf-word-sticker:hover, .pf-sticker--quiet .pf-word-sticker:hover, .pf-sticker--quiet:focus-within .pf-word-sticker, .pf-writing-paper:hover .pf-folder-wrap, .pf-writing-paper:focus-within .pf-folder-wrap { transform: rotate(var(--r)); } .pf-real-sticker:hover .pf-logo-disc, .pf-word-sticker:hover .pf-logo-disc, .pf-sticker--quiet .pf-word-sticker:hover .pf-sticker-icon, .pf-sticker--quiet:focus-within .pf-sticker-icon, .pf-sticker--hci .pf-word-sticker:hover .pf-hci-logo, .pf-sticker--hci:focus-within .pf-hci-logo { transform: none; } .pf-sheen { display: none; } .pf-canvas-hint::before { animation: none; } .pf-sticker.is-wiggling .pf-real-sticker, .pf-sticker.is-wiggling .pf-word-sticker { animation: none !important; } }
     @keyframes heroRing { 0%,100% { opacity: .18; transform: scale(1); } 50% { opacity: .06; transform: scale(1.08); } }
     @keyframes presencePulse { 0% { box-shadow: 0 0 0 0 rgba(20,195,142,0.5); } 70% { box-shadow: 0 0 0 6px rgba(20,195,142,0); } 100% { box-shadow: 0 0 0 0 rgba(20,195,142,0); } }
@@ -575,7 +575,6 @@
                 <span class="pf-chip" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">AI interfaces</span>
                 <span class="pf-chip" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #364153; border: 1px solid #D5D8DF; border-radius: 999px; padding: 6px 12px;">Workflow tools</span>
               </div>
-              <div class="pf-canvas-hint" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-top: 28px;">Try it: drag stickers around, pan the canvas, then open the work →</div>
             </div>
             <div style="display: flex; align-items: center; justify-content: center;">
               <div id="hero-orb-mouse" style="position: relative; will-change: transform; transition: transform 0.14s cubic-bezier(0.25,0.46,0.45,0.94);">
@@ -605,7 +604,10 @@
 	      <div class="pf-sticker pf-sticker--quiet pf-sticker--human" role="button" tabindex="0" aria-label="Sticker: Human in the loop. AI that explains itself." style="left: 301px; top: 852px; animation: stickerFloatA 7.8s ease-in-out infinite;">
 	        <div class="pf-word-sticker" style="--r: -2deg; --z: 4;"><span class="pf-sticker-more">trust when right, override when wrong</span><span class="pf-sticker-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M16 16a5 5 0 1 0 0-10 5 5 0 0 0 0 10ZM6 27c1.8-5 5.2-7.5 10-7.5s8.2 2.5 10 7.5M6 27h20" stroke-width="2.1"/></svg></span><span><strong>Human<br>in the loop</strong><span>AI that explains itself</span></span></div>
 	      </div>
-	      <div class="pf-sticker pf-sticker--quiet pf-sticker--fiserv" role="button" tabindex="0" aria-label="Sticker: Fiserv. AI you can audit. Confidence, reasoning, override." style="left: 1120px; top: 282px; animation: stickerFloatB 7s ease-in-out infinite;">
+	      <div class="pf-sticker pf-sticker--quiet pf-sticker--hint" role="button" tabindex="0" aria-label="Hint: this is a movable canvas. Drag the stickers, pan around, then open the work." style="left: 604px; top: 984px; animation: stickerFloatA 7.4s ease-in-out infinite;">
+        <div class="pf-word-sticker" style="--r: -3deg; --z: 7;"><span class="pf-sticker-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor"><path d="M11 15V7.5a2 2 0 0 1 4 0V13m0-.5V6a2 2 0 0 1 4 0v7m0-1.5V9a2 2 0 0 1 4 0v8c0 4.4-3 8-8 8-3.3 0-5.4-1.6-7-4.5l-2.2-4a2 2 0 0 1 3.2-2.3L11 17" stroke-width="2"/></svg></span><span><strong>Try it →</strong><span>drag stickers · pan the canvas · open the work</span></span></div>
+      </div>
+      <div class="pf-sticker pf-sticker--quiet pf-sticker--fiserv" role="button" tabindex="0" aria-label="Sticker: Fiserv. AI you can audit. Confidence, reasoning, override." style="left: 1120px; top: 282px; animation: stickerFloatB 7s ease-in-out infinite;">
 	        <div class="pf-word-sticker" style="--r: -7deg; --z: 5;"><span class="pf-sticker-more">confidence, reasoning, override</span><span class="pf-logo-disc"><img class="pf-logo-mark" src="assets/Fiserv_Logo.webp" alt=""></span><span><strong>Fiserv</strong><span>AI you can audit</span></span></div>
 	      </div>
 	      <div class="pf-sticker pf-sticker--quiet pf-sticker--target" role="button" tabindex="0" aria-label="Sticker: Target. A Disputes Workspace client, converted onto DWS in 2025." style="left: 1056px; top: 382px; animation: stickerFloatC 6.4s ease-in-out infinite;">
