@@ -1249,17 +1249,24 @@ class Component extends DCLogic {
     this.setActive(key);
   }
 
-  // Same fit as flyToKey("hero"), but biased left so the neighboring work card
-  // (dws, same row, just right of hero) peeks in at rest without any drag —
-  // a fast-scanning recruiter sees real work on first paint, not hero-only.
+  // Same fit as flyToKey("hero"), but zoomed out just enough (and pinned left)
+  // so a real slice of the dws work card — not just the empty canvas gap
+  // between the two frames — lands on screen at rest, no drag needed.
   flyToHeroReveal(durMs) {
     const vp = document.getElementById("viewport");
-    const el = this.frames["hero"];
-    if (!vp || !el) return;
-    const L = el.offsetLeft, T = el.offsetTop, W = el.offsetWidth, H = el.offsetHeight;
-    const s = Math.min((vp.clientWidth - 120) / W, (vp.clientHeight - 110) / H, 1);
+    const hero = this.frames["hero"];
+    const dws = this.frames["dws"];
+    if (!vp || !hero) return;
+    const L = hero.offsetLeft, T = hero.offsetTop, W = hero.offsetWidth, H = hero.offsetHeight;
+    const MARGIN_L = 32, PEEK_PX = 90, MIN_S = 0.6;
+    let s = Math.min((vp.clientWidth - 120) / W, (vp.clientHeight - 110) / H, 1);
+    if (dws) {
+      // scale so hero-left..dws-left+peek exactly spans the viewport width
+      const sFit = (vp.clientWidth - MARGIN_L - PEEK_PX) / (dws.offsetLeft - L);
+      s = Math.max(MIN_S, Math.min(s, sFit));
+    }
     this.view.s = s;
-    this.view.x = vp.clientWidth * 0.36 - (L + W / 2) * s;
+    this.view.x = MARGIN_L - L * s;
     this.view.y = vp.clientHeight / 2 - (T + H / 2) * s;
     this.clampView();
     this.apply(durMs === undefined ? 1100 : durMs);
