@@ -443,6 +443,8 @@
     .pf-folder-chevron { display: inline-block; margin-left: 4px; font-size: 19px; font-weight: 800; color: #101828; vertical-align: -1px; transition: transform .2s ease; }
     .pf-writing-paper[aria-expanded="true"] .pf-folder-chevron { transform: rotate(180deg); }
 	    @media (prefers-reduced-motion: reduce) { .pf-folder-img, .pf-folder-cards, .pf-folder-card { transition: none !important; } }
+    /* desktop-canvas artifacts hidden on mobile: /work page + edge peek cue only make sense on the canvas */
+    @media (max-width: 767px) { a[href="/work"][data-tip], #edge-more { display: none !important; } }
   </style>
 </helmet>
 
@@ -995,8 +997,7 @@
         <h1 style="font-size: 28px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; margin: 0 0 14px; color: #101828;">I design for complicated work in enterprise products and AI interfaces.</h1>
         <p style="font-size: 14.5px; line-height: 1.7; color: #4A5565; margin: 0 0 22px;">Rules to follow, edge cases to catch, decisions to explain. I make those screens easier to use, and when AI shows up, easier to question.</p>
         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-          <a href="/work" style="background: #155DFC; color: #fff; font-size: 13px; font-weight: 700; padding: 11px 20px; border-radius: 7px; text-decoration: none;">View all work →</a>
-          <a href="/about" style="color: #155DFC; font-size: 13px; font-weight: 700; padding: 11px 20px; border-radius: 7px; text-decoration: none; border: 1px solid #C9D6F0;">About</a>
+          <a href="/about" style="background: #155DFC; color: #fff; font-size: 13px; font-weight: 700; padding: 11px 20px; border-radius: 7px; text-decoration: none;">About</a>
         </div>
       </div>
     </div>
