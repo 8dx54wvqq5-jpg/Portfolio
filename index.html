@@ -93,7 +93,7 @@
     .pf-sticker:focus-within .pf-sticker-more { opacity: .96; transform: translateY(0) scale(1); }
 	    @media (hover: hover) and (pointer: fine) {
 	      .pf-real-sticker:hover, .pf-word-sticker:hover { z-index: 8; transform: rotate(var(--r)) translateY(-5px) scale(1.06); box-shadow: 0 0 0 4px #fff, 0 0 0 4.5px rgba(16,24,40,0.10), 0 20px 30px rgba(16,24,40,0.22), 0 3px 0 rgba(16,24,40,0.08), inset 0 1px 0 rgba(255,255,255,0.98); filter: saturate(1.06); }
-	      .pf-real-sticker:hover .pf-logo-disc { transform: rotateY(360deg) scale(1.12); }
+	      .pf-real-sticker:hover .pf-logo-disc, .pf-word-sticker:hover .pf-logo-disc { transform: rotateY(360deg) scale(1.12); }
 	      .pf-real-sticker:hover .pf-sticker-more, .pf-word-sticker:hover .pf-sticker-more { opacity: .96; transform: translateY(0) scale(1); }
 	    }
 	    .pf-sticker--parked { display: none; }
@@ -227,7 +227,7 @@
 	      box-shadow: 0 8px 18px rgba(153,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.98);
 	    }
 	    .pf-sticker--fiserv .pf-word-sticker {
-	      background: linear-gradient(145deg,#FF7A2F 0%,#F05C16 100%);
+	      background: linear-gradient(145deg,#C2410C 0%,#8A2F0A 100%);
 	      border-radius: 18px 20px 16px 22px;
 	      color: #FFFFFF;
 	    }
@@ -318,7 +318,7 @@
     .pf-canvas-hint { display: inline-flex; align-items: center; gap: 8px; border: 1px solid #C9D6F0; background: #F7FAFF; border-radius: 999px; padding: 8px 12px; color: #243044; box-shadow: 0 1px 2px rgba(16,24,40,0.04); }
     .pf-canvas-hint::before { content: ""; width: 7px; height: 7px; border-radius: 999px; background: #155DFC; box-shadow: 0 0 0 4px rgba(21,93,252,0.10); animation: hintPulse 1.8s ease-out infinite; }
     @keyframes hintPulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(21,93,252,0.28); } 70% { transform: scale(1.08); box-shadow: 0 0 0 8px rgba(21,93,252,0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(21,93,252,0); } }
-    @media (prefers-reduced-motion: reduce) { .pf-sticker { animation: none !important; } .pf-card, .pf-chip, .pf-real-sticker, .pf-word-sticker, .pf-logo-disc, .pf-sticker-more, .pf-sticker-icon, .pf-hci-logo, .pf-folder-wrap, .pf-folder-wrap::before, .pf-sticker--quiet .pf-word-sticker::before { transition: none; } .pf-chip:hover { transform: none; } .pf-real-sticker:hover, .pf-word-sticker:hover, .pf-sticker--quiet .pf-word-sticker:hover, .pf-sticker--quiet:focus-within .pf-word-sticker, .pf-writing-paper:hover .pf-folder-wrap, .pf-writing-paper:focus-within .pf-folder-wrap { transform: rotate(var(--r)); } .pf-real-sticker:hover .pf-logo-disc, .pf-sticker--quiet .pf-word-sticker:hover .pf-sticker-icon, .pf-sticker--quiet:focus-within .pf-sticker-icon, .pf-sticker--hci .pf-word-sticker:hover .pf-hci-logo, .pf-sticker--hci:focus-within .pf-hci-logo { transform: none; } .pf-sheen { display: none; } .pf-canvas-hint::before { animation: none; } .pf-sticker.is-wiggling .pf-real-sticker, .pf-sticker.is-wiggling .pf-word-sticker { animation: none !important; } }
+    @media (prefers-reduced-motion: reduce) { .pf-sticker { animation: none !important; } .pf-card, .pf-chip, .pf-real-sticker, .pf-word-sticker, .pf-logo-disc, .pf-sticker-more, .pf-sticker-icon, .pf-hci-logo, .pf-folder-wrap, .pf-folder-wrap::before, .pf-sticker--quiet .pf-word-sticker::before { transition: none; } .pf-chip:hover { transform: none; } .pf-real-sticker:hover, .pf-word-sticker:hover, .pf-sticker--quiet .pf-word-sticker:hover, .pf-sticker--quiet:focus-within .pf-word-sticker, .pf-writing-paper:hover .pf-folder-wrap, .pf-writing-paper:focus-within .pf-folder-wrap { transform: rotate(var(--r)); } .pf-real-sticker:hover .pf-logo-disc, .pf-word-sticker:hover .pf-logo-disc, .pf-sticker--quiet .pf-word-sticker:hover .pf-sticker-icon, .pf-sticker--quiet:focus-within .pf-sticker-icon, .pf-sticker--hci .pf-word-sticker:hover .pf-hci-logo, .pf-sticker--hci:focus-within .pf-hci-logo { transform: none; } .pf-sheen { display: none; } .pf-canvas-hint::before { animation: none; } .pf-sticker.is-wiggling .pf-real-sticker, .pf-sticker.is-wiggling .pf-word-sticker { animation: none !important; } }
     @keyframes heroRing { 0%,100% { opacity: .18; transform: scale(1); } 50% { opacity: .06; transform: scale(1.08); } }
     @keyframes presencePulse { 0% { box-shadow: 0 0 0 0 rgba(20,195,142,0.5); } 70% { box-shadow: 0 0 0 6px rgba(20,195,142,0); } 100% { box-shadow: 0 0 0 0 rgba(20,195,142,0); } }
     .presence-av { position: relative; }
@@ -594,10 +594,10 @@
 	        <div class="pf-word-sticker" style="--r: -2deg; --z: 4;"><span class="pf-sticker-more">trust when right, override when wrong</span><span class="pf-sticker-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M16 16a5 5 0 1 0 0-10 5 5 0 0 0 0 10ZM6 27c1.8-5 5.2-7.5 10-7.5s8.2 2.5 10 7.5M6 27h20" stroke-width="2.1"/></svg></span><span><strong>Human<br>in the loop</strong><span>AI that explains itself</span></span></div>
 	      </div>
 	      <div class="pf-sticker pf-sticker--quiet pf-sticker--fiserv" role="button" tabindex="0" aria-label="Sticker: Fiserv. AI you can audit. Confidence, reasoning, override." style="left: 1120px; top: 282px; animation: stickerFloatB 7s ease-in-out infinite;">
-	        <div class="pf-word-sticker" style="--r: -7deg; --z: 5;"><span class="pf-sticker-more">confidence, reasoning, override</span><span><strong>Fiserv</strong><span>AI you can audit</span></span></div>
+	        <div class="pf-word-sticker" style="--r: -7deg; --z: 5;"><span class="pf-sticker-more">confidence, reasoning, override</span><span class="pf-logo-disc"><img class="pf-logo-mark" src="assets/Fiserv_Logo.webp" alt=""></span><span><strong>Fiserv</strong><span>AI you can audit</span></span></div>
 	      </div>
 	      <div class="pf-sticker pf-sticker--quiet pf-sticker--target" role="button" tabindex="0" aria-label="Sticker: Target. A Disputes Workspace client, converted onto DWS in 2025." style="left: 1056px; top: 382px; animation: stickerFloatC 6.4s ease-in-out infinite;">
-	        <div class="pf-word-sticker" style="--r: -8deg; --z: 5;"><span class="pf-sticker-more">converted onto Disputes Workspace</span><span><strong>Target</strong><span>DWS client</span></span></div>
+	        <div class="pf-word-sticker" style="--r: -8deg; --z: 5;"><span class="pf-sticker-more">converted onto Disputes Workspace</span><span class="pf-logo-disc"><img class="pf-logo-mark" src="assets/Target_logo.png" alt=""></span><span><strong>Target</strong><span>DWS client</span></span></div>
 	      </div>
 	      <div class="pf-sticker pf-sticker--parked" role="button" tabindex="0" aria-label="Sticker: Banfield. Clinical workflows, less friction for care teams." style="left: 910px; top: 848px; animation: stickerFloatA 7.2s ease-in-out infinite;">
 	        <div class="pf-real-sticker" style="--r: 4deg; --z: 3;"><span class="pf-logo-disc"><img class="pf-logo-mark" src="assets/BanfieldPetLogo.png" alt=""></span><span class="pf-logo-copy"><strong>Banfield</strong><em>clinical workflows</em></span><span class="pf-sticker-more">less friction for care teams</span></div>
