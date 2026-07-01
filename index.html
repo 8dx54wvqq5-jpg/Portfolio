@@ -1175,7 +1175,7 @@
   <div id="hint" role="status" aria-live="polite" style="position: fixed; bottom: 20px; left: 268px; z-index: 100; background: #FFFFFFF2; border: 1px solid #C9D6F0; border-radius: 10px; padding: 10px 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #243044; box-shadow: 0 8px 22px rgba(16,24,40,0.10); backdrop-filter: blur(4px);">drag stickers to rearrange · drag canvas to pan · click work to open</div>
 
   <!-- right-edge peek cue: implies more work off-canvas; fades after first pan/zoom -->
-  <div id="edge-more" aria-hidden="true" style="position: fixed; top: 50%; right: 272px; transform: translateY(-50%); z-index: 95; display: flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282; background: #FFFFFFE6; border: 1px solid #E2E4E9; border-radius: 999px; padding: 6px 10px; box-shadow: 0 4px 14px rgba(16,24,40,0.08); pointer-events: none; transition: opacity .4s ease; animation: edgeMoreBob 2.4s ease-in-out infinite;">more work →</div>
+  <div id="edge-more" aria-hidden="true" style="position: fixed; top: 50%; right: 272px; transform: translateY(-50%); z-index: 95; display: flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282; background: #FFFFFFE6; border: 1px solid #E2E4E9; border-radius: 999px; padding: 6px 10px; box-shadow: 0 4px 14px rgba(16,24,40,0.08); pointer-events: none; transition: opacity .4s ease; animation: edgeMoreBob 2.4s ease-in-out 7.8s infinite;">more work →</div>
 
   <!-- bottom-right zoom controls -->
   <div id="zoom-controls" style="position: fixed; bottom: 20px; right: 280px; z-index: 100; display: flex; gap: 8px;">
@@ -1247,6 +1247,23 @@ class Component extends DCLogic {
     const s = Math.min((vp.clientWidth - 120) / W, (vp.clientHeight - 110) / H, 1);
     this.centerOn(L + W / 2, T + H / 2, s, durMs === undefined ? 1100 : durMs);
     this.setActive(key);
+  }
+
+  // Same fit as flyToKey("hero"), but biased left so the neighboring work card
+  // (dws, same row, just right of hero) peeks in at rest without any drag —
+  // a fast-scanning recruiter sees real work on first paint, not hero-only.
+  flyToHeroReveal(durMs) {
+    const vp = document.getElementById("viewport");
+    const el = this.frames["hero"];
+    if (!vp || !el) return;
+    const L = el.offsetLeft, T = el.offsetTop, W = el.offsetWidth, H = el.offsetHeight;
+    const s = Math.min((vp.clientWidth - 120) / W, (vp.clientHeight - 110) / H, 1);
+    this.view.s = s;
+    this.view.x = vp.clientWidth * 0.36 - (L + W / 2) * s;
+    this.view.y = vp.clientHeight / 2 - (T + H / 2) * s;
+    this.clampView();
+    this.apply(durMs === undefined ? 1100 : durMs);
+    this.setActive("hero");
   }
 
   fitAll(durMs) {
@@ -1737,21 +1754,24 @@ class Component extends DCLogic {
       });
     });
 
-    // ---- entrance: overview, then settle on hero at a calm pace ----
+    // ---- entrance: overview, then settle on hero (with a work-card sliver visible) at a calm pace ----
     if (this.reduce) {
-      this.flyToKey("hero", 0);
+      this.flyToHeroReveal(0);
     } else {
       this.fitAll(0);
-      this._entrT = setTimeout(() => { this.flyToKey("hero", 1600); }, 700);
-      // one-time drag demo: after hero settles, pan left so the neighbor card peeks in, then ease back.
-      // Shows the canvas is movable without tutorial text. Once per session, reduced-motion opts out above.
+      this._entrT = setTimeout(() => { this.flyToHeroReveal(1600); }, 700);
+      // one-time drag demo: after the hero settles AND the hint pill finishes its
+      // fade+breathe beat (~5.2s), pan left so the neighbor card peeks in, then ease
+      // back. Fired after the pill instead of alongside it so the two cues read as a
+      // sequence (read hint -> watch canvas move) instead of competing at once.
+      // Once per session, reduced-motion opts out above.
       if (!sessionStorage.getItem("pf-canvas-nudged")) {
         sessionStorage.setItem("pf-canvas-nudged", "1");
         this._timers.push(setTimeout(() => {
           const bx = this.view.x;
           this.view.x = bx - 96; this.clampView(); this.apply(560);
           this._timers.push(setTimeout(() => { this.view.x = bx; this.clampView(); this.apply(760); }, 900));
-        }, 2500));
+        }, 5400));
       }
     }
 
@@ -1836,6 +1856,9 @@ class Component extends DCLogic {
           // tap on a card (no move) → fall through so clickTarget navigates
         }
         const wasDrag = moved > 12;
+        // Fires once per session: signal whether visitors ever discover the pan
+        // gesture at all, so the discoverability fix can be measured, not guessed.
+        if (wasDrag && !this._pfTrackedPan) { this._pfTrackedPan = true; if (window.va) window.va("event", "canvas_first_pan"); }
         moved = 0;
         // Pointer capture swallows the click event on the <a>, so navigate manually.
         if (!wasDrag && clickTarget) {
@@ -1888,6 +1911,7 @@ class Component extends DCLogic {
         const factor = Math.exp(-e.deltaY * 0.004);
         this.zoomBy(factor, e.clientX - rect.left, e.clientY - rect.top, 0);
       } else {
+        if (!this._pfTrackedPan) { this._pfTrackedPan = true; if (window.va) window.va("event", "canvas_first_pan"); }
         this.view.x -= e.deltaX;
         this.view.y -= e.deltaY;
         this.clampView();
