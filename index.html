@@ -524,7 +524,7 @@
   </div>
 
   <!-- ====================== SPATIAL VIEWPORT ====================== -->
-  <div id="viewport" style="position: fixed; top: 48px; left: 248px; right: 260px; bottom: 0; overflow: hidden; cursor: grab; background-image: radial-gradient(#D9DBE0 1px, transparent 1px); background-size: 24px 24px;">
+  <div id="viewport" style="position: fixed; top: 48px; left: 248px; right: 260px; bottom: 0; overflow: hidden; cursor: grab; background-image: radial-gradient(#D9DBE0 1px, transparent 1px); background-size: 24px 24px; user-select: none;">
     <div id="plane" style="position: absolute; left: 0; top: 0; width: 4000px; height: 4000px; transform-origin: 0 0; will-change: transform;">
 
       <!-- ============ FRAME · HERO ============ -->
@@ -1711,6 +1711,7 @@ class Component extends DCLogic {
     let moved = 0, ox = 0, oy = 0, sx = 0, sy = 0, pinchD = 0;
     let clickTarget = null;
     vp.addEventListener("pointerdown", (e) => {
+      e.preventDefault(); // stop native text-selection drag while panning/dragging cards & stickers
       if (this._inertia) cancelAnimationFrame(this._inertia);
       pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
       moved = 0;
