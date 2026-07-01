@@ -361,6 +361,7 @@
     .pf-folder-img { width: 100%; display: block; filter: drop-shadow(0 4px 8px rgba(16,24,40,0.18)); transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), filter 0.2s ease; -webkit-user-drag: none; }
     .pf-folder-badge { position: absolute; left: 50%; top: 54%; transform: translate(-50%,-50%); width: 36px; height: 36px; border-radius: 50%; background: #0B0B0B; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
     .pf-folder-sticker:hover .pf-folder-img { transform: translateY(-5px) scale(1.06); filter: drop-shadow(0 10px 18px rgba(16,24,40,0.28)); }
+    .pf-folder-text { display: flex; flex-direction: column; min-width: 0; }
     .pf-folder-label { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif; font-size: 11px; color: #364153; margin-top: 6px; font-weight: 500; letter-spacing: 0.02em; text-align: center; }
     .pf-folder-cards { display: flex; flex-direction: column; gap: 5px; max-height: 0; overflow: hidden; transition: max-height 0.38s cubic-bezier(0.16,1,0.3,1), opacity 0.3s ease, transform 0.3s ease; opacity: 0; width: 210px; position: absolute; left: calc(100% + 14px); top: 0; transform: translateX(-8px); pointer-events: none; }
     .pf-folder-sticker.pf-folder-open .pf-folder-cards { max-height: 200px; opacity: 1; transform: translateX(0); pointer-events: auto; }
@@ -372,7 +373,7 @@
 	    .pf-writing-paper .pf-folder-wrap {
 	      flex-direction: row;
 	      gap: 11px;
-	      min-width: 185px;
+	      min-width: 215px;
 	      min-height: 70px;
 	      padding: 11px 18px 11px 14px;
 	      border: 1px solid rgba(16,24,40,0.11);
@@ -414,6 +415,7 @@
 	      transform: none !important;
 	    }
 	    .pf-writing-paper .pf-folder-badge { width: 20px; height: 20px; }
+	    .pf-writing-paper .pf-folder-hint { display: block; margin-top: 2px; font-family: 'JetBrains Mono', monospace; font-size: 8.5px; font-weight: 500; letter-spacing: 0; color: #364153; opacity: .85; text-align: center; }
 	    .pf-writing-paper .pf-folder-label {
 	      margin-top: 0;
 	      color: #101828;
@@ -626,7 +628,10 @@
               </svg>
             </span>
           </div>
-          <div class="pf-folder-label">Writing/<span class="pf-folder-chevron" aria-hidden="true">▾</span></div>
+          <div class="pf-folder-text">
+            <div class="pf-folder-label">Writing/<span class="pf-folder-chevron" aria-hidden="true">▾</span></div>
+            <div class="pf-folder-hint">click to view Medium links</div>
+          </div>
           <!-- article cards (revealed on open) -->
           <div class="pf-folder-cards">
             <a href="https://medium.com/@abhikantnirbhavane/cracking-the-code-navigating-the-complex-world-of-enterprise-saas-design-660c92ef68d3"
