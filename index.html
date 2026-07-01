@@ -322,6 +322,8 @@
     .pf-canvas-hint { display: inline-flex; align-items: center; gap: 8px; border: 1px solid #C9D6F0; background: #F7FAFF; border-radius: 999px; padding: 8px 12px; color: #243044; box-shadow: 0 1px 2px rgba(16,24,40,0.04); }
     .pf-canvas-hint::before { content: ""; width: 7px; height: 7px; border-radius: 999px; background: #155DFC; box-shadow: 0 0 0 4px rgba(21,93,252,0.10); animation: hintPulse 1.8s ease-out infinite; }
     @keyframes hintPulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(21,93,252,0.28); } 70% { transform: scale(1.08); box-shadow: 0 0 0 8px rgba(21,93,252,0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(21,93,252,0); } }
+    @keyframes edgeMoreBob { 0%, 100% { transform: translateY(-50%) translateX(0); } 50% { transform: translateY(-50%) translateX(5px); } }
+    @media (prefers-reduced-motion: reduce) { #edge-more { animation: none !important; } }
     @media (prefers-reduced-motion: reduce) { .pf-sticker { animation: none !important; } .pf-card, .pf-chip, .pf-real-sticker, .pf-word-sticker, .pf-logo-disc, .pf-sticker-more, .pf-sticker-icon, .pf-hci-logo, .pf-folder-wrap, .pf-folder-wrap::before, .pf-sticker--quiet .pf-word-sticker::before { transition: none; } .pf-chip:hover { transform: none; } .pf-real-sticker:hover, .pf-word-sticker:hover, .pf-sticker--quiet .pf-word-sticker:hover, .pf-sticker--quiet:focus-within .pf-word-sticker, .pf-writing-paper:hover .pf-folder-wrap, .pf-writing-paper:focus-within .pf-folder-wrap { transform: rotate(var(--r)); } .pf-real-sticker:hover .pf-logo-disc, .pf-word-sticker:hover .pf-logo-disc, .pf-sticker--quiet .pf-word-sticker:hover .pf-sticker-icon, .pf-sticker--quiet:focus-within .pf-sticker-icon, .pf-sticker--hci .pf-word-sticker:hover .pf-hci-logo, .pf-sticker--hci:focus-within .pf-hci-logo { transform: none; } .pf-sheen { display: none; } .pf-canvas-hint::before { animation: none; } .pf-sticker.is-wiggling .pf-real-sticker, .pf-sticker.is-wiggling .pf-word-sticker { animation: none !important; } }
     @keyframes heroRing { 0%,100% { opacity: .18; transform: scale(1); } 50% { opacity: .06; transform: scale(1.08); } }
     @keyframes presencePulse { 0% { box-shadow: 0 0 0 0 rgba(20,195,142,0.5); } 70% { box-shadow: 0 0 0 6px rgba(20,195,142,0); } 100% { box-shadow: 0 0 0 0 rgba(20,195,142,0); } }
@@ -338,6 +340,8 @@
     [data-copy-email] { cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2730%27%20height%3D%2730%27%20viewBox%3D%270%200%2030%2030%27%3E%3Cpath%20d%3D%27M4%203%20L4%2021%20L9%2016.3%20L12.4%2023%20L15.4%2021.5%20L12%2014.9%20L18.4%2014.9%20Z%27%20fill%3D%27%2315171C%27%20stroke%3D%27%23fff%27%20stroke-width%3D%271.4%27%20stroke-linejoin%3D%27round%27%2F%3E%3Ccircle%20cx%3D%2721.5%27%20cy%3D%2721.5%27%20r%3D%276.6%27%20fill%3D%27%23155DFC%27%20stroke%3D%27%23fff%27%20stroke-width%3D%271.3%27%2F%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23fff%27%20stroke-width%3D%271.5%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M20%2021.3%20H24.2%20V25.2%20H20%20Z%27%2F%3E%3Cpath%20d%3D%27M21.4%2021.3%20V19.4%20H25.2%20V23.2%20H24.2%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") 4 3, pointer !important; }
     [data-copy-email].copied { cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2730%27%20height%3D%2730%27%20viewBox%3D%270%200%2030%2030%27%3E%3Cpath%20d%3D%27M4%203%20L4%2021%20L9%2016.3%20L12.4%2023%20L15.4%2021.5%20L12%2014.9%20L18.4%2014.9%20Z%27%20fill%3D%27%2315171C%27%20stroke%3D%27%23fff%27%20stroke-width%3D%271.4%27%20stroke-linejoin%3D%27round%27%2F%3E%3Ccircle%20cx%3D%2721.5%27%20cy%3D%2721.5%27%20r%3D%276.6%27%20fill%3D%27%23155DFC%27%20stroke%3D%27%23fff%27%20stroke-width%3D%271.3%27%2F%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23fff%27%20stroke-width%3D%271.5%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M18.7%2021.5%20L20.6%2023.4%20L24.3%2019.2%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") 4 3, pointer !important; }
     a[data-frame], [data-open] { cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2730%27%20height%3D%2730%27%20viewBox%3D%270%200%2030%2030%27%3E%3Cpath%20d%3D%27M4%203%20L4%2021%20L9%2016.3%20L12.4%2023%20L15.4%2021.5%20L12%2014.9%20L18.4%2014.9%20Z%27%20fill%3D%27%2315171C%27%20stroke%3D%27%23fff%27%20stroke-width%3D%271.4%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E") 4 3, pointer !important; }
+    /* Figma-style grab affordance on the empty canvas surface (id beats the global * arrow; grabbing set inline on drag). Brand arrow stays over cards/links. */
+    #viewport, #plane { cursor: grab; }
     #open-pill { position: fixed; top: 0; left: 0; z-index: 300; pointer-events: none; display: flex; align-items: center; gap: 5px; background: #155DFC; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; padding: 5px 10px; border-radius: 8px; box-shadow: 0 6px 20px rgba(21,93,252,0.4); opacity: 0; transform: translate(-200px,-200px) scale(0.85); transition: opacity 0.14s ease, transform 0.16s cubic-bezier(0.16,1,0.3,1); white-space: nowrap; }
     #open-pill.on { opacity: 1; }
     .cFlow { animation: dashFlow 0.9s linear infinite; }
@@ -452,6 +456,8 @@
       <div data-tool="hand" data-toolmsg="Hand tool ✦ drag anywhere to pan · H" data-tip="Hand · pan (H)" role="button" tabindex="0" aria-label="Hand tool. Drag anywhere to pan the canvas." aria-pressed="false" style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px;">✥</div>
       <div data-toolmsg="No typing needed ✦ my work does the talking. Scroll right →" data-tip="Text" role="button" tabindex="0" aria-label="Text tool preview." style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;">T</div>
       <div data-toolmsg="Comment tool ✦ the real notes are pinned out on the canvas." data-tip="Comment" role="button" tabindex="0" aria-label="Comment tool preview." style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px;">◯</div>
+      <div style="width: 1px; height: 20px; background: #2A2E37; margin: 0 6px;"></div>
+      <div onClick="{{ goWork }}" role="button" tabindex="0" data-tip="Jump to all work" aria-label="Jump to all work." style="padding: 5px 11px; border-radius: 6px; background: #2A2E37; color: #E7E9EE; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 6px; cursor: pointer;">▸ View all work</div>
     </div>
     <div id="toolbar-center" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282; display: flex; align-items: center; gap: 8px;">
       <span style="color: #6A7282;">Drafts</span>
@@ -1168,6 +1174,9 @@
   <!-- bottom hint -->
   <div id="hint" role="status" aria-live="polite" style="position: fixed; bottom: 20px; left: 268px; z-index: 100; background: #FFFFFFF2; border: 1px solid #C9D6F0; border-radius: 10px; padding: 10px 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #243044; box-shadow: 0 8px 22px rgba(16,24,40,0.10); backdrop-filter: blur(4px);">drag stickers to rearrange · drag canvas to pan · click work to open</div>
 
+  <!-- right-edge peek cue: implies more work off-canvas; fades after first pan/zoom -->
+  <div id="edge-more" aria-hidden="true" style="position: fixed; top: 50%; right: 272px; transform: translateY(-50%); z-index: 95; display: flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282; background: #FFFFFFE6; border: 1px solid #E2E4E9; border-radius: 999px; padding: 6px 10px; box-shadow: 0 4px 14px rgba(16,24,40,0.08); pointer-events: none; transition: opacity .4s ease; animation: edgeMoreBob 2.4s ease-in-out infinite;">more work →</div>
+
   <!-- bottom-right zoom controls -->
   <div id="zoom-controls" style="position: fixed; bottom: 20px; right: 280px; z-index: 100; display: flex; gap: 8px;">
     <div onClick="{{ zoomOut }}" style="width: 36px; height: 36px; background: #fff; border: 1px solid #E2E4E9; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; color: #364153; user-select: none;" style-hover="border-color: #155DFC; color: #155DFC;">−</div>
@@ -1544,6 +1553,17 @@ class Component extends DCLogic {
   }
 
   componentDidMount() {
+    // ---- right-edge peek cue fades once the visitor actually pans/zooms ----
+    const edgeMore = document.getElementById("edge-more");
+    if (edgeMore) {
+      const hideEdge = () => { edgeMore.style.opacity = "0"; };
+      const vpE = document.getElementById("viewport");
+      if (vpE) {
+        vpE.addEventListener("pointerdown", hideEdge, { once: true });
+        vpE.addEventListener("wheel", hideEdge, { once: true, passive: true });
+      }
+    }
+
     // ---- decorative Figma-style toolbar tools: reward the click ----
     const fit = document.querySelector("[data-toolfit]");
     if (fit) {
@@ -1723,6 +1743,16 @@ class Component extends DCLogic {
     } else {
       this.fitAll(0);
       this._entrT = setTimeout(() => { this.flyToKey("hero", 1600); }, 700);
+      // one-time drag demo: after hero settles, pan left so the neighbor card peeks in, then ease back.
+      // Shows the canvas is movable without tutorial text. Once per session, reduced-motion opts out above.
+      if (!sessionStorage.getItem("pf-canvas-nudged")) {
+        sessionStorage.setItem("pf-canvas-nudged", "1");
+        this._timers.push(setTimeout(() => {
+          const bx = this.view.x;
+          this.view.x = bx - 96; this.clampView(); this.apply(560);
+          this._timers.push(setTimeout(() => { this.view.x = bx; this.clampView(); this.apply(760); }, 900));
+        }, 2500));
+      }
     }
 
     // ---- pan: pointer drag (with basic two-finger pinch) ----
