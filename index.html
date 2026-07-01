@@ -324,6 +324,28 @@
     .pf-sticker--hint .pf-word-sticker strong { font-size: 24px; color: #fff; }
     .pf-sticker--hint .pf-sticker-icon { color: #fff; width: 40px; height: 40px; flex-basis: 40px; }
     .pf-sticker--hint .pf-word-sticker span:not(.pf-sticker-more):not(.pf-sticker-icon):not(.pf-logo-disc) { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; line-height: 1.45; letter-spacing: 0; color: rgba(255,255,255,0.92); }
+    /* beckon: the hint sticker rocks every few seconds until the visitor's first canvas press — a lone mover in a settled scene so it can't be filtered out as decoration */
+    @keyframes hintBeckon {
+      0%, 12%, 100% { transform: rotate(var(--r)); }
+      2% { transform: rotate(var(--r)) translateX(-4px) rotate(-3.5deg); }
+      4% { transform: rotate(var(--r)) translateX(4px) rotate(3deg); }
+      6% { transform: rotate(var(--r)) translateX(-3px) rotate(-2deg); }
+      8% { transform: rotate(var(--r)) translateX(2px) rotate(1.5deg); }
+      10% { transform: rotate(var(--r)) translateX(-1px) rotate(-1deg); }
+    }
+    .pf-sticker--hint.is-beckoning .pf-word-sticker { animation: hintBeckon 5.5s cubic-bezier(.36,.07,.19,.97) infinite; }
+    /* coach mark: on a first visit the bottom hint pill gets promoted — bigger, accent ring, soft pulse — then demotes to the plain pill on first interaction */
+    #hint { transition: font-size .3s ease, padding .3s ease, border-color .3s ease, box-shadow .3s ease; }
+    #hint.hint--coach { font-size: 13px; padding: 13px 18px; border-color: #155DFC; color: #101828; box-shadow: 0 12px 30px rgba(21,93,252,0.22); animation: coachPulse 2.2s ease-in-out infinite; }
+    @keyframes coachPulse {
+      0%, 100% { box-shadow: 0 12px 30px rgba(21,93,252,0.22), 0 0 0 0 rgba(21,93,252,0.35); }
+      55% { box-shadow: 0 12px 30px rgba(21,93,252,0.22), 0 0 0 9px rgba(21,93,252,0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pf-sticker--hint.is-beckoning .pf-word-sticker { animation: none !important; }
+      #hint { transition: none; }
+      #hint.hint--coach { animation: none; }
+    }
     @keyframes edgeMoreBob { 0%, 100% { transform: translateY(-50%) translateX(0); } 50% { transform: translateY(-50%) translateX(5px); } }
     @media (prefers-reduced-motion: reduce) { #edge-more { animation: none !important; } }
     @media (prefers-reduced-motion: reduce) { .pf-sticker { animation: none !important; } .pf-card, .pf-chip, .pf-real-sticker, .pf-word-sticker, .pf-logo-disc, .pf-sticker-more, .pf-sticker-icon, .pf-hci-logo, .pf-folder-wrap, .pf-folder-wrap::before, .pf-sticker--quiet .pf-word-sticker::before { transition: none; } .pf-chip:hover { transform: none; } .pf-real-sticker:hover, .pf-word-sticker:hover, .pf-sticker--quiet .pf-word-sticker:hover, .pf-sticker--quiet:focus-within .pf-word-sticker, .pf-writing-paper:hover .pf-folder-wrap, .pf-writing-paper:focus-within .pf-folder-wrap { transform: rotate(var(--r)); } .pf-real-sticker:hover .pf-logo-disc, .pf-word-sticker:hover .pf-logo-disc, .pf-sticker--quiet .pf-word-sticker:hover .pf-sticker-icon, .pf-sticker--quiet:focus-within .pf-sticker-icon, .pf-sticker--hci .pf-word-sticker:hover .pf-hci-logo, .pf-sticker--hci:focus-within .pf-hci-logo { transform: none; } .pf-sheen { display: none; } .pf-canvas-hint::before { animation: none; } .pf-sticker.is-wiggling .pf-real-sticker, .pf-sticker.is-wiggling .pf-word-sticker { animation: none !important; } }
@@ -1784,6 +1806,23 @@ class Component extends DCLogic {
         }, 5400));
       }
     }
+
+    // ---- discoverability: beckon the hint sticker, and on a first visit promote the
+    // hint pill to a coach mark. Both retire on the visitor's first canvas press —
+    // returning visitors (localStorage) never see the coach mark again, but the
+    // beckon repeats each visit until they interact once.
+    const hintSticker = document.querySelector(".pf-sticker--hint");
+    const hintPill = document.getElementById("hint");
+    if (!this.reduce && hintSticker) {
+      // start after the entrance choreography (~2.4s wiggle pass) has settled
+      this._timers.push(setTimeout(() => hintSticker.classList.add("is-beckoning"), 3600));
+    }
+    if (hintPill && !localStorage.getItem("pf-coach-seen")) hintPill.classList.add("hint--coach");
+    vp.addEventListener("pointerdown", () => {
+      if (hintSticker) hintSticker.classList.remove("is-beckoning");
+      if (hintPill) hintPill.classList.remove("hint--coach");
+      localStorage.setItem("pf-coach-seen", "1");
+    }, { once: true });
 
     // ---- pan: pointer drag (with basic two-finger pinch) ----
     const pointers = new Map();
