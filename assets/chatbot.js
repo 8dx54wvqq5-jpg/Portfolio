@@ -28,6 +28,11 @@
       '@keyframes abTriggerBounceIn{0%{transform:translateY(60px) scale(0.4);opacity:0;}60%{transform:translateY(-10px) scale(1.08);opacity:1;}80%{transform:translateY(4px) scale(0.97);}100%{transform:translateY(0) scale(1);}}',
       '@keyframes abTriggerBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}',
       '@media (prefers-reduced-motion:reduce){#ab-chat-trigger{transition:border-color .15s ease,box-shadow .15s ease,padding .2s ease;}#ab-chat-trigger:hover,#ab-chat-trigger:focus-visible,#ab-chat-trigger:active{transform:none;}#ab-chat-trigger.ab-bounce-in{animation:none;}}',
+      /* wayfinding callout, same blue->purple language as the canvas "more work" cue */
+      '#ab-chat-callout{position:fixed;bottom:32px;right:76px;z-index:399;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;letter-spacing:0.02em;color:#fff;background:linear-gradient(135deg,#155DFC,#7C3AED);border-radius:8px;padding:7px 13px;box-shadow:0 6px 18px rgba(21,93,252,0.34);pointer-events:none;opacity:0;transform:translateX(8px);transition:opacity .3s ease,transform .3s ease;white-space:nowrap;}',
+      '#ab-chat-callout.show{opacity:1;transform:translateX(0);}',
+      '@media (max-width:640px){#ab-chat-callout{display:none;}}',
+      '@media (prefers-reduced-motion:reduce){#ab-chat-callout{transition:opacity .3s ease;}#ab-chat-callout.show{transform:none;}}',
       '#ab-chat-trigger .ab-avatar{width:26px;height:26px;border-radius:50%;background:#155DFC;color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;flex-shrink:0;}',
       '#ab-chat-trigger .ab-trigger-label{display:inline-flex;align-items:center;gap:8px;max-width:0;opacity:0;overflow:hidden;white-space:nowrap;transition:max-width .25s cubic-bezier(0.22,1,0.36,1),opacity .2s ease;}',
       '#ab-chat-trigger:hover .ab-trigger-label,#ab-chat-trigger:focus-visible .ab-trigger-label{max-width:220px;opacity:1;}',
@@ -152,6 +157,24 @@
   if (/(^\/$|\/index\.html$)/.test(location.pathname)) trigger.classList.add('ab-full');
   trigger.classList.add('ab-bounce-in');
   document.body.appendChild(trigger);
+
+  // wayfinding callout: nudge toward the trigger once per session, dismiss on interaction/timeout
+  if (!sessionStorage.getItem('ab-chat-nudged')) {
+    sessionStorage.setItem('ab-chat-nudged', '1');
+    var callout = document.createElement('div');
+    callout.id = 'ab-chat-callout';
+    callout.setAttribute('aria-hidden', 'true');
+    callout.textContent = 'Ask me anything →';
+    document.body.appendChild(callout);
+    var hideCallout = function () {
+      callout.classList.remove('show');
+      setTimeout(function () { if (callout.remove) callout.remove(); }, 320);
+    };
+    setTimeout(function () { callout.classList.add('show'); }, 2200);
+    setTimeout(hideCallout, 7500);
+    trigger.addEventListener('click', hideCallout, { once: true });
+    trigger.addEventListener('mouseenter', hideCallout, { once: true });
+  }
 
   var msgsEl = document.getElementById('ab-chat-msgs');
   var inputEl = document.getElementById('ab-chat-input');
