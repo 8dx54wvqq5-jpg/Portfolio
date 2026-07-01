@@ -24,7 +24,10 @@
       '#ab-chat-trigger{position:fixed;bottom:24px;right:24px;z-index:400;display:flex;align-items:center;gap:8px;background:#15171C;color:#E7E9EE;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;padding:9px;border-radius:999px;border:1px solid #2A2E37;box-shadow:0 8px 24px rgba(0,0,0,0.4);cursor:pointer;transition:border-color .15s ease,box-shadow .15s ease,padding .2s cubic-bezier(0.22,1,0.36,1),transform .15s cubic-bezier(0.34,1.56,0.64,1);letter-spacing:0.02em;}',
       '#ab-chat-trigger:hover,#ab-chat-trigger:focus-visible{border-color:#155DFC;box-shadow:0 8px 32px rgba(21,93,252,0.25);padding:9px 16px 9px 9px;outline:none;transform:translateY(-1px) scale(1.02);}',
       '#ab-chat-trigger:active{transform:scale(0.97);}',
-      '@media (prefers-reduced-motion:reduce){#ab-chat-trigger{transition:border-color .15s ease,box-shadow .15s ease,padding .2s ease;}#ab-chat-trigger:hover,#ab-chat-trigger:focus-visible,#ab-chat-trigger:active{transform:none;}}',
+      '#ab-chat-trigger.ab-bounce-in{animation:abTriggerBounceIn 900ms cubic-bezier(0.34,1.56,0.64,1) both,abTriggerBounce 900ms ease-in-out 1.1s 3;}',
+      '@keyframes abTriggerBounceIn{0%{transform:translateY(60px) scale(0.4);opacity:0;}60%{transform:translateY(-10px) scale(1.08);opacity:1;}80%{transform:translateY(4px) scale(0.97);}100%{transform:translateY(0) scale(1);}}',
+      '@keyframes abTriggerBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}',
+      '@media (prefers-reduced-motion:reduce){#ab-chat-trigger{transition:border-color .15s ease,box-shadow .15s ease,padding .2s ease;}#ab-chat-trigger:hover,#ab-chat-trigger:focus-visible,#ab-chat-trigger:active{transform:none;}#ab-chat-trigger.ab-bounce-in{animation:none;}}',
       '#ab-chat-trigger .ab-avatar{width:26px;height:26px;border-radius:50%;background:#155DFC;color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;flex-shrink:0;}',
       '#ab-chat-trigger .ab-trigger-label{display:inline-flex;align-items:center;gap:8px;max-width:0;opacity:0;overflow:hidden;white-space:nowrap;transition:max-width .25s cubic-bezier(0.22,1,0.36,1),opacity .2s ease;}',
       '#ab-chat-trigger:hover .ab-trigger-label,#ab-chat-trigger:focus-visible .ab-trigger-label{max-width:220px;opacity:1;}',
@@ -147,6 +150,7 @@
   trigger.innerHTML = '<div class="ab-avatar">AN</div><span class="ab-trigger-label">Talk to Abhikant <kbd>⌘K</kbd></span>';
   // homepage shows the full label; case studies keep the quiet icon-only pill
   if (/(^\/$|\/index\.html$)/.test(location.pathname)) trigger.classList.add('ab-full');
+  trigger.classList.add('ab-bounce-in');
   document.body.appendChild(trigger);
 
   var msgsEl = document.getElementById('ab-chat-msgs');
