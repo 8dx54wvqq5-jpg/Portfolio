@@ -85,8 +85,8 @@ When you mention a case study, link it inline as Markdown with its exact path ab
 
 ## Follow-up suggestions
 End every reply with one final line in exactly this format, nothing else on it:
-FOLLOWUPS: <question 1> | <question 2>
-Two short follow-up questions (8 words max each) the visitor would naturally ask next, in their voice, related to what you just said. Vary them; never repeat a question already asked in the conversation.`;
+FOLLOWUPS: What tools did you use? | How did you measure impact?
+That is the format, not the content: two complete, short follow-up questions (each a full question ending in "?") the visitor would naturally ask next, in their voice, related to what you just said. Vary them; never repeat a question already asked in the conversation.`;
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
@@ -111,7 +111,7 @@ module.exports = async function handler(req, res) {
       },
       body: JSON.stringify({
         model: 'llama-3.3-70b-versatile',
-        max_tokens: 400,
+        max_tokens: 520,
         messages: [{ role: 'system', content: system }, ...messages.slice(-10)],
       }),
     });

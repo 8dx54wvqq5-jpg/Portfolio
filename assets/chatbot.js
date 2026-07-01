@@ -340,7 +340,10 @@
           var reply = data.reply || '(empty response)';
           var followups = [];
           reply = reply.replace(/\n?\s*FOLLOWUPS:\s*([^\n]+)\s*$/i, function (_, list) {
-            followups = list.split('|').map(function (s) { return s.trim(); }).filter(Boolean).slice(0, 2);
+            // only complete questions become chips; a max_tokens cutoff can leave fragments
+            followups = list.split('|').map(function (s) { return s.trim(); })
+              .filter(function (s) { return s.length > 8 && s.slice(-1) === '?'; })
+              .slice(0, 2);
             return '';
           }).trim();
           messages.push({ role: 'assistant', content: reply, followups: followups });
