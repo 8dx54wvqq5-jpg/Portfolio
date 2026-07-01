@@ -37,6 +37,15 @@
       '#ab-chat-callout::after{content:"";position:absolute;top:100%;right:22px;border:6px solid transparent;border-top-color:#1E2128;}',
       '@media (max-width:640px){#ab-chat-callout{right:16px;font-size:11px;max-width:calc(100vw - 32px);white-space:normal;}}',
       '@media (prefers-reduced-motion:reduce){#ab-chat-callout{transition:opacity .3s ease;}#ab-chat-callout.show{transform:none;}}',
+      /* callout typing dots -> typewriter text (assistant-is-typing metaphor) */
+      '#ab-chat-callout .ab-callout-dots{display:inline-flex;gap:4px;padding:2px 0;}',
+      '#ab-chat-callout .ab-callout-dots span{width:5px;height:5px;border-radius:50%;background:#6B7280;animation:abDotBounce 1.1s ease-in-out infinite;}',
+      '#ab-chat-callout .ab-callout-dots span:nth-child(2){animation-delay:.15s;}',
+      '#ab-chat-callout .ab-callout-dots span:nth-child(3){animation-delay:.3s;}',
+      '@keyframes abDotBounce{0%,60%,100%{transform:translateY(0);opacity:.5;}30%{transform:translateY(-3px);opacity:1;}}',
+      '.ab-callout-ch{opacity:0;animation:abChar 1ms steps(1,end) forwards;}',
+      '@keyframes abChar{to{opacity:1;}}',
+      '@media (prefers-reduced-motion:reduce){#ab-chat-callout .ab-callout-dots span{animation:none;}.ab-callout-ch{animation:none;opacity:1;}}',
       /* idle attention ping: soft ring every few seconds until first interaction */
       '#ab-chat-trigger.ab-idle::after{content:"";position:absolute;inset:-2px;border-radius:999px;pointer-events:none;animation:abPing 6s ease-out 4.5s infinite;}',
       '@keyframes abPing{0%{box-shadow:0 0 0 0 rgba(21,93,252,0.45);}18%{box-shadow:0 0 0 14px rgba(21,93,252,0);}100%{box-shadow:0 0 0 0 rgba(21,93,252,0);}}',
@@ -179,16 +188,34 @@
     var callout = document.createElement('div');
     callout.id = 'ab-chat-callout';
     callout.setAttribute('aria-hidden', 'true');
-    callout.innerHTML = '<span class="ab-avatar">AN</span><span>Hey, I\'m <strong>Abhikant\'s AI</strong>. Ask me anything ↓</span>';
+    // per-character typewriter spans (46ms/char, steps easing), <strong> kept on the AI segment
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var segs = [{ t: "Hey, I'm " }, { t: "Abhikant's AI", strong: true }, { t: '. Ask me anything ↓' }];
+    var typed = '', ci = 0;
+    segs.forEach(function (seg) {
+      var chars = Array.from(seg.t).map(function (ch) {
+        return '<span class="ab-callout-ch" style="animation-delay:' + (ci++ * 46) + 'ms">' + ch + '</span>';
+      }).join('');
+      typed += seg.strong ? '<strong>' + chars + '</strong>' : chars;
+    });
+    callout.innerHTML = '<span class="ab-avatar">AN</span><span class="ab-callout-msg"><span class="ab-callout-dots"><span></span><span></span><span></span></span></span>';
     document.body.appendChild(callout);
     var hideCallout = function () {
       callout.classList.remove('show');
       setTimeout(function () { if (callout.remove) callout.remove(); }, 320);
     };
     setTimeout(function () { callout.classList.add('show'); }, 2200);
+    // typing dots hold ~900ms, then the message types itself out
+    setTimeout(function () {
+      callout.querySelector('.ab-callout-msg').innerHTML = typed;
+    }, reduced ? 2200 : 3100);
     setTimeout(hideCallout, 16000);
     trigger.addEventListener('click', hideCallout, { once: true });
     trigger.addEventListener('mouseenter', hideCallout, { once: true });
+    // mobile has no hover: first scroll means attention moved on, so let the callout go
+    setTimeout(function () {
+      window.addEventListener('scroll', hideCallout, { once: true, passive: true });
+    }, 4200);
   }
 
   var msgsEl = document.getElementById('ab-chat-msgs');
