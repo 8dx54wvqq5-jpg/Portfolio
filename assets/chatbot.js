@@ -28,13 +28,19 @@
       '@keyframes abTriggerBounceIn{0%{transform:translateY(60px) scale(0.4);opacity:0;}60%{transform:translateY(-10px) scale(1.08);opacity:1;}80%{transform:translateY(4px) scale(0.97);}100%{transform:translateY(0) scale(1);}}',
       '@keyframes abTriggerBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}',
       '@media (prefers-reduced-motion:reduce){#ab-chat-trigger{transition:border-color .15s ease,box-shadow .15s ease,padding .2s ease;}#ab-chat-trigger:hover,#ab-chat-trigger:focus-visible,#ab-chat-trigger:active{transform:none;}#ab-chat-trigger.ab-bounce-in{animation:none;}}',
-      /* wayfinding callout, same blue->purple language as the canvas "more work" cue */
-      '#ab-chat-callout{position:fixed;bottom:82px;right:24px;z-index:401;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;letter-spacing:0.02em;color:#fff;background:linear-gradient(135deg,#155DFC,#7C3AED);border-radius:8px;padding:7px 13px;box-shadow:0 6px 18px rgba(21,93,252,0.34);pointer-events:none;opacity:0;transform:translateY(8px);transition:opacity .3s ease,transform .3s ease;white-space:nowrap;}',
+      /* wayfinding callout: styled as an assistant chat bubble so it previews the AI, not just the button */
+      '#ab-chat-callout{position:fixed;bottom:82px;right:24px;z-index:401;display:flex;align-items:center;gap:9px;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;letter-spacing:0.02em;color:#D1D5DB;background:#1E2128;border:1px solid #2A2E37;border-radius:14px;border-bottom-right-radius:4px;padding:9px 13px;box-shadow:0 10px 28px rgba(0,0,0,0.45);pointer-events:none;opacity:0;transform:translateY(8px);transition:opacity .3s ease,transform .3s ease;white-space:nowrap;}',
+      '#ab-chat-callout .ab-avatar{width:22px;height:22px;border-radius:50%;background:#155DFC;color:#fff;font-size:9px;font-weight:700;display:grid;place-items:center;flex-shrink:0;}',
+      '#ab-chat-callout strong{color:#E7E9EE;font-weight:700;}',
       '#ab-chat-callout.show{opacity:1;transform:translateY(0);}',
       /* speech-bubble tail pointing down at the trigger */
-      '#ab-chat-callout::after{content:"";position:absolute;top:100%;right:26px;border:6px solid transparent;border-top-color:#7C3AED;}',
-      '@media (max-width:640px){#ab-chat-callout{display:none;}}',
+      '#ab-chat-callout::after{content:"";position:absolute;top:100%;right:22px;border:6px solid transparent;border-top-color:#1E2128;}',
+      '@media (max-width:640px){#ab-chat-callout{right:16px;font-size:11px;max-width:calc(100vw - 32px);white-space:normal;}}',
       '@media (prefers-reduced-motion:reduce){#ab-chat-callout{transition:opacity .3s ease;}#ab-chat-callout.show{transform:none;}}',
+      /* idle attention ping: soft ring every few seconds until first interaction */
+      '#ab-chat-trigger.ab-idle::after{content:"";position:absolute;inset:-2px;border-radius:999px;pointer-events:none;animation:abPing 6s ease-out 4.5s infinite;}',
+      '@keyframes abPing{0%{box-shadow:0 0 0 0 rgba(21,93,252,0.45);}18%{box-shadow:0 0 0 14px rgba(21,93,252,0);}100%{box-shadow:0 0 0 0 rgba(21,93,252,0);}}',
+      '@media (prefers-reduced-motion:reduce){#ab-chat-trigger.ab-idle::after{animation:none;}}',
       '#ab-chat-trigger .ab-avatar{width:26px;height:26px;border-radius:50%;background:#155DFC;color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;flex-shrink:0;}',
       '#ab-chat-trigger .ab-trigger-label{display:inline-flex;align-items:center;gap:8px;max-width:0;opacity:0;overflow:hidden;white-space:nowrap;transition:max-width .25s cubic-bezier(0.22,1,0.36,1),opacity .2s ease;}',
       '#ab-chat-trigger:hover .ab-trigger-label,#ab-chat-trigger:focus-visible .ab-trigger-label{max-width:220px;opacity:1;}',
@@ -154,19 +160,26 @@
   var trigger = document.createElement('button');
   trigger.id = 'ab-chat-trigger';
   trigger.setAttribute('aria-label', 'Open portfolio assistant');
-  trigger.innerHTML = '<div class="ab-avatar">AN</div><span class="ab-trigger-label">Talk to Abhikant <kbd>⌘K</kbd></span>';
+  trigger.innerHTML = '<div class="ab-avatar">AN</div><span class="ab-trigger-label">Ask my AI <kbd>⌘K</kbd></span>';
   // homepage shows the full label; case studies keep the quiet icon-only pill
   if (/(^\/$|\/index\.html$)/.test(location.pathname)) trigger.classList.add('ab-full');
   trigger.classList.add('ab-bounce-in');
+  trigger.classList.add('ab-idle');
   document.body.appendChild(trigger);
 
-  // wayfinding callout: nudge toward the trigger once per session, dismiss on interaction/timeout
+  // idle ping stops on first interaction
+  var stopIdle = function () { trigger.classList.remove('ab-idle'); };
+  trigger.addEventListener('click', stopIdle, { once: true });
+  trigger.addEventListener('mouseenter', stopIdle, { once: true });
+  trigger.addEventListener('focus', stopIdle, { once: true });
+
+  // wayfinding callout: bubble teaser toward the trigger once per session, dismiss on interaction/timeout
   if (!sessionStorage.getItem('ab-chat-nudged')) {
     sessionStorage.setItem('ab-chat-nudged', '1');
     var callout = document.createElement('div');
     callout.id = 'ab-chat-callout';
     callout.setAttribute('aria-hidden', 'true');
-    callout.textContent = 'Ask me anything ↓';
+    callout.innerHTML = '<span class="ab-avatar">AN</span><span>Hey, I\'m <strong>Abhikant\'s AI</strong>. Ask me anything ↓</span>';
     document.body.appendChild(callout);
     var hideCallout = function () {
       callout.classList.remove('show');
