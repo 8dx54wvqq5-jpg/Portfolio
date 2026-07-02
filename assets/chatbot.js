@@ -11,7 +11,6 @@
     "Are you open to new roles?"
   ];
 
-  var RESUME_URL = 'https://resumego.link/abhikant/designer';
   var LINKEDIN_URL = 'https://www.linkedin.com/in/abhikant';
 
   // ── Styles ──────────────────────────────────────────────────────────────
@@ -230,7 +229,6 @@
           return '<button class="ab-starter">' + q + '</button>';
         }).join('') +
         '<div class="ab-cta-row ab-cta-row--intro">' +
-          '<a class="ab-cta" href="' + RESUME_URL + '" target="_blank" rel="noopener noreferrer">Resume <span>↓</span></a>' +
           '<a class="ab-cta" href="' + LINKEDIN_URL + '" target="_blank" rel="noopener noreferrer">LinkedIn <span>↗</span></a>' +
         '</div>' +
         '</div>';
