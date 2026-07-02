@@ -320,10 +320,10 @@
     .pf-chip, span[style*="border: 1px solid #D5D8DF"][style*="border-radius: 999px"] { background: #FFFFFF !important; border-color: #B8C0CC !important; color: #243044 !important; font-weight: 650; }
     /* chips are decorative topic labels, not buttons — no hover state (was reading as clickable) */
     /* hint is now a canvas sticker (pf-sticker--hint), not a pill — poppy blue->purple so it grabs the eye among the neutral proof stickers */
-    .pf-sticker--hint .pf-word-sticker { max-width: 372px; background: linear-gradient(140deg,#2A6BFF 0%,#155DFC 55%,#6D3BF5 100%); color: #fff; border-color: rgba(255,255,255,0.35); box-shadow: 0 0 0 5px #fff, 0 0 0 5.5px rgba(16,24,40,0.10), 0 20px 38px rgba(21,93,252,0.30), inset 0 1px 0 rgba(255,255,255,0.35); }
-    .pf-sticker--hint .pf-word-sticker strong { font-size: 24px; color: #fff; }
-    .pf-sticker--hint .pf-sticker-icon { color: #fff; width: 40px; height: 40px; flex-basis: 40px; }
-    .pf-sticker--hint .pf-word-sticker span:not(.pf-sticker-more):not(.pf-sticker-icon):not(.pf-logo-disc) { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; line-height: 1.45; letter-spacing: 0; color: rgba(255,255,255,0.92); }
+    .pf-sticker--hint .pf-word-sticker { max-width: 430px; background: linear-gradient(140deg,#2A6BFF 0%,#155DFC 55%,#6D3BF5 100%); color: #fff; border-color: rgba(255,255,255,0.35); box-shadow: 0 0 0 5px #fff, 0 0 0 5.5px rgba(16,24,40,0.10), 0 20px 38px rgba(21,93,252,0.30), inset 0 1px 0 rgba(255,255,255,0.35); }
+    .pf-sticker--hint .pf-word-sticker strong { font-size: 28px; color: #fff; }
+    .pf-sticker--hint .pf-sticker-icon { color: #fff; width: 46px; height: 46px; flex-basis: 46px; }
+    .pf-sticker--hint .pf-word-sticker span:not(.pf-sticker-more):not(.pf-sticker-icon):not(.pf-logo-disc) { font-family: 'JetBrains Mono', monospace; font-size: 15.5px; font-weight: 500; line-height: 1.45; letter-spacing: 0; color: rgba(255,255,255,0.92); }
     /* beckon: the hint sticker rocks every few seconds until the visitor's first canvas press — a lone mover in a settled scene so it can't be filtered out as decoration */
     @keyframes hintBeckon {
       0%, 12%, 100% { transform: rotate(var(--r)); }
