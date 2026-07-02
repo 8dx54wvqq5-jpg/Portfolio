@@ -194,7 +194,8 @@
     var typed = '', ci = 0;
     segs.forEach(function (seg) {
       var chars = Array.from(seg.t).map(function (ch) {
-        return '<span class="ab-callout-ch" style="animation-delay:' + (ci++ * 46) + 'ms">' + ch + '</span>';
+        // inline-block trims a lone space to zero width, so spaces type as &nbsp;
+        return '<span class="ab-callout-ch" style="animation-delay:' + (ci++ * 46) + 'ms">' + (ch === ' ' ? '&nbsp;' : ch) + '</span>';
       }).join('');
       typed += seg.strong ? '<strong>' + chars + '</strong>' : chars;
     });
