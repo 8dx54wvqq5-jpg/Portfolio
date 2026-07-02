@@ -53,6 +53,11 @@
     @keyframes heroDrift2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-50px,30px) scale(1.1); } }
     @keyframes heroDrift3 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(30px,-40px) scale(1.2); } }
     @keyframes heroBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    .pf-ghost-cursor { position: absolute; z-index: 80; width: 26px; height: 30px; pointer-events: none; opacity: 0; filter: drop-shadow(0 3px 6px rgba(16,24,40,0.35)); }
+    .pf-ghost-cursor svg { display: block; width: 100%; height: 100%; }
+    .pf-ghost-ring { position: absolute; left: -9px; top: -7px; width: 40px; height: 40px; border-radius: 50%; border: 2.5px solid #155DFC; opacity: 0; transform: scale(.4); pointer-events: none; }
+    .pf-ghost-ring.is-pulsing { animation: pfGhostPulse .55s ease-out; }
+    @keyframes pfGhostPulse { 0% { opacity: .9; transform: scale(.4); } 100% { opacity: 0; transform: scale(1.5); } }
     @keyframes stickerFloatA { 0%,100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-10px) rotate(-4deg); } }
     @keyframes stickerFloatB { 0%,100% { transform: translateY(0) rotate(3deg); } 50% { transform: translateY(-13px) rotate(3deg); } }
     @keyframes stickerFloatC { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-8px) rotate(-2deg); } }
@@ -1805,6 +1810,78 @@ class Component extends DCLogic {
           this.view.x = bx - 96; this.clampView(); this.apply(560);
           this._timers.push(setTimeout(() => { this.view.x = bx; this.clampView(); this.apply(760); }, 900));
         }, 5400));
+      }
+
+      // ---- first-visit ghost cursor: demonstrates that stickers are draggable.
+      // Runs once per session, after the pan nudge settles. A real pointerdown
+      // anywhere cancels it instantly — the visitor already got the idea.
+      if (window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+          !sessionStorage.getItem("pf-drag-demo")) {
+        sessionStorage.setItem("pf-drag-demo", "1");
+        let demoCancelled = false;
+        let ghostEl = null;
+        const cancelDemo = () => {
+          demoCancelled = true;
+          if (ghostEl) { ghostEl.remove(); ghostEl = null; }
+        };
+        vp.addEventListener("pointerdown", cancelDemo, { once: true });
+        this._timers.push(setTimeout(() => {
+          const st = document.querySelector(".pf-sticker--target");
+          if (demoCancelled || !st) return;
+          const ghost = document.createElement("div");
+          ghost.className = "pf-ghost-cursor";
+          ghost.setAttribute("aria-hidden", "true");
+          ghost.innerHTML = '<svg viewBox="0 0 26 30" fill="none"><path d="M5 3l15 12.5-6.8 1.2 3.9 8.2-3.6 1.7-3.9-8.2L5 23.5V3Z" fill="#101828" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg><span class="pf-ghost-ring"></span>';
+          vp.appendChild(ghost);
+          ghostEl = ghost;
+          const ring = ghost.querySelector(".pf-ghost-ring");
+          const place = () => { // sticker's grab point in viewport coords
+            const r = st.getBoundingClientRect(), vr = vp.getBoundingClientRect();
+            return { x: r.left - vr.left + r.width * 0.55, y: r.top - vr.top + r.height * 0.6 };
+          };
+          const pulse = () => { ring.classList.remove("is-pulsing"); void ring.offsetWidth; ring.classList.add("is-pulsing"); };
+          const setPos = (x, y) => { ghost.style.left = x + "px"; ghost.style.top = y + "px"; };
+          const ease = (t) => 1 - Math.pow(1 - t, 3);
+          // one rAF loop drives everything; sticker position re-read live each
+          // frame so zoom/pan changes can't desync the cursor from the sticker
+          const FLY = 700, HOLD = 450, DRAG = 1250;
+          const L0 = st.offsetLeft, T0 = st.offsetTop;
+          const arc = (t) => { const a = Math.sin(Math.PI * t); return { dx: -84 * a, dy: -46 * a }; };
+          let phase = "fly", t0 = performance.now(), pulsed = false;
+          ghost.style.opacity = "1";
+          const step = (now) => {
+            if (demoCancelled) { st.style.left = L0 + "px"; st.style.top = T0 + "px"; return; }
+            const p = place();
+            if (phase === "fly") {
+              const t = Math.min(1, (now - t0) / FLY), e = ease(t);
+              setPos(p.x + 190 * (1 - e), p.y + 150 * (1 - e));
+              ghost.style.opacity = String(Math.min(1, t * 2));
+              if (t >= 1) { phase = "hold"; t0 = now; }
+            } else if (phase === "hold") {
+              setPos(p.x, p.y);
+              if (!pulsed) { pulse(); pulsed = true; }
+              if (now - t0 >= HOLD) { phase = "drag"; t0 = now; }
+            } else if (phase === "drag") {
+              const t = Math.min(1, (now - t0) / DRAG);
+              const { dx, dy } = arc(t);
+              st.style.left = (L0 + dx / this.view.s) + "px";
+              st.style.top = (T0 + dy / this.view.s) + "px";
+              const q = place();
+              setPos(q.x, q.y);
+              if (t >= 1) {
+                pulse(); // release click
+                st.classList.add("is-wiggling");
+                setTimeout(() => st.classList.remove("is-wiggling"), 600);
+                ghost.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 450, delay: 250, fill: "forwards" })
+                  .onfinish = () => { if (ghostEl) { ghostEl.remove(); ghostEl = null; } };
+                setTimeout(() => { if (ghostEl) { ghostEl.remove(); ghostEl = null; } }, 1600);
+                return;
+              }
+            }
+            requestAnimationFrame(step);
+          };
+          requestAnimationFrame(step);
+        }, 7300));
       }
     }
 
