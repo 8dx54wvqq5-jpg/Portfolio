@@ -42,10 +42,7 @@
       '#ab-chat-callout .ab-callout-dots span:nth-child(2){animation-delay:.15s;}',
       '#ab-chat-callout .ab-callout-dots span:nth-child(3){animation-delay:.3s;}',
       '@keyframes abDotBounce{0%,60%,100%{transform:translateY(0);opacity:.5;}30%{transform:translateY(-3px);opacity:1;}}',
-      /* chars take width as they type (max-width 0 -> 1ch, exact in monospace) so the bubble grows with the text instead of reserving a blank gap; 1ms+steps(1) fill-forwards broke past ~1s delays in Chromium, hence the real duration */
-      '.ab-callout-ch{opacity:0;display:inline-block;max-width:0;overflow:hidden;vertical-align:bottom;animation:abChar 46ms steps(1,end) forwards;}',
-      '@keyframes abChar{from{opacity:0;max-width:0;}to{opacity:1;max-width:1ch;}}',
-      '@media (prefers-reduced-motion:reduce){#ab-chat-callout .ab-callout-dots span{animation:none;}.ab-callout-ch{animation:none;opacity:1;max-width:none;}}',
+      '@media (prefers-reduced-motion:reduce){#ab-chat-callout .ab-callout-dots span{animation:none;}}',
       /* idle attention ping: soft ring every few seconds until first interaction */
       '#ab-chat-trigger.ab-idle::after{content:"";position:absolute;inset:-2px;border-radius:999px;pointer-events:none;animation:abPing 6s ease-out 4.5s infinite;}',
       '@keyframes abPing{0%{box-shadow:0 0 0 0 rgba(21,93,252,0.45);}18%{box-shadow:0 0 0 14px rgba(21,93,252,0);}100%{box-shadow:0 0 0 0 rgba(21,93,252,0);}}',
@@ -188,17 +185,24 @@
     var callout = document.createElement('div');
     callout.id = 'ab-chat-callout';
     callout.setAttribute('aria-hidden', 'true');
-    // per-character typewriter spans (46ms/char, steps easing), <strong> kept on the AI segment
+    // typewriter driven by a single JS interval (not per-char CSS animation-delay,
+    // which some mobile browsers fail to fire consistently for every span, dropping
+    // characters/words silently) — this can't skip a character.
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var segs = [{ t: "Hey, I'm " }, { t: "Abhikant's AI", strong: true }, { t: '. Ask me anything ↓' }];
-    var typed = '', ci = 0;
+    var chars = []; // flat list of { ch, strong }
     segs.forEach(function (seg) {
-      var chars = Array.from(seg.t).map(function (ch) {
-        // inline-block trims a lone space to zero width, so spaces type as &nbsp;
-        return '<span class="ab-callout-ch" style="animation-delay:' + (ci++ * 46) + 'ms">' + (ch === ' ' ? '&nbsp;' : ch) + '</span>';
-      }).join('');
-      typed += seg.strong ? '<strong>' + chars + '</strong>' : chars;
+      Array.from(seg.t).forEach(function (ch) { chars.push({ ch: ch, strong: !!seg.strong }); });
     });
+    function typedHtml(n) {
+      var html = '', i = 0;
+      while (i < n) {
+        var strong = chars[i].strong, run = '';
+        while (i < n && chars[i].strong === strong) { run += escHtml(chars[i].ch); i++; }
+        html += strong ? '<strong>' + run + '</strong>' : run;
+      }
+      return html;
+    }
     callout.innerHTML = '<span class="ab-avatar">AN</span><span class="ab-callout-msg"><span class="ab-callout-dots"><span></span><span></span><span></span></span></span>';
     document.body.appendChild(callout);
     var hideCallout = function () {
@@ -206,9 +210,16 @@
       setTimeout(function () { if (callout.remove) callout.remove(); }, 320);
     };
     setTimeout(function () { callout.classList.add('show'); }, 2200);
-    // typing dots hold ~900ms, then the message types itself out
+    // typing dots hold ~900ms, then the message types itself out one character at a time
     setTimeout(function () {
-      callout.querySelector('.ab-callout-msg').innerHTML = typed;
+      var msgEl = callout.querySelector('.ab-callout-msg');
+      if (reduced) { msgEl.innerHTML = typedHtml(chars.length); return; }
+      var shown = 0;
+      var typer = setInterval(function () {
+        shown++;
+        msgEl.innerHTML = typedHtml(shown);
+        if (shown >= chars.length) clearInterval(typer);
+      }, 46);
     }, reduced ? 2200 : 3100);
     setTimeout(hideCallout, 16000);
     trigger.addEventListener('click', hideCallout, { once: true });
