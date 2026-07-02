@@ -57,6 +57,8 @@
     .pf-ghost-cursor svg { display: block; width: 100%; height: 100%; }
     .pf-ghost-ring { position: absolute; left: -9px; top: -7px; width: 40px; height: 40px; border-radius: 50%; border: 2.5px solid #155DFC; opacity: 0; transform: scale(.4); pointer-events: none; }
     .pf-ghost-ring.is-pulsing { animation: pfGhostPulse .55s ease-out; }
+    .pf-ghost-tip { position: absolute; left: 30px; top: 28px; padding: 8px 12px; border-radius: 999px; background: #101828; color: #FFFFFF; font-family: 'JetBrains Mono', monospace; font-size: 11px; line-height: 1; white-space: nowrap; box-shadow: 0 8px 18px rgba(16,24,40,0.25); opacity: 0; transform: translateY(4px); transition: opacity .25s ease, transform .25s ease; }
+    .pf-ghost-cursor.is-grabbing .pf-ghost-tip { opacity: 1; transform: translateY(0); }
     @keyframes pfGhostPulse { 0% { opacity: .9; transform: scale(.4); } 100% { opacity: 0; transform: scale(1.5); } }
     @keyframes stickerFloatA { 0%,100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-10px) rotate(-4deg); } }
     @keyframes stickerFloatB { 0%,100% { transform: translateY(0) rotate(3deg); } 50% { transform: translateY(-13px) rotate(3deg); } }
@@ -1831,7 +1833,7 @@ class Component extends DCLogic {
           const ghost = document.createElement("div");
           ghost.className = "pf-ghost-cursor";
           ghost.setAttribute("aria-hidden", "true");
-          ghost.innerHTML = '<svg viewBox="0 0 26 30" fill="none"><path d="M5 3l15 12.5-6.8 1.2 3.9 8.2-3.6 1.7-3.9-8.2L5 23.5V3Z" fill="#101828" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg><span class="pf-ghost-ring"></span>';
+          ghost.innerHTML = '<svg viewBox="0 0 26 30" fill="none"><path d="M5 3l15 12.5-6.8 1.2 3.9 8.2-3.6 1.7-3.9-8.2L5 23.5V3Z" fill="#101828" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg><span class="pf-ghost-ring"></span><span class="pf-ghost-tip">drag stickers to move them · drag the canvas to pan</span>';
           vp.appendChild(ghost);
           ghostEl = ghost;
           const ring = ghost.querySelector(".pf-ghost-ring");
@@ -1844,7 +1846,7 @@ class Component extends DCLogic {
           const ease = (t) => 1 - Math.pow(1 - t, 3);
           // one rAF loop drives everything; sticker position re-read live each
           // frame so zoom/pan changes can't desync the cursor from the sticker
-          const FLY = 700, HOLD = 450, DRAG = 1250;
+          const FLY = 700, HOLD = 650, DRAG = 1250;
           const L0 = st.offsetLeft, T0 = st.offsetTop;
           const arc = (t) => { const a = Math.sin(Math.PI * t); return { dx: -84 * a, dy: -46 * a }; };
           let phase = "fly", t0 = performance.now(), pulsed = false;
@@ -1859,7 +1861,7 @@ class Component extends DCLogic {
               if (t >= 1) { phase = "hold"; t0 = now; }
             } else if (phase === "hold") {
               setPos(p.x, p.y);
-              if (!pulsed) { pulse(); pulsed = true; }
+              if (!pulsed) { pulse(); pulsed = true; ghost.classList.add("is-grabbing"); }
               if (now - t0 >= HOLD) { phase = "drag"; t0 = now; }
             } else if (phase === "drag") {
               const t = Math.min(1, (now - t0) / DRAG);
@@ -1881,7 +1883,7 @@ class Component extends DCLogic {
             requestAnimationFrame(step);
           };
           requestAnimationFrame(step);
-        }, 7300));
+        }, 1600));
       }
     }
 
