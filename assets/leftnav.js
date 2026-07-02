@@ -65,7 +65,10 @@
   if (!document.getElementById('ln-hover-css')) {
     var s = document.createElement('style');
     s.id = 'ln-hover-css';
-    s.textContent = '.ln-hover:hover{background:#F4F5F7 !important;}';
+    // [data-nav] covers the per-page SECTIONS/LAYERS rows — their markup carried a
+    // made-up style-hover attribute that browsers ignore, so hover never worked
+    // there. !important because the scroll-spy writes inline background on rows.
+    s.textContent = '.ln-hover:hover{background:#F4F5F7 !important;}[data-nav]:hover{background:#F4F5F7 !important;}';
     document.head.appendChild(s);
   }
 
