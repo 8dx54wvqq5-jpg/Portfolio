@@ -77,7 +77,7 @@
     var color = file === 'index.html' ? '#6A7282' : '#9AA0AC';
     var html = label('PAGES', color) + pageLinks.map(pageRow).join('');
     if (mode === 'case') {
-      html += label('CASE STUDIES', color) + caseLinks.map(caseRow).join('') + divider();
+      html += divider() + label('CASE STUDIES', color) + caseLinks.map(caseRow).join('') + divider();
     }
     mount.innerHTML = html;
   }
