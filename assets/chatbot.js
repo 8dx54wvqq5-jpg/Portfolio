@@ -42,9 +42,10 @@
       '#ab-chat-callout .ab-callout-dots span:nth-child(2){animation-delay:.15s;}',
       '#ab-chat-callout .ab-callout-dots span:nth-child(3){animation-delay:.3s;}',
       '@keyframes abDotBounce{0%,60%,100%{transform:translateY(0);opacity:.5;}30%{transform:translateY(-3px);opacity:1;}}',
-      '.ab-callout-ch{opacity:0;animation:abChar 1ms steps(1,end) forwards;}',
-      '@keyframes abChar{to{opacity:1;}}',
-      '@media (prefers-reduced-motion:reduce){#ab-chat-callout .ab-callout-dots span{animation:none;}.ab-callout-ch{animation:none;opacity:1;}}',
+      /* chars take width as they type (max-width 0 -> 1ch, exact in monospace) so the bubble grows with the text instead of reserving a blank gap; 1ms+steps(1) fill-forwards broke past ~1s delays in Chromium, hence the real duration */
+      '.ab-callout-ch{opacity:0;display:inline-block;max-width:0;overflow:hidden;vertical-align:bottom;animation:abChar 46ms steps(1,end) forwards;}',
+      '@keyframes abChar{from{opacity:0;max-width:0;}to{opacity:1;max-width:1ch;}}',
+      '@media (prefers-reduced-motion:reduce){#ab-chat-callout .ab-callout-dots span{animation:none;}.ab-callout-ch{animation:none;opacity:1;max-width:none;}}',
       /* idle attention ping: soft ring every few seconds until first interaction */
       '#ab-chat-trigger.ab-idle::after{content:"";position:absolute;inset:-2px;border-radius:999px;pointer-events:none;animation:abPing 6s ease-out 4.5s infinite;}',
       '@keyframes abPing{0%{box-shadow:0 0 0 0 rgba(21,93,252,0.45);}18%{box-shadow:0 0 0 14px rgba(21,93,252,0);}100%{box-shadow:0 0 0 0 rgba(21,93,252,0);}}',
