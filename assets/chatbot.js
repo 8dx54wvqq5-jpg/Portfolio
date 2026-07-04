@@ -11,62 +11,62 @@
     "Are you open to new roles?"
   ];
 
-  // case-study pages get starters about that project; everything else (home, /work, /about) keeps the default set
+  // case-study pages get starters grounded in that project's actual sections; everything else (home, /work, /about) keeps the default set
   var STARTERS_BY_PATH = {
     '/dispute-workspace': [
-      "What was the biggest challenge here?",
-      "How did you cut down 15 years of UI debt?",
-      "What changed after launch?"
+      "How did you research this without user access?",
+      "How do four different roles share one workflow?",
+      "What would you do differently?"
     ],
     '/ai-dispute-intake': [
-      "How does the AI fit into dispute intake?",
-      "What’s the audit log actually for?",
-      "How do you approach enterprise UX?"
+      "Why does a confidence label beat a raw number?",
+      "How did the audit log become the product's memory?",
+      "Where does the AI get corrected most?"
     ],
     '/360-control': [
-      "How do you design for four different user roles at once?",
-      "What was the trickiest part of this project?",
-      "What changed for admins after this shipped?"
+      "Why does 360 Control have no AI, on purpose?",
+      "What did being both designer and product owner mean day to day?",
+      "What did deliberately under-designing Phase 1 look like?"
     ],
     '/cpq': [
-      "What made this quoting tool so high-stakes?",
-      "How did you reduce configuration errors?",
-      "What tools do you use?"
+      "What were you wrong about going in?",
+      "Why was quote duplication the #1 request?",
+      "What's a finding you weren't even looking for?"
     ],
     '/design-system': [
-      "How do you approach building a design system?",
-      "What problem was this system solving?",
-      "What’s your design process?"
+      "How do you get adoption without mandating the system?",
+      "What did 20 years of UI with zero designers look like?",
+      "Why tokens first?"
     ],
     '/food-safety': [
-      "How did this replace paper-based compliance?",
-      "Who actually uses this day to day?",
-      "What tools do you use?"
+      "How do you design compliance for the floor, not the demo?",
+      "What does \"a clipboard that fits a phone\" mean here?",
+      "How would you predict a lapse before the score slips?"
     ],
     '/banfield': [
-      "What was Smart Reco, and how’d you design it?",
-      "What was it like designing for exam-room use?",
-      "How do you approach enterprise UX?"
+      "What were the two decisions vets ran on memory?",
+      "How do you keep decision support from deciding for the vet?",
+      "What happens when nothing matches?"
     ],
     '/ecocash': [
-      "What’s the story behind Eco-Cash?",
-      "How do you gamify sustainability?",
-      "Are you open to new roles?"
+      "What did the research keep saying?",
+      "How'd you turn 50 ideas into one?",
+      "Why is awareness not the same as action?"
     ],
     '/engage': [
-      "What’s the idea behind Engage?",
-      "What’s your design process?",
-      "Are you open to new roles?"
+      "Why is motivation a design material here?",
+      "What's the friction a young user won't push through?",
+      "What were the three moves that fixed this?"
     ],
     '/gea': [
-      "What’s GEA-Spin solving for students?",
-      "What’s your design process?",
-      "Are you open to new roles?"
+      "Why is maintenance invisible until it fails?",
+      "What made payment such a friction point?",
+      "What are the three jobs different users needed done?"
     ],
     '/studytable': [
-      "What problem was Studytable solving?",
-      "What’s your design process?",
-      "Are you open to new roles?"
+      "What's the six-figure decision students make on gut feel?",
+      "What was the one question that saved a dozen wrong-fit steps?",
+      "Why give a mentor a face?"
     ]
   };
 
