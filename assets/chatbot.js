@@ -4,12 +4,73 @@
 (function () {
   'use strict';
 
-  var STARTERS = [
+  var DEFAULT_STARTERS = [
     "What’s your strongest case study?",
     "How do you approach enterprise UX?",
     "What tools do you use?",
     "Are you open to new roles?"
   ];
+
+  // case-study pages get starters about that project; everything else (home, /work, /about) keeps the default set
+  var STARTERS_BY_PATH = {
+    '/dispute-workspace': [
+      "What was the biggest challenge here?",
+      "How did you cut down 15 years of UI debt?",
+      "What changed after launch?"
+    ],
+    '/ai-dispute-intake': [
+      "How does the AI fit into dispute intake?",
+      "What’s the audit log actually for?",
+      "How do you approach enterprise UX?"
+    ],
+    '/360-control': [
+      "How do you design for four different user roles at once?",
+      "What was the trickiest part of this project?",
+      "What changed for admins after this shipped?"
+    ],
+    '/cpq': [
+      "What made this quoting tool so high-stakes?",
+      "How did you reduce configuration errors?",
+      "What tools do you use?"
+    ],
+    '/design-system': [
+      "How do you approach building a design system?",
+      "What problem was this system solving?",
+      "What’s your design process?"
+    ],
+    '/food-safety': [
+      "How did this replace paper-based compliance?",
+      "Who actually uses this day to day?",
+      "What tools do you use?"
+    ],
+    '/banfield': [
+      "What was Smart Reco, and how’d you design it?",
+      "What was it like designing for exam-room use?",
+      "How do you approach enterprise UX?"
+    ],
+    '/ecocash': [
+      "What’s the story behind Eco-Cash?",
+      "How do you gamify sustainability?",
+      "Are you open to new roles?"
+    ],
+    '/engage': [
+      "What’s the idea behind Engage?",
+      "What’s your design process?",
+      "Are you open to new roles?"
+    ],
+    '/gea': [
+      "What’s GEA-Spin solving for students?",
+      "What’s your design process?",
+      "Are you open to new roles?"
+    ],
+    '/studytable': [
+      "What problem was Studytable solving?",
+      "What’s your design process?",
+      "Are you open to new roles?"
+    ]
+  };
+
+  var STARTERS = STARTERS_BY_PATH[location.pathname] || DEFAULT_STARTERS;
 
   var LINKEDIN_URL = 'https://www.linkedin.com/in/abhikant';
 
