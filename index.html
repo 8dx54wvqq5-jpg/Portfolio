@@ -43,7 +43,7 @@
 <helmet>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>
   h1, h2 { font-family: 'Fraunces', serif !important; font-weight: 600 !important; letter-spacing: -0.015em; }
     html, body { margin: 0; padding: 0; overflow: hidden; }
@@ -88,7 +88,10 @@
       60% { transform: rotate(var(--r)) translateX(2px) rotate(1.5deg); }
       75% { transform: rotate(var(--r)) translateX(-1px) rotate(-1deg); }
     }
-    .pf-sticker.is-wiggling .pf-real-sticker, .pf-sticker.is-wiggling .pf-word-sticker { animation: stickerWiggle 600ms cubic-bezier(.36,.07,.19,.97); }
+    .pf-sticker.is-wiggling .pf-real-sticker, .pf-sticker.is-wiggling .pf-word-sticker, .pf-sticker.is-wiggling .pf-pack { animation: stickerWiggle 600ms cubic-bezier(.36,.07,.19,.97); }
+    /* Sticker-pack imports (Claude Design "Sticker Pack" — bespoke inline-styled vinyls) */
+    .pf-pack { position: relative; z-index: var(--z, 4); transform: rotate(var(--r)); transform-origin: 50% 52%; transition: transform .22s cubic-bezier(0.34,1.56,0.64,1), filter .22s ease; will-change: transform; }
+    .pf-sticker:hover .pf-pack { transform: rotate(var(--r)) translateY(-5px) scale(1.05); filter: saturate(1.06); z-index: 8; }
     .pf-logo-disc { display: grid; place-items: center; width: 30px; height: 30px; flex: 0 0 30px; border-radius: 50%; background: rgba(255,255,255,0.86); box-shadow: inset 0 0 0 1px rgba(16,24,40,0.08), 0 2px 5px rgba(16,24,40,0.10); transition: transform .32s cubic-bezier(0.2,0.9,0.2,1.2); transform-style: preserve-3d; }
     .pf-logo-mark { max-width: 24px; max-height: 24px; object-fit: contain; }
     .pf-logo-copy { display: grid; gap: 1px; white-space: nowrap; }
@@ -624,29 +627,81 @@
       </div>
 
 	      <!-- ============ FLOATING STICKERS (quiet paper proof layer) ============ -->
-	      <div class="pf-sticker pf-sticker--quiet pf-sticker--round" role="button" tabindex="0" aria-label="Sticker: 8 years shipping enterprise UX. Disputes, card controls, and quoting." style="left: 301px; top: 184px; animation: stickerFloatA 7.5s ease-in-out infinite;">
-	        <div class="pf-word-sticker" style="--r: -5deg; --z: 6;"><span class="pf-sticker-more">disputes, card controls, quoting</span><span class="pf-spark" aria-hidden="true"></span><strong>8</strong><span>years</span></div>
+	      <div class="pf-sticker" role="button" tabindex="0" aria-label="Sticker: Complicated work made clear. Eight years of enterprise UX." style="left: 281px; top: 158px; animation: stickerFloatA 7.5s ease-in-out infinite;">
+	        <div class="pf-pack" style="--r: -5deg; --z: 6; background: #fff; border-radius: 14px; padding: 7px; box-shadow: 0 10px 22px rgba(21,23,28,0.22);">
+	          <div style="background: #155DFC; border-radius: 9px; padding: 14px 18px; text-align: center;">
+	            <div style="font-family: 'Fraunces', serif; font-weight: 900; font-size: 27px; color: #fff; line-height: 0.95; letter-spacing: -0.5px;">complicated<br>work</div>
+	            <div style="font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 2px; color: rgba(255,255,255,0.85); margin-top: 8px;">MADE CLEAR · EST. 8 YRS</div>
+	          </div>
+	          <div style="position: absolute; left: 12px; bottom: -14px; transform: rotate(-3deg); background: #fff; border-radius: 999px; padding: 4px; box-shadow: 0 8px 18px rgba(21,23,28,0.2);">
+	            <div style="border: 2px solid #15171C; border-radius: 999px; padding: 4px 11px; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 9px; letter-spacing: 2px; color: #15171C; white-space: nowrap;">SR · UX · DESIGNER</div>
+	          </div>
+	        </div>
 	      </div>
 	      <div class="pf-sticker pf-sticker--parked" role="button" tabindex="0" aria-label="Sticker: Fintech. Disputes, cards, and quoting in regulated workflows." style="left: 1356px; top: 790px; animation: stickerFloatB 7s ease-in-out infinite;">
 	        <div class="pf-word-sticker" style="--r: 5deg; --z: 4; --accent: #0F766E; --ink: #fff;"><span class="pf-sticker-more">regulated financial workflows</span><strong>Fintech</strong><span>disputes, cards, quoting</span></div>
 	      </div>
-	      <div class="pf-sticker pf-sticker--quiet pf-sticker--enterprise" role="button" tabindex="0" aria-label="Sticker: Enterprise. Scale, roles, and compliance." style="left: 1340px; top: 222px; animation: stickerFloatC 7.2s ease-in-out infinite;">
-	        <div class="pf-word-sticker" style="--r: 5deg; --z: 5;"><span class="pf-sticker-more">multi-role, audit-ready systems</span><span class="pf-sticker-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M6 27V11l8-4v20M14 27V5l12 5v17M4 27h24M10 14h1.5M10 18h1.5M10 22h1.5M18 13h2M18 17h2M18 21h2M23 15h1.5M23 19h1.5" stroke-width="2.1"/></svg></span><span><strong>Enterprise</strong><span>scale, roles, compliance</span></span></div>
+	      <div class="pf-sticker" role="button" tabindex="0" aria-label="Sticker: Systems first. Scale, roles, and compliance." style="left: 1330px; top: 205px; animation: stickerFloatC 7.2s ease-in-out infinite;">
+	        <div class="pf-pack" style="--r: 5deg; --z: 5; width: 150px; height: 132px; filter: drop-shadow(0 10px 18px rgba(21,23,28,0.28));">
+	          <div style="position: absolute; left: 19px; top: 62px; width: 102px; height: 55px; background: #fff; border-radius: 10px; transform: rotate(-4deg);"></div>
+	          <div style="position: absolute; left: 11px; top: 41px; width: 118px; height: 60px; background: #FFC931; border: 4px solid #fff; border-radius: 10px; transform: rotate(2deg); box-sizing: border-box;"></div>
+	          <div style="position: absolute; left: 0; top: 11px; width: 134px; height: 68px; background: #155DFC; border: 4px solid #fff; border-radius: 10px; transform: rotate(-3deg); box-sizing: border-box; display: flex; align-items: center; justify-content: center;">
+	            <div style="font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 13px; color: #fff;">systems first</div>
+	          </div>
+	        </div>
 	      </div>
-	      <div class="pf-sticker pf-sticker--quiet pf-sticker--human" role="button" tabindex="0" aria-label="Sticker: Human in the loop. AI that explains itself." style="left: 301px; top: 852px; animation: stickerFloatA 7.8s ease-in-out infinite;">
-	        <div class="pf-word-sticker" style="--r: -2deg; --z: 4;"><span class="pf-sticker-more">trust when right, override when wrong</span><span class="pf-sticker-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M16 16a5 5 0 1 0 0-10 5 5 0 0 0 0 10ZM6 27c1.8-5 5.2-7.5 10-7.5s8.2 2.5 10 7.5M6 27h20" stroke-width="2.1"/></svg></span><span><strong>Human<br>in the loop</strong><span>AI that explains itself</span></span></div>
+	      <div class="pf-sticker" role="button" tabindex="0" aria-label="Sticker: Human in the loop. AI that explains itself." style="left: 301px; top: 832px; animation: stickerFloatA 7.8s ease-in-out infinite;">
+	        <div class="pf-pack" style="--r: 8deg; --z: 4; width: 128px; height: 128px; background: #fff; border-radius: 50%; box-shadow: 0 10px 22px rgba(21,23,28,0.22); display: flex; align-items: center; justify-content: center;">
+	          <div style="width: 110px; height: 110px; border-radius: 50%; background: #155DFC; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-align: center;">
+	            <div style="font-size: 26px; color: #fff; line-height: 1;">↻</div>
+	            <div style="font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 1.5px; color: #fff; line-height: 1.6;">HUMAN<br>IN THE LOOP</div>
+	          </div>
+	        </div>
 	      </div>
 	      <div class="pf-sticker pf-sticker--quiet pf-sticker--hint" role="button" tabindex="0" aria-label="Hint: this is a movable canvas. Drag the stickers, pan around, then open the work." style="left: 620px; top: 858px; animation: stickerFloatA 7.4s ease-in-out infinite;">
         <div class="pf-word-sticker" style="--r: -3deg; --z: 7;"><span class="pf-sticker-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor"><path d="M11 15V7.5a2 2 0 0 1 4 0V13m0-.5V6a2 2 0 0 1 4 0v7m0-1.5V9a2 2 0 0 1 4 0v8c0 4.4-3 8-8 8-3.3 0-5.4-1.6-7-4.5l-2.2-4a2 2 0 0 1 3.2-2.3L11 17" stroke-width="2"/></svg></span><span><strong>This is a canvas</strong><span>Drag anywhere, move the stickers, click a card to open it</span></span></div>
       </div>
-      <div class="pf-sticker pf-sticker--quiet pf-sticker--fiserv" role="button" tabindex="0" aria-label="Sticker: Fiserv. AI you can audit. Confidence, reasoning, override." style="left: 1120px; top: 282px; animation: stickerFloatB 7s ease-in-out infinite;">
-	        <div class="pf-word-sticker" style="--r: -7deg; --z: 5;"><span class="pf-sticker-more">confidence, reasoning, override</span><span class="pf-logo-disc"><img class="pf-logo-mark" src="assets/Fiserv_Logo.webp" alt=""></span><span><strong>Fiserv</strong><span>AI you can audit</span></span></div>
+      <div class="pf-sticker" role="button" tabindex="0" aria-label="Sticker: AI you can audit. Confidence, reasoning, override." style="left: 1108px; top: 270px; animation: stickerFloatB 7s ease-in-out infinite;">
+	        <div class="pf-pack" style="--r: -7deg; --z: 5; background: #fff; border-radius: 13px; padding: 6px; box-shadow: 0 10px 22px rgba(21,23,28,0.22);">
+	          <div style="background: #15171C; border-radius: 8px; padding: 12px 14px; width: 180px; box-sizing: border-box;">
+	            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+	              <div style="font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 1.5px; color: #9FB6F9;">✦ AI SUGGESTION</div>
+	              <div style="font-family: 'JetBrains Mono', monospace; font-size: 8px; color: #7CE3A1;">92%</div>
+	            </div>
+	            <div style="height: 5px; background: #2A2E38; border-radius: 3px; overflow: hidden; margin-bottom: 10px;">
+	              <div style="width: 92%; height: 100%; background: #7CE3A1;"></div>
+	            </div>
+	            <div style="display: flex; gap: 8px; align-items: center;">
+	              <div style="font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 11px; color: #fff;">AI you can audit</div>
+	              <div style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 7.5px; color: #15171C; background: #fff; border-radius: 4px; padding: 2px 6px;">OVERRIDE</div>
+	            </div>
+	          </div>
+	        </div>
 	      </div>
 	      <div class="pf-sticker pf-sticker--quiet pf-sticker--target" role="button" tabindex="0" aria-label="Sticker: Target. A Disputes Workspace client, converted onto DWS in 2025." style="left: 1056px; top: 382px; animation: stickerFloatC 6.4s ease-in-out infinite;">
 	        <div class="pf-word-sticker" style="--r: -8deg; --z: 5;"><span class="pf-sticker-more">converted onto Disputes Workspace</span><span class="pf-logo-disc"><img class="pf-logo-mark" src="assets/Target_logo.png" alt=""></span><span><strong>Target</strong><span>DWS client</span></span></div>
 	      </div>
 	      <div class="pf-sticker pf-sticker--parked" role="button" tabindex="0" aria-label="Sticker: Banfield. Clinical workflows, less friction for care teams." style="left: 910px; top: 848px; animation: stickerFloatA 7.2s ease-in-out infinite;">
 	        <div class="pf-real-sticker" style="--r: 4deg; --z: 3;"><span class="pf-logo-disc"><img class="pf-logo-mark" src="assets/BanfieldPetLogo.png" alt=""></span><span class="pf-logo-copy"><strong>Banfield</strong><em>clinical workflows</em></span><span class="pf-sticker-more">less friction for care teams</span></div>
+	      </div>
+	      <div class="pf-sticker" role="button" tabindex="0" aria-label="Sticker: Components. 45 plus shipped, WCAG AA." style="left: 1064px; top: 486px; animation: stickerFloatC 6.8s ease-in-out infinite;">
+	        <div class="pf-pack" style="--r: -6deg; --z: 4; background: #fff; border-radius: 12px; padding: 6px; box-shadow: 0 10px 22px rgba(21,23,28,0.22);">
+	          <div style="border: 2px dashed #9747FF; border-radius: 7px; padding: 10px 14px; background: #F8F5FF; display: flex; align-items: center; gap: 10px;">
+	            <div style="font-size: 20px; color: #9747FF; line-height: 1;">◇</div>
+	            <div>
+	              <div style="font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 12px; color: #15171C;">Component</div>
+	              <div style="font-family: 'JetBrains Mono', monospace; font-size: 8px; color: #8A8F99;">45+ shipped · WCAG AA</div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	      <div class="pf-sticker" role="button" tabindex="0" aria-label="Sticker: Edge case hunter. No surprises." style="left: 1150px; top: 820px; animation: stickerFloatB 7.4s ease-in-out infinite;">
+	        <div class="pf-pack" style="--r: -8deg; --z: 4; width: 136px; height: 136px; background: #fff; border-radius: 50%; box-shadow: 0 10px 22px rgba(21,23,28,0.22); display: flex; align-items: center; justify-content: center;">
+	          <div style="width: 116px; height: 116px; border-radius: 50%; background: #FFC931; border: 2px dashed rgba(0,0,0,0.35); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; box-sizing: border-box;">
+	            <div style="font-family: 'Fraunces', serif; font-weight: 900; font-size: 16px; color: #15171C; line-height: 1.05;">edge case<br>hunter</div>
+	            <div style="font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 1.5px; color: #15171C; margin-top: 4px;">NO SURPRISES</div>
+	          </div>
+	        </div>
 	      </div>
 	      <div class="pf-sticker pf-sticker--quiet pf-sticker--hci" role="button" tabindex="0" aria-label="Sticker: MS in HCI, Indiana University. Research, prototypes, fieldwork." style="left: 455px; top: 273px; animation: stickerFloatC 7s ease-in-out infinite;">
 	        <div class="pf-word-sticker" style="--r: -4deg; --z: 4;"><span class="pf-sticker-more">research, prototypes, fieldwork</span><span class="pf-hci-logo" aria-hidden="true"><img src="assets/IU_Logo.svg" alt=""></span><span><strong>MS in HCI</strong><span>Indiana University</span></span></div>
@@ -702,7 +757,7 @@
         <div data-flab="dws" style="position: absolute; left: 1760px; top: 292px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;"># work / disputes-workspace</div>
         <a data-frame="dws" data-fade="1" href="/dispute-workspace" style="position: absolute; left: 1760px; top: 320px; width: 880px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
           <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #0B0B0B; position: relative;">
-            <div style="position: absolute; top: 14px; left: 14px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 4px 11px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 10px rgba(0,0,0,0.22);"><span style="width: 6px; height: 6px; border-radius: 50%; background: #009966;"></span>SHIPPED</div>
+            <div style="position: absolute; top: 14px; left: 14px; z-index: 2; transform: rotate(-4deg); background: #fff; border-radius: 8px; padding: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.25);"><div style="border: 2px solid #1B8A4B; border-radius: 5px; padding: 3px 9px; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 10px; letter-spacing: 2px; color: #1B8A4B;">SHIPPED</div></div>
             <img data-zoomimg="1" loading="lazy" src="assets/dws-hero.png" alt="Dispute Workspace, Fiserv" style="display: block; width: 100%; height: 400px; object-fit: cover; object-position: top; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
           </div>
           <div style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 32px; padding: 28px 32px; align-items: start;">
@@ -755,7 +810,7 @@
         <div data-flab="c360" style="position: absolute; left: 2800px; top: 492px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;"># work / 360-control</div>
         <a data-frame="c360" data-fade="2" href="/360-control" style="position: absolute; left: 2800px; top: 520px; width: 800px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
           <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #14152B; position: relative;">
-            <div style="position: absolute; top: 14px; left: 14px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 4px 11px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 10px rgba(0,0,0,0.22);"><span style="width: 6px; height: 6px; border-radius: 50%; background: #009966;"></span>SHIPPED</div>
+            <div style="position: absolute; top: 14px; left: 14px; z-index: 2; transform: rotate(-4deg); background: #fff; border-radius: 8px; padding: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.25);"><div style="border: 2px solid #1B8A4B; border-radius: 5px; padding: 3px 9px; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 10px; letter-spacing: 2px; color: #1B8A4B;">SHIPPED</div></div>
             <img data-zoomimg="1" loading="lazy" src="assets/c360-hero.png" alt="360 Control, Fiserv" style="display: block; width: 100%; height: 360px; object-fit: cover; object-position: top; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
           </div>
           <div style="padding: 28px 32px;">
@@ -779,7 +834,7 @@
         <div data-flab="cpq" style="position: absolute; left: 2800px; top: 1132px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;"># work / cpq</div>
         <a data-frame="cpq" data-fade="2" href="/cpq" style="position: absolute; left: 2800px; top: 1160px; width: 880px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
           <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #E6E0D6; position: relative;">
-            <div style="position: absolute; top: 14px; left: 14px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 4px 11px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 10px rgba(0,0,0,0.22);"><span style="width: 6px; height: 6px; border-radius: 50%; background: #009966;"></span>SHIPPED</div>
+            <div style="position: absolute; top: 14px; left: 14px; z-index: 2; transform: rotate(-4deg); background: #fff; border-radius: 8px; padding: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.25);"><div style="border: 2px solid #1B8A4B; border-radius: 5px; padding: 3px 9px; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 10px; letter-spacing: 2px; color: #1B8A4B;">SHIPPED</div></div>
             <img data-zoomimg="1" loading="lazy" src="assets/cpq-hero.png" alt="CPQ, Zywave" style="display: block; width: 100%; height: 300px; object-fit: cover; object-position: top; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
           </div>
           <div style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 32px; padding: 28px 32px; align-items: start;">
@@ -808,7 +863,7 @@
         <div data-flab="ds" style="position: absolute; left: 1760px; top: 1542px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;"># work / design-system</div>
         <a data-frame="ds" data-fade="3" href="/design-system" style="position: absolute; left: 1760px; top: 1570px; width: 800px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
           <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #0D1B3E; position: relative;">
-            <div style="position: absolute; top: 14px; left: 14px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 4px 11px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 10px rgba(0,0,0,0.22);"><span style="width: 6px; height: 6px; border-radius: 50%; background: #009966;"></span>SHIPPED</div>
+            <div style="position: absolute; top: 14px; left: 14px; z-index: 2; transform: rotate(-4deg); background: #fff; border-radius: 8px; padding: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.25);"><div style="border: 2px solid #1B8A4B; border-radius: 5px; padding: 3px 9px; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 10px; letter-spacing: 2px; color: #1B8A4B;">SHIPPED</div></div>
             <img data-zoomimg="1" loading="lazy" src="assets/ds-hero.png" alt="Dispute Workspace Design System, Fiserv" style="display: block; width: 100%; height: 360px; object-fit: cover; object-position: top; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
           </div>
           <div style="padding: 28px 32px;">
@@ -832,7 +887,7 @@
         <div data-flab="fs" style="position: absolute; left: 1760px; top: 2332px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282;"># work / food-safety</div>
         <a data-frame="fs" data-fade="3" href="/food-safety" style="position: absolute; left: 1760px; top: 2360px; width: 880px; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 14px; box-shadow: 0 2px 6px rgba(16,24,40,0.06); overflow: hidden; text-decoration: none; color: inherit; display: block;">
           <div style="overflow: hidden; border-bottom: 1px solid #ECEDF1; background: #EEF1F6; position: relative;">
-            <div style="position: absolute; top: 14px; left: 14px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 4px 11px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 10px rgba(0,0,0,0.22);"><span style="width: 6px; height: 6px; border-radius: 50%; background: #009966;"></span>SHIPPED</div>
+            <div style="position: absolute; top: 14px; left: 14px; z-index: 2; transform: rotate(-4deg); background: #fff; border-radius: 8px; padding: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.25);"><div style="border: 2px solid #1B8A4B; border-radius: 5px; padding: 3px 9px; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 10px; letter-spacing: 2px; color: #1B8A4B;">SHIPPED</div></div>
             <img data-zoomimg="1" loading="lazy" src="assets/fs-hero.svg" alt="Food Safety, Logile" style="display: block; width: 100%; height: 400px; object-fit: cover; object-position: center; transform: scale(1); transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);">
           </div>
           <div style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 32px; padding: 28px 32px; align-items: start;">
@@ -1036,7 +1091,7 @@
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #6A7282; margin-bottom: 14px; padding: 0 4px;">SELECTED WORK</div>
       <a href="/dispute-workspace" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
-          <div style="background: #0B0B0B; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 3px 9px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 8px rgba(0,0,0,0.22);"><span style="width: 5px; height: 5px; border-radius: 50%; background: #009966;"></span>SHIPPED</div><img loading="lazy" src="assets/dws-hero.png" alt="Disputes Workspace" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
+          <div style="background: #0B0B0B; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; transform: rotate(-4deg); background: #fff; border-radius: 7px; padding: 3px; box-shadow: 0 3px 10px rgba(0,0,0,0.25);"><div style="border: 2px solid #1B8A4B; border-radius: 4px; padding: 2px 7px; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 9px; letter-spacing: 2px; color: #1B8A4B;">SHIPPED</div></div><img loading="lazy" src="assets/dws-hero.png" alt="Disputes Workspace" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
           <div style="padding: 16px 18px;">
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282; margin-bottom: 5px;">01 · fiserv</div>
             <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">Disputes Workspace</h3>
@@ -1069,7 +1124,7 @@
       </a>
       <a href="/360-control" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
-          <div style="background: #14152B; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 3px 9px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 8px rgba(0,0,0,0.22);"><span style="width: 5px; height: 5px; border-radius: 50%; background: #009966;"></span>SHIPPED</div><img loading="lazy" src="assets/c360-hero.png" alt="360 Control" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
+          <div style="background: #14152B; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; transform: rotate(-4deg); background: #fff; border-radius: 7px; padding: 3px; box-shadow: 0 3px 10px rgba(0,0,0,0.25);"><div style="border: 2px solid #1B8A4B; border-radius: 4px; padding: 2px 7px; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 9px; letter-spacing: 2px; color: #1B8A4B;">SHIPPED</div></div><img loading="lazy" src="assets/c360-hero.png" alt="360 Control" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
           <div style="padding: 16px 18px;">
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282; margin-bottom: 5px;">02 · fiserv × canadian bank</div>
             <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">360 Control</h3>
@@ -1085,7 +1140,7 @@
       </a>
       <a href="/cpq" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
-          <div style="background: #E6E0D6; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 3px 9px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 8px rgba(0,0,0,0.22);"><span style="width: 5px; height: 5px; border-radius: 50%; background: #009966;"></span>SHIPPED</div><img loading="lazy" src="assets/cpq-hero.png" alt="CPQ" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
+          <div style="background: #E6E0D6; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; transform: rotate(-4deg); background: #fff; border-radius: 7px; padding: 3px; box-shadow: 0 3px 10px rgba(0,0,0,0.25);"><div style="border: 2px solid #1B8A4B; border-radius: 4px; padding: 2px 7px; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 9px; letter-spacing: 2px; color: #1B8A4B;">SHIPPED</div></div><img loading="lazy" src="assets/cpq-hero.png" alt="CPQ" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
           <div style="padding: 16px 18px;">
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282; margin-bottom: 5px;">03 · zywave</div>
             <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">CPQ</h3>
@@ -1101,7 +1156,7 @@
       </a>
       <a href="/design-system" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
-          <div style="background: #0D1B3E; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 3px 9px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 8px rgba(0,0,0,0.22);"><span style="width: 5px; height: 5px; border-radius: 50%; background: #009966;"></span>SHIPPED</div><img loading="lazy" src="assets/ds-hero.png" alt="DWS Design System" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
+          <div style="background: #0D1B3E; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; transform: rotate(-4deg); background: #fff; border-radius: 7px; padding: 3px; box-shadow: 0 3px 10px rgba(0,0,0,0.25);"><div style="border: 2px solid #1B8A4B; border-radius: 4px; padding: 2px 7px; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 9px; letter-spacing: 2px; color: #1B8A4B;">SHIPPED</div></div><img loading="lazy" src="assets/ds-hero.png" alt="DWS Design System" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
           <div style="padding: 16px 18px;">
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282; margin-bottom: 5px;">04 · fiserv</div>
             <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">DWS Design System</h3>
@@ -1117,7 +1172,7 @@
       </a>
       <a href="/food-safety" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
-          <div style="background: #EEF1F6; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 3px 9px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; color: #047857; box-shadow: 0 2px 8px rgba(0,0,0,0.22);"><span style="width: 5px; height: 5px; border-radius: 50%; background: #009966;"></span>SHIPPED</div><img loading="lazy" src="assets/fs-hero.svg" alt="Food Safety" style="width: 100%; height: 100%; object-fit: cover; object-position: center;"></div>
+          <div style="background: #EEF1F6; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; transform: rotate(-4deg); background: #fff; border-radius: 7px; padding: 3px; box-shadow: 0 3px 10px rgba(0,0,0,0.25);"><div style="border: 2px solid #1B8A4B; border-radius: 4px; padding: 2px 7px; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 9px; letter-spacing: 2px; color: #1B8A4B;">SHIPPED</div></div><img loading="lazy" src="assets/fs-hero.svg" alt="Food Safety" style="width: 100%; height: 100%; object-fit: cover; object-position: center;"></div>
           <div style="padding: 16px 18px;">
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6A7282; margin-bottom: 5px;">05 · logile</div>
             <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 5px; letter-spacing: -0.01em;">Food Safety</h3>
