@@ -504,129 +504,27 @@
 
       <!-- 04.5 · TRY IT YOURSELF (interactive prototype) -->
       <style>
-        #s4-5 .tryit-mono { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; }
-        #s4-5 .tryit-stage { position: relative; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 12px 28px -16px rgba(16,24,40,0.22); background: #F7F8FA; }
-        #s4-5 .tryit-stage.is-sealed { box-shadow: 0 0 0 2px #A7E8C6, 0 12px 28px -16px rgba(16,24,40,0.22); }
-        #s4-5 .tryit-rail { position: absolute; top: 0; left: 0; right: 0; height: 3px; z-index: 6; background: rgba(21,93,252,0.10); }
-        #s4-5 .tryit-rail i { display: block; height: 100%; width: 0; background: #155DFC; transition: width 0.35s cubic-bezier(0.16,1,0.3,1); }
-        #s4-5 .tryit-chrome { display: flex; align-items: center; justify-content: space-between; padding: 13px 18px; background: #FFFFFF; border-bottom: 1px solid #ECEDF1; }
-        #s4-5 .tryit-pill { display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #155DFC; background: #EFF6FF; border: 1px solid #D6E4FF; border-radius: 999px; padding: 3px 9px; }
-        #s4-5 .tryit-split { display: grid; grid-template-columns: 1.32fr 1fr; }
-        #s4-5 .tryit-left { position: relative; padding: 20px; border-right: 1px solid #ECEDF1; }
-        #s4-5 .tryit-right { padding: 18px; background: #FBFCFE; }
-        #s4-5 .tryit-quote { background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; }
-        #s4-5 .tryit-quote .tryit-mono { color: #9AA0AC; display: block; margin-bottom: 7px; }
-        #s4-5 .tryit-quote-text { font-size: 14px; line-height: 1.6; color: #101828; }
-        #s4-5 .tryit-fields { position: relative; }
-        #s4-5 .tryit-scrim { position: absolute; inset: -4px; display: flex; align-items: center; justify-content: center; background: rgba(247,248,250,0.66); -webkit-backdrop-filter: blur(1.5px); backdrop-filter: blur(1.5px); z-index: 4; border-radius: 10px; transition: opacity 0.4s ease; }
-        #s4-5 .tryit-scrim.gone { opacity: 0; pointer-events: none; }
-        #s4-5 .tryit-row { position: relative; background: #FFFFFF; border: 1px solid #E2E4E9; border-left: 3px solid #D5D8DF; border-radius: 10px; padding: 13px 16px; margin-bottom: 10px; opacity: 0.5; transition: opacity 0.3s ease, border-color 0.35s ease, box-shadow 0.25s ease, transform 0.25s ease; }
-        #s4-5 .tryit-fields.armed .tryit-row { opacity: 1; }
-        #s4-5 .tryit-row.is-active { border-left-color: #155DFC; box-shadow: 0 0 0 3px rgba(21,93,252,0.12); }
-        #s4-5 .tryit-row.res-green { border-left-color: #047857; }
-        #s4-5 .tryit-row.res-amber { border-left-color: #B54708; }
-        #s4-5 .tryit-row.res-blue { border-left-color: #155DFC; }
-        #s4-5 .tryit-row-top { display: grid; grid-template-columns: 132px 1fr auto; gap: 12px; align-items: center; }
-        #s4-5 .tryit-row-label { font-size: 12.5px; font-weight: 700; color: #6A7282; }
-        #s4-5 .tryit-row-value { font-size: 14px; font-weight: 700; color: #101828; }
-        #s4-5 .tryit-amb { font-weight: 500; color: #9AA0AC; font-size: 12.5px; }
-        #s4-5 .tryit-val.swap s { color: #C0392B; opacity: 0.7; }
-        #s4-5 .tryit-val.swap strong { color: #155DFC; }
-        #s4-5 .tryit-stamp { display: inline-block; margin-left: 8px; font-weight: 800; opacity: 0; transform: scale(0.6); transition: opacity 0.15s ease, transform 0.18s cubic-bezier(0.34,1.56,0.64,1); }
-        #s4-5 .is-done .tryit-stamp { opacity: 1; transform: scale(1); }
-        #s4-5 .res-green .tryit-stamp::after { content: '✓'; color: #047857; }
-        #s4-5 .res-amber .tryit-stamp::after { content: '✓'; color: #B54708; }
-        #s4-5 .res-blue .tryit-stamp::after { content: '✓'; color: #155DFC; }
-        #s4-5 .tryit-row-ctl { display: flex; align-items: center; gap: 10px; justify-content: flex-end; }
-        #s4-5 .tryit-chip { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 999px; letter-spacing: 0.04em; white-space: nowrap; }
-        #s4-5 .ch-high { background: #E7F5EF; color: #047857; }
-        #s4-5 .ch-medium { background: #FFFAEB; color: #B54708; }
-        #s4-5 .ch-low { background: #FEF3F2; color: #D92D20; }
-        #s4-5 .tryit-pending { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #B7BCC7; }
-        #s4-5 .tryit-act { display: none; align-items: center; gap: 8px; }
-        #s4-5 .tryit-row.is-active .tryit-act { display: flex; }
-        #s4-5 .tryit-row.is-active .tryit-pending { display: none; }
-        #s4-5 .tryit-row.is-done .tryit-pending, #s4-5 .tryit-row.is-done .tryit-act { display: none; }
-        #s4-5 .tryit-done-pill { display: none; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 600; padding: 6px 11px; border-radius: 999px; }
-        #s4-5 .tryit-row.is-done .tryit-done-pill { display: inline-flex; }
-        #s4-5 .dp-green { background: #E7F5EF; color: #047857; }
-        #s4-5 .dp-amber { background: #FFFAEB; color: #B54708; }
-        #s4-5 .dp-blue { background: #EFF6FF; color: #155DFC; }
-        #s4-5 .tryit-btn { font-family: Manrope, sans-serif; font-size: 12px; font-weight: 700; border-radius: 7px; padding: 9px 15px; border: 1px solid transparent; cursor: pointer; min-height: 40px; transition: transform 0.12s ease, filter 0.15s ease, background 0.15s ease; }
-        #s4-5 .tryit-btn:active { transform: scale(0.97); }
-        #s4-5 .tryit-btn-primary { background: #155DFC; color: #FFFFFF; }
-        #s4-5 .tryit-btn-primary:hover { filter: brightness(1.06); }
-        #s4-5 .tryit-btn-ghost { background: #FFFFFF; color: #4A5565; border-color: #D5D8DF; }
-        #s4-5 .tryit-btn-amber { background: #B54708; color: #FFFFFF; }
-        #s4-5 .tryit-btn-red { background: #D92D20; color: #FFFFFF; }
-        #s4-5 .tryit-btn[disabled] { opacity: 0.45; cursor: not-allowed; }
-        #s4-5 .tryit-btn.is-ready { animation: tiReady 1.6s ease 2; }
-        #s4-5 .tryit-btn.is-sealed { background: #E7F5EF; color: #047857; border-color: #A7E8C6; }
-        @keyframes tiReady { 0%,100% { box-shadow: 0 0 0 0 rgba(21,93,252,0); } 50% { box-shadow: 0 0 0 5px rgba(21,93,252,0.18); } }
-        #s4-5 .tryit-row-help { font-size: 12px; line-height: 1.5; color: #9AA0AC; margin-top: 8px; }
-        #s4-5 .tryit-row.is-active .tryit-row-help { color: #6A7282; }
-        #s4-5 .tryit-why { margin-top: 11px; padding-top: 11px; border-top: 1px dashed #FEDF89; display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; font-size: 12.5px; line-height: 1.6; color: #4A5565; }
-        #s4-5 .tryit-why-tag { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #B54708; background: #FFFAEB; border: 1px solid #FEDF89; border-radius: 6px; padding: 4px 7px; white-space: nowrap; }
-        #s4-5 .tryit-raw { font-family: 'JetBrains Mono', monospace; color: #C9CDD6; }
-        #s4-5 .tryit-picker { margin-top: 11px; padding-top: 11px; border-top: 1px dashed #FECDCA; display: grid; gap: 8px; }
-        #s4-5 .tryit-picker-opt { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 12.5px; padding: 9px 12px; border: 1px solid #ECEDF1; border-radius: 8px; background: #FFFFFF; color: #6A7282; }
-        #s4-5 .tryit-picker-opt.sel { border-color: #155DFC; background: #EFF6FF; color: #101828; }
-        #s4-5 .tryit-picker-opt .tryit-mono { font-size: 9px; }
-        #s4-5 .tryit-pick-x { color: #D92D20; }
-        #s4-5 .tryit-pick-ok { color: #155DFC; }
-        #s4-5 .tryit-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 6px; padding-top: 16px; border-top: 1px solid #ECEDF1; }
-        #s4-5 .tryit-foot-sum { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6A7282; line-height: 1.5; }
-        #s4-5 .tryit-audit-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
-        #s4-5 .tryit-audit-sub { font-size: 11.5px; color: #9AA0AC; margin-top: 3px; }
-        #s4-5 .tryit-counter { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; color: #6A7282; background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 999px; padding: 4px 10px; white-space: nowrap; }
-        #s4-5 .tryit-arows { display: flex; flex-direction: column; gap: 8px; min-height: 132px; }
-        #s4-5 .tryit-ghost { border: 1px dashed #E2E4E9; border-radius: 8px; padding: 22px 14px; text-align: center; font-size: 12px; color: #B7BCC7; line-height: 1.5; }
-        #s4-5 .tryit-arow { border: 1px solid #ECEDF1; border-radius: 8px; padding: 11px 13px; background: #FFFFFF; }
-        #s4-5 .tryit-arow.flash-green { animation: tiFlashG 0.7s ease forwards; }
-        #s4-5 .tryit-arow.flash-amber { animation: tiFlashA 0.7s ease forwards; }
-        #s4-5 .tryit-arow.flash-red { animation: tiFlashR 0.7s ease forwards; }
-        @keyframes tiFlashG { from { background: #E7F5EF; } to { background: #FFFFFF; } }
-        @keyframes tiFlashA { from { background: #FFFAEB; } to { background: #FFFFFF; } }
-        @keyframes tiFlashR { from { background: #FEF3F2; } to { background: #FFFFFF; } }
-        #s4-5 .tryit-arow-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
-        #s4-5 .tryit-arow-field { font-size: 12.5px; font-weight: 800; color: #101828; }
-        #s4-5 .tryit-arow-grid { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; font-size: 12px; }
-        #s4-5 .tryit-arow-k { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.04em; color: #9AA0AC; align-self: center; }
-        #s4-5 .tryit-arow-v { color: #364153; }
-        #s4-5 .tryit-mono2 { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC; }
-        #s4-5 .tryit-arow-reason { margin-top: 8px; padding-top: 7px; border-top: 1px solid #F1F2F5; font-size: 11px; line-height: 1.5; color: #6A7282; }
-        #s4-5 .tryit-insight { margin-top: 16px; border: 1px solid #C7DCFF; border-radius: 10px; background: #F6F9FF; padding: 16px; opacity: 0; transform: translateY(8px); transition: opacity 0.35s ease, transform 0.35s ease; }
-        #s4-5 .tryit-insight.is-lit { opacity: 1; transform: none; animation: tiPulse 0.55s ease 1; }
-        @keyframes tiPulse { 0% { box-shadow: 0 0 0 0 rgba(21,93,252,0); } 45% { box-shadow: 0 0 0 6px rgba(21,93,252,0.18); } 100% { box-shadow: 0 0 0 0 rgba(21,93,252,0); } }
-        #s4-5 .tryit-insight-h { font-size: 14px; font-weight: 800; color: #101828; margin: 8px 0 7px; line-height: 1.4; }
-        #s4-5 .tryit-insight p { font-size: 12.5px; line-height: 1.6; color: #4A5565; margin: 0; }
-        #s4-5 .tryit-narr { display: flex; align-items: center; gap: 14px; margin-top: 14px; border-radius: 10px; background: #15171C; padding: 13px 16px; }
-        #s4-5 .tryit-step { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #7AA5FF; background: rgba(122,165,255,0.12); border: 1px solid rgba(122,165,255,0.25); border-radius: 999px; padding: 6px 11px; white-space: nowrap; }
-        #s4-5 .tryit-narr-text { font-size: 13.5px; line-height: 1.55; color: #E7E9EE; }
-        #s4-5 .tryit-payoff { margin-top: 20px; border: 1px solid #E2E4E9; border-radius: 12px; background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFF 100%); padding: 28px 30px; }
-        #s4-5 .tryit-payoff h3 { font-size: 20px; font-weight: 800; letter-spacing: -0.01em; margin: 8px 0 14px; color: #101828; }
-        #s4-5 .tryit-payoff ul { margin: 0 0 16px; padding: 0; list-style: none; display: grid; gap: 9px; }
-        #s4-5 .tryit-payoff li { position: relative; padding-left: 22px; font-size: 14px; line-height: 1.6; color: #364153; }
-        #s4-5 .tryit-payoff li::before { content: '→'; position: absolute; left: 0; color: #155DFC; font-weight: 700; }
-        #s4-5 .tryit-payoff p { font-size: 14.5px; line-height: 1.7; color: #364153; margin: 0 0 18px; max-width: 70ch; }
-        #s4-5 .tryit-payoff-act { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-        #s4-5 .tryit-jump { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: #155DFC; text-decoration: none; }
-        #s4-5 .tryit-jump:hover { text-decoration: underline; }
-        #s4-5 .tryit-fly { position: fixed; z-index: 9998; pointer-events: none; border-radius: 8px; border: 1px solid #C7DCFF; background: #EFF6FF; padding: 8px 12px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: #101828; box-shadow: 0 14px 30px -10px rgba(16,24,40,0.4); transition: transform 0.42s cubic-bezier(0.16,1,0.3,1), opacity 0.42s ease; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        @keyframes ptRowIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+        @keyframes ptPulse { 0% { box-shadow: 0 0 0 0 rgba(26,86,219,0.35); } 70% { box-shadow: 0 0 0 10px rgba(26,86,219,0); } 100% { box-shadow: 0 0 0 0 rgba(26,86,219,0); } }
+        #s4-5 .pt-mobile { display: none; }
         @media (max-width: 880px) {
-          #s4-5 .tryit-split { grid-template-columns: 1fr; }
-          #s4-5 .tryit-left { border-right: none; border-bottom: 1px solid #ECEDF1; }
-          #s4-5 .tryit-row-top { grid-template-columns: 1fr; gap: 8px; }
-          #s4-5 .tryit-row-ctl { justify-content: flex-start; flex-wrap: wrap; }
-          #s4-5 .tryit-narr { flex-direction: column; align-items: flex-start; gap: 8px; }
-          #s4-5 .tryit-footer { flex-direction: column; align-items: stretch; }
-          #s4-5 .tryit-footer .tryit-btn { width: 100%; }
+          #s4-5 .pt-desktop { display: none; }
+          #s4-5 .pt-mobile { display: block; }
         }
         @media (prefers-reduced-motion: reduce) {
-          #s4-5 .tryit-rail i, #s4-5 .tryit-row, #s4-5 .tryit-stamp, #s4-5 .tryit-scrim, #s4-5 .tryit-insight, #s4-5 .tryit-btn { transition: none !important; }
-          #s4-5 .tryit-arow { animation: none !important; }
-          #s4-5 .tryit-insight.is-lit { animation: none !important; }
-          #s4-5 .tryit-btn.is-ready { animation: none !important; }
+          #s4-5 [style*="ptRowIn"], #s4-5 [style*="ptPulse"] { animation: none !important; }
+        }
+        /* The frame inherits the case-study column, far narrower than the 1400px
+           design canvas. Shed workspace chrome as the container shrinks. */
+        #s4-5 .pt-desktop { container-type: inline-size; }
+        @container (max-width: 1150px) {
+          #s4-5 .pt-rail { display: none !important; }
+          #s4-5 .pt-audit { width: 260px !important; }
+          #s4-5 .pt-flabel { width: 140px !important; }
+          #s4-5 .pt-search { display: none !important; }
+        }
+        @container (max-width: 640px) {
+          #s4-5 .pt-audit { display: none !important; }
         }
       </style>
       <section id="s4-5" data-frame="s4-5" data-screen-label="AI Intake / Try It" style="margin-top: 64px;">
@@ -634,155 +532,373 @@
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
           <div data-reveal="0" style="display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; background: #EFF6FF; border: 1px solid #D6E4FF; border-radius: 999px; padding: 4px 12px; margin-bottom: 16px;">▶ INTERACTIVE · DRIVE IT YOURSELF</div>
           <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">Try the AI intake yourself</h2>
-          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 72ch;">This is the same screen a Fiserv agent saw. The AI already read the cardholder's complaint and pre-filled five fields, each tagged with how sure it is. Your job is the agent's job: accept the ones it nailed, verify the one it is only guessing at, and catch the one it got wrong. Every decision you make writes itself into the audit log on the right, in real time. Drive it once and you understand the whole product: the AI suggests, a human confirms, and the record is how the system learns. Nothing is ever submitted for you.</p>
+          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 72ch;">This is the same screen a Fiserv agent saw, rebuilt in the DWS design system. The AI has already read the cardholder's complaint and pre-filled five fields, each tagged with how sure it is. Press start and do the agent's job yourself. Nothing is submitted for you.</p>
 
-          <div data-reveal="1" class="tryit-stage">
-            <div class="tryit-rail" role="progressbar" aria-label="Walkthrough progress" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0" aria-valuetext="0 of 5 fields reviewed"><i></i></div>
-            <div class="tryit-chrome">
-              <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9AA0AC;">Cases / New dispute / Intake</span>
-              <span class="tryit-pill"><svg width="10" height="10" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="none" stroke="#155DFC" stroke-width="1.5"/><circle cx="8" cy="8" r="2" fill="#155DFC"/></svg> AI-assisted</span>
-            </div>
-            <div class="tryit-split">
-              <!-- LEFT: the intake the visitor drives -->
-              <div class="tryit-left">
-                <div class="tryit-quote">
-                  <span class="tryit-mono">CARDHOLDER'S DESCRIPTION</span>
-                  <div class="tryit-quote-text">"I was charged $47.50 twice for the same Uber ride on March 3rd. I only took one trip."</div>
-                </div>
-                <div class="tryit-fields">
-                  <!-- HIGH · dispute type -->
-                  <div class="tryit-row" data-field="type" data-conf="HIGH">
-                    <div class="tryit-row-top">
-                      <div class="tryit-row-label">Dispute type</div>
-                      <div class="tryit-row-value"><span class="tryit-val">Duplicate charge</span><span class="tryit-stamp" aria-hidden="true"></span></div>
-                      <div class="tryit-row-ctl">
-                        <span class="tryit-chip ch-high">HIGH</span>
-                        <span class="tryit-pending">your call</span>
-                        <span class="tryit-act"><button type="button" class="tryit-btn tryit-btn-primary" data-act="accept" aria-label="Accept Dispute type, high confidence">Accept</button></span>
-                        <span class="tryit-done-pill dp-green">Accepted ✓</span>
-                      </div>
-                    </div>
-                    <div class="tryit-row-help">High confidence. Review and accept after a light check.</div>
-                  </div>
-                  <!-- HIGH · amount -->
-                  <div class="tryit-row" data-field="amount" data-conf="HIGH">
-                    <div class="tryit-row-top">
-                      <div class="tryit-row-label">Disputed amount</div>
-                      <div class="tryit-row-value"><span class="tryit-val" style="font-variant-numeric: tabular-nums;">$47.50</span><span class="tryit-stamp" aria-hidden="true"></span></div>
-                      <div class="tryit-row-ctl">
-                        <span class="tryit-chip ch-high">HIGH</span>
-                        <span class="tryit-pending">your call</span>
-                        <span class="tryit-act"><button type="button" class="tryit-btn tryit-btn-primary" data-act="accept" aria-label="Accept Disputed amount, high confidence">Accept</button></span>
-                        <span class="tryit-done-pill dp-green">Accepted ✓</span>
-                      </div>
-                    </div>
-                    <div class="tryit-row-help">High confidence. The amount matched the cardholder's own words.</div>
-                  </div>
-                  <!-- HIGH · date -->
-                  <div class="tryit-row" data-field="date" data-conf="HIGH">
-                    <div class="tryit-row-top">
-                      <div class="tryit-row-label">Transaction date</div>
-                      <div class="tryit-row-value"><span class="tryit-val" style="font-variant-numeric: tabular-nums;">Mar 3, 2026</span><span class="tryit-stamp" aria-hidden="true"></span></div>
-                      <div class="tryit-row-ctl">
-                        <span class="tryit-chip ch-high">HIGH</span>
-                        <span class="tryit-pending">your call</span>
-                        <span class="tryit-act"><button type="button" class="tryit-btn tryit-btn-primary" data-act="accept" aria-label="Accept Transaction date, high confidence">Accept</button></span>
-                        <span class="tryit-done-pill dp-green">Accepted ✓</span>
-                      </div>
-                    </div>
-                    <div class="tryit-row-help">High confidence. The date was stated directly in the complaint.</div>
-                  </div>
-                  <!-- MEDIUM · merchant -->
-                  <div class="tryit-row" data-field="merchant" data-conf="MEDIUM">
-                    <div class="tryit-row-top">
-                      <div class="tryit-row-label">Merchant</div>
-                      <div class="tryit-row-value"><span class="tryit-val">Uber Technologies</span><span class="tryit-stamp" aria-hidden="true"></span></div>
-                      <div class="tryit-row-ctl">
-                        <span class="tryit-chip ch-medium">MEDIUM</span>
-                        <span class="tryit-pending">your call</span>
-                        <span class="tryit-act">
-                          <button type="button" class="tryit-btn tryit-btn-ghost" data-act="why" aria-expanded="false">Why MEDIUM?</button>
-                          <button type="button" class="tryit-btn tryit-btn-amber" data-act="verify" aria-label="Verify Merchant, medium confidence">Verify</button>
-                        </span>
-                        <span class="tryit-done-pill dp-amber">Verified ✓</span>
-                      </div>
-                    </div>
-                    <div class="tryit-row-help">Medium confidence. Check the evidence before you trust it.</div>
-                    <div class="tryit-why" hidden>
-                      <span class="tryit-why-tag">WHY MEDIUM</span>
-                      <div>The descriptor reads <strong style="color: #101828;">UBER&nbsp;*TRIP&nbsp;HELP.UBER.CO</strong>, which maps to Uber but is not an exact biller match. Confirm the merchant before the duplicate-charge rule applies. <span class="tryit-raw">raw · 0.64</span></div>
-                    </div>
-                  </div>
-                  <!-- LOW · sub-reason code (the climax) -->
-                  <div class="tryit-row" data-field="code" data-conf="LOW">
-                    <div class="tryit-row-top">
-                      <div class="tryit-row-label">Sub-reason code</div>
-                      <div class="tryit-row-value"><span class="tryit-val">10.4 <span class="tryit-amb">(ambiguous)</span></span><span class="tryit-stamp" aria-hidden="true"></span></div>
-                      <div class="tryit-row-ctl">
-                        <span class="tryit-chip ch-low">LOW</span>
-                        <span class="tryit-pending">your call</span>
-                        <span class="tryit-act"><button type="button" class="tryit-btn tryit-btn-red" data-act="override-open" aria-label="Override Sub-reason code, low confidence">Override</button></span>
-                        <span class="tryit-done-pill dp-blue">Overridden ✓</span>
-                      </div>
-                    </div>
-                    <div class="tryit-row-help">Low confidence. The AI is guessing here, and it guessed wrong.</div>
-                    <div class="tryit-picker" hidden>
-                      <div class="tryit-picker-opt"><span><s>10.4</s> &nbsp;Cardholder dispute (generic)</span><span class="tryit-pick-x tryit-mono">AI GUESS</span></div>
-                      <div class="tryit-picker-opt sel"><span><strong>12.6.1</strong> &nbsp;Duplicate processing</span><span class="tryit-pick-ok tryit-mono">CORRECT</span></div>
-                      <button type="button" class="tryit-btn tryit-btn-primary" data-act="save" style="justify-self: start;">Save correction</button>
-                    </div>
-                  </div>
-
-                  <!-- scrim with start button -->
-                  <div class="tryit-scrim">
-                    <button type="button" class="tryit-btn tryit-btn-primary" data-act="start" style="font-size: 13px; padding: 12px 22px;">▶ Start the walkthrough</button>
-                  </div>
-                </div>
-                <div class="tryit-footer">
-                  <span class="tryit-foot-sum">Review each field. Nothing is submitted until you confirm.</span>
-                  <button type="button" class="tryit-btn tryit-btn-primary" data-act="confirm" disabled>Confirm intake</button>
-                </div>
+          <!-- mobile fallback -->
+          <div class="pt-mobile" data-reveal="1">
+            <div style="border: 1px solid #E2E4E9; border-radius: 12px; background: #F7F8FA; padding: 24px 20px;">
+              <div style="font-family: 'Fraunces', serif; font-weight: 900; font-size: 21px; color: #101828; line-height: 1.2; margin-bottom: 10px;">For the next minute, you're the bank agent.</div>
+              <p style="font-size: 14px; line-height: 1.65; color: #4A5565; margin: 0 0 16px;">A guided 90-second walkthrough of the AI intake: accept what the AI nailed, verify what it is unsure of, and catch the one thing it got wrong. Every decision you make writes itself into a live audit log.</p>
+              <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
+                <div style="border: 1px solid #E5E7EB; border-radius: 6px; background: #fff; padding: 9px 12px;"><span style="font-size: 13px; font-weight: 700; color: #1A56DB;">AI classifies</span> <span style="font-size: 12px; color: #6B7280;">pre-fills the fields</span></div>
+                <div style="border: 1px solid #E5E7EB; border-radius: 6px; background: #fff; padding: 9px 12px;"><span style="font-size: 13px; font-weight: 700; color: #1A56DB;">You confirm</span> <span style="font-size: 12px; color: #6B7280;">every single field</span></div>
+                <div style="border: 1px solid #E5E7EB; border-radius: 6px; background: #fff; padding: 9px 12px;"><span style="font-size: 13px; font-weight: 700; color: #1A56DB;">All auditable</span> <span style="font-size: 12px; color: #6B7280;">watch the log fill up</span></div>
               </div>
-              <!-- RIGHT: the audit log builds from the visitor's actions -->
-              <div class="tryit-right">
-                <div class="tryit-audit-head">
-                  <div>
-                    <div class="tryit-mono" style="color: #155DFC;">AUDIT LOG · LIVE</div>
-                    <div class="tryit-audit-sub">every decision, the moment you make it</div>
-                  </div>
-                  <span class="tryit-counter">0 of 5 logged</span>
-                </div>
-                <div class="tryit-arows">
-                  <div class="tryit-ghost">Your decisions appear here.<br>One row per field.</div>
-                </div>
-                <div class="tryit-insight" hidden>
-                  <div class="tryit-mono" style="color: #155DFC;">★ CALIBRATION INSIGHT</div>
-                  <div class="tryit-insight-h">This override is exactly the signal the team learns from.</div>
-                  <p>A low-confidence field that humans keep correcting the same way (10.4 → 12.6.1) tells the team the extraction rule is wrong. Your one correction is one data point. A thousand like it retrains the model.</p>
-                </div>
-              </div>
+              <div style="display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #92400E; background: #FEF3C7; border: 1px solid #FDE68A; border-radius: 999px; padding: 6px 12px;">⤢ Open this page on a laptop to drive it</div>
             </div>
           </div>
 
-          <!-- narration bar: the always-on teaching line -->
-          <div class="tryit-narr">
-            <span class="tryit-step">START</span>
-            <span class="tryit-narr-text" role="status" aria-live="polite" aria-atomic="true">Here is a real dispute in the cardholder's own words. The AI read it and filled five fields, each rated by how sure it is: green is sure, amber is a maybe, red is shaky. Press Start and you decide on each one.</span>
-          </div>
+          <!-- desktop prototype -->
+          <div class="pt-desktop" data-reveal="1">
+            <div style="position: relative; width: 100%; height: 880px; background: #fff; border: 1px solid #D5D8DE; border-radius: 10px; box-shadow: 0 24px 60px rgba(21,23,28,0.14); overflow: hidden; display: flex; flex-direction: column;">
 
-          <!-- payoff: read the visitor's own session back to them -->
-          <div class="tryit-payoff" hidden>
-            <div class="tryit-mono" style="color: #155DFC;">WHAT THE AI LEARNS FROM YOU</div>
-            <h3>Your session, read back</h3>
-            <ul>
-              <li>3 HIGH fields accepted as-is. The AI earned trust on the easy calls.</li>
-              <li>1 MEDIUM field verified, after you opened the evidence and agreed.</li>
-              <li>1 LOW field overridden, 10.4 corrected to 12.6.1. The strongest signal of all.</li>
-            </ul>
-            <p>That trail is the product's memory. Multiply it by thousands of cases and it shows the team exactly where the AI earns trust and where it still needs work. The record you built for the regulator is the same record that makes the AI better.</p>
-            <div class="tryit-payoff-act">
-              <button type="button" class="tryit-btn tryit-btn-ghost" data-act="replay">↻ Replay walkthrough</button>
-              <a href="#s6" class="tryit-jump">See the real audit log ↓</a>
+              <!-- top bar -->
+              <div style="height: 56px; border-bottom: 1px solid #E5E7EB; display: flex; align-items: center; gap: 14px; padding: 0 20px; flex-shrink: 0; background: #fff;">
+                <div style="width: 30px; height: 30px; background: #1A56DB; border-radius: 6px; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px;">D</div>
+                <div style="font-size: 15px; font-weight: 700; color: #111928;">Disputes Workspace</div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1px; background: #FEF3C7; color: #92400E; padding: 3px 8px; border-radius: 4px;">PORTFOLIO DEMO</div>
+                <div style="margin-left: auto; display: flex; align-items: center; gap: 14px;">
+                  <div class="pt-search" style="width: 220px; height: 32px; border: 1px solid #E5E7EB; border-radius: 4px; background: #F9FAFB; display: flex; align-items: center; gap: 8px; padding: 0 10px; color: #9CA3AF; font-size: 13px;">⌕ Search cases, accounts…</div>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 30px; height: 30px; border-radius: 50%; background: #DCE6FE; color: #1A56DB; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">AR</div>
+                    <div>
+                      <div style="font-size: 12px; font-weight: 700; color: #111928; line-height: 1.2;">A. Rivera</div>
+                      <div style="font-size: 10px; color: #6B7280; line-height: 1.2;">Dispute Agent · you</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- body -->
+              <div style="flex: 1; display: flex; min-height: 0;">
+
+                <!-- left rail -->
+                <div class="pt-rail" style="width: 180px; flex-shrink: 0; border-right: 1px solid #E5E7EB; background: #F9FAFB; padding: 14px 10px; display: flex; flex-direction: column; gap: 2px;">
+                  <div style="font-size: 10px; letter-spacing: 1.5px; color: #9CA3AF; font-weight: 700; padding: 4px 10px 8px;">WORKSPACE</div>
+                  <div style="display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 4px; background: #EBF2FF; color: #1A56DB; font-size: 13px; font-weight: 700;"><span>▤</span> Cases</div>
+                  <div style="display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 4px; color: #4B5563; font-size: 13px; font-weight: 600;"><span>☰</span> Work Queues</div>
+                  <div style="display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 4px; color: #4B5563; font-size: 13px; font-weight: 600;"><span>▥</span> Reports</div>
+                  <div style="display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 4px; color: #4B5563; font-size: 13px; font-weight: 600;"><span>⚙</span> Admin</div>
+                  <div style="margin-top: auto; background: #fff; border: 1px solid #E5E7EB; border-radius: 6px; padding: 10px 12px;">
+                    <div style="font-size: 10px; letter-spacing: 1px; color: #9CA3AF; font-weight: 700; margin-bottom: 6px;">YOUR QUEUE</div>
+                    <div style="font-size: 13px; color: #111928; font-weight: 700;">34 open cases</div>
+                    <div style="font-size: 11px; color: #C81E1E; margin-top: 2px;">3 near Reg E deadline</div>
+                  </div>
+                </div>
+
+                <!-- main column -->
+                <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; position: relative; background: #F9FAFB;">
+
+                  <!-- breadcrumb bar -->
+                  <div style="height: 46px; flex-shrink: 0; border-bottom: 1px solid #E5E7EB; background: #fff; display: flex; align-items: center; gap: 10px; padding: 0 24px;">
+                    <div style="font-size: 13px; color: #6B7280;">Cases / New dispute / <span style="color: #111928; font-weight: 700;">Intake</span></div>
+                    <div style="display: flex; align-items: center; gap: 6px; background: #EBF2FF; border: 1px solid #C3D4F8; color: #1A56DB; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 999px;">✦ AI-assisted</div>
+                    <div style="display: flex; align-items: center; gap: 6px; background: #FEF3F2; border: 1px solid #FECDCA; color: #C81E1E; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 999px;">⏱ REG E · 9 DAYS LEFT</div>
+                    <div style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9CA3AF;">case draft · DIS-8842-013</div>
+                  </div>
+
+                  <!-- scrollable content -->
+                  <div style="flex: 1; overflow-y: auto; padding: 20px 24px 130px; min-height: 0;">
+
+                    <!-- NOT CONFIRMED: the intake form -->
+                    <sc-if value="{{ notConfirmed }}" hint-placeholder-val="{{ true }}">
+
+                      <!-- cardholder description -->
+                      <div style="background: #fff; border: 1px solid #E5E7EB; border-radius: 6px; padding: 16px 18px; margin-bottom: 14px;">
+                        <div style="font-size: 10px; letter-spacing: 1.5px; color: #9CA3AF; font-weight: 700; margin-bottom: 8px;">CARDHOLDER'S DESCRIPTION · RECEIVED VIA CALL CENTER</div>
+                        <div style="font-size: 16px; color: #111928; line-height: 1.5;">“I was charged <b>$47.50 twice</b> for the same <b>Uber</b> ride on <b>March 3rd</b>. I only took one trip.”</div>
+                        <div style="margin-top: 12px; background: #EBF2FF; border: 1px solid #C3D4F8; border-radius: 4px; padding: 10px 12px; display: flex; align-items: center; gap: 10px;">
+                          <div style="font-size: 15px; color: #1A56DB;">✦</div>
+                          <div style="font-size: 13px; color: #1E429F;">The AI read these words and pre-filled the 5 fields below. Each one is rated by how sure the AI is. <b>The rating tells you what to do next.</b></div>
+                        </div>
+                      </div>
+
+                      <!-- legend -->
+                      <div style="display: flex; gap: 10px; margin-bottom: 14px;">
+                        <div style="flex: 1; background: #fff; border: 1px solid #E5E7EB; border-left: 3px solid #0E9F6E; border-radius: 4px; padding: 8px 12px;">
+                          <span style="font-size: 11px; font-weight: 700; color: #03543F; background: #DEF7EC; padding: 2px 8px; border-radius: 3px;">HIGH</span>
+                          <span style="font-size: 12px; color: #4B5563; margin-left: 8px;">the AI is sure → review &amp; accept</span>
+                        </div>
+                        <div style="flex: 1; background: #fff; border: 1px solid #E5E7EB; border-left: 3px solid #C27803; border-radius: 4px; padding: 8px 12px;">
+                          <span style="font-size: 11px; font-weight: 700; color: #92400E; background: #FEF3C7; padding: 2px 8px; border-radius: 3px;">MEDIUM</span>
+                          <span style="font-size: 12px; color: #4B5563; margin-left: 8px;">a maybe → check the evidence first</span>
+                        </div>
+                        <div style="flex: 1; background: #fff; border: 1px solid #E5E7EB; border-left: 3px solid #C81E1E; border-radius: 4px; padding: 8px 12px;">
+                          <span style="font-size: 11px; font-weight: 700; color: #9B1C1C; background: #FDE8E8; padding: 2px 8px; border-radius: 3px;">LOW</span>
+                          <span style="font-size: 12px; color: #4B5563; margin-left: 8px;">a guess → a person decides</span>
+                        </div>
+                      </div>
+
+                      <!-- banner -->
+                      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+                        <div style="font-size: 13px; font-weight: 700; color: #111928;">✦ AI pre-filled 5 fields</div>
+                        <div style="font-size: 12px; color: #6B7280;">{{ decidedCount }} of 5 decided by you</div>
+                        <button onClick="{{ acceptAll }}" style="margin-left: auto; height: 28px; padding: 0 12px; border-radius: 4px; border: 1px solid #C3D4F8; background: #fff; color: #1A56DB; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit;">Accept all</button>
+                      </div>
+                      <sc-if value="{{ acceptAllNote }}" hint-placeholder-val="{{ false }}">
+                        <div style="background: #FFFBEB; border: 1px solid #FACA15; border-radius: 4px; padding: 10px 14px; margin-bottom: 10px; font-size: 13px; color: #723B13; animation: ptRowIn 0.25s ease;">
+                          <b>Tempting, right?</b> That one-click urge is called <b>automation bias</b>, so the design only lets “Accept all” touch the green fields. The amber and red ones still need your eyes.
+                        </div>
+                      </sc-if>
+
+                      <!-- FIELD: dispute type -->
+                      <div style="background: #fff; border: 1px solid {{ typeBorder }}; border-radius: 6px; padding: 14px 18px; margin-bottom: 8px; display: flex; align-items: center; gap: 16px;">
+                        <div class="pt-flabel" style="width: 200px; flex-shrink: 0;">
+                          <div style="font-size: 10px; letter-spacing: 1px; color: #9CA3AF; font-weight: 700;">DISPUTE TYPE</div>
+                          <div style="font-size: 15px; font-weight: 700; color: #111928; margin-top: 3px;">Duplicate charge</div>
+                        </div>
+                        <div style="font-size: 11px; font-weight: 700; color: #03543F; background: #DEF7EC; padding: 3px 10px; border-radius: 3px; flex-shrink: 0;">HIGH</div>
+                        <div style="font-size: 12px; color: #6B7280; flex: 1;">Matches the cardholder's own words: “charged twice”. → Review and accept.</div>
+                        <sc-if value="{{ typePending }}" hint-placeholder-val="{{ true }}">
+                          <button onClick="{{ acceptType }}" style="height: 36px; padding: 8px 16px; min-width: 80px; border-radius: 4px; border: none; background: #1A56DB; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;">Accept</button>
+                        </sc-if>
+                        <sc-if value="{{ typeDone }}" hint-placeholder-val="{{ false }}">
+                          <div style="font-size: 13px; font-weight: 700; color: #0E9F6E;">Accepted ✓</div>
+                        </sc-if>
+                      </div>
+
+                      <!-- FIELD: amount -->
+                      <div style="background: #fff; border: 1px solid {{ amountBorder }}; border-radius: 6px; padding: 14px 18px; margin-bottom: 8px; display: flex; align-items: center; gap: 16px;">
+                        <div class="pt-flabel" style="width: 200px; flex-shrink: 0;">
+                          <div style="font-size: 10px; letter-spacing: 1px; color: #9CA3AF; font-weight: 700;">DISPUTED AMOUNT</div>
+                          <div style="font-size: 15px; font-weight: 700; color: #111928; margin-top: 3px;">$47.50</div>
+                        </div>
+                        <div style="font-size: 11px; font-weight: 700; color: #03543F; background: #DEF7EC; padding: 3px 10px; border-radius: 3px; flex-shrink: 0;">HIGH</div>
+                        <div style="font-size: 12px; color: #6B7280; flex: 1;">The exact amount stated on the call. → Review and accept.</div>
+                        <sc-if value="{{ amountPending }}" hint-placeholder-val="{{ true }}">
+                          <button onClick="{{ acceptAmount }}" style="height: 36px; padding: 8px 16px; min-width: 80px; border-radius: 4px; border: none; background: #1A56DB; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;">Accept</button>
+                        </sc-if>
+                        <sc-if value="{{ amountDone }}" hint-placeholder-val="{{ false }}">
+                          <div style="font-size: 13px; font-weight: 700; color: #0E9F6E;">Accepted ✓</div>
+                        </sc-if>
+                      </div>
+
+                      <!-- FIELD: date -->
+                      <div style="background: #fff; border: 1px solid {{ dateBorder }}; border-radius: 6px; padding: 14px 18px; margin-bottom: 8px; display: flex; align-items: center; gap: 16px;">
+                        <div class="pt-flabel" style="width: 200px; flex-shrink: 0;">
+                          <div style="font-size: 10px; letter-spacing: 1px; color: #9CA3AF; font-weight: 700;">TRANSACTION DATE</div>
+                          <div style="font-size: 15px; font-weight: 700; color: #111928; margin-top: 3px;">Mar 3, 2026</div>
+                        </div>
+                        <div style="font-size: 11px; font-weight: 700; color: #03543F; background: #DEF7EC; padding: 3px 10px; border-radius: 3px; flex-shrink: 0;">HIGH</div>
+                        <div style="font-size: 12px; color: #6B7280; flex: 1;">Stated directly: “on March 3rd”. → Review and accept.</div>
+                        <sc-if value="{{ datePending }}" hint-placeholder-val="{{ true }}">
+                          <button onClick="{{ acceptDate }}" style="height: 36px; padding: 8px 16px; min-width: 80px; border-radius: 4px; border: none; background: #1A56DB; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;">Accept</button>
+                        </sc-if>
+                        <sc-if value="{{ dateDone }}" hint-placeholder-val="{{ false }}">
+                          <div style="font-size: 13px; font-weight: 700; color: #0E9F6E;">Accepted ✓</div>
+                        </sc-if>
+                      </div>
+
+                      <!-- FIELD: merchant (MEDIUM) -->
+                      <div style="background: #fff; border: 1px solid {{ merchantBorder }}; border-radius: 6px; margin-bottom: 8px;">
+                        <div style="padding: 14px 18px; display: flex; align-items: center; gap: 16px;">
+                          <div class="pt-flabel" style="width: 200px; flex-shrink: 0;">
+                            <div style="font-size: 10px; letter-spacing: 1px; color: #9CA3AF; font-weight: 700;">MERCHANT</div>
+                            <div style="font-size: 15px; font-weight: 700; color: #111928; margin-top: 3px;">Uber Technologies</div>
+                          </div>
+                          <div style="font-size: 11px; font-weight: 700; color: #92400E; background: #FEF3C7; padding: 3px 10px; border-radius: 3px; flex-shrink: 0;">MEDIUM</div>
+                          <div style="font-size: 12px; color: #6B7280; flex: 1;">The AI is only partly sure. → Verify before continuing.</div>
+                          <sc-if value="{{ merchantPending }}" hint-placeholder-val="{{ true }}">
+                            <button onClick="{{ toggleEvidence }}" style="height: 36px; padding: 8px 16px; border-radius: 4px; border: 1px solid #C3D4F8; background: #EBF2FF; color: #1A56DB; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;">Why MEDIUM?</button>
+                            <sc-if value="{{ evidenceOpen }}" hint-placeholder-val="{{ false }}">
+                              <button onClick="{{ verifyMerchant }}" style="height: 36px; padding: 8px 16px; min-width: 80px; border-radius: 4px; border: none; background: #1A56DB; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;">Verify</button>
+                            </sc-if>
+                          </sc-if>
+                          <sc-if value="{{ merchantDone }}" hint-placeholder-val="{{ false }}">
+                            <div style="font-size: 13px; font-weight: 700; color: #0E9F6E;">Verified ✓</div>
+                          </sc-if>
+                        </div>
+                        <sc-if value="{{ showEvidence }}" hint-placeholder-val="{{ false }}">
+                          <div style="border-top: 1px solid #E5E7EB; background: #EBF2FF; padding: 12px 18px; animation: ptRowIn 0.25s ease;">
+                            <div style="font-size: 10px; letter-spacing: 1.5px; color: #1E429F; font-weight: 700; margin-bottom: 6px;">✦ THE AI'S EVIDENCE. READ THIS BEFORE THE SCORE</div>
+                            <div style="font-size: 13px; color: #1E429F; line-height: 1.55;">The card statement reads <span style="font-family: 'JetBrains Mono', monospace; background: #fff; border: 1px solid #C3D4F8; border-radius: 3px; padding: 1px 6px; font-size: 12px;">UBER *TRIP HELP.UBER.CO</span>, a messy “descriptor”, not a clean name. It maps to Uber, but it is not an exact match to a known biller. If you agree it's Uber, verify it. <span style="color: #6B7280;">raw score · 0.64 (kept last, on purpose)</span></div>
+                          </div>
+                        </sc-if>
+                      </div>
+
+                      <!-- FIELD: sub-reason (LOW) -->
+                      <div style="background: #fff; border: 1px solid {{ subBorder }}; border-radius: 6px; margin-bottom: 8px;">
+                        <div style="padding: 14px 18px; display: flex; align-items: center; gap: 16px;">
+                          <div class="pt-flabel" style="width: 200px; flex-shrink: 0;">
+                            <div style="font-size: 10px; letter-spacing: 1px; color: #9CA3AF; font-weight: 700;">SUB-REASON CODE</div>
+                            <div style="font-size: 15px; font-weight: 700; color: {{ subValueColor }}; margin-top: 3px;">{{ subValue }}</div>
+                          </div>
+                          <div style="font-size: 11px; font-weight: 700; color: #9B1C1C; background: #FDE8E8; padding: 3px 10px; border-radius: 3px; flex-shrink: 0;">LOW</div>
+                          <div style="font-size: 12px; color: #6B7280; flex: 1;">This code decides which card-network rules the case follows. The AI is guessing between two. → Manual review.</div>
+                          <sc-if value="{{ subPending }}" hint-placeholder-val="{{ true }}">
+                            <button onClick="{{ toggleSub }}" style="height: 36px; padding: 8px 16px; min-width: 80px; border-radius: 4px; border: 1px solid #F8B4B4; background: #FDF2F2; color: #9B1C1C; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;">Override</button>
+                          </sc-if>
+                          <sc-if value="{{ subDone }}" hint-placeholder-val="{{ false }}">
+                            <div style="font-size: 13px; font-weight: 700; color: #0E9F6E;">Overridden ✓</div>
+                          </sc-if>
+                        </div>
+                        <sc-if value="{{ subOpen }}" hint-placeholder-val="{{ false }}">
+                          <div style="border-top: 1px solid #E5E7EB; background: #F9FAFB; padding: 14px 18px; animation: ptRowIn 0.25s ease;">
+                            <div style="font-size: 10px; letter-spacing: 1.5px; color: #6B7280; font-weight: 700; margin-bottom: 10px;">YOUR CALL. WHICH CODE FITS “CHARGED TWICE FOR ONE RIDE”?</div>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                              <div onClick="{{ choose104 }}" style="display: flex; align-items: center; gap: 12px; background: #fff; border: 1.5px solid {{ b104 }}; border-radius: 4px; padding: 10px 14px; cursor: pointer;">
+                                <div style="width: 16px; height: 16px; border-radius: 50%; border: 2px solid {{ r104 }}; background: {{ f104 }}; box-sizing: border-box;"></div>
+                                <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #111928; width: 60px;">10.4</div>
+                                <div style="font-size: 13px; color: #4B5563;">Fraud, card-absent environment <span style="color: #9CA3AF;">· the AI's guess (raw 0.38)</span></div>
+                              </div>
+                              <div onClick="{{ choose1261 }}" style="display: flex; align-items: center; gap: 12px; background: #fff; border: 1.5px solid {{ b1261 }}; border-radius: 4px; padding: 10px 14px; cursor: pointer;">
+                                <div style="width: 16px; height: 16px; border-radius: 50%; border: 2px solid {{ r1261 }}; background: {{ f1261 }}; box-sizing: border-box;"></div>
+                                <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #111928; width: 60px;">12.6.1</div>
+                                <div style="font-size: 13px; color: #4B5563;">Duplicate processing, same charge billed twice</div>
+                              </div>
+                              <div onClick="{{ choose131 }}" style="display: flex; align-items: center; gap: 12px; background: #fff; border: 1.5px solid {{ b131 }}; border-radius: 4px; padding: 10px 14px; cursor: pointer;">
+                                <div style="width: 16px; height: 16px; border-radius: 50%; border: 2px solid {{ r131 }}; background: {{ f131 }}; box-sizing: border-box;"></div>
+                                <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #111928; width: 60px;">13.1</div>
+                                <div style="font-size: 13px; color: #4B5563;">Merchandise / services not received</div>
+                              </div>
+                            </div>
+                            <sc-if value="{{ subHint }}" hint-placeholder-val="{{ false }}">
+                              <div style="margin-top: 10px; background: #FDF2F2; border: 1px solid #F8B4B4; border-radius: 4px; padding: 8px 12px; font-size: 13px; color: #9B1C1C; animation: ptRowIn 0.2s ease;">Re-read the cardholder: “charged <b>twice</b> for <b>one</b> ride.” One real charge, billed twice. That is <b>duplicate processing</b>.</div>
+                            </sc-if>
+                            <div style="margin-top: 12px; display: flex; align-items: center; gap: 10px;">
+                              <button onClick="{{ saveSub }}" style="height: 36px; padding: 8px 16px; border-radius: 4px; border: none; background: {{ saveSubBg }}; color: #fff; font-size: 14px; font-weight: 600; cursor: {{ saveSubCursor }}; font-family: inherit;">Save correction</button>
+                              <div style="font-size: 12px; color: #6B7280;">your correction is logged with a reason. It becomes training signal</div>
+                            </div>
+                          </div>
+                        </sc-if>
+                      </div>
+                    </sc-if>
+
+                    <!-- CONFIRMED: the read-back -->
+                    <sc-if value="{{ confirmed }}" hint-placeholder-val="{{ false }}">
+                      <div style="animation: ptRowIn 0.3s ease;">
+                        <div style="background: #DEF7EC; border: 1px solid #84E1BC; border-radius: 6px; padding: 16px 18px; display: flex; align-items: center; gap: 14px; margin-bottom: 14px;">
+                          <div style="width: 36px; height: 36px; border-radius: 50%; background: #0E9F6E; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 17px;">✓</div>
+                          <div>
+                            <div style="font-size: 15px; font-weight: 700; color: #03543F;">Intake confirmed. Case DIS-8842-013 created</div>
+                            <div style="font-size: 13px; color: #046C4E;">Routed to the duplicate-processing queue with the correct code. The Reg E clock starts with clean data.</div>
+                          </div>
+                        </div>
+
+                        <div style="background: #fff; border: 1px solid #E5E7EB; border-radius: 6px; padding: 18px 20px; margin-bottom: 14px;">
+                          <div style="font-size: 10px; letter-spacing: 1.5px; color: #9CA3AF; font-weight: 700; margin-bottom: 12px;">YOUR SESSION, READ BACK</div>
+                          <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px; color: #111928;">
+                            <div style="display: flex; gap: 10px; align-items: baseline;"><span style="font-size: 11px; font-weight: 700; color: #03543F; background: #DEF7EC; padding: 2px 8px; border-radius: 3px; flex-shrink: 0;">3 HIGH</span> accepted as-is. The AI earned trust on the easy calls.</div>
+                            <div style="display: flex; gap: 10px; align-items: baseline;"><span style="font-size: 11px; font-weight: 700; color: #92400E; background: #FEF3C7; padding: 2px 8px; border-radius: 3px; flex-shrink: 0;">1 MEDIUM</span> verified, but only after you opened the evidence and agreed.</div>
+                            <div style="display: flex; gap: 10px; align-items: baseline;"><span style="font-size: 11px; font-weight: 700; color: #9B1C1C; background: #FDE8E8; padding: 2px 8px; border-radius: 3px; flex-shrink: 0;">1 LOW</span> overridden, 10.4 → 12.6.1. The strongest signal of all.</div>
+                          </div>
+                        </div>
+
+                        <div style="background: #15171C; border-radius: 6px; padding: 18px 20px; margin-bottom: 14px;">
+                          <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; color: #9FB6F9; margin-bottom: 10px;">★ WHY THIS IS THE HERO IDEA</div>
+                          <div style="font-size: 14px; color: #E5E7EB; line-height: 1.6;">The log you just wrote satisfies a <b style="color: #fff;">compliance reviewer</b> (who decided what, when, on what basis) and it teaches the <b style="color: #fff;">product team</b>. A thousand agents making your same 10.4 → 12.6.1 correction is not a thousand errors. It is a precise instruction for what to fix next. <span style="color: #9FB6F9;">The record built for the regulator is the same record that makes the AI better.</span></div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+                          <button onClick="{{ replay }}" style="height: 36px; padding: 8px 16px; border-radius: 4px; border: 1px solid #C3D4F8; background: #fff; color: #1A56DB; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;">↻ Replay the walkthrough</button>
+                          <a href="#s6" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: #155DFC; text-decoration: none;">See the real audit log ↓</a>
+                        </div>
+                      </div>
+                    </sc-if>
+                  </div>
+
+                  <!-- footer confirm bar -->
+                  <sc-if value="{{ notConfirmed }}" hint-placeholder-val="{{ true }}">
+                    <div style="position: absolute; left: 0; right: 0; bottom: 0; background: #fff; border-top: 1px solid #E5E7EB; padding: 12px 24px; display: flex; align-items: center; gap: 14px;">
+                      <div style="display: flex; gap: 5px;">
+                        <div style="width: 24px; height: 6px; border-radius: 3px; background: {{ dot1 }};"></div>
+                        <div style="width: 24px; height: 6px; border-radius: 3px; background: {{ dot2 }};"></div>
+                        <div style="width: 24px; height: 6px; border-radius: 3px; background: {{ dot3 }};"></div>
+                        <div style="width: 24px; height: 6px; border-radius: 3px; background: {{ dot4 }};"></div>
+                        <div style="width: 24px; height: 6px; border-radius: 3px; background: {{ dot5 }};"></div>
+                      </div>
+                      <div style="font-size: 13px; color: #6B7280;">{{ footerHint }}</div>
+                      <button onClick="{{ confirmIntake }}" style="margin-left: auto; height: 36px; padding: 8px 20px; border-radius: 4px; border: none; background: {{ confirmBg }}; color: #fff; font-size: 14px; font-weight: 600; cursor: {{ confirmCursor }}; font-family: inherit; animation: {{ confirmAnim }};">Confirm intake</button>
+                    </div>
+                  </sc-if>
+
+                  <!-- guide dock -->
+                  <sc-if value="{{ started }}" hint-placeholder-val="{{ false }}">
+                    <div style="position: absolute; left: 20px; bottom: 74px; width: 390px; max-width: calc(100% - 40px); background: #fff; border: 1px solid #C3D4F8; border-radius: 8px; box-shadow: 0 16px 40px rgba(21,23,28,0.18); padding: 14px 16px; z-index: 30;">
+                      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                        <div style="width: 22px; height: 22px; border-radius: 50%; background: #1A56DB; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 11px;">✦</div>
+                        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; color: #1A56DB; font-weight: 700;">GUIDE · STEP {{ guideStep }} OF 6</div>
+                      </div>
+                      <div style="font-size: 15px; font-weight: 700; color: #111928; margin-bottom: 4px;">{{ guideTitle }}</div>
+                      <div style="font-size: 13px; color: #4B5563; line-height: 1.55;">{{ guideBody }}</div>
+                      <sc-if value="{{ showNote }}" hint-placeholder-val="{{ false }}">
+                        <div style="margin-top: 10px; background: #F8F5FF; border: 1px solid #E2D6FE; border-radius: 4px; padding: 9px 12px;">
+                          <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 1.5px; color: #7E3AF2; font-weight: 700; margin-bottom: 4px;">WHY I DESIGNED IT THIS WAY</div>
+                          <div style="font-size: 12px; color: #4B5563; line-height: 1.55;">{{ guideNote }}</div>
+                        </div>
+                      </sc-if>
+                    </div>
+                  </sc-if>
+
+                  <!-- intro overlay -->
+                  <sc-if value="{{ notStarted }}" hint-placeholder-val="{{ false }}">
+                    <div style="position: absolute; inset: 0; background: rgba(249,250,251,0.92); backdrop-filter: blur(3px); display: flex; align-items: center; justify-content: center; z-index: 40;">
+                      <div style="width: 560px; max-width: 92%; background: #fff; border: 1px solid #D5D8DE; border-radius: 10px; box-shadow: 0 24px 60px rgba(21,23,28,0.18); padding: 28px 30px;">
+                        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 2px; color: #1A56DB; font-weight: 700; margin-bottom: 10px;">▶ DRIVE IT YOURSELF · ~90 SECONDS</div>
+                        <div style="font-family: 'Fraunces', serif; font-weight: 900; font-size: 28px; color: #111928; line-height: 1.15; margin-bottom: 12px;">For the next minute, you're the bank agent.</div>
+                        <div style="font-size: 14px; color: #4B5563; line-height: 1.65; margin-bottom: 10px;"><b style="color: #111928;">New to disputes?</b> When you spot a charge on your card that's wrong (billed twice, never received, fraud) you call your bank. That call is a <b style="color: #111928;">dispute</b>. The person answering has a customer on the line, 30 to 50 other open cases, and federal deadlines ticking.</div>
+                        <div style="font-size: 14px; color: #4B5563; line-height: 1.65; margin-bottom: 18px;">A cardholder just said: <i>“charged twice for one Uber ride.”</i> The AI already read their words and filled the form, <b style="color: #111928;">but it decides nothing.</b> Your job: accept what it nailed, verify what it's unsure of, and catch the one thing it got wrong.</div>
+                        <div style="display: flex; gap: 8px; margin-bottom: 20px;">
+                          <div style="flex: 1; border: 1px solid #E5E7EB; border-radius: 4px; padding: 8px 10px; text-align: center;"><div style="font-size: 13px; font-weight: 700; color: #1A56DB;">AI classifies</div><div style="font-size: 11px; color: #6B7280;">pre-fills the fields</div></div>
+                          <div style="flex: 1; border: 1px solid #E5E7EB; border-radius: 4px; padding: 8px 10px; text-align: center;"><div style="font-size: 13px; font-weight: 700; color: #1A56DB;">You confirm</div><div style="font-size: 11px; color: #6B7280;">every single field</div></div>
+                          <div style="flex: 1; border: 1px solid #E5E7EB; border-radius: 4px; padding: 8px 10px; text-align: center;"><div style="font-size: 13px; font-weight: 700; color: #1A56DB;">All auditable</div><div style="font-size: 11px; color: #6B7280;">watch the log fill up</div></div>
+                        </div>
+                        <button onClick="{{ start }}" style="width: 100%; height: 44px; border-radius: 4px; border: none; background: #1A56DB; color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit;">▶ Start the walkthrough</button>
+                        <div style="text-align: center; margin-top: 10px;"><button onClick="{{ skip }}" style="border: none; background: none; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6B7280; cursor: pointer; text-decoration: underline;">In a hurry? Skip to the summary</button></div>
+                      </div>
+                    </div>
+                  </sc-if>
+                </div>
+
+                <!-- AUDIT LOG PANEL -->
+                <div class="pt-audit" style="width: 300px; flex-shrink: 0; background: #15171C; display: flex; flex-direction: column; min-height: 0;">
+                  <div style="padding: 16px 18px; border-bottom: 1px solid #2A2E38;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <div style="width: 7px; height: 7px; border-radius: 50%; background: #7CE3A1;"></div>
+                      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 2px; color: #fff; font-weight: 700;">AUDIT LOG · LIVE</div>
+                      <div style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8A8F99;">{{ logCount }} / 5</div>
+                    </div>
+                    <div style="font-size: 11px; color: #8A8F99; margin-top: 5px;">every decision is recorded the moment you make it. This is what makes the AI defensible</div>
+                  </div>
+                  <div style="flex: 1; overflow-y: auto; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px;">
+                    <sc-if value="{{ logEmpty }}" hint-placeholder-val="{{ true }}">
+                      <div style="border: 1px dashed #3A3F4B; border-radius: 6px; padding: 18px 14px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6B7280; line-height: 1.8;">your decisions appear here<br>one row per field</div>
+                    </sc-if>
+                    <sc-for list="{{ log }}" as="row" hint-placeholder-count="0">
+                      <div style="background: #1D2027; border: 1px solid #2A2E38; border-left: 3px solid {{ row.accent }}; border-radius: 5px; padding: 10px 12px; animation: ptRowIn 0.3s ease;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: #fff;">{{ row.field }}</div>
+                          <div style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6B7280;">{{ row.time }}</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 6px; margin-top: 6px; flex-wrap: wrap;">
+                          <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #B9BDC6;">AI: {{ row.ai }}</div>
+                          <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; color: {{ row.confColor }}; border: 1px solid {{ row.confColor }}; border-radius: 3px; padding: 1px 5px;">{{ row.conf }}</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 6px; margin-top: 4px;">
+                          <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; color: {{ row.accent }};">{{ row.action }}</div>
+                          <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #E5E7EB;">→ {{ row.final }}</div>
+                        </div>
+                        <sc-if value="{{ row.reason }}" hint-placeholder-val="{{ false }}">
+                          <div style="margin-top: 5px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #8A8F99;">reason: {{ row.reason }}</div>
+                        </sc-if>
+                      </div>
+                    </sc-for>
+                    <sc-if value="{{ showOverrideInsight }}" hint-placeholder-val="{{ false }}">
+                      <div style="background: #1E2A45; border: 1px solid #2F4A85; border-radius: 5px; padding: 12px; animation: ptRowIn 0.3s ease;">
+                        <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 1.5px; color: #9FB6F9; font-weight: 700; margin-bottom: 6px;">✦ SIGNAL DETECTED</div>
+                        <div style="font-size: 12px; color: #C9D6F5; line-height: 1.6;">Your override is exactly what the team learns from. One agent correcting 10.4 → 12.6.1 is a data point. A thousand doing it is proof the extraction rule is wrong, and a to-do list for the next model.</div>
+                      </div>
+                    </sc-if>
+                  </div>
+                  <div style="padding: 12px 18px; border-top: 1px solid #2A2E38; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6B7280; line-height: 1.7;">FCBA · REG E COMPLIANT TRAIL<br>suggestion → confidence → human action → final value → time</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- below-frame caption -->
+            <div style="display: flex; gap: 14px; margin-top: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8A8F99;">
+              <div>↑ recreated in the DWS design system: semantic color, per-field confidence, explicit human boundary</div>
+              <div style="margin-left: auto;">AI suggests · human decides · audit log remembers</div>
             </div>
           </div>
         </div>
@@ -1216,7 +1332,30 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
+  state = {
+    ptStarted: false,
+    ptFields: { type: "pending", amount: "pending", date: "pending", merchant: "pending", sub: "pending" },
+    ptEvidenceOpen: false,
+    ptSubOpen: false,
+    ptSubChoice: null,
+    ptSubHint: false,
+    ptConfirmed: false,
+    ptLog: [],
+    ptClock: 14 * 3600 + 2 * 60 + 5,
+    ptAcceptAllNote: false
+  };
+
   componentDidMount() {
+    this.initPage();
+  }
+
+  // setState re-renders the whole template and replaces DOM nodes, so every
+  // imperative hookup below must be idempotent and re-run after each render.
+  componentDidUpdate() {
+    this.initPage();
+  }
+
+  initPage() {
     // ---- email links assembled at runtime (avoids static-HTML email rewriting) ----
     const addr = ["abhikant5540", "gmail.com"].join("@");
     document.querySelectorAll("[data-email]").forEach((el) => {
@@ -1224,25 +1363,35 @@ class Component extends DCLogic {
       if (el.getAttribute("data-email") === "show") el.textContent = addr;
     });
 
-    // ---- scroll reveals ----
+    // ---- scroll reveals (index-keyed so revealed state survives re-renders) ----
+    this._revealed = this._revealed || new Set();
+    if (this._io) this._io.disconnect();
     const reveals = Array.from(document.querySelectorAll("[data-reveal]"));
-    reveals.forEach((el) => {
-      const i = parseInt(el.getAttribute("data-reveal") || "0", 10);
-      el.style.opacity = "0";
-      el.style.transform = "translateY(26px)";
-      el.style.transition = "opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)";
-      el.style.transitionDelay = (i * 80) + "ms";
-    });
     const io = new IntersectionObserver((entries) => {
       entries.forEach((en) => {
         if (en.isIntersecting) {
+          this._revealed.add(en.target.getAttribute("data-rvkey"));
           en.target.style.opacity = "1";
           en.target.style.transform = "translateY(0)";
           io.unobserve(en.target);
         }
       });
     }, { threshold: 0.08 });
-    reveals.forEach((el) => io.observe(el));
+    this._io = io;
+    reveals.forEach((el, k) => {
+      el.setAttribute("data-rvkey", String(k));
+      if (this._revealed.has(String(k))) {
+        el.style.opacity = "1";
+        el.style.transform = "translateY(0)";
+        return;
+      }
+      const i = parseInt(el.getAttribute("data-reveal") || "0", 10);
+      el.style.opacity = "0";
+      el.style.transform = "translateY(26px)";
+      el.style.transition = "opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)";
+      el.style.transitionDelay = (i * 80) + "ms";
+      io.observe(el);
+    });
 
     // ---- section nav (click) ----
     document.querySelectorAll("[data-nav]").forEach((row) => {
@@ -1284,10 +1433,11 @@ class Component extends DCLogic {
         const max = document.documentElement.scrollHeight - window.innerHeight;
         const pct = max > 0 ? window.scrollY / max : 0;
         progress.style.width = pct * 100 + "%";
-        if (pct >= 0.9 && !scrolledBottom) { scrolledBottom = true; window.va && window.va("event", { name: "AI Intake · scrolled to end" }); }
+        if (pct >= 0.9 && !this._scrolledBottom) { this._scrolledBottom = true; window.va && window.va("event", { name: "AI Intake · scrolled to end" }); }
       }
     };
-    let ticking = false, scrolledBottom = false;
+    let ticking = false;
+    if (this._onScroll) window.removeEventListener("scroll", this._onScroll);
     this._onScroll = () => {
       if (!ticking) {
         ticking = true;
@@ -1297,8 +1447,6 @@ class Component extends DCLogic {
     window.addEventListener("scroll", this._onScroll, { passive: true });
     update();
 
-    // ---- interactive try-it prototype (section 04.5) ----
-    this.initTryIt();
     this.initTrustLoop();
 
     // ---- responsive: collapse panels under 1180px ----
@@ -1312,6 +1460,7 @@ class Component extends DCLogic {
       if (right) right.style.display = narrow ? "none" : "block";
       if (canvas) canvas.style.margin = narrow ? "48px 0 0 0" : "48px 260px 0 248px";
     };
+    if (this._mq && this._applyMq) this._mq.removeEventListener("change", this._applyMq);
     mq.addEventListener("change", applyMq);
     this._mq = mq; this._applyMq = applyMq;
     applyMq();
@@ -1336,237 +1485,161 @@ class Component extends DCLogic {
         el.style.fontSize = narrow ? Math.round(orig * 0.65) + "px" : el.getAttribute("data-fs");
       });
     };
+    if (this._applyNarrow) window.removeEventListener("resize", this._applyNarrow);
+    this._applyNarrow = applyNarrow;
     window.addEventListener("resize", applyNarrow);
     applyNarrow();
   }
 
-  // ---- interactive "Try it" prototype: guided AI-intake walkthrough ----
-  initTryIt() {
-    const root = document.getElementById("s4-5");
-    if (!root || root.__tryitInit) return;
-    root.__tryitInit = true;
-    const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const q = (s) => root.querySelector(s);
+  // ---- interactive "Try it" prototype (section 04.5): state + bindings ----
+  ptAddLog(entry) {
+    this.setState((st) => {
+      const ptClock = st.ptClock + 6 + Math.floor(Math.random() * 12);
+      return { ptClock, ptLog: [...st.ptLog, { ...entry, time: this.ptFmtTime(ptClock) }] };
+    });
+  }
 
-    const order = ["type", "amount", "date", "merchant", "code"];
-    const META = {
-      type:     { conf: "HIGH",   res: "res-green", flash: "flash-green", act: "Accepted",   col: "#047857", ai: "Duplicate charge",  final: "Duplicate charge",  time: "10:42:01" },
-      amount:   { conf: "HIGH",   res: "res-green", flash: "flash-green", act: "Accepted",   col: "#047857", ai: "$47.50",            final: "$47.50",            time: "10:42:09" },
-      date:     { conf: "HIGH",   res: "res-green", flash: "flash-green", act: "Accepted",   col: "#047857", ai: "Mar 3, 2026",       final: "Mar 3, 2026",       time: "10:42:15" },
-      merchant: { conf: "MEDIUM", res: "res-amber", flash: "flash-amber", act: "Verified",   col: "#B54708", ai: "Uber Technologies", final: "Uber Technologies", time: "10:42:31", reason: "descriptor matched on review" },
-      code:     { conf: "LOW",    res: "res-blue",  flash: "flash-red",   act: "Overridden", col: "#155DFC", ai: "10.4",              final: "12.6.1",            time: "10:42:52", reason: "ambiguous code, corrected to 12.6.1 (duplicate processing)" }
+  ptFmtTime(s) {
+    const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
+    return h + ":" + String(m).padStart(2, "0") + ":" + String(sec).padStart(2, "0");
+  }
+
+  ptAccept(key, field, ai) {
+    if (this.state.ptFields[key] !== "pending") return;
+    this.setState((st) => ({ ptFields: { ...st.ptFields, [key]: "done" }, ptAcceptAllNote: false }));
+    this.ptAddLog({ field, ai, conf: "HIGH", confColor: "#7CE3A1", accent: "#7CE3A1", action: "ACCEPTED", final: ai, reason: "" });
+  }
+
+  renderVals() {
+    const st = this.state;
+    const f = st.ptFields;
+    const decided = Object.values(f).filter((v) => v === "done").length;
+    const all = decided === 5;
+    const highsLeft = ["type", "amount", "date"].filter((k) => f[k] === "pending").length;
+
+    let g = { n: 1, title: "", body: "", note: "" };
+    if (st.ptConfirmed) {
+      g = { n: 6, title: "The record is the product's memory", body: "Your override (10.4 to 12.6.1) is now a data point. Compliance gets its trail; the AI gets its homework. Read the summary, then replay if you like.", note: "In regulated AI, auditability is not overhead. It is how the product learns. I designed the compliance record and the learning loop as the same artifact." };
+    } else if (all) {
+      g = { n: 6, title: "Nothing happened without you", body: "Five fields, five human decisions, all logged on the right. Now press Confirm intake. This is the only moment anything is actually committed.", note: "The AI never submits. Keeping the commit as an explicit human act is what makes the workflow defensible under FCBA and Reg E." };
+    } else if (st.ptSubOpen) {
+      g = { n: 5, title: "Pick the right code", body: "The cardholder said “charged twice for one ride.” One real charge, billed twice. That is duplicate processing, code 12.6.1. Select it and save your correction.", note: "Overrides require a choice plus a logged reason. That friction is deliberate: it turns a correction into evidence the team can count." };
+    } else if (highsLeft === 0 && f.merchant === "done" && f.sub === "pending") {
+      g = { n: 4, title: "The red one: the AI guessed wrong", body: "LOW means the AI is guessing between codes, and this code decides which card-network rules the case follows. Press Override and fix it yourself.", note: "The model proposes; it never disposes. Step 3 of the loop, a human deciding, is the boundary the whole design protects." };
+    } else if (highsLeft === 0 && f.merchant === "pending" && st.ptEvidenceOpen) {
+      g = { n: 3, title: "Judge the evidence yourself", body: "The statement descriptor is messy, but it maps to Uber. If you agree, press Verify. You just did the thing the AI can't: took responsibility for the call.", note: "Headline first, evidence next, raw score last. Agents engage the reasoning before they ever see a number, the opposite of automation bias." };
+    } else if (highsLeft === 0 && f.merchant === "pending") {
+      g = { n: 2, title: "This one's a maybe", body: "MEDIUM means the AI is only partly sure. Don't take its word for it. Press “Why MEDIUM?” and look at the evidence it found.", note: "V1 showed “64% confident”. Agents didn't know what to do with a number, so I replaced it with a label plus a next step: verify before continuing." };
+    } else {
+      g = { n: 1, title: "Start with the green fields", body: "HIGH means the AI found this exact information in the cardholder's own words. The label already tells you what to do: review and accept. Accept the three green fields.", note: "Early versions showed raw percentages like “91%”. Precise-looking, useless in practice: a probability gives no instruction. High / Medium / Low paired with an action changed behavior." };
+    }
+
+    const border = (k) => (f[k] === "done" ? "#84E1BC" : "#E5E7EB");
+    const dot = (k) => (f[k] === "done" ? "#0E9F6E" : "#D5D8DE");
+    const choice = st.ptSubChoice;
+    const radio = (c) => (choice === c ? "#1A56DB" : "#D1D5DB");
+    const fill = (c) => (choice === c ? "#1A56DB" : "#fff");
+    const bord = (c) => (choice === c ? "#1A56DB" : "#E5E7EB");
+
+    return {
+      started: st.ptStarted,
+      notStarted: !st.ptStarted,
+      confirmed: st.ptConfirmed,
+      notConfirmed: !st.ptConfirmed,
+      decidedCount: decided,
+      acceptAllNote: st.ptAcceptAllNote,
+      showNote: !!g.note,
+
+      typePending: f.type === "pending", typeDone: f.type === "done", typeBorder: border("type"),
+      amountPending: f.amount === "pending", amountDone: f.amount === "done", amountBorder: border("amount"),
+      datePending: f.date === "pending", dateDone: f.date === "done", dateBorder: border("date"),
+      merchantPending: f.merchant === "pending", merchantDone: f.merchant === "done", merchantBorder: border("merchant"),
+      evidenceOpen: st.ptEvidenceOpen,
+      showEvidence: st.ptEvidenceOpen && f.merchant === "pending",
+      subPending: f.sub === "pending", subDone: f.sub === "done", subBorder: border("sub"),
+      subOpen: st.ptSubOpen && f.sub === "pending",
+      subValue: f.sub === "done" ? "12.6.1 · Duplicate processing" : "10.4 (ambiguous)",
+      subValueColor: f.sub === "done" ? "#111928" : "#9B1C1C",
+      subHint: st.ptSubHint,
+      b104: bord("10.4"), r104: radio("10.4"), f104: fill("10.4"),
+      b1261: bord("12.6.1"), r1261: radio("12.6.1"), f1261: fill("12.6.1"),
+      b131: bord("13.1"), r131: radio("13.1"), f131: fill("13.1"),
+      saveSubBg: choice ? "#1A56DB" : "#9CA3AF",
+      saveSubCursor: choice ? "pointer" : "not-allowed",
+
+      dot1: dot("type"), dot2: dot("amount"), dot3: dot("date"), dot4: dot("merchant"), dot5: dot("sub"),
+      footerHint: all ? "All 5 fields decided by you. Nothing was committed automatically." : "Review each field. Nothing is submitted until you confirm.",
+      confirmBg: all ? "#0E9F6E" : "#9CA3AF",
+      confirmCursor: all ? "pointer" : "not-allowed",
+      confirmAnim: all ? "ptPulse 1.6s ease infinite" : "none",
+
+      log: st.ptLog,
+      logCount: st.ptLog.length,
+      logEmpty: st.ptLog.length === 0,
+      showOverrideInsight: f.sub === "done",
+
+      guideStep: g.n, guideTitle: g.title, guideBody: g.body, guideNote: g.note,
+
+      start: () => {
+        this.setState({ ptStarted: true });
+        window.va && window.va("event", { name: "AI Intake · prototype started" });
+      },
+      skip: () => {
+        this.setState({
+          ptStarted: true, ptConfirmed: true,
+          ptFields: { type: "done", amount: "done", date: "done", merchant: "done", sub: "done" },
+          ptLog: [
+            { field: "Dispute type", ai: "Duplicate charge", conf: "HIGH", confColor: "#7CE3A1", accent: "#7CE3A1", action: "ACCEPTED", final: "Duplicate charge", reason: "", time: "14:02:14" },
+            { field: "Amount", ai: "$47.50", conf: "HIGH", confColor: "#7CE3A1", accent: "#7CE3A1", action: "ACCEPTED", final: "$47.50", reason: "", time: "14:02:22" },
+            { field: "Txn date", ai: "Mar 3, 2026", conf: "HIGH", confColor: "#7CE3A1", accent: "#7CE3A1", action: "ACCEPTED", final: "Mar 3, 2026", reason: "", time: "14:02:29" },
+            { field: "Merchant", ai: "Uber Technologies", conf: "MED", confColor: "#FACA15", accent: "#FACA15", action: "VERIFIED", final: "Uber Technologies", reason: "descriptor mapped to known biller", time: "14:02:47" },
+            { field: "Sub-reason", ai: "10.4", conf: "LOW", confColor: "#F98080", accent: "#F98080", action: "OVERRIDDEN", final: "12.6.1", reason: "one charge billed twice = duplicate processing", time: "14:03:05" }
+          ]
+        });
+        window.va && window.va("event", { name: "AI Intake · prototype skipped to summary" });
+      },
+      acceptType: () => this.ptAccept("type", "Dispute type", "Duplicate charge"),
+      acceptAmount: () => this.ptAccept("amount", "Amount", "$47.50"),
+      acceptDate: () => this.ptAccept("date", "Txn date", "Mar 3, 2026"),
+      acceptAll: () => {
+        this.setState({ ptAcceptAllNote: true });
+        ["type", "amount", "date"].forEach((k) => {
+          if (this.state.ptFields[k] === "pending") {
+            const map = { type: ["Dispute type", "Duplicate charge"], amount: ["Amount", "$47.50"], date: ["Txn date", "Mar 3, 2026"] };
+            this.setState((s) => ({ ptFields: { ...s.ptFields, [k]: "done" } }));
+            this.ptAddLog({ field: map[k][0], ai: map[k][1], conf: "HIGH", confColor: "#7CE3A1", accent: "#7CE3A1", action: "ACCEPTED", final: map[k][1], reason: "" });
+          }
+        });
+        this.setState({ ptAcceptAllNote: true });
+      },
+      toggleEvidence: () => this.setState((s) => ({ ptEvidenceOpen: !s.ptEvidenceOpen })),
+      verifyMerchant: () => {
+        if (this.state.ptFields.merchant !== "pending") return;
+        this.setState((s) => ({ ptFields: { ...s.ptFields, merchant: "done" } }));
+        this.ptAddLog({ field: "Merchant", ai: "Uber Technologies", conf: "MED", confColor: "#FACA15", accent: "#FACA15", action: "VERIFIED", final: "Uber Technologies", reason: "descriptor mapped to known biller" });
+      },
+      toggleSub: () => this.setState((s) => ({ ptSubOpen: !s.ptSubOpen })),
+      choose104: () => this.setState({ ptSubChoice: "10.4", ptSubHint: false }),
+      choose1261: () => this.setState({ ptSubChoice: "12.6.1", ptSubHint: false }),
+      choose131: () => this.setState({ ptSubChoice: "13.1", ptSubHint: false }),
+      saveSub: () => {
+        const c = this.state.ptSubChoice;
+        if (!c) return;
+        if (c !== "12.6.1") { this.setState({ ptSubHint: true }); return; }
+        this.setState((s) => ({ ptFields: { ...s.ptFields, sub: "done" }, ptSubOpen: false }));
+        this.ptAddLog({ field: "Sub-reason", ai: "10.4", conf: "LOW", confColor: "#F98080", accent: "#F98080", action: "OVERRIDDEN", final: "12.6.1", reason: "one charge billed twice = duplicate processing" });
+      },
+      confirmIntake: () => {
+        if (!all || this.state.ptConfirmed) return;
+        this.setState({ ptConfirmed: true });
+        window.va && window.va("event", { name: "AI Intake · prototype completed" });
+      },
+      replay: () => this.setState({
+        ptStarted: true, ptConfirmed: false, ptEvidenceOpen: false, ptSubOpen: false, ptSubChoice: null, ptSubHint: false, ptAcceptAllNote: false,
+        ptFields: { type: "pending", amount: "pending", date: "pending", merchant: "pending", sub: "pending" },
+        ptLog: [], ptClock: 14 * 3600 + 2 * 60 + 5
+      })
     };
-    const NARR = [
-      ["START", "Here is a real dispute in the cardholder's own words. The AI read it and filled five fields, each rated by how sure it is: green is sure, amber is a maybe, red is shaky. Press Start and you decide on each one."],
-      ["STEP 1 OF 5", "Accepted. The AI was confident and you agreed, so the log records it as your decision, with the AI's value and yours side by side. Three green ones to clear, then it gets interesting."],
-      ["STEP 2 OF 5", "Two down. When the AI is confident and right, your job is fast: a glance and a tap. You are not filling a form, you are leaving a trail."],
-      ["STEP 3 OF 5", "Three accepted. Now the AI gets less sure. Amber means probably right, but check the evidence first."],
-      ["STEP 4 OF 5", "Verified, not rubber-stamped. The log remembers this was a medium-confidence call you confirmed after reading the reason. One field left, and the AI got this one wrong."],
-      ["STEP 5 OF 5", "That was the whole point. The AI guessed 10.4 and was wrong. You overrode it to 12.6.1, and the system recorded what the AI said, what you changed it to, and why. The AI never decided. You did. Confirm to seal the record."]
-    ];
-
-    const railWrap = q(".tryit-rail");
-    const railFill = q(".tryit-rail i");
-    const counter = q(".tryit-counter");
-    const arows = q(".tryit-arows");
-    const stepEl = q(".tryit-step");
-    const narrEl = q(".tryit-narr-text");
-    const insight = q(".tryit-insight");
-    const payoff = q(".tryit-payoff");
-    const footSum = q(".tryit-foot-sum");
-    const confirmBtn = q('[data-act="confirm"]');
-    const rows = {};
-    order.forEach((id) => { rows[id] = q('.tryit-row[data-field="' + id + '"]'); });
-
-    let logged = 0;
-    let activeIdx = -1;
-
-    const setNarr = (i) => { stepEl.textContent = NARR[i][0]; narrEl.textContent = NARR[i][1]; };
-    const activate = (i) => {
-      activeIdx = i;
-      order.forEach((id, k) => {
-        rows[id].classList.toggle("is-active", k === i && !rows[id].classList.contains("is-done"));
-      });
-      const row = rows[order[i]];
-      if (row && !rm) {
-        const btn = row.querySelector(".tryit-act button");
-        if (btn) { try { btn.focus({ preventScroll: true }); } catch (e) {} }
-      }
-    };
-
-    const buildARow = (id) => {
-      const m = META[id];
-      const label = rows[id].querySelector(".tryit-row-label").textContent;
-      const el = document.createElement("div");
-      el.className = "tryit-arow " + m.flash;
-      el.innerHTML =
-        '<div class="tryit-arow-top"><span class="tryit-arow-field">' + label + '</span>' +
-        '<span class="tryit-chip ch-' + m.conf.toLowerCase() + '">' + m.conf + "</span></div>" +
-        '<div class="tryit-arow-grid">' +
-        '<span class="tryit-arow-k">AI SAID</span><span class="tryit-arow-v">' + m.ai + "</span>" +
-        '<span class="tryit-arow-k">YOU</span><span class="tryit-arow-v" style="color:' + m.col + ';font-weight:700;">' + m.act + "</span>" +
-        '<span class="tryit-arow-k">FINAL</span><span class="tryit-arow-v">' + m.final + "</span>" +
-        '<span class="tryit-arow-k">TIME</span><span class="tryit-arow-v tryit-mono2">' + m.time + "</span>" +
-        "</div>" +
-        (m.reason ? '<div class="tryit-arow-reason">reason: ' + m.reason + "</div>" : "");
-      return el;
-    };
-
-    const flyClone = (srcRow, targetEl, cb) => {
-      const valEl = srcRow.querySelector(".tryit-val");
-      const s = valEl.getBoundingClientRect();
-      const t = targetEl.getBoundingClientRect();
-      const clone = document.createElement("div");
-      clone.className = "tryit-fly";
-      clone.textContent = srcRow.querySelector(".tryit-row-label").textContent + " logged";
-      clone.style.left = s.left + "px";
-      clone.style.top = s.top + "px";
-      document.body.appendChild(clone);
-      clone.getBoundingClientRect(); // force reflow
-      const dx = t.left - s.left;
-      const dy = t.top - s.top;
-      requestAnimationFrame(() => {
-        clone.style.transform = "translate(" + dx + "px," + dy + "px) scale(0.96)";
-        clone.style.opacity = "0.15";
-      });
-      let done = false;
-      const finish = () => { if (done) return; done = true; clone.remove(); cb(); };
-      clone.addEventListener("transitionend", finish, { once: true });
-      setTimeout(finish, 650);
-    };
-
-    const afterLog = (id) => {
-      logged += 1;
-      counter.textContent = logged + " of 5 logged";
-      railFill.style.width = logged * 20 + "%";
-      railWrap.setAttribute("aria-valuenow", logged);
-      railWrap.setAttribute("aria-valuetext", logged + " of 5 fields reviewed");
-      setNarr(logged);
-      if (id === "code" && insight) {
-        insight.hidden = false;
-        void insight.offsetWidth;
-        insight.classList.add("is-lit");
-      }
-      if (logged >= 5) {
-        confirmBtn.disabled = false;
-        confirmBtn.classList.add("is-ready");
-        footSum.textContent = "3 accepted · 1 verified · 1 corrected. You reviewed each one.";
-      } else {
-        activate(activeIdx + 1);
-      }
-    };
-
-    const log = (id) => {
-      const ghost = arows.querySelector(".tryit-ghost");
-      if (ghost) ghost.remove();
-      const el = buildARow(id);
-      if (rm) {
-        arows.appendChild(el);
-        afterLog(id);
-      } else {
-        el.style.opacity = "0";
-        arows.appendChild(el);
-        flyClone(rows[id], el, () => { el.style.opacity = "1"; afterLog(id); });
-      }
-    };
-
-    const resolve = (id) => {
-      const row = rows[id];
-      const m = META[id];
-      row.classList.remove("is-active");
-      row.classList.add("is-done", m.res);
-      if (id === "code") {
-        const v = row.querySelector(".tryit-val");
-        v.innerHTML = '<s>10.4</s> <strong>12.6.1</strong>';
-        if (!rm) v.classList.add("swap");
-      }
-      log(id);
-    };
-
-    const start = () => {
-      const scrim = q(".tryit-scrim");
-      if (scrim) scrim.classList.add("gone");
-      q(".tryit-fields").classList.add("armed");
-      activate(0);
-      window.va && window.va("event", { name: "AI Intake · prototype started" });
-    };
-
-    const confirmIntake = () => {
-      if (confirmBtn.disabled) return;
-      confirmBtn.disabled = true;
-      confirmBtn.textContent = "✓ Case opened · #DSP-4471";
-      confirmBtn.classList.remove("is-ready");
-      confirmBtn.classList.add("is-sealed");
-      const sub = q(".tryit-audit-sub");
-      if (sub) sub.textContent = "sealed · 5 decisions · 0 auto-submitted";
-      const stage = q(".tryit-stage");
-      if (stage) stage.classList.add("is-sealed");
-      if (payoff) payoff.hidden = false;
-      window.va && window.va("event", { name: "AI Intake · prototype completed" });
-    };
-
-    const replay = () => {
-      logged = 0;
-      activeIdx = -1;
-      arows.innerHTML = '<div class="tryit-ghost">Your decisions appear here.<br>One row per field.</div>';
-      counter.textContent = "0 of 5 logged";
-      railFill.style.width = "0%";
-      railWrap.setAttribute("aria-valuenow", 0);
-      railWrap.setAttribute("aria-valuetext", "0 of 5 fields reviewed");
-      if (insight) { insight.classList.remove("is-lit"); insight.hidden = true; }
-      if (payoff) payoff.hidden = true;
-      confirmBtn.disabled = true;
-      confirmBtn.classList.remove("is-ready", "is-sealed");
-      confirmBtn.textContent = "Confirm intake";
-      const stage = q(".tryit-stage");
-      if (stage) stage.classList.remove("is-sealed");
-      footSum.textContent = "Review each field. Nothing is submitted until you confirm.";
-      order.forEach((id) => {
-        const row = rows[id];
-        row.classList.remove("is-done", "is-active", "res-green", "res-amber", "res-blue");
-        const v = row.querySelector(".tryit-val");
-        v.classList.remove("swap");
-        if (id === "code") v.innerHTML = '10.4 <span class="tryit-amb">(ambiguous)</span>';
-        const why = row.querySelector(".tryit-why");
-        if (why) why.hidden = true;
-        const pick = row.querySelector(".tryit-picker");
-        if (pick) pick.hidden = true;
-        const wb = row.querySelector('[data-act="why"]');
-        if (wb) wb.setAttribute("aria-expanded", "false");
-      });
-      activate(0);
-      setNarr(0);
-    };
-
-    this._tryitRoot = root;
-    this._tryitClick = (e) => {
-      const btn = e.target.closest("[data-act]");
-      if (!btn || !root.contains(btn)) return;
-      const act = btn.getAttribute("data-act");
-      if (act === "start") return start();
-      if (act === "confirm") return confirmIntake();
-      if (act === "replay") return replay();
-      const row = btn.closest(".tryit-row");
-      if (!row) return;
-      const id = row.getAttribute("data-field");
-      if (id !== order[activeIdx]) return; // only the active row is live
-      if (act === "why") {
-        const why = row.querySelector(".tryit-why");
-        const open = !why.hidden;
-        why.hidden = open;
-        btn.setAttribute("aria-expanded", String(!open));
-      } else if (act === "accept" || act === "verify") {
-        resolve(id);
-      } else if (act === "override-open") {
-        const pick = row.querySelector(".tryit-picker");
-        pick.hidden = false;
-        if (!rm) { const sv = pick.querySelector('[data-act="save"]'); if (sv) try { sv.focus({ preventScroll: true }); } catch (e2) {} }
-      } else if (act === "save") {
-        row.querySelector(".tryit-picker").hidden = true;
-        resolve(id);
-      }
-    };
-    root.addEventListener("click", this._tryitClick);
   }
 
   // ---- interactive Trust Loop explainer ----
@@ -1625,7 +1698,6 @@ class Component extends DCLogic {
   }
 
   componentWillUnmount() {
-    if (this._tryitRoot && this._tryitClick) this._tryitRoot.removeEventListener("click", this._tryitClick);
     if (this._trustLoopRoot && this._trustLoopPointer) {
       this._trustLoopRoot.removeEventListener("click", this._trustLoopPointer);
       this._trustLoopRoot.removeEventListener("mouseover", this._trustLoopPointer);
