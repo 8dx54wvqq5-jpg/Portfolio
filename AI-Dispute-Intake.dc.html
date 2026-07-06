@@ -597,6 +597,22 @@
                     <div style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9CA3AF;">case draft · DIS-8842-013</div>
                   </div>
 
+                  <!-- guide bar: in flow so it never covers the fields it points at -->
+                  <sc-if value="{{ started }}" hint-placeholder-val="{{ false }}">
+                    <div style="flex-shrink: 0; background: #fff; border-bottom: 2px solid #C3D4F8; padding: 12px 24px;">
+                      <div style="display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;">
+                        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; color: #1A56DB; font-weight: 700; white-space: nowrap;">✦ GUIDE · STEP {{ guideStep }} OF 6</div>
+                        <div style="font-size: 14px; font-weight: 700; color: #111928;">{{ guideTitle }}</div>
+                      </div>
+                      <div style="font-size: 13px; color: #4B5563; line-height: 1.5; margin-top: 3px;">{{ guideBody }}</div>
+                      <sc-if value="{{ showNote }}" hint-placeholder-val="{{ false }}">
+                        <div style="margin-top: 8px; background: #F8F5FF; border: 1px solid #E2D6FE; border-radius: 4px; padding: 7px 12px;">
+                          <span style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 1.5px; color: #7E3AF2; font-weight: 700;">WHY I DESIGNED IT THIS WAY&nbsp;&nbsp;</span><span style="font-size: 12px; color: #4B5563; line-height: 1.5;">{{ guideNote }}</span>
+                        </div>
+                      </sc-if>
+                    </div>
+                  </sc-if>
+
                   <!-- scrollable content -->
                   <div style="flex: 1; overflow-y: auto; padding: 20px 24px 130px; min-height: 0;">
 
@@ -809,24 +825,6 @@
                       </div>
                       <div style="font-size: 13px; color: #6B7280;">{{ footerHint }}</div>
                       <button onClick="{{ confirmIntake }}" style="margin-left: auto; height: 36px; padding: 8px 20px; border-radius: 4px; border: none; background: {{ confirmBg }}; color: #fff; font-size: 14px; font-weight: 600; cursor: {{ confirmCursor }}; font-family: inherit; animation: {{ confirmAnim }};">Confirm intake</button>
-                    </div>
-                  </sc-if>
-
-                  <!-- guide dock -->
-                  <sc-if value="{{ started }}" hint-placeholder-val="{{ false }}">
-                    <div style="position: absolute; left: 20px; bottom: 74px; width: 390px; max-width: calc(100% - 40px); background: #fff; border: 1px solid #C3D4F8; border-radius: 8px; box-shadow: 0 16px 40px rgba(21,23,28,0.18); padding: 14px 16px; z-index: 30;">
-                      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-                        <div style="width: 22px; height: 22px; border-radius: 50%; background: #1A56DB; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 11px;">✦</div>
-                        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; color: #1A56DB; font-weight: 700;">GUIDE · STEP {{ guideStep }} OF 6</div>
-                      </div>
-                      <div style="font-size: 15px; font-weight: 700; color: #111928; margin-bottom: 4px;">{{ guideTitle }}</div>
-                      <div style="font-size: 13px; color: #4B5563; line-height: 1.55;">{{ guideBody }}</div>
-                      <sc-if value="{{ showNote }}" hint-placeholder-val="{{ false }}">
-                        <div style="margin-top: 10px; background: #F8F5FF; border: 1px solid #E2D6FE; border-radius: 4px; padding: 9px 12px;">
-                          <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 1.5px; color: #7E3AF2; font-weight: 700; margin-bottom: 4px;">WHY I DESIGNED IT THIS WAY</div>
-                          <div style="font-size: 12px; color: #4B5563; line-height: 1.55;">{{ guideNote }}</div>
-                        </div>
-                      </sc-if>
                     </div>
                   </sc-if>
 
