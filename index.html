@@ -658,8 +658,8 @@
 	          </div>
 	        </div>
 	      </div>
-	      <div class="pf-sticker pf-sticker--quiet pf-sticker--hint" role="button" tabindex="0" aria-label="Hint: this is a movable canvas. Drag the stickers, pan around, then open the work." style="left: 620px; top: 858px; animation: stickerFloatA 7.4s ease-in-out infinite;">
-        <div class="pf-word-sticker" style="--r: -3deg; --z: 7;"><span class="pf-sticker-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor"><path d="M11 15V7.5a2 2 0 0 1 4 0V13m0-.5V6a2 2 0 0 1 4 0v7m0-1.5V9a2 2 0 0 1 4 0v8c0 4.4-3 8-8 8-3.3 0-5.4-1.6-7-4.5l-2.2-4a2 2 0 0 1 3.2-2.3L11 17" stroke-width="2"/></svg></span><span><strong>This is a canvas</strong><span>Drag anywhere, move the stickers, click a card to open it</span></span></div>
+	      <div class="pf-sticker pf-sticker--quiet pf-sticker--hint" role="button" tabindex="0" aria-label="Hint: you have edit access on this canvas. Move the stickers, pan around, click a card to open the work." style="left: 620px; top: 858px; animation: stickerFloatA 7.4s ease-in-out infinite;">
+        <div class="pf-word-sticker" style="--r: -3deg; --z: 7;"><span class="pf-sticker-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor"><path d="M11 15V7.5a2 2 0 0 1 4 0V13m0-.5V6a2 2 0 0 1 4 0v7m0-1.5V9a2 2 0 0 1 4 0v8c0 4.4-3 8-8 8-3.3 0-5.4-1.6-7-4.5l-2.2-4a2 2 0 0 1 3.2-2.3L11 17" stroke-width="2"/></svg></span><span><strong>You have edit access</strong><span>Move the stickers, pan around, click a card to open it</span></span></div>
       </div>
       <div class="pf-sticker" role="button" tabindex="0" aria-label="Sticker: AI you can audit. Confidence, reasoning, override." style="left: 1108px; top: 270px; animation: stickerFloatB 7s ease-in-out infinite;">
 	        <div class="pf-pack" style="--r: -7deg; --z: 5; background: #fff; border-radius: 13px; padding: 6px; box-shadow: 0 10px 22px rgba(21,23,28,0.22);">
@@ -1260,7 +1260,47 @@
   </div>
 
   <!-- bottom hint -->
-  <div id="hint" role="status" aria-live="polite" style="position: fixed; bottom: 20px; left: 268px; z-index: 100; background: #FFFFFFF2; border: 1px solid #C9D6F0; border-radius: 10px; padding: 10px 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #243044; box-shadow: 0 8px 22px rgba(16,24,40,0.10); backdrop-filter: blur(4px);">drag stickers to rearrange · drag canvas to pan · click work to open</div>
+  <div id="hint" role="status" aria-live="polite" style="position: fixed; bottom: 20px; left: 268px; z-index: 100; background: #FFFFFFF2; border: 1px solid #C9D6F0; border-radius: 10px; padding: 10px 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #243044; box-shadow: 0 8px 22px rgba(16,24,40,0.10); backdrop-filter: blur(4px);"><span id="hint-msg" style="transition: opacity .35s ease;">you have edit access · drag anything</span></div>
+  <style>
+    #hint kbd { font: inherit; background: #EEF3FC; border: 1px solid #C9D6F0; border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; margin: 0 1px; display: inline-block; line-height: 1.5; }
+    @media (prefers-reduced-motion: reduce) { #hint-msg { transition: none !important; } }
+  </style>
+  <script>
+    // Hint pill: rotates the two non-obvious canvas gestures, then retires
+    // itself once the visitor pans, drags, or zooms (window.__pfHintUsed,
+    // called from the canvas pointer/wheel handlers).
+    (function () {
+      // x-dc re-renders this region at init and replaces the nodes, so never
+      // cache #hint / #hint-msg — re-query inside every callback.
+      var key = /Mac|iP/.test(navigator.platform || '') ? '⌘' : 'Ctrl';
+      var msgs = [
+        'you have edit access · drag anything',
+        '<kbd>' + key + '</kbd> + <kbd>scroll</kbd> to zoom · scroll to pan'
+      ];
+      var i = 0;
+      var timer = setInterval(function () {
+        var msg = document.getElementById('hint-msg');
+        if (!msg) return;
+        msg.style.opacity = '0';
+        setTimeout(function () {
+          var m = document.getElementById('hint-msg');
+          if (!m) return;
+          i = (i + 1) % msgs.length; m.innerHTML = msgs[i]; m.style.opacity = '1';
+        }, 350);
+      }, 6000);
+      window.__pfHintUsed = function () {
+        if (!timer) return;
+        clearInterval(timer); timer = null;
+        setTimeout(function () {
+          var pill = document.getElementById('hint');
+          if (!pill) return;
+          pill.style.transition = 'opacity .6s ease';
+          pill.style.opacity = '0';
+          setTimeout(function () { pill.style.display = 'none'; }, 700);
+        }, 1500);
+      };
+    })();
+  </script>
 
   <!-- right-edge peek cue: implies more work off-canvas; fades after first pan/zoom -->
   <div id="edge-more" aria-hidden="true" style="position: fixed; top: 50%; right: 272px; transform: translateY(-50%); z-index: 95; display: flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; color: #fff; background: linear-gradient(135deg, #155DFC, #7C3AED); border: 0; border-radius: 8px; padding: 7px 13px; box-shadow: 0 6px 18px rgba(21,93,252,0.34); pointer-events: none; transition: opacity .4s ease; animation: edgeMoreBob 2.4s ease-in-out 7.8s infinite;">more work →</div>
@@ -1888,7 +1928,7 @@ class Component extends DCLogic {
           const ghost = document.createElement("div");
           ghost.className = "pf-ghost-cursor";
           ghost.setAttribute("aria-hidden", "true");
-          ghost.innerHTML = '<svg viewBox="0 0 26 30" fill="none"><path d="M5 3l15 12.5-6.8 1.2 3.9 8.2-3.6 1.7-3.9-8.2L5 23.5V3Z" fill="#101828" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg><span class="pf-ghost-ring"></span><span class="pf-ghost-tip">drag stickers to move them · drag the canvas to pan</span>';
+          ghost.innerHTML = '<svg viewBox="0 0 26 30" fill="none"><path d="M5 3l15 12.5-6.8 1.2 3.9 8.2-3.6 1.7-3.9-8.2L5 23.5V3Z" fill="#101828" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg><span class="pf-ghost-ring"></span><span class="pf-ghost-tip">you can drag these · pan anywhere</span>';
           vp.appendChild(ghost);
           ghostEl = ghost;
           const ring = ghost.querySelector(".pf-ghost-ring");
@@ -2043,6 +2083,7 @@ class Component extends DCLogic {
         // Fires once per session: signal whether visitors ever discover the pan
         // gesture at all, so the discoverability fix can be measured, not guessed.
         if (wasDrag && !this._pfTrackedPan) { this._pfTrackedPan = true; if (window.va) window.va("event", "canvas_first_pan"); }
+        if (wasDrag && window.__pfHintUsed) window.__pfHintUsed();
         moved = 0;
         // Pointer capture swallows the click event on the <a>, so navigate manually.
         if (!wasDrag && clickTarget) {
@@ -2090,6 +2131,7 @@ class Component extends DCLogic {
     vp.addEventListener("wheel", (e) => {
       e.preventDefault();
       if (this._inertia) cancelAnimationFrame(this._inertia);
+      if (window.__pfHintUsed) window.__pfHintUsed();
       if (e.ctrlKey || e.metaKey) {
         const rect = vp.getBoundingClientRect();
         const factor = Math.exp(-e.deltaY * 0.004);
@@ -2232,7 +2274,7 @@ class Component extends DCLogic {
       vp.style.right = narrow ? "0" : "260px";
       if (hint) hint.style.left = narrow ? "20px" : "268px";
       if (zc) zc.style.right = narrow ? "20px" : "280px";
-      if (hint) hint.textContent = narrow ? "drag stickers · drag canvas · tap work to open" : "drag stickers to rearrange · drag canvas to pan · click work to open";
+      // hint copy is owned by the rotating-hint script next to the pill markup
     };
     mq.addEventListener("change", applyMq);
     this._mq = mq; this._applyMq = applyMq;
