@@ -12,7 +12,10 @@
     { "source": "/gea", "destination": "/GEA.dc.html" },
     { "source": "/studytable", "destination": "/Studytable.dc.html" },
     { "source": "/work", "destination": "/Work.dc.html" },
-    { "source": "/about", "destination": "/About.dc.html" }
+    { "source": "/about", "destination": "/About.dc.html" },
+    { "source": "/resume", "destination": "/index.html" },
+    { "source": "/linkedin", "destination": "/index.html" },
+    { "source": "/email", "destination": "/index.html" }
   ],
   "redirects": [
     { "source": "/DWS.dc.html", "destination": "/dispute-workspace", "permanent": true },
