@@ -59,12 +59,12 @@
     // made-up style-hover attribute that browsers ignore, so hover never worked
     // there. !important because the scroll-spy writes inline background on rows.
     s.textContent = '.ln-hover:hover{background:#F4F5F7 !important;}[data-nav]:hover{background:#F4F5F7 !important;}' +
-      '#ln-burger{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom));width:44px;height:44px;padding:0;border:1px solid #E2E4E9;border-radius:10px;background:#fff;box-shadow:0 4px 14px rgba(17,24,39,.12);display:flex;align-items:center;justify-content:center;z-index:299;color:#364153;cursor:pointer;}' +
+      '#ln-burger{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom));width:44px;height:44px;padding:0;border:1px solid #E2E4E9;border-radius:10px;background:#fff;box-shadow:0 4px 14px rgba(17,24,39,.12);display:flex;align-items:center;justify-content:center;z-index:302;color:#364153;cursor:pointer;}' +
       '#ln-burger span,#ln-burger span:before,#ln-burger span:after{display:block;width:18px;height:2px;background:#364153;border-radius:2px;}' +
       '#ln-burger span{position:relative;}' +
       '#ln-burger span:before,#ln-burger span:after{content:"";position:absolute;left:0;}' +
       '#ln-burger span:before{top:-6px;}#ln-burger span:after{top:6px;}' +
-      '#ln-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;pointer-events:none;z-index:300;transition:opacity 150ms ease-in,visibility 0s linear 150ms;}' +
+      '#ln-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;pointer-events:none;z-index:300;cursor:pointer;transition:opacity 150ms ease-in,visibility 0s linear 150ms;}' +
       '#ln-drawer{position:fixed;inset:0 auto 0 0;width:280px;max-width:calc(100vw - 48px);height:100vh;height:100dvh;box-sizing:border-box;overflow-y:auto;padding:calc(20px + env(safe-area-inset-top)) 0 calc(20px + env(safe-area-inset-bottom));background:#fff;box-shadow:8px 0 24px rgba(17,24,39,.16);transform:translateX(-100%);visibility:hidden;pointer-events:none;z-index:301;transition:transform 150ms ease-in,visibility 0s linear 150ms;}' +
       '#ln-drawer a{min-height:44px;box-sizing:border-box;padding-top:12px !important;padding-bottom:12px !important;padding-right:20px !important;font-size:14px !important;line-height:20px;display:flex;align-items:center;}' +
       '#ln-backdrop.ln-open{opacity:1;visibility:visible;pointer-events:auto;transition:opacity 220ms ease-out;}' +
