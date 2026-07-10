@@ -1,4 +1,5 @@
 {
+  "trailingSlash": false,
   "rewrites": [
     { "source": "/api/clarity/:sub/:path*", "destination": "/api/clarity?sub=:sub&path=:path*" },
     { "source": "/dispute-workspace", "destination": "/DWS.dc.html" },

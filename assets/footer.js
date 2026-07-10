@@ -33,7 +33,7 @@
 
   function html(mode) {
     if (mode === 'case') return row(standardStyle, caseLabels[file] || 'case study');
-    if (mode === 'work') return row(standardStyle.replace('24px', '8px'), '8 case studies · more in the archive on request');
+    if (mode === 'work') return row(standardStyle.replace('24px', '8px'), '11 case studies · more in the archive on request');
     if (mode === 'about') return row(standardStyle, 'about · designed as an open canvas');
     if (mode === 'home') {
       return '<div style="background: #EDEEF0; padding: 16px 22px; display: flex; justify-content: space-between; align-items: center; font-family: \'JetBrains Mono\', monospace; font-size: 10px; color: #6A7282;"><span>© 2026 Abhikant Nirbhavane</span><a href="index.html" onclick="document.getElementById(\'mobile-view\').style.display=\'none\';document.getElementById(\'viewport\').style.display=\'block\';" style="color: #155DFC; text-decoration: none; font-size: 10px;">desktop view →</a></div>';
@@ -49,5 +49,4 @@
 
   renderAll();
   new MutationObserver(renderAll).observe(document.documentElement, { childList: true, subtree: true });
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', renderAll);
 })();
