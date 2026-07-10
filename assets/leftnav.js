@@ -88,11 +88,14 @@
     var backdrop = document.getElementById('ln-backdrop');
     var drawer = document.getElementById('ln-drawer');
     if (!burger || !backdrop || !drawer) return;
+    // Lock overflowY only: the homepage re-enables mobile scroll via an inline
+    // overflowY:auto (its stylesheet body is overflow:hidden for the canvas),
+    // and writing the overflow shorthand would wipe that and kill scroll.
     if (open && !drawerOpen) {
-      previousOverflow = document.body.style.overflow;
-      document.body.style.overflow = 'hidden';
+      previousOverflow = document.body.style.overflowY;
+      document.body.style.overflowY = 'hidden';
     } else if (!open && drawerOpen) {
-      document.body.style.overflow = previousOverflow;
+      document.body.style.overflowY = previousOverflow;
     }
     drawerOpen = open;
     if (open) drawer.innerHTML = drawerHtml();
@@ -160,7 +163,7 @@
   window.addEventListener('pageshow', function (event) {
     if (event.persisted) {
       setDrawerOpen(false);
-      document.body.style.overflow = '';
+      if (document.body.style.overflowY === 'hidden') document.body.style.overflowY = '';
     }
   });
 
