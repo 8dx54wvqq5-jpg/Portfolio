@@ -1,23 +1,13 @@
 (function () {
+  if (!window.STUDIES) return;
+
   var pageLinks = [
     { key: 'home', label: 'Home', href: 'index.html', files: ['index.html', ''] },
     { key: 'work', label: 'Work', href: '/work', files: ['Work.dc.html', 'work'] },
     { key: 'about', label: 'About', href: '/about', files: ['About.dc.html', 'about'] }
   ];
 
-  var caseLinks = [
-    { key: 'dispute-workspace', label: 'Disputes Workspace', short: 'DWS', href: '/dispute-workspace', files: ['DWS.dc.html', 'dispute-workspace'] },
-    { key: 'ai-dispute-intake', label: 'AI-Assisted Dispute Intake', short: 'AI Intake', href: '/ai-dispute-intake', files: ['AI-Dispute-Intake.dc.html', 'ai-dispute-intake'], nested: true },
-    { key: '360-control', label: '360 Control', short: '360 Control', href: '/360-control', files: ['360 Control.dc.html', '360-control'] },
-    { key: 'design-system', label: 'Design System', short: 'DS', href: '/design-system', files: ['DS.dc.html', 'design-system'] },
-    { key: 'cpq', label: 'CPQ', short: 'CPQ', href: '/cpq', files: ['CPQ.dc.html', 'cpq'] },
-    { key: 'food-safety', label: 'Food Safety', short: 'Food Safety', href: '/food-safety', files: ['FoodSafety.dc.html', 'food-safety'] },
-    { key: 'engage', label: 'Engage', short: 'Engage', href: '/engage', files: ['Engage.dc.html', 'engage'] },
-    { key: 'banfield', label: 'Banfield', short: 'Banfield', href: '/banfield', files: ['Banfield.dc.html', 'banfield'] },
-    { key: 'ecocash', label: 'Eco-Cash', short: 'Eco-Cash', href: '/ecocash', files: ['EcoCash.dc.html', 'ecocash'] },
-    { key: 'gea', label: 'GEA-Spin', short: 'GEA-Spin', href: '/gea', files: ['GEA.dc.html', 'gea'] },
-    { key: 'studytable', label: 'Studytable', short: 'Studytable', href: '/studytable', files: ['Studytable.dc.html', 'studytable'] }
-  ];
+  var caseLinks = window.STUDIES;
 
   var file = decodeURIComponent((window.location.pathname.split('/').pop() || 'index.html'));
 
@@ -49,9 +39,9 @@
   function caseRow(link) {
     var active = isActive(link);
     if (link.nested) {
-      return '<a href="' + link.href + '" class="' + (active ? '' : 'ln-hover') + '" style="display: flex; align-items: center; gap: 6px; padding: 4px 16px 4px 34px; text-decoration: none; color: ' + (active ? '#155DFC' : '#4A5565') + '; font-size: 12.5px; font-weight: ' + (active ? '700; background: #EFF6FF;' : '500;') + '"><span style="color: ' + (active ? '#155DFC' : '#C9CDD6') + '; font-size: 10px;">&#8627;</span> ' + link.label + '</a>';
+      return '<a href="' + link.route + '" class="' + (active ? '' : 'ln-hover') + '" style="display: flex; align-items: center; gap: 6px; padding: 4px 16px 4px 34px; text-decoration: none; color: ' + (active ? '#155DFC' : '#4A5565') + '; font-size: 12.5px; font-weight: ' + (active ? '700; background: #EFF6FF;' : '500;') + '"><span style="color: ' + (active ? '#155DFC' : '#C9CDD6') + '; font-size: 10px;">&#8627;</span> ' + link.label + '</a>';
     }
-    return '<a href="' + link.href + '" class="' + (active ? '' : 'ln-hover') + '" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: ' + (active ? '#155DFC' : '#4A5565') + '; font-size: 12.5px; font-weight: ' + (active ? '700; background: #EFF6FF;' : '500;') + '">' + caseIcon(active) + ' ' + link.label + '</a>';
+    return '<a href="' + link.route + '" class="' + (active ? '' : 'ln-hover') + '" style="display: flex; align-items: center; gap: 8px; padding: 5px 16px; text-decoration: none; color: ' + (active ? '#155DFC' : '#4A5565') + '; font-size: 12.5px; font-weight: ' + (active ? '700; background: #EFF6FF;' : '500;') + '">' + caseIcon(active) + ' ' + link.label + '</a>';
   }
 
   function label(text, color) {
