@@ -58,9 +58,100 @@
     // [data-nav] covers the per-page SECTIONS/LAYERS rows — their markup carried a
     // made-up style-hover attribute that browsers ignore, so hover never worked
     // there. !important because the scroll-spy writes inline background on rows.
-    s.textContent = '.ln-hover:hover{background:#F4F5F7 !important;}[data-nav]:hover{background:#F4F5F7 !important;}';
+    s.textContent = '.ln-hover:hover{background:#F4F5F7 !important;}[data-nav]:hover{background:#F4F5F7 !important;}' +
+      '#ln-burger{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom));width:44px;height:44px;padding:0;border:1px solid #E2E4E9;border-radius:10px;background:#fff;box-shadow:0 4px 14px rgba(17,24,39,.12);display:flex;align-items:center;justify-content:center;z-index:299;color:#364153;cursor:pointer;}' +
+      '#ln-burger span,#ln-burger span:before,#ln-burger span:after{display:block;width:18px;height:2px;background:#364153;border-radius:2px;}' +
+      '#ln-burger span{position:relative;}' +
+      '#ln-burger span:before,#ln-burger span:after{content:"";position:absolute;left:0;}' +
+      '#ln-burger span:before{top:-6px;}#ln-burger span:after{top:6px;}' +
+      '#ln-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;pointer-events:none;z-index:300;transition:opacity 150ms ease-in,visibility 0s linear 150ms;}' +
+      '#ln-drawer{position:fixed;inset:0 auto 0 0;width:280px;max-width:calc(100vw - 48px);height:100vh;height:100dvh;box-sizing:border-box;overflow-y:auto;padding:calc(20px + env(safe-area-inset-top)) 0 calc(20px + env(safe-area-inset-bottom));background:#fff;box-shadow:8px 0 24px rgba(17,24,39,.16);transform:translateX(-100%);visibility:hidden;pointer-events:none;z-index:301;transition:transform 150ms ease-in,visibility 0s linear 150ms;}' +
+      '#ln-drawer a{min-height:44px;box-sizing:border-box;padding-top:12px !important;padding-bottom:12px !important;padding-right:20px !important;font-size:14px !important;line-height:20px;display:flex;align-items:center;}' +
+      '#ln-backdrop.ln-open{opacity:1;visibility:visible;pointer-events:auto;transition:opacity 220ms ease-out;}' +
+      '#ln-drawer.ln-open{transform:translateX(0);visibility:visible;pointer-events:auto;transition:transform 220ms ease-out;}' +
+      '@media (min-width:881px){#ln-burger{display:none;}#ln-backdrop,#ln-drawer{display:none;}}' +
+      '@media (prefers-reduced-motion:reduce){#ln-backdrop,#ln-drawer,#ln-backdrop.ln-open,#ln-drawer.ln-open{transition:none;}}';
     document.head.appendChild(s);
   }
+
+  var drawerOpen = false;
+  var previousOverflow = '';
+
+  function drawerHtml() {
+    var color = file === 'index.html' ? '#6A7282' : '#9AA0AC';
+    return label('PAGES', color) + pageLinks.map(pageRow).join('') + divider() +
+      label('CASE STUDIES', color) + caseLinks.map(caseRow).join('');
+  }
+
+  function setDrawerOpen(open) {
+    var burger = document.getElementById('ln-burger');
+    var backdrop = document.getElementById('ln-backdrop');
+    var drawer = document.getElementById('ln-drawer');
+    if (!burger || !backdrop || !drawer) return;
+    if (open && !drawerOpen) {
+      previousOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+    } else if (!open && drawerOpen) {
+      document.body.style.overflow = previousOverflow;
+    }
+    drawerOpen = open;
+    if (open) drawer.innerHTML = drawerHtml();
+    burger.setAttribute('aria-expanded', String(open));
+    backdrop.setAttribute('aria-hidden', String(!open));
+    backdrop.classList.toggle('ln-open', open);
+    drawer.classList.toggle('ln-open', open);
+    drawer.setAttribute('aria-hidden', String(!open));
+  }
+
+  function ensureMobileNav() {
+    var backdrop = document.getElementById('ln-backdrop');
+    if (!backdrop) {
+      backdrop = document.createElement('div');
+      backdrop.id = 'ln-backdrop';
+      backdrop.setAttribute('aria-hidden', 'true');
+      backdrop.addEventListener('click', function () { setDrawerOpen(false); });
+      document.body.appendChild(backdrop);
+    }
+
+    var drawer = document.getElementById('ln-drawer');
+    if (!drawer) {
+      drawer = document.createElement('nav');
+      drawer.id = 'ln-drawer';
+      drawer.setAttribute('aria-label', 'Site navigation');
+      drawer.setAttribute('aria-hidden', String(!drawerOpen));
+      drawer.addEventListener('click', function (event) {
+        if (event.target.closest('a')) setDrawerOpen(false);
+      });
+      document.body.appendChild(drawer);
+    }
+
+    var burger = document.getElementById('ln-burger');
+    if (!burger) {
+      burger = document.createElement('button');
+      burger.id = 'ln-burger';
+      burger.type = 'button';
+      burger.setAttribute('aria-label', 'Open navigation');
+      burger.setAttribute('aria-controls', 'ln-drawer');
+      burger.setAttribute('aria-expanded', String(drawerOpen));
+      burger.innerHTML = '<span aria-hidden="true"></span>';
+      burger.addEventListener('click', function () { setDrawerOpen(!drawerOpen); });
+      document.body.appendChild(burger);
+    }
+
+    if (drawerOpen && drawer.children.length === 0) drawer.innerHTML = drawerHtml();
+    burger.setAttribute('aria-expanded', String(drawerOpen));
+    backdrop.setAttribute('aria-hidden', String(!drawerOpen));
+    drawer.setAttribute('aria-hidden', String(!drawerOpen));
+    backdrop.classList.toggle('ln-open', drawerOpen);
+    drawer.classList.toggle('ln-open', drawerOpen);
+  }
+
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && drawerOpen) setDrawerOpen(false);
+  });
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 880 && drawerOpen) setDrawerOpen(false);
+  });
 
   function render(mount) {
     var mode = mount.getAttribute('data-leftnav');
@@ -82,6 +173,10 @@
   // x-dc (support.js) rebuilds the DOM after this script runs and wipes the
   // injected nav — re-render on every mutation, same pattern as connect.js
   renderAll();
-  new MutationObserver(renderAll).observe(document.documentElement, { childList: true, subtree: true });
+  ensureMobileNav();
+  new MutationObserver(function () {
+    renderAll();
+    ensureMobileNav();
+  }).observe(document.documentElement, { childList: true, subtree: true });
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', renderAll);
 })();
