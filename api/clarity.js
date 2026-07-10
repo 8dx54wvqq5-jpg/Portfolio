@@ -1,17 +1,17 @@
 // First-party proxy for Microsoft Clarity so ad blockers don't drop it.
-// /api/clarity/<sub>/<path> -> https://<sub>.clarity.ms/<path>
-// JS responses get clarity.ms URLs rewritten back to this proxy so the
-// tag script's internal upload calls also stay first-party.
+// vercel.json rewrites /api/clarity/<sub>/<path> here as ?sub=&path=.
+// Forwards to https://<sub>.clarity.ms/<path>; JS responses get
+// clarity.ms URLs rewritten back to this proxy so the tag script's
+// internal upload calls also stay first-party.
 
 export const config = { api: { bodyParser: false } };
 
 export default async function handler(req, res) {
-  const parts = req.query.path || [];
-  const sub = parts[0];
+  const { sub, path = "", ...rest } = req.query;
   if (!/^[a-z0-9-]+$/.test(sub || "")) return res.status(400).end();
 
-  const qs = req.url.includes("?") ? "?" + req.url.split("?")[1] : "";
-  const target = `https://${sub}.clarity.ms/${parts.slice(1).join("/")}${qs}`;
+  const qs = new URLSearchParams(rest).toString();
+  const target = `https://${sub}.clarity.ms/${path}${qs ? "?" + qs : ""}`;
 
   const chunks = [];
   for await (const c of req) chunks.push(c);

@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/api/clarity/:sub/:path*", "destination": "/api/clarity?sub=:sub&path=:path*" },
     { "source": "/dispute-workspace", "destination": "/DWS.dc.html" },
     { "source": "/ai-dispute-intake", "destination": "/AI-Dispute-Intake.dc.html" },
     { "source": "/design-system", "destination": "/DS.dc.html" },
