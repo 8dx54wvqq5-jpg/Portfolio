@@ -152,6 +152,17 @@
   window.addEventListener('resize', function () {
     if (window.innerWidth > 880 && drawerOpen) setDrawerOpen(false);
   });
+  // iOS bfcache: swipe-back restores the page frozen mid-state; force the
+  // drawer closed and unlock scroll on both leave and restore.
+  window.addEventListener('pagehide', function () {
+    if (drawerOpen) setDrawerOpen(false);
+  });
+  window.addEventListener('pageshow', function (event) {
+    if (event.persisted) {
+      setDrawerOpen(false);
+      document.body.style.overflow = '';
+    }
+  });
 
   function render(mount) {
     var mode = mount.getAttribute('data-leftnav');
