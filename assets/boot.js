@@ -9,17 +9,22 @@
   })(window, document, 'clarity', 'script', 'xjjno0k0vd');
 
   // Vercel Hobby drops custom va() events, so mirror them into Clarity,
-  // which tracks custom events for free. Keep queueing for Vercel unchanged.
-  window.va = function () {
-    (window.vaq = window.vaq || []).push(arguments);
-    try {
-      if (arguments[0] === 'event') {
-        var a = arguments[1];
-        var name = typeof a === 'string' ? a : a && a.name;
-        if (name) window.clarity('event', name);
-      }
-    } catch (e) {}
-  };
+  // which tracks custom events for free. The insights script replaces
+  // window.va when it loads, so wrap whatever va is once loading settles.
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  window.addEventListener('load', function () {
+    var orig = window.va;
+    window.va = function () {
+      try {
+        if (arguments[0] === 'event') {
+          var a = arguments[1];
+          var name = typeof a === 'string' ? a : a && a.name;
+          if (name) window.clarity('event', name);
+        }
+      } catch (e) {}
+      return orig.apply(this, arguments);
+    };
+  });
 
   // Tag the session with its traffic source so replays can be filtered
   // (e.g. only visitors arriving from LinkedIn).
