@@ -95,6 +95,14 @@ module.exports = async function handler(req, res) {
   const { messages, pageContext } = req.body || {};
   if (!messages || !Array.isArray(messages)) return res.status(400).json({ error: 'messages required' });
 
+  // Surface visitor questions in Vercel runtime logs — intent data we otherwise never see.
+  try {
+    const last = messages[messages.length - 1];
+    if (last && last.role === 'user') {
+      console.log(JSON.stringify({ chat_q: String(last.content).slice(0, 200), page: (pageContext && pageContext.path) || '/' }));
+    }
+  } catch (e) {}
+
   let system = SYSTEM;
   if (pageContext && pageContext.text) {
     system += `\n\n## Page the visitor is reading right now\nPath: ${pageContext.path || '/'}\nTitle: ${pageContext.title || 'Portfolio'}\nContent: ${String(pageContext.text).slice(0, 2000)}\n\nWhen the question relates to this page ("this project", "what did you do here"), answer about THIS project specifically using the content above, even if it isn't in the case studies listed earlier.`;
