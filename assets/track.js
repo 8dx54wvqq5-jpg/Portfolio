@@ -49,6 +49,38 @@
   document.head.appendChild(s);
 })();
 
+// generic engagement: scroll-to-end + time-on-page for every page that
+// doesn't already have its own bespoke tracking (DWS/360/AI-Intake keep theirs)
+(function () {
+  var page = (document.title.split('·')[0] || document.title).trim();
+  var start = Date.now();
+  var scrolledEnd = false;
+
+  function onScroll() {
+    if (scrolledEnd) return;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    if (max > 0 && window.scrollY / max >= 0.9) {
+      scrolledEnd = true;
+      window.va && window.va('event', { name: page + ' · scrolled to end' });
+      window.removeEventListener('scroll', onScroll);
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  var timeReported = false;
+  function reportTime() {
+    if (timeReported) return;
+    timeReported = true;
+    var seconds = Math.round((Date.now() - start) / 1000);
+    var bucket = seconds < 10 ? '<10s' : seconds < 30 ? '10-30s' : seconds < 60 ? '30-60s' : seconds < 180 ? '1-3m' : '3m+';
+    window.va && window.va('event', { name: page + ' · time on page · ' + bucket, data: { seconds: seconds } });
+  }
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'hidden') reportTime();
+  });
+  window.addEventListener('pagehide', reportTime);
+})();
+
 // referral attribution: ?utm_source=company -> custom event (free on Pro plan)
 (function () {
   try {
