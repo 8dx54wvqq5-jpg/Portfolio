@@ -17,13 +17,17 @@ export default async function handler(req, res) {
   for await (const c of req) chunks.push(c);
   const body = Buffer.concat(chunks);
 
+  // Pass through all headers (incl. x-forwarded-for with the real client IP,
+  // so Clarity doesn't classify every visitor as one datacenter bot) except
+  // hop-by-hop ones and host/length, which fetch must set itself.
+  const headers = { ...req.headers };
+  for (const h of ["host", "connection", "content-length", "transfer-encoding", "accept-encoding"]) {
+    delete headers[h];
+  }
+
   const upstream = await fetch(target, {
     method: req.method,
-    headers: {
-      "content-type": req.headers["content-type"] || "",
-      "user-agent": req.headers["user-agent"] || "",
-      referer: req.headers.referer || "",
-    },
+    headers,
     body: ["GET", "HEAD"].includes(req.method) ? undefined : body,
   });
 

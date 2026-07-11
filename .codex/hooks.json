@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd /Users/abhikantnirbhavane/Portfolio && if [ -n \"$(git status --porcelain)\" ]; then git add -A && git commit -m 'WIP: auto-commit before context compaction'; fi",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
