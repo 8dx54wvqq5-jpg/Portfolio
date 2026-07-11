@@ -436,9 +436,13 @@
 
   // ── Open / close ─────────────────────────────────────────────────────────
   var isOpen = false;
+  var openedAt = 0;
+  var messagesAtOpen = 0;
 
   function open() {
     isOpen = true;
+    openedAt = Date.now();
+    messagesAtOpen = messages.filter(function (m) { return m.role === 'user'; }).length;
     track('Chat Opened', { page: document.title });
     panel.classList.add('open');
     backdrop.classList.add('open');
@@ -448,6 +452,12 @@
 
   function close() {
     isOpen = false;
+    var sentThisSession = messages.filter(function (m) { return m.role === 'user'; }).length - messagesAtOpen;
+    track('Chat Closed', {
+      page: document.title,
+      seconds_open: Math.round((Date.now() - openedAt) / 1000),
+      messages_sent: sentThisSession
+    });
     panel.classList.remove('open');
     backdrop.classList.remove('open');
   }
