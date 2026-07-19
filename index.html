@@ -477,6 +477,28 @@
 	    @media (prefers-reduced-motion: reduce) { .pf-folder-img, .pf-folder-cards, .pf-folder-card { transition: none !important; } }
     /* desktop-canvas artifacts hidden on mobile: /work page + edge peek cue only make sense on the canvas */
     @media (max-width: 767px) { a[href="/work"][data-tip], #edge-more { display: none !important; } }
+    /* ---- micro-interactions (Amicro-inspired, vanilla port) ---- */
+    /* glare shine sweep across case study cards on hover */
+    a[data-frame]::after { content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none; border-radius: inherit; background: linear-gradient(105deg, transparent 42%, rgba(255,255,255,0.32) 50%, transparent 58%); transform: translateX(-130%); }
+    a[data-frame]:hover::after { transform: translateX(130%); transition: transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+    a[data-frame]:hover [data-arr] { transform: translateX(4px); }
+    /* focus-blur nav: hovering one link dims siblings */
+    .ln-hover { transition: opacity .22s ease, filter .22s ease, background .12s ease; }
+    #panel-left:has(.ln-hover:hover) .ln-hover:not(:hover) { opacity: 0.45; filter: blur(0.6px); }
+    /* slide arrow on "View all work" */
+    .vw-arr { display: inline-block; transition: transform .25s cubic-bezier(0.34,1.56,0.64,1); }
+    a[href="/work"]:hover .vw-arr { transform: translateX(3px); }
+    /* expand ring on theme swatch click */
+    [data-theme-swatch] { position: relative; }
+    .swatch-ring::after { content: ""; position: absolute; inset: -3px; border-radius: 8px; border: 2px solid #155DFC; animation: swatchRing .45s ease-out forwards; pointer-events: none; }
+    @keyframes swatchRing { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(1.6); } }
+    /* one-shot spin on reset-view */
+    .spin-once { animation: toolSpin .55s cubic-bezier(0.34,1.56,0.64,1); }
+    @keyframes toolSpin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) {
+      a[data-frame]::after, .swatch-ring::after, .spin-once { animation: none !important; transition: none !important; display: none; }
+      #panel-left:has(.ln-hover:hover) .ln-hover:not(:hover) { opacity: 1; filter: none; }
+    }
   </style>
 </helmet>
 
@@ -493,7 +515,7 @@
       <div data-toolmsg="No typing needed ✦ my work does the talking. Scroll right →" data-tip="Text" role="button" tabindex="0" aria-label="Text tool preview." style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;">T</div>
       <div data-toolmsg="Comment tool ✦ the real notes are pinned out on the canvas." data-tip="Comment" role="button" tabindex="0" aria-label="Comment tool preview." style="width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #8A8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px;">◯</div>
       <div style="width: 1px; height: 20px; background: #2A2E37; margin: 0 6px;"></div>
-      <a href="/work" data-tip="Open the work page" aria-label="Open the work page." style="padding: 5px 11px; border-radius: 6px; background: #2A2E37; color: #E7E9EE; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 6px; cursor: pointer;">▸ View all work</a>
+      <a href="/work" data-tip="Open the work page" aria-label="Open the work page." style="padding: 5px 11px; border-radius: 6px; background: #2A2E37; color: #E7E9EE; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 6px; cursor: pointer;"><span class="vw-arr">▸</span> View all work</a>
     </div>
     <div id="toolbar-center" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6A7282; display: flex; align-items: center; gap: 8px;">
       <span style="color: #6A7282;">Drafts</span>
@@ -2390,6 +2412,28 @@ setTimeout(function() {
     });
   });
 }, 100);
+</script>
+<script>
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  // click feedback: swatch expand ring + reset-view spin (re-add class to restart animation)
+  document.addEventListener('click', function (e) {
+    var sw = e.target.closest('[data-theme-swatch]');
+    if (sw) { sw.classList.remove('swatch-ring'); void sw.offsetWidth; sw.classList.add('swatch-ring'); }
+    var fit = e.target.closest('[data-toolfit]');
+    if (fit) { fit.classList.remove('spin-once'); void fit.offsetWidth; fit.classList.add('spin-once'); }
+  });
+  // magnetic pull on right-panel CTAs
+  document.querySelectorAll('#panel-right .pf-cta').forEach(function (el) {
+    el.addEventListener('mousemove', function (e) {
+      var r = el.getBoundingClientRect();
+      var dx = (e.clientX - r.left - r.width / 2) / r.width;
+      var dy = (e.clientY - r.top - r.height / 2) / r.height;
+      el.style.transform = 'translate(' + (dx * 6).toFixed(1) + 'px,' + (dy * 4).toFixed(1) + 'px)';
+    });
+    el.addEventListener('mouseleave', function () { el.style.transform = ''; });
+  });
+})();
 </script>
 <div id="nav-loader" style="position: fixed; top: 0; left: 0; height: 2px; width: 0; background: #155DFC; z-index: 102; opacity: 0; box-shadow: 0 0 8px rgba(21,93,252,0.7); transition: width 0.2s ease, opacity 0.3s ease; pointer-events: none;"></div>
 <script>
