@@ -482,9 +482,6 @@
     a[data-frame]::after { content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none; border-radius: inherit; background: linear-gradient(105deg, transparent 42%, rgba(255,255,255,0.32) 50%, transparent 58%); transform: translateX(-130%); }
     a[data-frame]:hover::after { transform: translateX(130%); transition: transform 0.9s cubic-bezier(0.16,1,0.3,1); }
     a[data-frame]:hover [data-arr] { transform: translateX(4px); }
-    /* focus-blur nav: hovering one link dims siblings */
-    .ln-hover { transition: opacity .22s ease, filter .22s ease, background .12s ease; }
-    #panel-left:has(.ln-hover:hover) .ln-hover:not(:hover) { opacity: 0.45; filter: blur(0.6px); }
     /* slide arrow on "View all work" */
     .vw-arr { display: inline-block; transition: transform .25s cubic-bezier(0.34,1.56,0.64,1); }
     a[href="/work"]:hover .vw-arr { transform: translateX(3px); }
@@ -497,7 +494,6 @@
     @keyframes toolSpin { to { transform: rotate(360deg); } }
     @media (prefers-reduced-motion: reduce) {
       a[data-frame]::after, .swatch-ring::after, .spin-once { animation: none !important; transition: none !important; display: none; }
-      #panel-left:has(.ln-hover:hover) .ln-hover:not(:hover) { opacity: 1; filter: none; }
     }
   </style>
 </helmet>
