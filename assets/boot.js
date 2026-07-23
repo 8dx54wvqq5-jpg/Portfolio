@@ -26,14 +26,40 @@
     };
   });
 
-  // Tag the session with its traffic source so replays can be filtered
-  // (e.g. only visitors arriving from LinkedIn).
+  // Referral identity: a ?utm_source= or ?c= link stores the company in
+  // localStorage (last-touch), so return visits without the tag still get
+  // identified, tagged, and upgraded in Clarity. Bare referrers (LinkedIn
+  // etc.) only tag the session; no identity is created for them.
   try {
-    var source = new URLSearchParams(location.search).get('utm_source');
-    if (!source && document.referrer) {
-      var ref = new URL(document.referrer).hostname;
-      if (ref && ref !== location.hostname) source = ref;
+    var p = new URLSearchParams(location.search);
+    var src = (p.get('utm_source') || p.get('c') || '').trim().toLowerCase();
+    var ref = {};
+    try { ref = JSON.parse(localStorage.getItem('ab_ref')) || {}; } catch (e) {}
+    if (src) {
+      if (ref.source && ref.source !== src) {
+        ref.sources = ref.sources || [ref.source];
+        if (ref.sources.indexOf(src) === -1) ref.sources.push(src);
+        delete ref.role;
+        delete ref.campaign;
+      }
+      ref.source = src;
+      if (p.get('utm_content')) ref.role = p.get('utm_content');
+      if (p.get('utm_campaign')) ref.campaign = p.get('utm_campaign');
+      ref.ts = Date.now();
+      if (!ref.device) ref.device = Math.random().toString(36).slice(2, 6);
+      localStorage.setItem('ab_ref', JSON.stringify(ref));
     }
-    if (source) window.clarity('set', 'source', source);
+    if (ref.source && ref.device) {
+      var id = ref.source + '·' + ref.device;
+      window.clarity('identify', id, undefined, undefined, id);
+      window.clarity('set', 'source', ref.source);
+      if (ref.role) window.clarity('set', 'role', ref.role);
+      if (ref.campaign) window.clarity('set', 'campaign', ref.campaign);
+      if (ref.sources) window.clarity('set', 'sources', ref.sources.join(','));
+      window.clarity('upgrade', 'referral');
+    } else if (document.referrer) {
+      var host = new URL(document.referrer).hostname;
+      if (host && host !== location.hostname) window.clarity('set', 'source', host);
+    }
   } catch (e) {}
 })();
