@@ -87,7 +87,12 @@
     var p = new URLSearchParams(location.search);
     var c = (p.get('utm_source') || p.get('c') || '').trim();
     if (!c) return;
-    var fire = function () { window.va && window.va('event', { name: 'Referral · ' + c, data: { page: location.pathname } }); };
+    // ponytail: call clarity directly, not via boot.js's va wrapper — that wrapper
+    // installs on window load and this fires at defer time, so the mirror misses it.
+    var fire = function () {
+      window.clarity && window.clarity('event', 'Referral · ' + c);
+      window.va && window.va('event', { name: 'Referral · ' + c, data: { page: location.pathname } });
+    };
     if (window.va) fire(); else { var n = 0, t = setInterval(function () { if (window.va || ++n > 20) { clearInterval(t); if (window.va) fire(); } }, 300); }
   } catch (e) {}
 })();

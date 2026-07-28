@@ -53,13 +53,14 @@
   <div class="out" id="out"></div>
 
   <p class="hint">
-    The page reads <code>utm_source</code> on load and fires a custom event
-    <code>Referral · company</code> — visible in Vercel → Analytics → <strong>Events</strong>
-    (free on Pro; the paid UTM Parameters tab is not needed).<br>
-    Clarity also identifies the visitor as <code>company·device</code>, tags
-    <code>source</code>/<code>role</code>/<code>campaign</code>, remembers the company on
+    Send the tagged link instead of the bare URL. Open the second link to see who used it.<br>
+    Clarity reads <code>utm_source</code> natively (Filters → Traffic → Source), and the page
+    also fires a <code>Referral · company</code> event that shows up under Clarity →
+    <strong>Smart events</strong>. It identifies the visitor as <code>company·device</code>,
+    tags <code>source</code>/<code>role</code>/<code>campaign</code>, remembers the company on
     return visits, and upgrades the session so the replay is always kept.<br>
-    Send the tagged link instead of the bare URL. Only Home, DWS, and 360 Control are tracked.
+    Vercel gets the same event, but this plan is Hobby, so Vercel drops it. Clarity is the
+    one that counts. Tracking runs on every page; the dropdown only picks the landing page.
   </p>
 </div>
 
@@ -84,9 +85,17 @@
     var note = slug(role.value);
     if (note) params.set('utm_content', note);
     var url = location.origin + page.value + '?' + params.toString();
+    // Clarity encodes its filters in the URL, so a per-company dashboard link needs no clicking.
+    var clarity = 'https://clarity.microsoft.com/projects/view/xjjno0k0vd/dashboard'
+      + '?date=' + encodeURIComponent('Last 30 days')
+      + '&Source=' + encodeURIComponent('None~' + src);
 
-    var row = document.createElement('div');
-    var lbl = document.createElement('div'); lbl.className = 'lbl'; lbl.textContent = 'Tagged link';
+    addRow('Tagged link (send this)', url);
+    addRow('Check who opened it (bookmark this)', clarity);
+  }
+
+  function addRow(label, url) {
+    var lbl = document.createElement('div'); lbl.className = 'lbl'; lbl.textContent = label;
     var r = document.createElement('div'); r.className = 'row';
     var u = document.createElement('div'); u.className = 'url'; u.textContent = url;
     var b = document.createElement('button'); b.className = 'copy'; b.textContent = 'Copy';
