@@ -140,7 +140,7 @@
             </a>
             <h1 data-reveal="1" style="font-size: 48px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 22px; max-width: 20ch; text-wrap: pretty;">AI-Assisted Dispute Intake</h1>
             <p data-reveal="2" style="font-size: 18px; line-height: 1.65; color: #101828; font-weight: 600; margin: 0 0 18px; max-width: 60ch;">I redesigned a regulated workflow so AI could accelerate intake without weakening human accountability.</p>
-            <p data-reveal="2" style="font-size: 16px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 64ch;">AI-Assisted Dispute Intake was an LLM-supported flow inside Fiserv's Disputes Workspace. The model pre-filled dispute attributes, each field carried a plain confidence cue, and the agent accepted or corrected the result. The audit log recorded both sides of the decision: what the AI suggested and what the human chose. That made the flow defensible under FCBA and Reg E, and gave the team a way to see where the model was trusted, corrected, or overconfident.</p>
+            <p data-reveal="2" style="font-size: 16px; line-height: 1.7; color: #4A5565; margin: 0; max-width: 64ch;">AI-Assisted Dispute Intake was an LLM-supported pilot inside Fiserv's Disputes Workspace. The model pre-filled dispute attributes, each field carried a plain confidence cue, and the agent accepted or corrected the result. The audit log recorded both sides of the decision: what the AI suggested and what the human chose. That made the flow defensible under FCBA and Reg E, and gave the team a way to see where the model was trusted, corrected, or overconfident.</p>
           </div>
           <div data-reveal="2" style="padding: 4px 64px 0;">
             <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; border-top: 1px solid #ECEDF1; padding-top: 32px;">
@@ -532,7 +532,7 @@
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
           <div data-reveal="0" style="display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; background: #EFF6FF; border: 1px solid #D6E4FF; border-radius: 999px; padding: 4px 12px; margin-bottom: 16px;">▶ INTERACTIVE · DRIVE IT YOURSELF</div>
           <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">Try the AI intake yourself</h2>
-          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 72ch;">This is the same screen a Fiserv agent saw, rebuilt in the DWS design system. The AI has already read the cardholder's complaint and pre-filled five fields, each tagged with how sure it is. Press start and do the agent's job yourself. Nothing is submitted for you.</p>
+          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 72ch;">This is the same screen a Fiserv agent saw in the pilot, rebuilt in the DWS design system. The AI has already read the cardholder's complaint and pre-filled six fields, each tagged with how sure it is. Press start and do the agent's job yourself. Nothing is submitted for you.</p>
 
           <!-- mobile fallback -->
           <div class="pt-mobile" data-reveal="1">
@@ -625,7 +625,7 @@
                         <div style="font-size: 16px; color: #111928; line-height: 1.5;">“I was charged <b>$47.50 twice</b> for the same <b>Uber</b> ride on <b>March 3rd</b>. I only took one trip.”</div>
                         <div style="margin-top: 12px; background: #EBF2FF; border: 1px solid #C3D4F8; border-radius: 4px; padding: 10px 12px; display: flex; align-items: center; gap: 10px;">
                           <div style="font-size: 15px; color: #1A56DB;">✦</div>
-                          <div style="font-size: 13px; color: #1E429F;">The AI read these words and pre-filled the 5 fields below. Each one is rated by how sure the AI is. <b>The rating tells you what to do next.</b></div>
+                          <div style="font-size: 13px; color: #1E429F;">The AI read these words and pre-filled the 6 fields below. Each one is rated by how sure the AI is. <b>The rating tells you what to do next.</b></div>
                         </div>
                       </div>
 
@@ -647,7 +647,7 @@
 
                       <!-- banner -->
                       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
-                        <div style="font-size: 13px; font-weight: 700; color: #111928;">✦ AI pre-filled 5 fields</div>
+                        <div style="font-size: 13px; font-weight: 700; color: #111928;">✦ AI pre-filled 6 fields</div>
                         <div style="font-size: 12px; color: #6B7280;">{{ decidedCount }} of 5 decided by you</div>
                         <button onClick="{{ acceptAll }}" style="margin-left: auto; height: 28px; padding: 0 12px; border-radius: 4px; border: 1px solid #C3D4F8; background: #fff; color: #1A56DB; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit;">Accept all</button>
                       </div>
@@ -952,7 +952,7 @@
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; box-shadow: 0 1px 3px rgba(16,24,40,0.05); padding: 64px;">
           <div data-reveal="0" style="display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #155DFC; background: #EFF6FF; border: 1px solid #D6E4FF; border-radius: 999px; padding: 4px 12px; margin-bottom: 16px;">★ THE HERO IDEA</div>
           <h2 data-reveal="0" style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px;">The audit log became the product's memory</h2>
-          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 16px; max-width: 70ch;">Compliance needed a record: who decided what, on what basis, when. That much was a requirement. But because the AI intake was a brand-new feature, there was no historical baseline to measure it against. There were no past accuracy numbers, no prior override rates, nothing to compare to.</p>
+          <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 16px; max-width: 70ch;">Compliance needed a record: who decided what, on what basis, when. That much was a requirement. But because the AI intake pilot was a brand-new feature, there was no historical baseline to measure it against. There were no past accuracy numbers, no prior override rates, nothing to compare to.</p>
           <p data-reveal="1" style="font-size: 16px; line-height: 1.75; color: #364153; margin: 0 0 32px; max-width: 70ch;">So I designed the audit log as the place where the product could learn. The record still satisfied the regulator, but it also showed the team where the AI was trusted, corrected, or overconfident. An override was no longer only a correction. It was a signal about what to fix next.</p>
 
           <!-- DEVICE C: before/after audit visibility -->
@@ -1516,7 +1516,7 @@ class Component extends DCLogic {
     if (st.ptConfirmed) {
       g = { n: 6, title: "The record is the product's memory", body: "Your override (10.4 to 12.6.1) is now a data point. Compliance gets its trail; the AI gets its homework. Read the summary, then replay if you like.", note: "In regulated AI, auditability is not overhead. It is how the product learns. I designed the compliance record and the learning loop as the same artifact." };
     } else if (all) {
-      g = { n: 6, title: "Nothing happened without you", body: "Five fields, five human decisions, all logged on the right. Now press Confirm intake. This is the only moment anything is actually committed.", note: "The AI never submits. Keeping the commit as an explicit human act is what makes the workflow defensible under FCBA and Reg E." };
+      g = { n: 6, title: "Nothing happened without you", body: "Six fields, six human decisions, all logged on the right. Now press Confirm intake. This is the only moment anything is actually committed.", note: "The AI never submits. Keeping the commit as an explicit human act is what makes the workflow defensible under FCBA and Reg E." };
     } else if (st.ptSubOpen) {
       g = { n: 5, title: "Pick the right code", body: "The cardholder said “charged twice for one ride.” One real charge, billed twice. That is duplicate processing, code 12.6.1. Select it and save your correction.", note: "Overrides require a choice plus a logged reason. That friction is deliberate: it turns a correction into evidence the team can count." };
     } else if (highsLeft === 0 && f.merchant === "done" && f.sub === "pending") {
@@ -1563,7 +1563,7 @@ class Component extends DCLogic {
       saveSubCursor: choice ? "pointer" : "not-allowed",
 
       dot1: dot("type"), dot2: dot("amount"), dot3: dot("date"), dot4: dot("merchant"), dot5: dot("sub"),
-      footerHint: all ? "All 5 fields decided by you. Nothing was committed automatically." : "Review each field. Nothing is submitted until you confirm.",
+      footerHint: all ? "All 6 fields decided by you. Nothing was committed automatically." : "Review each field. Nothing is submitted until you confirm.",
       confirmBg: all ? "#0E9F6E" : "#9CA3AF",
       confirmCursor: all ? "pointer" : "not-allowed",
       confirmAnim: all ? "ptPulse 1.6s ease infinite" : "none",
