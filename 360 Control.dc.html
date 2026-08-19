@@ -671,8 +671,8 @@ class Component extends DCLogic {
       const sync = () => { this._ttsElapsed = this._audio.currentTime || 0; this._ttsPlaying = !this._audio.paused && !this._audio.ended; this._apUpdateUI(); };
       this._audio.addEventListener("loadedmetadata", setDur);
       ["timeupdate", "play", "pause", "ended"].forEach((ev) => this._audio.addEventListener(ev, sync));
-      this._audio.addEventListener("play", () => window.va && window.va("event", { name: "360 Control · audio played" }), { once: true });
-      this._audio.addEventListener("ended", () => window.va && window.va("event", { name: "360 Control · audio finished" }), { once: true });
+      this._audio.addEventListener("play", () => { window.va && window.va("event", { name: "360 Control · audio played" }); window.clarity && window.clarity("event", "360 Control · audio played"); }, { once: true });
+      this._audio.addEventListener("ended", () => { window.va && window.va("event", { name: "360 Control · audio finished" }); window.clarity && window.clarity("event", "360 Control · audio finished"); }, { once: true });
       if (this._audio.readyState >= 1) setDur();
     }
 
