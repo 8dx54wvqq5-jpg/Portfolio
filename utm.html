@@ -45,9 +45,9 @@
 
   <label for="page">Landing page</label>
   <select id="page">
-    <option value="/">Home</option>
-    <option value="/dispute-workspace">Dispute Workspace (DWS)</option>
-    <option value="/360-control">360 Control</option>
+    <option value="/" data-code="home">Home</option>
+    <option value="/dispute-workspace" data-code="dws">Dispute Workspace (DWS)</option>
+    <option value="/360-control" data-code="control">360 Control</option>
   </select>
 
   <div class="out" id="out"></div>
@@ -89,8 +89,14 @@
     var clarity = 'https://clarity.microsoft.com/projects/view/xjjno0k0vd/dashboard'
       + '?date=' + encodeURIComponent('Last 30 days')
       + '&Source=' + encodeURIComponent('None~' + src);
+    var pagecode = page.options[page.selectedIndex].dataset.code;
+    var slugParts = [src];
+    if (note) { slugParts.push(pagecode, note); }
+    else if (pagecode !== 'home') { slugParts.push(pagecode); }
+    var short = location.origin + '/r/' + slugParts.join('.');
 
-    addRow('Tagged link (send this)', url);
+    addRow('Short link (send this)', short);
+    addRow('Full tagged link', url);
     addRow('Check who opened it (bookmark this)', clarity);
   }
 
