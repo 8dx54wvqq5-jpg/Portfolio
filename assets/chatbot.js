@@ -188,6 +188,9 @@
   // Vercel Web Analytics custom events (free Hobby tier). No-op if va absent.
   function track(name, data) {
     try { if (window.va) window.va('event', data ? { name: name, data: data } : { name: name }); } catch (e) {}
+    try {
+      if (window.clarity) window.clarity('event', name.toLowerCase().replace(/ /g, '_'));
+    } catch (e) {}
   }
 
   // ── State ────────────────────────────────────────────────────────────────
@@ -453,11 +456,18 @@
   function close() {
     isOpen = false;
     var sentThisSession = messages.filter(function (m) { return m.role === 'user'; }).length - messagesAtOpen;
+    var secondsOpen = Math.round((Date.now() - openedAt) / 1000);
     track('Chat Closed', {
       page: document.title,
-      seconds_open: Math.round((Date.now() - openedAt) / 1000),
+      seconds_open: secondsOpen,
       messages_sent: sentThisSession
     });
+    try {
+      if (window.clarity) {
+        window.clarity('set', 'chat_duration_s', String(secondsOpen));
+        window.clarity('set', 'chat_message_count', String(sentThisSession));
+      }
+    } catch (e) {}
     panel.classList.remove('open');
     backdrop.classList.remove('open');
   }
