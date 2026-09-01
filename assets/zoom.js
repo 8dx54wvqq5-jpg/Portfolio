@@ -36,8 +36,9 @@
     + '#img-lightbox { position: fixed; inset: 0; z-index: 9999; background: rgba(8,9,12,0.92); display: none; align-items: center; justify-content: center; padding: 32px; opacity: 0; transition: opacity 0.18s ease; }'
     + '#img-lightbox.open { display: flex; opacity: 1; }'
     + '#img-lightbox img { max-width: 96vw; max-height: 92vh; object-fit: contain; border-radius: 8px; box-shadow: 0 24px 64px -16px rgba(0,0,0,0.6); }'
-    + '#img-lightbox .lb-close { position: absolute; top: 20px; right: 24px; width: 40px; height: 40px; border-radius: 999px; border: none; background: rgba(255,255,255,0.12); color: #fff; font-size: 20px; cursor: pointer; line-height: 1; }'
-    + '#img-lightbox .lb-close:hover { background: rgba(255,255,255,0.22); }';
+    + '#img-lightbox .lb-close { position: absolute; top: 20px; right: 24px; width: 40px; height: 40px; border-radius: 999px; border: none; background: rgba(255,255,255,0.12); color: #fff; font-size: 20px; cursor: pointer; line-height: 1; transition: transform 140ms ease; }'
+    + '#img-lightbox .lb-close:hover { background: rgba(255,255,255,0.22); }'
+    + '#img-lightbox .lb-close:active { transform: scale(0.9); }';
   var style = document.createElement('style');
   style.textContent = css;
   document.head.appendChild(style);

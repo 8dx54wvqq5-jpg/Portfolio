@@ -492,8 +492,22 @@
     /* one-shot spin on reset-view */
     .spin-once { animation: toolSpin .55s cubic-bezier(0.34,1.56,0.64,1); }
     @keyframes toolSpin { to { transform: rotate(360deg); } }
+    /* press/copy feedback */
+    [data-copy-email] { transition: opacity 150ms ease, transform 150ms ease; }
+    [data-copy-email].copied { animation: copyPop 150ms ease; }
+    @keyframes copyPop { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    .pf-mcard { transition: transform 150ms ease-out, background-color 150ms ease-out; }
+    .pf-mcard:active { transform: scale(0.98); }
+    [data-toolfit], [data-tool="select"], [data-tool="hand"], [data-toolmsg] { transition: background-color 120ms ease; }
+    [data-toolfit]:active, [data-tool="select"]:active, [data-tool="hand"]:active, [data-toolmsg]:active { transform: scale(0.94); transition: transform 100ms ease; }
+    [data-theme-swatch] { transition: transform 130ms ease, box-shadow 130ms ease; }
+    [data-theme-swatch]:hover, [data-theme-swatch]:active { transform: scale(1.08); }
+    [data-theme-swatch]:active { transform: scale(0.95); }
     @media (prefers-reduced-motion: reduce) {
       a[data-frame]::after, .swatch-ring::after, .spin-once { animation: none !important; transition: none !important; display: none; }
+      [data-copy-email].copied { animation: none; }
+      [data-copy-email], .pf-mcard, [data-toolfit], [data-tool="select"], [data-tool="hand"], [data-toolmsg], [data-theme-swatch] { transition: opacity 150ms ease; }
+      .pf-mcard:active, [data-toolfit]:active, [data-tool="select"]:active, [data-tool="hand"]:active, [data-toolmsg]:active, [data-theme-swatch]:hover, [data-theme-swatch]:active { transform: none; }
     }
   </style>
 </helmet>
@@ -1107,7 +1121,7 @@
     <!-- work cards -->
     <div style="padding: 24px 16px 8px;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #6A7282; margin-bottom: 14px; padding: 0 4px;">SELECTED WORK</div>
-      <a href="/dispute-workspace" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
+      <a href="/dispute-workspace" class="pf-mcard" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
           <div style="background: #0B0B0B; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; transform: rotate(-4deg); background: #fff; border-radius: 7px; padding: 3px; box-shadow: 0 3px 10px rgba(0,0,0,0.25);"><div style="border: 2px solid #1B8A4B; border-radius: 4px; padding: 2px 7px; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 9px; letter-spacing: 2px; color: #1B8A4B;">SHIPPED</div></div><img loading="lazy" src="assets/dws-hero.png" alt="Disputes Workspace" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
           <div style="padding: 16px 18px;">
@@ -1124,7 +1138,7 @@
           </div>
         </div>
       </a>
-      <a href="/ai-dispute-intake" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
+      <a href="/ai-dispute-intake" class="pf-mcard" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
           <div style="background: #0B0B0B; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.96); border-radius: 999px; padding: 3px 9px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; color: #155DFC; box-shadow: 0 2px 8px rgba(0,0,0,0.22);"><span style="width: 5px; height: 5px; border-radius: 50%; background: #155DFC;"></span>DEEP DIVE</div><img loading="lazy" src="assets/ai-intake-hero.svg" alt="AI-Assisted Dispute Intake" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
           <div style="padding: 16px 18px;">
@@ -1140,7 +1154,7 @@
           </div>
         </div>
       </a>
-      <a href="/360-control" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
+      <a href="/360-control" class="pf-mcard" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
           <div style="background: #14152B; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; transform: rotate(-4deg); background: #fff; border-radius: 7px; padding: 3px; box-shadow: 0 3px 10px rgba(0,0,0,0.25);"><div style="border: 2px solid #1B8A4B; border-radius: 4px; padding: 2px 7px; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 9px; letter-spacing: 2px; color: #1B8A4B;">SHIPPED</div></div><img loading="lazy" src="assets/c360-hero.png" alt="360 Control" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
           <div style="padding: 16px 18px;">
@@ -1156,7 +1170,7 @@
           </div>
         </div>
       </a>
-      <a href="/cpq" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
+      <a href="/cpq" class="pf-mcard" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
           <div style="background: #E6E0D6; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; transform: rotate(-4deg); background: #fff; border-radius: 7px; padding: 3px; box-shadow: 0 3px 10px rgba(0,0,0,0.25);"><div style="border: 2px solid #1B8A4B; border-radius: 4px; padding: 2px 7px; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 9px; letter-spacing: 2px; color: #1B8A4B;">SHIPPED</div></div><img loading="lazy" src="assets/cpq-hero.png" alt="CPQ" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
           <div style="padding: 16px 18px;">
@@ -1172,7 +1186,7 @@
           </div>
         </div>
       </a>
-      <a href="/design-system" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
+      <a href="/design-system" class="pf-mcard" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
           <div style="background: #0D1B3E; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; transform: rotate(-4deg); background: #fff; border-radius: 7px; padding: 3px; box-shadow: 0 3px 10px rgba(0,0,0,0.25);"><div style="border: 2px solid #1B8A4B; border-radius: 4px; padding: 2px 7px; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 9px; letter-spacing: 2px; color: #1B8A4B;">SHIPPED</div></div><img loading="lazy" src="assets/ds-hero.png" alt="DWS Design System" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
           <div style="padding: 16px 18px;">
@@ -1188,7 +1202,7 @@
           </div>
         </div>
       </a>
-      <a href="/food-safety" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
+      <a href="/food-safety" class="pf-mcard" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
           <div style="background: #EEF1F6; height: 160px; overflow: hidden; position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 2; transform: rotate(-4deg); background: #fff; border-radius: 7px; padding: 3px; box-shadow: 0 3px 10px rgba(0,0,0,0.25);"><div style="border: 2px solid #1B8A4B; border-radius: 4px; padding: 2px 7px; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 9px; letter-spacing: 2px; color: #1B8A4B;">SHIPPED</div></div><img loading="lazy" src="assets/fs-hero.svg" alt="Food Safety" style="width: 100%; height: 100%; object-fit: cover; object-position: center;"></div>
           <div style="padding: 16px 18px;">
@@ -1205,7 +1219,7 @@
         </div>
       </a>
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #6A7282; margin: 18px 0 14px; padding: 0 4px;">ADDITIONAL WORK</div>
-      <a href="/engage" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
+      <a href="/engage" class="pf-mcard" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
           <div style="background: #2A160A; height: 160px; overflow: hidden;"><img loading="lazy" src="assets/engage-hero.svg" alt="Engage" style="width: 100%; height: 100%; object-fit: cover; object-position: center;"></div>
           <div style="padding: 16px 18px;">
@@ -1221,7 +1235,7 @@
           </div>
         </div>
       </a>
-      <a href="/banfield" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
+      <a href="/banfield" class="pf-mcard" style="text-decoration: none; color: inherit; display: block; margin-bottom: 14px;">
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
           <div style="background: #2A1606; height: 160px; overflow: hidden;"><img loading="lazy" src="assets/banfield-hero.svg" alt="Banfield" style="width: 100%; height: 100%; object-fit: cover; object-position: center;"></div>
           <div style="padding: 16px 18px;">
@@ -1237,7 +1251,7 @@
           </div>
         </div>
       </a>
-      <a href="/ecocash" style="text-decoration: none; color: inherit; display: block; margin-bottom: 28px;">
+      <a href="/ecocash" class="pf-mcard" style="text-decoration: none; color: inherit; display: block; margin-bottom: 28px;">
         <div style="background: #FFFFFF; border: 1px solid #E2E4E9; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.05);">
           <div style="background: #0F1A0F; height: 160px; overflow: hidden;"><img loading="lazy" src="assets/ecocash-hero.png" alt="Eco-Cash" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></div>
           <div style="padding: 16px 18px;">

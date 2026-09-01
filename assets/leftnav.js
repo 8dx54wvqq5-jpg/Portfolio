@@ -80,7 +80,7 @@
     // [data-nav] covers the per-page SECTIONS/LAYERS rows — their markup carried a
     // made-up style-hover attribute that browsers ignore, so hover never worked
     // there. !important because the scroll-spy writes inline background on rows.
-    s.textContent = '.ln-hover:hover{background:#F4F5F7 !important;}[data-nav]:hover{background:#F4F5F7 !important;}' +
+    s.textContent = '.ln-hover{transition:background-color 150ms ease;}.ln-hover:hover{background:#F4F5F7 !important;}[data-nav]:hover{background:#F4F5F7 !important;}' +
       '#ln-burger{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom));width:44px;height:44px;padding:0;border:1px solid #E2E4E9;border-radius:10px;background:#fff;box-shadow:0 4px 14px rgba(17,24,39,.12);display:flex;align-items:center;justify-content:center;z-index:302;color:#364153;cursor:pointer;transition:transform 100ms ease;}' +
       '#ln-burger:active{transform:scale(0.94);}' +
       '#ln-burger span,#ln-burger span:before,#ln-burger span:after{display:block;width:18px;height:2px;background:#364153;border-radius:2px;transition:transform 200ms ease,opacity 150ms ease,background 150ms ease;}' +
